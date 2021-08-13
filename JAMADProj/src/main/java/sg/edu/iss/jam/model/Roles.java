@@ -23,6 +23,11 @@ public class Roles {
 		super();
 	}
 
+	public Roles(Role role) {
+		super();
+		this.role = role;
+	}
+	
 	public Roles(Role role, User roleUser) {
 		super();
 		this.role = role;

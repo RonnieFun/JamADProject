@@ -85,7 +85,7 @@ public class User {
 		super();
 	}
 
-
+	
 	public User(String firstName, String lastName, String email, String password, String dateOfBath, String displayName,
 			String about, String profileUrl, Collection<Roles> roles) {
 		super();
@@ -99,7 +99,6 @@ public class User {
 		this.profileUrl = profileUrl;
 		this.roles = roles;
 	}
-
 
 	public Long getUserID() {
 		return userID;
