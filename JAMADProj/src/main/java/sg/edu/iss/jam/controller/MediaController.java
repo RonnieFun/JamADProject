@@ -1,22 +1,20 @@
 package sg.edu.iss.jam.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import sg.edu.iss.jam.model.Playlists;
+import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.service.UserInterface;
 
 @Controller
 public class MediaController {
 
-	@Autowired
-	UserInterface uservice;
-	
-	@GetMapping("/watchvideos")
-	public String watchvideos(Model model) {
-		return "userwatchvideo";
-	}
-	
 	
 }

@@ -1011,6 +1011,15 @@ body {
 	cursor: pointer;
 	margin-left: 92.5%;
 	margin-top: -6%;
+	color: LightPink;
+	position: absolute;
+	font-size: 2rem;
+}
+
+.userPageHeartIconLiked{
+	cursor: pointer;
+	margin-left: 92.5%;
+	margin-top: -6%;
 	color: #ff4d4d;
 	position: absolute;
 	font-size: 2rem;

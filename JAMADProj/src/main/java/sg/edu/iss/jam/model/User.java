@@ -80,12 +80,10 @@ public class User {
 	@OneToMany(mappedBy = "commentUser")
 	private Collection<Comments> comments;
 
-
 	public User() {
 		super();
 	}
 
-	
 	public User(String firstName, String lastName, String email, String password, String dateOfBath, String displayName,
 			String about, String profileUrl, Collection<Roles> roles) {
 		super();

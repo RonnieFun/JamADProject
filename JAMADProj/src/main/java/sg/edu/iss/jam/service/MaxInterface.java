@@ -8,4 +8,7 @@ public interface MaxInterface {
 
 	List<Max> findAllSignups();
 	
+	Max findById(Long id);
+	
+	Max saveMax(Max max);
 }

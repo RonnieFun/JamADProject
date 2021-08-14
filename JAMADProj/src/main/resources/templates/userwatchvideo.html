@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="Fragments/layout.html :: headerfiles"> </head>
+
 <body class="userPages">
  <nav class="navbar jamHeaderUser">
  	<img th:src="@{/images/JAM_LOGO.png}" class="logo3">
@@ -24,10 +25,13 @@
  		<span th:text="'Title: ' + ${title}" class="userVideoTitleLabel"></span>
 		<span th:text="${reviews} + ' views, published on ' + ${dateOfPublish}" class="numberOfReviews"></span> 
  		<!-- Like Button Heart Shape -->
-		<i class="fas fa-heart userPageHeartIcon" aria-hidden="true"></i>
+ 		<form name="heartForm" id="heartForm" method="post">
+		<i id="heartButton" class="fas fa-heart userPageHeartIcon" aria-hidden="true"></i>
+		<input type="hidden" id="userID" th:value="${user.userID}">
+		</form>
 		<hr>
  	</div>
- 	
+
  	<!-- Artist Intro Section -->
  	<div class="userPageArtistIntroSection">
 		<span th:text="'Artist: ' + ${artistname}" class="artistName"></span>
@@ -108,5 +112,43 @@
   <p style="margin-top: 3px;">@2020-2021 Jam | Term 2</p>
 </div>
 
+<input id="artistname" type="hidden" th:value="${artistname}" name="artistname" />
+
+<script>
+$(document).ready(function(){
+	$("#heartButton").on("click", function() {
+		var userID = document.getElementById("userID").value;
+		$.ajax({
+			type: "POST",
+			url: "/addToPlaylist",
+			contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+			data: {
+				userID :userID
+			},
+			success: function (response) {
+				$("#heartButton").removeClass('userPageHeartIcon').addClass('userPageHeartIconLiked');
+			}
+		}) 
+	});
+	
+	$('#heartButton').on("click", function() {
+		if($(this).hasClass("userPageHeartIconLiked")) {
+			//If already liked, then send Ajax request to unlike it
+			var userID = document.getElementById("userID").value;
+			$.ajax({
+				type: "POST",
+				url: "/removeFromPlaylist",
+				contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+				data: {
+					userID :userID
+				},
+				success: function (response) {
+					$("#heartButton").removeClass('userPageHeartIconLiked').addClass('userPageHeartIcon');
+				}
+			})
+		}
+	});
+});
+</script>
 </body>
 </html>
