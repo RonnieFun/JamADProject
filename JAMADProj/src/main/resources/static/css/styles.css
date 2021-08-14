@@ -1059,6 +1059,28 @@ body {
 	margin-top: -5%;
 }
 
+.playlistFormPopup{
+	display: none;
+	background-color: rgba(242.24999696016312, 233.16562682390213, 233.16562682390213, 1);
+	position: absolute;
+	left: 45%;
+	margin-top: -5%;
+	z-index:9;
+	border: 1px solid black;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.8vw;
+	padding: 10px 15px;
+	border-radius: 56px;
+}
+
+.saveToPlaylistButton{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.8vw;
+	background-color: rgba(239.0625, 104.58984375, 104.58984375, 0.7200000286102295);
+	padding: 3px 3%;
+	margin-left: 3%;
+}
+
 .userSubscribeBtn{
 	font-family: 'Roboto', sans-serif;
     font-size: 0.95vw;
@@ -1305,6 +1327,15 @@ body {
 }
 
 .userPageHeartIcon{
+	cursor: pointer;
+	margin-left: 92.5%;
+	margin-top: -6%;
+	color: LightPink;
+	position: absolute;
+	font-size: 2rem;
+}
+
+.userPageHeartIconLiked{
 	cursor: pointer;
 	margin-left: 92.5%;
 	margin-top: -6%;
@@ -1592,10 +1623,19 @@ body {
 }
 
 .userPageHeartIcon{
-	color: #ff4d4d;
+	color: LightPink;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPageHeartIconLiked{
+	cursor: pointer;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	color: #ff4d4d;
+	position: absolute;
 	font-size: 2rem;
 }
 
@@ -1868,10 +1908,19 @@ body {
 }
 
 .userPageHeartIcon{
-	color: #ff4d4d;
+	color: LightPink;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPageHeartIconLiked{
+	cursor: pointer;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	color: #ff4d4d;
+	position: absolute;
 	font-size: 2rem;
 }
 
@@ -2144,10 +2193,19 @@ body {
 }
 
 .userPageHeartIcon{
-	color: #ff4d4d;
+	color: LightPink;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPageHeartIconLiked{
+	cursor: pointer;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	color: #ff4d4d;
+	position: absolute;
 	font-size: 2rem;
 }
 
@@ -2420,10 +2478,19 @@ body {
 }
 
 .userPageHeartIcon{
-	color: #ff4d4d;
+	color: LightPink;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPageHeartIconLiked{
+	cursor: pointer;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	color: #ff4d4d;
+	position: absolute;
 	font-size: 2rem;
 }
 
@@ -2696,10 +2763,19 @@ body {
 }
 
 .userPageHeartIcon{
-	color: #ff4d4d;
+	color: LightPink;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPageHeartIconLiked{
+	cursor: pointer;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	color: #ff4d4d;
+	position: absolute;
 	font-size: 2rem;
 }
 
@@ -2972,10 +3048,19 @@ body {
 }
 
 .userPageHeartIcon{
-	color: #ff4d4d;
+	color: LightPink;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPageHeartIconLiked{
+	cursor: pointer;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	color: #ff4d4d;
+	position: absolute;
 	font-size: 2rem;
 }
 
@@ -3249,10 +3334,19 @@ body {
 }
 
 .userPageHeartIcon{
-	color: #ff4d4d;
+	color: LightPink;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPageHeartIconLiked{
+	cursor: pointer;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	color: #ff4d4d;
+	position: absolute;
 	font-size: 2rem;
 }
 
@@ -3526,10 +3620,19 @@ body {
 }
 
 .userPageHeartIcon{
-	color: #ff4d4d;
+	color: LightPink;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPageHeartIconLiked{
+	cursor: pointer;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	color: #ff4d4d;
+	position: absolute;
 	font-size: 2rem;
 }
 

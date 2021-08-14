@@ -1,5 +1,7 @@
 package sg.edu.iss.jam.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import sg.edu.iss.jam.model.Max;
+import sg.edu.iss.jam.model.Media;
+import sg.edu.iss.jam.model.Playlists;
 import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.service.MaxInterface;
 import sg.edu.iss.jam.service.UserInterface;
@@ -82,7 +86,10 @@ public class MaxController {
 		model.addAttribute("videoDuration1", videoDuration1);
 		model.addAttribute("videoDuration2", videoDuration2);
 		model.addAttribute("videoDuration3", videoDuration3);
+		
 		model.addAttribute("user", uservice.findById(1L));
+		model.addAttribute("playlists", uservice.findPlaylistsByUserId(1L));
+		model.addAttribute("media", uservice.findByid(1L));
 		
 		model.addAttribute("demo", signupservice.findAllSignups());
 		return "userwatchvideo";
@@ -91,11 +98,24 @@ public class MaxController {
 	//ajax call for Like Button Add to play list
 	@PostMapping("/addToPlaylist")
 	@ResponseBody
-	public String addToPlaylist(Model model, @RequestParam(value = "userID") Long userID) throws Exception {
+	public String addToPlaylist(Model model, 
+			@RequestParam(value = "userID") Long userID, 
+			@RequestParam(value = "playlistID") Long playlistID,
+			@RequestParam(value= "mediaID") Long mediaID) throws Exception {
 		
 		User existingUser = uservice.findById(userID);
-		existingUser.setAbout("TESTING ADD AJAX SUCCESSFUL");
 		
+		Playlists playlist = uservice.findPlaylistByPlaylistID(playlistID);
+
+		List<Media> selectedPlayListMediaList = uservice.findMediaListByPlayListID(playlistID);
+		
+		Media selectedMediaToSave = uservice.findByid(mediaID);
+		
+		selectedPlayListMediaList.add(selectedMediaToSave);
+		
+		playlist.setMediaPlayList(selectedPlayListMediaList);
+
+		uservice.savePlaylist(playlist);
 		uservice.saveUser(existingUser);
 		return "userwatchvideo";
 	}
@@ -103,11 +123,24 @@ public class MaxController {
 	//ajax call for Like Button Remove from play list
 	@PostMapping("/removeFromPlaylist")
 	@ResponseBody
-	public String removeFromPlaylist(Model model, @RequestParam(value = "userID") Long userID) throws Exception {
+	public String removeFromPlaylist(Model model, 
+			@RequestParam(value = "userID") Long userID, 
+			@RequestParam(value = "playlistID") Long playlistID,
+			@RequestParam(value= "mediaID") Long mediaID) throws Exception {
 		
 		User existingUser = uservice.findById(userID);
-		existingUser.setAbout("TESTING DELETE AJAX SUCCESSFUL");
 		
+		Playlists playlist = uservice.findPlaylistByPlaylistID(playlistID);
+
+		List<Media> selectedPlayListMediaList = uservice.findMediaListByPlayListID(playlistID);
+		
+		Media selectedMediaToRemoveFromPlaylist = uservice.findByid(mediaID);
+		
+		selectedPlayListMediaList.remove(selectedMediaToRemoveFromPlaylist);
+		
+		playlist.setMediaPlayList(selectedPlayListMediaList);
+
+		uservice.savePlaylist(playlist);
 		uservice.saveUser(existingUser);
 		return "userwatchvideo";
 	}

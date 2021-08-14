@@ -93,7 +93,9 @@ public class JamadProjApplication {
 			
 			urepo.save(max);
 			
-			List<Media> mediaTypes = new ArrayList<>();
+			List<Media> FirstPlayListMedia = new ArrayList<>();
+			
+			List<Media> SecondPlayListMedia = new ArrayList<>();
 			
 			List<UserHistory> userHistory = new ArrayList<>();
 			
@@ -105,17 +107,22 @@ public class JamadProjApplication {
 			
 			List<Tag> maxTags = new ArrayList<>();
 			
-			Media jaychoumusic = new Media(MediaType.Video, "www.jaychou.com", "jay chou best music", "10:00", "21 July 2002", "published", 
+			Media jaychoumusic = new Media(MediaType.Video, "www.jaychou.com", "You've Got a Very Good Friend. Be Happy and Stay Safe! :) Have Fun!", "10:00", "21 July, 2002", "published", 
 					"www.jaychou.com/thumbnail", userHistory, maxComments, maxChannel, maxPlaylists, maxTags);
 			
 			mediarepo.save(jaychoumusic);
 		
-			Playlists maxPlaylist = new Playlists("Max's Playlist", "1", "Nice Playlist", MediaType.Video, 
-					max, mediaTypes);
+			Playlists FirstPlaylist = new Playlists("Max's Playlist", "1", "Nice Playlist", MediaType.Video, 
+					max, FirstPlayListMedia);
 			
-			plrepo.save(maxPlaylist);
+			Playlists SecondPlaylist = new Playlists("Max's Second Playlist", "2", "Second Playlist", MediaType.Video, 
+					max, SecondPlayListMedia);
+			
+			plrepo.save(FirstPlaylist);
+			plrepo.save(SecondPlaylist);
 		
-			maxPlaylists.add(maxPlaylist);
+			maxPlaylists.add(FirstPlaylist);
+			maxPlaylists.add(SecondPlaylist);			
 			
 		};
 	}

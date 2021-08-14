@@ -22,15 +22,33 @@
  	
  	<!-- Video Introduction Section -->
  	<div class="userPageVideoIntroSection">
- 		<span th:text="'Title: ' + ${title}" class="userVideoTitleLabel"></span>
-		<span th:text="${reviews} + ' views, published on ' + ${dateOfPublish}" class="numberOfReviews"></span> 
+ 		<span th:text="'Title: ' + ${media.title}" class="userVideoTitleLabel"></span>
+		<span th:text="${reviews} + ' views, published on ' + ${media.createdOn}" class="numberOfReviews"></span> 
  		<!-- Like Button Heart Shape -->
- 		<form name="heartForm" id="heartForm" method="post">
-		<i id="heartButton" class="fas fa-heart userPageHeartIcon" aria-hidden="true"></i>
-		<input type="hidden" id="userID" th:value="${user.userID}">
-		</form>
+		<i id="heartButton" class="fas fa-heart userPageHeartIcon" onclick="openForm()" aria-hidden="true"></i>
 		<hr>
  	</div>
+ 	
+ 	<div class="playlistFormPopup" id="myForm">
+	  <form name="heartForm" id="heartForm" method="post" class="form-container">
+	
+	    <label><b>&nbsp;Please select a Playlist to save to:&nbsp;</b></label>
+	    <br>
+	    <select id="playlistID" name = "playlistID">
+			<option disabled selected>Select an Option</option>
+				<option
+				th:each = "playlist: ${playlists}"
+				th:value = "${playlist.playlistID}"
+				th:text = "${playlist.playlistName}">
+				</option>
+		</select>	
+	
+		<input type="hidden" id="userID" th:value="${user.userID}">
+		<input type="hidden" id="mediaID" th:value="${media.id}">
+		
+	    <button id="savePlaylistButton" type="button" class="btn saveToPlaylistButton" onclick="closeForm()">Submit</button>
+  		</form>
+	</div>
 
  	<!-- Artist Intro Section -->
  	<div class="userPageArtistIntroSection">
@@ -115,35 +133,54 @@
 <input id="artistname" type="hidden" th:value="${artistname}" name="artistname" />
 
 <script>
+
+function openForm() {
+	  document.getElementById("myForm").style.display = "block";
+	}
+
+	function closeForm() {
+	  document.getElementById("myForm").style.display = "none";
+	}
+
 $(document).ready(function(){
-	$("#heartButton").on("click", function() {
+	$("#savePlaylistButton").on("click", function() {
 		var userID = document.getElementById("userID").value;
+		var playlistID = document.getElementById("playlistID").value;
+		var mediaID = document.getElementById("mediaID").value;
 		$.ajax({
 			type: "POST",
 			url: "/addToPlaylist",
 			contentType:'application/x-www-form-urlencoded; charset=UTF-8',
 			data: {
-				userID :userID
+				userID :userID,
+				playlistID :playlistID,
+				mediaID :mediaID
 			},
 			success: function (response) {
 				$("#heartButton").removeClass('userPageHeartIcon').addClass('userPageHeartIconLiked');
+				$('#heartButton').attr("onclick", "closeForm()");
 			}
 		}) 
 	});
 	
 	$('#heartButton').on("click", function() {
-		if($(this).hasClass("userPageHeartIconLiked")) {
+		if($("#heartButton").hasClass("userPageHeartIconLiked")) {
 			//If already liked, then send Ajax request to unlike it
 			var userID = document.getElementById("userID").value;
+			var playlistID = document.getElementById("playlistID").value;
+			var mediaID = document.getElementById("mediaID").value;
 			$.ajax({
 				type: "POST",
 				url: "/removeFromPlaylist",
 				contentType:'application/x-www-form-urlencoded; charset=UTF-8',
 				data: {
-					userID :userID
+					userID :userID,
+					playlistID :playlistID,
+					mediaID :mediaID
 				},
 				success: function (response) {
 					$("#heartButton").removeClass('userPageHeartIconLiked').addClass('userPageHeartIcon');
+					$('#heartButton').attr("onclick", "openForm()");
 				}
 			})
 		}
