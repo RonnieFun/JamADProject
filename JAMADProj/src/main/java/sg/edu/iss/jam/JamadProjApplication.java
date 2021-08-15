@@ -46,6 +46,7 @@ public class JamadProjApplication {
 			testrepo.save(signup7);
 			testrepo.save(signup8);
 			testrepo.save(signup9);
+			
 		};
 	}
 	
