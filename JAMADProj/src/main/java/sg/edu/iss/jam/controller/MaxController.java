@@ -150,7 +150,7 @@ public class MaxController {
 				playlist.getMediaPlayList().remove(selectedMediaToRemoveFromPlaylist);
 			}
 		}
-			
+		
 		uservice.savePlaylists(playlists);
 		return "userwatchvideo";
 	}
