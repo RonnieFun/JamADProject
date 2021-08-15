@@ -112,7 +112,7 @@ public class JamadProjApplication {
 			
 			mediarepo.save(jaychoumusic);
 		
-			Playlists FirstPlaylist = new Playlists("Max's Playlist", "1", "Nice Playlist", MediaType.Video, 
+			Playlists FirstPlaylist = new Playlists("Max's First Playlist", "1", "Nice Playlist", MediaType.Video, 
 					max, FirstPlayListMedia);
 			
 			Playlists SecondPlaylist = new Playlists("Max's Second Playlist", "2", "Second Playlist", MediaType.Video, 

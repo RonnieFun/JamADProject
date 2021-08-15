@@ -25,7 +25,8 @@
  		<span th:text="'Title: ' + ${media.title}" class="userVideoTitleLabel"></span>
 		<span th:text="${reviews} + ' views, published on ' + ${media.createdOn}" class="numberOfReviews"></span> 
  		<!-- Like Button Heart Shape -->
-		<i id="heartButton" class="fas fa-heart userPageHeartIcon" onclick="openForm()" aria-hidden="true"></i>
+		<i th:if="${liked == false}" id="heartButton" class="fas fa-heart userPageHeartIcon" onclick="openForm()" aria-hidden="true"></i>
+		<i th:if="${liked == true}" id="heartButton" class="fas fa-heart userPageHeartIconLiked" onclick="" aria-hidden="true"></i>
 		<hr>
  	</div>
  	
@@ -167,7 +168,6 @@ $(document).ready(function(){
 		if($("#heartButton").hasClass("userPageHeartIconLiked")) {
 			//If already liked, then send Ajax request to unlike it
 			var userID = document.getElementById("userID").value;
-			var playlistID = document.getElementById("playlistID").value;
 			var mediaID = document.getElementById("mediaID").value;
 			$.ajax({
 				type: "POST",
@@ -175,7 +175,6 @@ $(document).ready(function(){
 				contentType:'application/x-www-form-urlencoded; charset=UTF-8',
 				data: {
 					userID :userID,
-					playlistID :playlistID,
 					mediaID :mediaID
 				},
 				success: function (response) {

@@ -74,6 +74,12 @@ public class UserImplementation implements UserInterface {
 		this.mediarepo.deleteById(ID);
 	}
 
+	@Transactional
+	public List<Playlists> savePlaylists(List<Playlists> playlists) {
+		
+		return plrepo.saveAll(playlists);
+	}
+
 	
 
 	

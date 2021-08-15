@@ -91,6 +91,20 @@ public class MaxController {
 		model.addAttribute("playlists", uservice.findPlaylistsByUserId(1L));
 		model.addAttribute("media", uservice.findByid(1L));
 		
+		boolean liked = false;
+		
+		Media selectedMedia = uservice.findByid(1L);
+		
+		List<Playlists> loggedInUserPlaylists = uservice.findPlaylistsByUserId(1L);
+		
+		for (Playlists playlist : loggedInUserPlaylists) {
+			if(playlist.getMediaPlayList().contains(selectedMedia)) {
+				liked = true;
+			} 
+		}	
+		
+		model.addAttribute("liked", liked);
+		
 		model.addAttribute("demo", signupservice.findAllSignups());
 		return "userwatchvideo";
 	}
@@ -125,23 +139,19 @@ public class MaxController {
 	@ResponseBody
 	public String removeFromPlaylist(Model model, 
 			@RequestParam(value = "userID") Long userID, 
-			@RequestParam(value = "playlistID") Long playlistID,
 			@RequestParam(value= "mediaID") Long mediaID) throws Exception {
 		
-		User existingUser = uservice.findById(userID);
-		
-		Playlists playlist = uservice.findPlaylistByPlaylistID(playlistID);
-
-		List<Media> selectedPlayListMediaList = uservice.findMediaListByPlayListID(playlistID);
+		List<Playlists> playlists = uservice.findPlaylistsByUserId(userID);
 		
 		Media selectedMediaToRemoveFromPlaylist = uservice.findByid(mediaID);
 		
-		selectedPlayListMediaList.remove(selectedMediaToRemoveFromPlaylist);
-		
-		playlist.setMediaPlayList(selectedPlayListMediaList);
-
-		uservice.savePlaylist(playlist);
-		uservice.saveUser(existingUser);
+		for (Playlists playlist : playlists) {
+			if (playlist.getMediaPlayList().contains(selectedMediaToRemoveFromPlaylist)) {
+				playlist.getMediaPlayList().remove(selectedMediaToRemoveFromPlaylist);
+			}
+		}
+			
+		uservice.savePlaylists(playlists);
 		return "userwatchvideo";
 	}
 	

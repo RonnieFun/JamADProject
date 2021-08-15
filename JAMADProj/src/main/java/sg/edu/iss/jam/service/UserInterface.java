@@ -18,6 +18,8 @@ public interface UserInterface {
 	
 	Playlists savePlaylist(Playlists playlists);
 
+	List<Playlists> savePlaylists(List<Playlists> playlists);
+	
 	Media findByid(Long ID);
 	
 	void deleteByid(Long ID);
