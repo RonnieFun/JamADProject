@@ -27,6 +27,8 @@ public class Product {
 	
 	private double productPrice;
 	
+	private String productUrl;
+	
 	//relation with Wishlist
 	@ManyToMany
 	private Collection<Wishlist> wishlists;
@@ -48,19 +50,22 @@ public class Product {
 	}
 
 	public Product(String productName, String productDes, int productQty, int productCategory, double productPrice,
-			Collection<Wishlist> wishlists, Collection<ShoppingCart> shoppingCarts, Collection<Orders> orders,
-			User productUser) {
+			String productUrl, Collection<Wishlist> wishlists, Collection<ShoppingCart> shoppingCarts,
+			Collection<Orders> orders, User productUser) {
 		super();
 		this.productName = productName;
 		this.productDes = productDes;
 		this.productQty = productQty;
 		this.productCategory = productCategory;
 		this.productPrice = productPrice;
+		this.productUrl = productUrl;
 		this.wishlists = wishlists;
 		this.shoppingCarts = shoppingCarts;
 		this.orders = orders;
 		this.productUser = productUser;
 	}
+
+
 
 	public Long getProductID() {
 		return productID;
@@ -141,7 +146,14 @@ public class Product {
 	public void setProductUser(User productUser) {
 		this.productUser = productUser;
 	}
-	
+
+	public String getProductUrl() {
+		return productUrl;
+	}
+
+	public void setProductUrl(String productUrl) {
+		this.productUrl = productUrl;
+	}
 	
 
 }
