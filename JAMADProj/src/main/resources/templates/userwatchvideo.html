@@ -7,7 +7,7 @@
 
 <section>
 	<video width="400" height="200" class="col-md-4 col-lg-5 h-50 userPageMainVideo" controls>
- 		<source th:src="@{/videos/samplevideo.mp4}" type="video/mp4">
+ 		<source th:src="${media.mediaUrl}" type="video/mp4">
  	</video>
  	
  	<!-- Video Introduction Section -->
@@ -96,7 +96,7 @@
 <section>
 	<div class="userPageSideVideosSection flex-container">
 		<span th:each = "sideMedia: ${allMedia}"> <!-- th:each goes into this span to iterate and generate videos list -->
-			<a th:href="@{/home}" class="sideVideoLinkColor"><img th:src="@{/images/bruceleethumbnail.jpg}" class="userPageSideVideos" alt="...">
+			<a th:href="@{/home}" class="sideVideoLinkColor"><img th:src="${sideMedia.thumbnailUrl}" class="userPageSideVideos" alt="...">
 			<span th:text="${sideMedia.title}" class="smallVidDescription"></span>
 	 		<span th:text="${'Author: ' + sideMedia.mediaList.channelUser.displayName}" class="smallVidAuthor"></span>
 	 		<span th:text="${sideMedia.duration}" class="sideVideoDuration"></span>

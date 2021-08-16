@@ -97,7 +97,7 @@ $(document).ready(function(){
 		} 
 		
 		if($('#commentsTxtArea').val().trim() != "") {
-			var submittedComment = $("#commentsTxtArea").val();
+		var submittedComment = $("#commentsTxtArea").val();
 		var commentUserId = document.getElementById("commentUserId").value;
 		var commentDisplayName = document.getElementById("commentDisplayName").value;
 		var commentMediaId = document.getElementById("commentMediaId").value;
