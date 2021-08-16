@@ -9,7 +9,6 @@ import sg.edu.iss.jam.model.Product;
 import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.repo.ProductRepository;
 import sg.edu.iss.jam.model.Subscribed;
-import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.repo.SubscribedRepository;
 import sg.edu.iss.jam.repo.UserRepository;
 
@@ -21,6 +20,10 @@ public class ArtistImplementation implements ArtistInterface {
 	
 	@Autowired
 	SubscribedRepository subrepo;
+	
+
+	@Autowired
+	ProductRepository prepo;
 	
 	@Transactional
 	public User findById(Long userID) {
@@ -47,12 +50,6 @@ public class ArtistImplementation implements ArtistInterface {
 	public void deleteSubscribed(Subscribed s) {
 		subrepo.delete(s);
 	}
-
-	@Autowired
-	ProductRepository prepo;
-	
-	@Autowired
-	UserRepository urepo;
 	
 	@Override
 	public List<Product> getProductListByArtistID(long userID) {
