@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="Fragments/layout.html :: headerfiles"> </head>
+
+<body>
+
+	<!-- Artist Intro Section -->
+ 	<div class="userPageArtistIntroSection">
+ 		
+ 		<form name="artistForm" id="artistForm" method="post" >
+ 		
+ 		<span  th:text="'ArtistId: ' + ${artistId}" ></span>
+ 		<input type = "hidden" id="artistId"  th:value = "${artistId}">
+ 		
+		<span id="ArtistName" th:text="'ArtistName: ' + ${artistName}"></span>
+		
+		<!--  If the customer already subscribed the artist, it shows "UNSUBSCRIBE"	--> 	
+		<span th:if = "${subscribeStatus}" >
+			<button class="sbutton" type= "button" id="zqButton" >UNSUBSCRIBE</button>
+		</span>
+		
+		
+		<!--  Else if the customer haven't subscribed the artist, it shows "SUBSCRIBE" -->
+		<span th:unless = "${subscribeStatus}" >
+			<button class="sbutton" type= "button" id="zqButton" >SUBSCRIBE</button>
+		</span> 
+		
+		
+		</form>	
+	</div>
+	
+	
+<script>
+
+	
+$(document).ready(function(){
+	$("#zqButton").on("click", function() {
+		if ($("#zqButton").hasClass("zqClass") == false) {
+			var artistId = document.getElementById("artistId").value;
+			$.ajax({
+				type: "POST",
+				url: "/subscribe",
+				contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+				data: {
+					artistId :artistId
+				},
+				success: function (response) {
+					
+					$(".sbutton").text("UNSUBSCRIBE");
+					$("#zqButton").addClass('zqClass');
+					
+				}
+				
+			}) 
+		}
+		
+	});
+	
+	$("#zqButton").on("click", function() {
+		if ($("#zqButton").hasClass("zqClass")) {
+			var artistId = document.getElementById("artistId").value;
+			$.ajax({
+				type: "POST",
+				url: "/unsubscribe",
+				contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+				data: {
+					artistId :artistId
+				},
+				success: function (response) {
+					$(".sbutton").text("SUBSCRIBE");
+					$("#zqButton").removeClass('zqClass');
+					
+				}
+			}) 
+		}
+		
+	});
+		
+		
+});
+	
+</script>
+	
+</body>
+</html>
