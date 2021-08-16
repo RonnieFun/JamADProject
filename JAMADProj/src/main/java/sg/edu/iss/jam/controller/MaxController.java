@@ -25,15 +25,15 @@ public class MaxController {
 		return "signup2";
 	}
 	
-	@GetMapping("/carthometab")
-	public String shoppingCartHome(Model model) {
-		return "carthometab";
-	}
-	
-	@GetMapping("/cartothertab")
-	public String shoppingCartOther(Model model) {
-		return "cartothertab";
-	}
+//	@GetMapping("/carthometab")
+//	public String shoppingCartHome(Model model) {
+//		return "carthometab";
+//	}
+//	
+//	@GetMapping("/cartothertab")
+//	public String shoppingCartOther(Model model) {
+//		return "cartothertab";
+//	}
 	
 	@GetMapping("/watchvideo")
 	public String watchVideo(Model model) {
