@@ -4,6 +4,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import java.util.Collection;
@@ -38,8 +39,8 @@ public class Media {
 	private Collection<Comments> commentList;
 	
 	//relation with channel
-	@ManyToMany(mappedBy = "channelMediaList")
-	private Collection<Channel> mediaList;
+	@ManyToOne
+	private Channel channel;
 	
 	//relation with playlists
 	@ManyToMany(mappedBy = "mediaPlayList")
@@ -52,10 +53,10 @@ public class Media {
 	public Media() {
 		super();
 	}
-
+	
 	public Media(MediaType mediaType, String mediaUrl, String title, String duration, String createdOn,
 			String publishStatus, String thumbnailUrl, Collection<UserHistory> userHistories,
-			Collection<Comments> commentList, Collection<Channel> mediaList, Collection<Playlists> playLists,
+			Collection<Comments> commentList, Channel channel, Collection<Playlists> playLists,
 			Collection<Tag> tagList) {
 		super();
 		this.mediaType = mediaType;
@@ -67,10 +68,11 @@ public class Media {
 		this.thumbnailUrl = thumbnailUrl;
 		this.userHistories = userHistories;
 		this.commentList = commentList;
-		this.mediaList = mediaList;
+		this.channel = channel;
 		this.playLists = playLists;
 		this.tagList = tagList;
 	}
+
 
 	public Long getId() {
 		return id;
@@ -152,12 +154,12 @@ public class Media {
 		this.commentList = commentList;
 	}
 
-	public Collection<Channel> getMediaList() {
-		return mediaList;
+	public Channel getChannel() {
+		return channel;
 	}
 
-	public void setMediaList(Collection<Channel> mediaList) {
-		this.mediaList = mediaList;
+	public void setChannel(Channel channel) {
+		this.channel = channel;
 	}
 
 	public Collection<Playlists> getPlayLists() {
