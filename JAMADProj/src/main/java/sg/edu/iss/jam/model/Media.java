@@ -4,6 +4,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import java.util.Collection;
@@ -28,18 +29,19 @@ public class Media {
 	
 	private String thumbnailUrl;
 	
+	private int viewCount;
+	
 	//relation with userhistory
 	@ManyToMany(mappedBy = "mediaHistoryList")
 	private Collection<UserHistory> userHistories;
-	
 	
 	//relation with comment
 	@OneToMany(mappedBy = "mediaComment")
 	private Collection<Comments> commentList;
 	
 	//relation with channel
-	@ManyToMany(mappedBy = "channelMediaList")
-	private Collection<Channel> mediaList;
+	@ManyToOne
+	private Channel mediaList;
 	
 	//relation with playlists
 	@ManyToMany(mappedBy = "mediaPlayList")
@@ -54,8 +56,8 @@ public class Media {
 	}
 
 	public Media(MediaType mediaType, String mediaUrl, String title, String duration, String createdOn,
-			String publishStatus, String thumbnailUrl, Collection<UserHistory> userHistories,
-			Collection<Comments> commentList, Collection<Channel> mediaList, Collection<Playlists> playLists,
+			String publishStatus, String thumbnailUrl, int viewCount, Collection<UserHistory> userHistories,
+			Collection<Comments> commentList, Channel mediaList, Collection<Playlists> playLists,
 			Collection<Tag> tagList) {
 		super();
 		this.mediaType = mediaType;
@@ -65,6 +67,7 @@ public class Media {
 		this.createdOn = createdOn;
 		this.publishStatus = publishStatus;
 		this.thumbnailUrl = thumbnailUrl;
+		this.viewCount = viewCount;
 		this.userHistories = userHistories;
 		this.commentList = commentList;
 		this.mediaList = mediaList;
@@ -136,6 +139,14 @@ public class Media {
 		this.thumbnailUrl = thumbnailUrl;
 	}
 
+	public int getViewCount() {
+		return viewCount;
+	}
+
+	public void setViewCount(int viewCount) {
+		this.viewCount = viewCount;
+	}
+
 	public Collection<UserHistory> getUserHistories() {
 		return userHistories;
 	}
@@ -151,12 +162,12 @@ public class Media {
 	public void setCommentList(Collection<Comments> commentList) {
 		this.commentList = commentList;
 	}
-
-	public Collection<Channel> getMediaList() {
+	
+	public Channel getMediaList() {
 		return mediaList;
 	}
 
-	public void setMediaList(Collection<Channel> mediaList) {
+	public void setMediaList(Channel mediaList) {
 		this.mediaList = mediaList;
 	}
 

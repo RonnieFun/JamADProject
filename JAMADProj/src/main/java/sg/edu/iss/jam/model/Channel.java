@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Channel {
@@ -25,7 +26,7 @@ public class Channel {
 	private String createdOn;
 	
 	//ManyToMany relation with media
-	@ManyToMany
+	@OneToMany(mappedBy = "mediaList")
 	private Collection<Media> channelMediaList;
 	
 	//ManyToOne relation with user

@@ -3,17 +3,7 @@
 <head th:replace="Fragments/layout.html :: headerfiles"> </head>
 
 <body class="userPages">
- <nav class="navbar jamHeaderUser">
- 	<img th:src="@{/images/JAM_LOGO.png}" class="logo3">
- 	<form class="navbar-form form-inline" th:action="@{/home/searchresults}" method="post">
-        <div class="input-group userPageSearchBox">
-             <input type="text" id="search" name ="searchTerm" class="form-control" placeholder="Search">   
-        </div>
-        <button type="submit" value="Search" class="userPageSearchButton"><i class="material-icons">&#xE8B6;</i></button>
-    </form>	
-   
-    <img th:src="@{/images/brucelee.PNG}" class="userPageProfilePhoto" alt="User's Profile Photo">
- </nav>
+ <nav th:replace="Fragments/layout.html :: watchVideosNavBar"></nav>
 
 <section>
 	<video width="400" height="200" class="col-md-4 col-lg-5 h-50 userPageMainVideo" controls>
@@ -23,7 +13,7 @@
  	<!-- Video Introduction Section -->
  	<div class="userPageVideoIntroSection">
  		<span th:text="'Title: ' + ${media.title}" class="userVideoTitleLabel"></span>
-		<span th:text="${reviews} + ' views, published on ' + ${media.createdOn}" class="numberOfReviews"></span> 
+		<span th:text="${media.viewCount} + ' views, published on ' + ${media.createdOn}" class="numberOfReviews"></span> 
  		<!-- Like Button Heart Shape -->
 		<i th:if="${liked == false}" id="heartButton" class="fas fa-heart userPageHeartIcon" onclick="openForm()" aria-hidden="true"></i>
 		<i th:if="${liked == true}" id="heartButton" class="fas fa-heart userPageHeartIconLiked" onclick="" aria-hidden="true"></i>
@@ -53,8 +43,20 @@
 
  	<!-- Artist Intro Section -->
  	<div class="userPageArtistIntroSection">
-		<span th:text="'Artist: ' + ${artistname}" class="artistName"></span>
-		<input class="userSubscribeBtn" type="submit" value="SUBSCRIBE">
+		<form name="artistForm" id="artistForm" method="post" >
+	 		<input type = "hidden" id="artistId"  th:value = "${artistId}">
+			<span id="ArtistName" th:text="'ArtistName: ' + ${artistName}" class="artistName"></span>
+			
+			<!--  If the customer already subscribed the artist, it shows "UNSUBSCRIBE"	--> 	
+			<span th:if = "${subscribeStatus}" >
+				<button class="sbutton userSubscribeBtn" type= "button" id="zqButton" >UNSUBSCRIBE</button>
+			</span>
+			
+			<!--  Else if the customer haven't subscribed the artist, it shows "SUBSCRIBE" -->
+			<span th:unless = "${subscribeStatus}" >
+				<button class="sbutton userSubscribeBtn" type= "button" id="zqButton" >SUBSCRIBE</button>
+			</span> 
+		</form>	
 		<hr>
 	</div>
 	
@@ -71,11 +73,11 @@
 
 	<!-- Users' Comments List -->
 	<div class="listOfComments">
-		<span th:each="d: ${demo}"> <!-- th:each goes into this span to iterate and generate comments list -->
+		<span th:each="c: ${comments}"> <!-- th:each goes into this span to iterate and generate comments list -->
 			<span class="flex-container">
-				<span th:text="${d.commentName}" class="commentName"></span>
-				<span th:text="${' | ' + d.commentDate}" class="commentDate"></span>
-				<span th:text="${d.comment}" class="commentDetails"></span>
+				<span th:text="${c.commentUser.displayName}" class="commentName"></span>
+				<span th:text="${' | ' + c.dateTime}" class="commentDate"></span>
+				<span th:text="${c.userComment}" class="commentDetails"></span>
 			</span>
 		</span>
 	</div>
@@ -84,107 +86,17 @@
 <!-- Side Videos List -->
 <section>
 	<div class="userPageSideVideosSection flex-container">
-		<span> <!-- th:each goes into this span to iterate and generate videos list -->
-			
+		<span th:each = "sideMedia: ${allMedia}"> <!-- th:each goes into this span to iterate and generate videos list -->
 			<a th:href="@{/home}" class="sideVideoLinkColor"><img th:src="@{/images/bruceleethumbnail.jpg}" class="userPageSideVideos" alt="...">
-			<span th:text="${videoTitle + ' | ' + viddescription}" class="smallVidDescription"></span>
-	 		<span th:text="${'Author: ' + vidauthor}" class="smallVidAuthor"></span>
-	 		<span th:text="${videoDuration1}" class="sideVideoDuration"></span>
+			<span th:text="${sideMedia.title}" class="smallVidDescription"></span>
+	 		<span th:text="${'Author: ' + sideMedia.mediaList.channelUser.displayName}" class="smallVidAuthor"></span>
+	 		<span th:text="${sideMedia.duration}" class="sideVideoDuration"></span>
 	 		</a>
-	 		
-			<a th:href="@{/home}" class="sideVideoLinkColor"><img th:src="@{/images/cutepokemon.jpg}" class="userPageSideVideos" alt="...">
-			<span th:text="${videoTitle + ' | ' + viddescription}" class="smallVidDescription"></span>
-	 		<span th:text="${'Author: ' + vidauthor}" class="smallVidAuthor"></span>
-	 		<span th:text="${videoDuration2}" class="sideVideoDuration"></span>
-	 		</a>
-	 		
-	 		<a th:href="@{/home}" class="sideVideoLinkColor"><img th:src="@{/images/kpopalbum.png}" class="userPageSideVideos" alt="...">
-	 		<span th:text="${videoTitle + ' | ' + viddescription}" class="smallVidDescription"></span>
-	 		<span th:text="${'Author: ' + vidauthor}" class="smallVidAuthor"></span>
-	 		<span th:text="${videoDuration3}" class="sideVideoDuration"></span>
-	 		</a>
-
-			<a th:href="@{/home}" class="sideVideoLinkColor"><img th:src="@{/images/pinkdress.jpg}" class="userPageSideVideos" alt="...">
-	 		<span th:text="${videoTitle + ' | ' + viddescription}" class="smallVidDescription"></span>
-	 		<span th:text="${'Author: ' + vidauthor}" class="smallVidAuthor"></span>
-	 		<span th:text="${videoDuration3}" class="sideVideoDuration"></span>
-	 		</a>
-
-			<a th:href="@{/home}" class="sideVideoLinkColor"><img th:src="@{/images/pinkhat.png}" class="userPageSideVideos" alt="...">
-	 		<span th:text="${videoTitle + ' | ' + viddescription}" class="smallVidDescription"></span>
-	 		<span th:text="${'Author: ' + vidauthor}" class="smallVidAuthor"></span>
-	 		<span th:text="${videoDuration2}" class="sideVideoDuration"></span>
-	 		</a>
-	 		
-	 		<a th:href="@{/home}" class="sideVideoLinkColor"><img th:src="@{/images/samplebanner.jpg}" class="userPageSideVideos" alt="...">
-	 		<span th:text="${videoTitle + ' | ' + viddescription}" class="smallVidDescription"></span>
-	 		<span th:text="${'Author: ' + vidauthor}" class="smallVidAuthor"></span>
-	 		<span th:text="${videoDuration1}" class="sideVideoDuration"></span>
-	 		</a>
-	 		
  		</span>
 	</div>
 </section>
 
-
-<div class="footer">
-  <p style="margin-top: 3px;">@2020-2021 Jam | Term 2</p>
-</div>
-
-<input id="artistname" type="hidden" th:value="${artistname}" name="artistname" />
-
-<script>
-
-function openForm() {
-	  document.getElementById("myForm").style.display = "block";
-	}
-
-	function closeForm() {
-	  document.getElementById("myForm").style.display = "none";
-	}
-
-$(document).ready(function(){
-	$("#savePlaylistButton").on("click", function() {
-		var userID = document.getElementById("userID").value;
-		var playlistID = document.getElementById("playlistID").value;
-		var mediaID = document.getElementById("mediaID").value;
-		$.ajax({
-			type: "POST",
-			url: "/addToPlaylist",
-			contentType:'application/x-www-form-urlencoded; charset=UTF-8',
-			data: {
-				userID :userID,
-				playlistID :playlistID,
-				mediaID :mediaID
-			},
-			success: function (response) {
-				$("#heartButton").removeClass('userPageHeartIcon').addClass('userPageHeartIconLiked');
-				$('#heartButton').attr("onclick", "closeForm()");
-			}
-		}) 
-	});
-	
-	$('#heartButton').on("click", function() {
-		if($("#heartButton").hasClass("userPageHeartIconLiked")) {
-			//If already liked, then send Ajax request to unlike it
-			var userID = document.getElementById("userID").value;
-			var mediaID = document.getElementById("mediaID").value;
-			$.ajax({
-				type: "POST",
-				url: "/removeFromPlaylist",
-				contentType:'application/x-www-form-urlencoded; charset=UTF-8',
-				data: {
-					userID :userID,
-					mediaID :mediaID
-				},
-				success: function (response) {
-					$("#heartButton").removeClass('userPageHeartIconLiked').addClass('userPageHeartIcon');
-					$('#heartButton').attr("onclick", "openForm()");
-				}
-			})
-		}
-	});
-});
-</script>
+<div th:replace="Fragments/layout.html :: footer"></div>
+<script type="text/javascript" th:src="@{/js/watch_videos_ajax.js}"></script>
 </body>
 </html>

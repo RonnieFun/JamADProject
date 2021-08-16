@@ -13,8 +13,6 @@ import org.springframework.context.annotation.Bean;
 import sg.edu.iss.jam.model.Channel;
 import sg.edu.iss.jam.model.Comments;
 
-import sg.edu.iss.jam.model.Max;
-
 import sg.edu.iss.jam.model.Media;
 import sg.edu.iss.jam.model.Role;
 import sg.edu.iss.jam.model.Roles;
@@ -27,18 +25,16 @@ import sg.edu.iss.jam.model.Playlists;
 import sg.edu.iss.jam.model.Role;
 import sg.edu.iss.jam.model.Roles;
 import sg.edu.iss.jam.model.User;
-
-import sg.edu.iss.jam.repo.MaxRepository;
+import sg.edu.iss.jam.repo.ChannelRepository;
+import sg.edu.iss.jam.repo.CommentsRepository;
 import sg.edu.iss.jam.repo.MediaRepository;
 import sg.edu.iss.jam.repo.PlaylistsRepository;
 import sg.edu.iss.jam.repo.RolesRepository;
+import sg.edu.iss.jam.repo.TagRepository;
 import sg.edu.iss.jam.repo.UserRepository;
 
 @SpringBootApplication
 public class JamadProjApplication {
-
-	@Autowired
-	MaxRepository testrepo;
 	
 	@Autowired
 	RolesRepository rolesrepo;
@@ -48,9 +44,18 @@ public class JamadProjApplication {
 	
 	@Autowired
 	MediaRepository mediarepo;
-
+	
 	@Autowired
 	UserRepository urepo;
+	
+	@Autowired
+	TagRepository tagrepo;
+	
+	@Autowired
+	CommentsRepository commentsrepo;
+	
+	@Autowired
+	ChannelRepository channelrepo;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(JamadProjApplication.class, args);
@@ -61,44 +66,10 @@ public class JamadProjApplication {
 		
 		return args -> {
 			
-			Max signup1 = new Max(1L, "Brandon", "1 Day Ago", "How's everyone doing?");
-			Max signup2 = new Max(2L, "Chang Ying", "2 Days Ago", "This is so cool! I'm excited!");
-			Max signup3 = new Max(3L, "Phyu Sin", "1 Day Ago", "I can't wait to go on the concert tour!");
-			Max signup4 = new Max(4L, "Alejandro", "1 Week Ago", "This is nice! Please come to Singapore!");
-			Max signup5 = new Max(5L, "Ronnie", "1 Year Ago", "I give this guy 1000 likes! This is the best music ever!");
-			Max signup6 = new Max(6L, "Zhao Qi", "2 Weeks Ago","I give this guy 1000 likes! This is the best music ever!");
-			Max signup7 = new Max(7L, "Max","2 Years Ago", "I give this guy 1000 likes! This is the best music ever! Yes it is! really good!");
-			Max signup8 = new Max(8L, "Jay Chou","3 Years Ago", "Thank you everyone for supporting me! I will continue to work hard and make sure all your efforts to support me are worth it! Cheers! Thanks guys!!! :D Support Bruce Lee Too!");
-			
-			Max signup9 = new Max(9L, "Bruce Lee","3 Years Ago", "Thank you everyone for supporting me! I will continue to work hard "
-					+ "and make sure all your efforts to support me are worth it! Cheers! Thanks guys!!! :D Support Bruce Lee Too!"
-					+ "Cheers! Thanks guys!!! :D Support Bruce Lee Too! Cheers! Thanks guys!!! :D Support Bruce Lee Too!");
-			
-			testrepo.save(signup1);
-			testrepo.save(signup2);
-			testrepo.save(signup3);
-			testrepo.save(signup4);
-			testrepo.save(signup5);
-			testrepo.save(signup6);
-			testrepo.save(signup7);
-			testrepo.save(signup8);
-			testrepo.save(signup9);
-			
 			// ZQ's dummy data
 			Roles Artist = new Roles(Role.Artist);
 			Roles Customer = new Roles(Role.Customer);
 			Roles ServiceProvider = new Roles(Role.ServiceProvider);
-			
-
-//			testrepo.save(signup1);
-//			testrepo.save(signup2);
-//			testrepo.save(signup3);
-//			testrepo.save(signup4);
-//			testrepo.save(signup5);
-//			testrepo.save(signup6);
-//			testrepo.save(signup7);
-//			testrepo.save(signup8);
-//			testrepo.save(signup9);
 			
 			rolesrepo.save(Artist);
 			rolesrepo.save(Customer);
@@ -119,15 +90,26 @@ public class JamadProjApplication {
 			List<UserHistory> userHistory = new ArrayList<>();
 			
 			List<Comments> maxComments = new ArrayList<>();
-
-			List<Channel> maxChannel = new ArrayList<>();
 			
 			List<Playlists> maxPlaylists = new ArrayList<>();
 			
 			List<Tag> maxTags = new ArrayList<>();
 			
+			Tag tag1 = new Tag("Rock", FirstPlayListMedia);
+			
+			Tag tag2 = new Tag("Romantic Songs", SecondPlayListMedia);
+			
+			tagrepo.save(tag1);
+			
+			tagrepo.save(tag2);
+			
+			Channel videoChannel = new Channel("Bruce Lee's Channel", "Nice Channel", MediaType.Video, 
+					"21 July 2021", FirstPlayListMedia, max);
+			
+			channelrepo.save(videoChannel);
+			
 			Media jaychoumusic = new Media(MediaType.Video, "www.jaychou.com", "You've Got a Very Good Friend. Be Happy and Stay Safe! :) Have Fun!", "10:00", "21 July, 2002", "published", 
-					"www.jaychou.com/thumbnail", userHistory, maxComments, maxChannel, maxPlaylists, maxTags);
+					"www.jaychou.com/thumbnail", 0, userHistory, maxComments, videoChannel, maxPlaylists, maxTags);
 			
 			mediarepo.save(jaychoumusic);
 		
@@ -151,11 +133,16 @@ public class JamadProjApplication {
 			qiZhaoRoles.add(Customer);
 		    User zhaoQi = new User("Qi", "Zhao", "qizhao@gmail.com", "abcdefg", "20 August 1998", "QiZhao98", "Hello I am Qi Zhao, I am a customer", "www.qizhao.com", qiZhaoRoles);
 		    
-		    
 		    urepo.save(jayChou);
 		    urepo.save(zhaoQi);
 			
-
+		    Comments comment1 = new Comments("27 July 2021", 
+		    		"Nice music, nice mv, Thanks! "
+		    		+ "I have subscribed this channel for many years, "
+		    		+ "Carole King is excellent in both Rock and Dance.",
+		    		jaychoumusic, max);
+		        
+		    commentsrepo.save(comment1);
 			
 		};
 	}
