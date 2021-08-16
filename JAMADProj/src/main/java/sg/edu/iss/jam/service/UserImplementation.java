@@ -126,5 +126,14 @@ public class UserImplementation implements UserInterface {
 		return commentsrepo.findCommentsByMediaId(id);
 	}
 	
+	@Transactional
+	public List<Comments> findCommentsByUserId(Long id) {
+		return commentsrepo.findCommentsByUserId(id);
+	}
+	
+	@Transactional
+	public Comments saveComment(Comments comment) {
+		return commentsrepo.save(comment);
+	}
 
 }

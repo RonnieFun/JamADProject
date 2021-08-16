@@ -43,9 +43,9 @@
 
  	<!-- Artist Intro Section -->
  	<div class="userPageArtistIntroSection">
-		<form name="artistForm" id="artistForm" method="post" >
+		<form name="artistForm" id="artistForm" method="post">
 	 		<input type = "hidden" id="artistId"  th:value = "${artistId}">
-			<span id="ArtistName" th:text="'ArtistName: ' + ${artistName}" class="artistName"></span>
+			<span id="ArtistName" th:text="'Artist: ' + ${artistName}" class="artistName"></span>
 			
 			<!--  If the customer already subscribed the artist, it shows "UNSUBSCRIBE"	--> 	
 			<span th:if = "${subscribeStatus}" >
@@ -61,15 +61,22 @@
 	</div>
 	
 	<!-- Write Comments & Number of Comments Section -->
-	<div class="userCommentsSection">
-		<span th:text="${commentCount} + ' Comments'" class="numberOfComments"></span>
-		<textarea class="commentsTextArea" placeholder="Write your comments here" rows="2" cols="112"></textarea>
-	</div>
-	
-	<!-- Comments Submit Button -->
-	<div>
-		<input class="userCommentsBtn" type="submit" value="Submit">
-	</div>
+	<form name="userCommentsForm" id="userCommentsForm" method="post">
+		<div class="userCommentsSection">
+			<span th:text="${commentCount} + ' Comments'" class="numberOfComments"></span>
+			<textarea id="commentsTxtArea" class="commentsTextArea" placeholder="Write your comments here" rows="2" cols="112"></textarea>
+		</div>
+		
+		<!-- Comments Submit Button -->
+		<div>
+			<input type="hidden" id="commentUserId" th:value = "${user.userID}">
+			<input type="hidden" id="commentDisplayName" th:value = "${user.displayName}">
+			<input type="hidden" id="commentMediaId" th:value = "${media.id}">
+			<input type="hidden" id="commentDateTime" th:value = "${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}">
+			<input type="hidden" id="commentedNumberOfComments" th:value = "${commentCount}">
+			<button id="userCommentsSubmitBtn" class="userCommentsBtn" type="button">Submit</button>
+		</div>
+	</form>
 
 	<!-- Users' Comments List -->
 	<div class="listOfComments">
@@ -81,7 +88,7 @@
 			</span>
 		</span>
 	</div>
-</section>
+</section>	
 
 <!-- Side Videos List -->
 <section>

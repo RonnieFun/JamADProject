@@ -89,4 +89,39 @@ $(document).ready(function(){
 		}
 		
 	});
+	
+	$("#userCommentsSubmitBtn").on("click", function() {
+		
+		if($('#commentsTxtArea').val().trim() == "") {
+			alert("Please enter your comments");
+		} 
+		
+		if($('#commentsTxtArea').val().trim() != "") {
+			var submittedComment = $("#commentsTxtArea").val();
+		var commentUserId = document.getElementById("commentUserId").value;
+		var commentDisplayName = document.getElementById("commentDisplayName").value;
+		var commentMediaId = document.getElementById("commentMediaId").value;
+		var commentDateTime = document.getElementById("commentDateTime").value;
+		var commentedNumberOfComments = parseInt(document.getElementById("commentedNumberOfComments").value);
+		$.ajax({
+			type: "POST",
+			url: "/submitComments",
+			contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+			data: {
+				submittedComment :submittedComment,
+				commentUserId :commentUserId,
+				commentDisplayName :commentDisplayName,
+				commentMediaId :commentMediaId,
+				commentDateTime :commentDateTime,
+			},
+			success: function (response) {
+				alert("AJAX SUCCESSFUL");
+				$('#userCommentsForm').load("http://localhost:8080/aftersubmitcomment");
+			}
+		})
+		
+	}
+		
+	});
+	
 });

@@ -79,7 +79,7 @@ public class JamadProjApplication {
 			
 			maxRoles.add(Artist);
 			
-			User max = new User("max", "chen", "max@gmail.com", "abcdefg", "21 June 1987", "MaxChen87", "Best User Ever", "www.max.com", maxRoles);
+			User max = new User("Max", "Chen", "max@gmail.com", "abcdefg", "21 June 1987", "MaxChen87", "Best User Ever", "www.max.com", maxRoles);
 			
 			urepo.save(max);
 			
@@ -165,9 +165,16 @@ public class JamadProjApplication {
 		    		+ "I have subscribed this channel for many years, "
 		    		+ "Carole King is excellent in both Rock and Dance.",
 		    		jaychouvideo, max);
+		    
+		    Comments comment2 = new Comments("27 July 2021", 
+		    		"Nice music, nice mv, Thanks!",
+		    		jaychouvideo, max);
 		        
 		    commentsrepo.save(comment1);
-			
+		    commentsrepo.save(comment2);
+		    
+		    maxComments.add(comment1);
+		    maxComments.add(comment2);
 		};
 	}
 	

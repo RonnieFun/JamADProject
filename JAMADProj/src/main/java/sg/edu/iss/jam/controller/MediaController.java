@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import sg.edu.iss.jam.model.Comments;
 import sg.edu.iss.jam.model.Media;
 import sg.edu.iss.jam.model.Playlists;
 import sg.edu.iss.jam.model.Subscribed;
@@ -66,11 +67,9 @@ public class MediaController {
 		loadedMedia.setViewCount(numberOfViews);
 		
 		uservice.saveMedia(loadedMedia);
-		
+	
 		//Currently, assume the userID = 1. This userID will be changed upon implementation
 		//of Spring Security to authenticate logged in user
-		
-		
 		
 		model.addAttribute("commentCount", commentCount);
 		model.addAttribute("user", uservice.findUserByUserId(1L));
@@ -120,6 +119,73 @@ public class MediaController {
 			model.addAttribute("artistName", artistName);
 
 		return "userwatchvideo";
+	}
+	
+	@GetMapping("/aftersubmitcomment")
+	public String afterSubmitComment(Model model) {
+
+		int commentCount = uservice.findCommentsByMediaId(1L).size();
+		
+		//Add new view count upon page load
+		
+		Media loadedMedia = uservice.findMediaByMediaId(1L);
+		int numberOfViews = loadedMedia.getViewCount();
+		numberOfViews += 1;
+		loadedMedia.setViewCount(numberOfViews);
+		
+		uservice.saveMedia(loadedMedia);
+	
+		//Currently, assume the userID = 1. This userID will be changed upon implementation
+		//of Spring Security to authenticate logged in user
+		
+		model.addAttribute("commentCount", commentCount);
+		model.addAttribute("user", uservice.findUserByUserId(1L));
+		model.addAttribute("playlists", uservice.findPlaylistsByUserId(1L));
+		model.addAttribute("media", uservice.findMediaByMediaId(1L));
+		model.addAttribute("allMedia", uservice.findAllMedia());
+		model.addAttribute("comments", uservice.findCommentsByMediaId(1L));
+		model.addAttribute("tags", uservice.findTagsByMediaId(1L));
+		
+		boolean liked = false;
+		
+		Media selectedMedia = uservice.findMediaByMediaId(1L);
+		
+		List<Playlists> loggedInUserPlaylists = uservice.findPlaylistsByUserId(1L);
+		
+		for (Playlists playlist : loggedInUserPlaylists) {
+			if(playlist.getMediaPlayList().contains(selectedMedia)) {
+				liked = true;
+			} 
+		}	
+		
+		model.addAttribute("liked", liked);
+
+		//BY ZHAO QI
+		// currently assume the userID = 3, 
+		Long customerId = (long) 2;
+		User customer = uservice.findUserByUserId(customerId);
+					
+		// this method aims to show how to subscribe an Artist,
+		// so we won't show media details
+					
+		Long artistId = (long) 1;
+		User jayChou = aservice.findById(artistId);
+		String artistName = jayChou.getFirstName() + " " + jayChou.getLastName();
+					
+		boolean subscribeStatus = false;
+					
+					
+		for(Subscribed s: customer.getSubscribers()) {
+			// if the customer already subscribed the artist, it shows true
+			if (s.getTargetId() == artistId) {
+				subscribeStatus = true;
+				}
+			}
+			model.addAttribute("subscribeStatus", subscribeStatus);
+			model.addAttribute("artistId", artistId);
+			model.addAttribute("artistName", artistName);
+
+		return "aftersubmitcomment";
 	}
 	
 	//ajax call for Like Button Add to play list
@@ -179,7 +245,7 @@ public class MediaController {
 		User artist = aservice.findById(artistId);
 		
 		if (artist == null || customer == null || customerId == artistId) {
-			return "redirect:/watchvideozq";
+			return "redirect:/watchvideo";
 		}
 			
 		// for artist, add the customer to the subscribed collection
@@ -205,7 +271,7 @@ public class MediaController {
 		uservice.saveUser(customer);
 		uservice.saveSubscribed(artist_I_subscribed);
 		
-		return "redirect:/watchvideozq";
+		return "redirect:/watchvideo";
 	
 	}
 	
@@ -220,7 +286,7 @@ public class MediaController {
 		User artist = aservice.findById(artistId);
 		
 		if (artist == null || customer == null || customerId == artistId) {
-			return "redirect:/watchvideozq";
+			return "redirect:/watchvideo";
 		}
 		
 		// for artist, remove the customer from subscribed collection
@@ -238,7 +304,35 @@ public class MediaController {
 				uservice.deleteSubscribed(s);
 			}
 		}		
-		return "redirect:/watchvideozq";				
+		return "redirect:/watchvideo";				
+	}
+	
+	//ajax call for submit comments
+	@PostMapping("/submitComments")
+	@ResponseBody
+	public String submitComments(Model model, 
+			@RequestParam(value = "submittedComment") String submittedComment,
+			@RequestParam(value = "commentUserId") Long commentUserId,
+			@RequestParam(value = "commentDisplayName") String commentDisplayName,
+			@RequestParam(value = "commentDateTime") String commentDateTime, 
+			@RequestParam(value = "commentMediaId") Long commentMediaId)
+					throws Exception {
+		
+		User commentUser = uservice.findUserByUserId(commentUserId);
+		Media commentedMedia = uservice.findMediaByMediaId(commentMediaId);
+		List<Comments> existingUserComments = uservice.findCommentsByMediaId(commentMediaId);
+		
+		//Add new Comment to existing user's comments
+		
+		Comments newComment = new Comments(commentDateTime, submittedComment, commentedMedia, commentUser);
+		
+		existingUserComments.add(newComment);
+		commentedMedia.setCommentList(existingUserComments);
+		uservice.saveComment(newComment);
+		uservice.saveUser(commentUser);
+		uservice.saveMedia(commentedMedia);
+
+		return "userwatchvideo";
 	}
 
 }

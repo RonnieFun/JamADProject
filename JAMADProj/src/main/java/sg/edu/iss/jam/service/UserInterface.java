@@ -37,6 +37,8 @@ public interface UserInterface {
 	
 	//COMMENTS
 	List<Comments> findCommentsByMediaId(Long id);
+	List<Comments> findCommentsByUserId(Long id);
+	Comments saveComment(Comments comment);
 	
 	//TAGS
 	List<Tag> findTagsByMediaId(Long id);
