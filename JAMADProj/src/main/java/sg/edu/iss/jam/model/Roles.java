@@ -29,6 +29,11 @@ public class Roles {
 		this.roleUser = roleUser;
 	}
 
+	public Roles(Role role) {
+		super();
+		this.role = role;
+	}
+
 	public Long getId() {
 		return id;
 	}
