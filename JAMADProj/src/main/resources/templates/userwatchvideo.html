@@ -97,8 +97,12 @@
 	<div class="userPageSideVideosSection flex-container">
 		<span th:each = "sideMedia: ${allMedia}"> <!-- th:each goes into this span to iterate and generate videos list -->
 			<a th:href="@{/home}" class="sideVideoLinkColor"><img th:src="${sideMedia.thumbnailUrl}" class="userPageSideVideos" alt="...">
-			<span th:text="${sideMedia.title}" class="smallVidDescription"></span>
-	 		<span th:text="${'Author: ' + sideMedia.mediaList.channelUser.displayName}" class="smallVidAuthor"></span>
+			<span class="col smallVidDescription">
+				<span th:text="${sideMedia.title}" class=""></span>
+				<br>
+				<br>
+	 			<span th:text="${'Author: ' + sideMedia.mediaList.channelUser.displayName}" class="smallVidAuthor"></span>
+	 		</span>
 	 		<span th:text="${sideMedia.duration}" class="sideVideoDuration"></span>
 	 		</a>
  		</span>

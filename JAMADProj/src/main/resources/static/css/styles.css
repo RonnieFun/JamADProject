@@ -1201,19 +1201,13 @@ body {
 	position: absolute;
 	margin-left: 15%;
 	margin-top: -10%;
-	display: flex;
+	display: block;
     flex-direction: row;
     font-size: 1vw;
 	font-family: 'Roboto', sans-serif;
 }
 
 .smallVidAuthor{
-	width: 15%;
-	position: absolute;
-	display: flex;
-  	margin-left: 15%;
-  	margin-bottom: 30px;
-  	margin-top: -5%;
   	font-size: 0.9vw;
 	font-family: 'Roboto', sans-serif;
 	color: Gray;
@@ -1498,19 +1492,13 @@ body {
 	position: absolute;
 	margin-left: 15%;
 	margin-top: -12%;
-	display: flex;
+	display: block;
     flex-direction: row;
     font-size: 1vw;
 	font-family: 'Roboto', sans-serif;
 }
 
 .smallVidAuthor{
-	width: 15%;
-	position: absolute;
-	display: flex;
-  	margin-left: 15%;
-  	margin-bottom: 30px;
-  	margin-top: -7%;
   	font-size: 0.9vw;
 	font-family: 'Roboto', sans-serif;
 	color: Gray;
@@ -1799,20 +1787,16 @@ body {
 	position: absolute;
 	margin-left: 15%;
 	margin-top: -11.9%;
-	display: flex;
+	display: block;
     flex-direction: row;
     font-size: 1vw;
 	font-family: 'Roboto', sans-serif;
 }
 
 .smallVidAuthor{
-	position: absolute;
-	display: flex;
-  	margin-left: 15%;
-  	margin-bottom: 30px;
-  	margin-top: -6.5%;
   	font-size: 0.95vw;
 	font-family: 'Roboto', sans-serif;
+	color: Gray;
 }
 }
 
@@ -2084,20 +2068,16 @@ body {
 	position: absolute;
 	margin-left: 15%;
 	margin-top: -11%;
-	display: flex;
+	display: block;
     flex-direction: row;
     font-size: 1vw;
 	font-family: 'Roboto', sans-serif;
 }
 
 .smallVidAuthor{
-	position: absolute;
-	display: flex;
-  	margin-left: 15%;
-  	margin-bottom: 30px;
-  	margin-top: -6%;
   	font-size: 0.95vw;
 	font-family: 'Roboto', sans-serif;
+	color: Gray;
 }
 }
 
@@ -2369,20 +2349,16 @@ body {
 	position: absolute;
 	margin-left: 15%;
 	margin-top: -10.5%;
-	display: flex;
+	display: block;
     flex-direction: row;
     font-size: 1vw;
 	font-family: 'Roboto', sans-serif;
 }
 
 .smallVidAuthor{
-	position: absolute;
-	display: flex;
-  	margin-left: 15%;
-  	margin-bottom: 30px;
-  	margin-top: -5.5%;
   	font-size: 0.95vw;
 	font-family: 'Roboto', sans-serif;
+	color: Gray;
 }
 }
 
@@ -2654,20 +2630,16 @@ body {
 	position: absolute;
 	margin-left: 15%;
 	margin-top: -9.7%;
-	display: flex;
+	display: block;
     flex-direction: row;
     font-size: 1vw;
 	font-family: 'Roboto', sans-serif;
 }
 
 .smallVidAuthor{
-	position: absolute;
-	display: flex;
-  	margin-left: 15%;
-  	margin-bottom: 30px;
-  	margin-top: -5%;
   	font-size: 0.95vw;
 	font-family: 'Roboto', sans-serif;
+	color: Gray;
 }
 }
 
@@ -2939,20 +2911,16 @@ body {
 	position: absolute;
 	margin-left: 15%;
 	margin-top: -9.4%;
-	display: flex;
+	display: block;
     flex-direction: row;
     font-size: 1vw;
 	font-family: 'Roboto', sans-serif;
 }
 
 .smallVidAuthor{
-	position: absolute;
-	display: flex;
-  	margin-left: 15%;
-  	margin-bottom: 30px;
-  	margin-top: -4.7%;
   	font-size: 0.95vw;
 	font-family: 'Roboto', sans-serif;
+	color: Gray;
 }
 }
 
@@ -3224,20 +3192,16 @@ body {
 	position: absolute;
 	margin-left: 15%;
 	margin-top: -8.7%;
-	display: flex;
+	display: block;
     flex-direction: row;
     font-size: 1vw;
 	font-family: 'Roboto', sans-serif;
 }
 
 .smallVidAuthor{
-	position: absolute;
-	display: flex;
-  	margin-left: 15%;
-  	margin-bottom: 30px;
-  	margin-top: -4%;
   	font-size: 0.95vw;
 	font-family: 'Roboto', sans-serif;
+	color: Gray;
 }
 }
 
@@ -3510,20 +3474,16 @@ body {
 	position: absolute;
 	margin-left: 15%;
 	margin-top: -8.7%;
-	display: flex;
+	display: block;
     flex-direction: row;
     font-size: 1vw;
 	font-family: 'Roboto', sans-serif;
 }
 
 .smallVidAuthor{
-	position: absolute;
-	display: flex;
-  	margin-left: 15%;
-  	margin-bottom: 30px;
-  	margin-top: -4%;
   	font-size: 0.95vw;
 	font-family: 'Roboto', sans-serif;
+	color: Gray;
 }
 }
 
@@ -3796,20 +3756,16 @@ body {
 	position: absolute;
 	margin-left: 15%;
 	margin-top: -8%;
-	display: flex;
+	display: block;
     flex-direction: row;
     font-size: 1vw;
 	font-family: 'Roboto', sans-serif;
 }
 
 .smallVidAuthor{
-	position: absolute;
-	display: flex;
-  	margin-left: 15%;
-  	margin-bottom: 30px;
-  	margin-top: -3%;
   	font-size: 0.95vw;
 	font-family: 'Roboto', sans-serif;
+	color: Gray;
 }
 }
 
