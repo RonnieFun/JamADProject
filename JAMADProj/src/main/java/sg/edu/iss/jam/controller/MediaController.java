@@ -1,6 +1,7 @@
 package sg.edu.iss.jam.controller;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class MediaController {
 	
 	@Autowired
 	ArtistInterface aservice;
-
+	
 	@GetMapping("/home")
 	public String goToHomepage(Model model) {
 		return "home";
@@ -322,6 +323,8 @@ public class MediaController {
 		List<Comments> existingUserComments = uservice.findCommentsByMediaId(commentMediaId);
 		
 		//Add new Comment to existing user's comments
+		
+	
 		
 		Comments newComment = new Comments(commentDateTime, submittedComment, commentedMedia, commentUser);
 		

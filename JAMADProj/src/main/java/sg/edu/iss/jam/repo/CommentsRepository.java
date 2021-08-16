@@ -10,7 +10,7 @@ import sg.edu.iss.jam.model.Comments;
 
 public interface CommentsRepository extends JpaRepository<Comments, Long> {
 
-	@Query("SELECT c FROM Comments c WHERE c.mediaComment.id = :id")
+	@Query("SELECT c FROM Comments c WHERE c.mediaComment.id = :id ORDER BY c.id desc")
 	List<Comments> findCommentsByMediaId(@Param("id") Long id);
 	
 	@Query("SELECT c FROM Comments c WHERE c.commentUser.userID = :userID")

@@ -160,13 +160,13 @@ public class JamadProjApplication {
 		    urepo.save(jayChou);
 		    urepo.save(zhaoQi);
 			
-		    Comments comment1 = new Comments("27 July 2021", 
+		    Comments comment1 = new Comments("27 July 2021, 11:59", 
 		    		"Nice music, nice mv, Thanks! "
 		    		+ "I have subscribed this channel for many years, "
 		    		+ "Carole King is excellent in both Rock and Dance.",
 		    		jaychouvideo, max);
 		    
-		    Comments comment2 = new Comments("27 July 2021", 
+		    Comments comment2 = new Comments("27 July 2021, 23:00", 
 		    		"Nice music, nice mv, Thanks!",
 		    		jaychouvideo, max);
 		        

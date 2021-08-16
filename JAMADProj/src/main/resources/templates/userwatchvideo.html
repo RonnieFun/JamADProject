@@ -61,6 +61,7 @@
 	</div>
 	
 	<!-- Write Comments & Number of Comments Section -->
+	<section id="userCommentsSection">
 	<form name="userCommentsForm" id="userCommentsForm" method="post">
 		<div class="userCommentsSection">
 			<span th:text="${commentCount} + ' Comments'" class="numberOfComments"></span>
@@ -72,7 +73,7 @@
 			<input type="hidden" id="commentUserId" th:value = "${user.userID}">
 			<input type="hidden" id="commentDisplayName" th:value = "${user.displayName}">
 			<input type="hidden" id="commentMediaId" th:value = "${media.id}">
-			<input type="hidden" id="commentDateTime" th:value = "${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}">
+			<input type="hidden" id="commentDateTime" th:value = "${#dates.format(#dates.createNow(),'dd MMMM YYYY, HH:mm')}">
 			<input type="hidden" id="commentedNumberOfComments" th:value = "${commentCount}">
 			<button id="userCommentsSubmitBtn" class="userCommentsBtn" type="button">Submit</button>
 		</div>
@@ -88,6 +89,7 @@
 			</span>
 		</span>
 	</div>
+	</section>
 </section>	
 
 <!-- Side Videos List -->

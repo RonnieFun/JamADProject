@@ -114,12 +114,13 @@ $(document).ready(function(){
 				commentDateTime :commentDateTime,
 			},
 			success: function (response) {
-				$('#userCommentsForm').load("http://localhost:8080/aftersubmitcomment");
+				$('#userCommentsSection').load("http://localhost:8080/aftersubmitcomment");
 			}
 		})
 		
 	}
 		
 	});
+	
 	
 });

@@ -6,6 +6,7 @@
 </head>
 <body class="userPages">
 	<!-- Write Comments & Number of Comments Section -->
+<section id="userCommentsSection">
 	<form name="userCommentsForm" id="userCommentsForm" method="post">
 		<div class="userCommentsSection">
 			<span th:text="${commentCount} + ' Comments'" class="numberOfComments"></span>
@@ -33,6 +34,7 @@
 			</span>
 		</span>
 	</div>
+</section>
 <script type="text/javascript" th:src="@{/js/watch_videos_ajax.js}"></script>	
 </body>
 </html>
