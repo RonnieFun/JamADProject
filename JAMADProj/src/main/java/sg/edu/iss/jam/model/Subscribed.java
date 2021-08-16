@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Subscribed {
@@ -13,36 +14,51 @@ public class Subscribed {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long subscribedID;
 	
-	//manyToMany relation with user
+	// for artist, targetId is customer's Id
+	// for customer, targetId is artist's Id
+	private Long targetId;
 	
-	@ManyToMany(mappedBy = "subscribers")
-	private Collection<User> subscribers;
-
+	// ManyToOne relationship with User
+	// For artist, it links to artist
+	// For customer, it links to customer
+	@ManyToOne
+	private User user;
+	
+	
 	public Subscribed() {
 		super();
 	}
 
-	public Subscribed(Collection<User> subscribers) {
-		super();
-		this.subscribers = subscribers;
-	}
 
 	public Long getSubscribedID() {
 		return subscribedID;
 	}
 
+
 	public void setSubscribedID(Long subscribedID) {
 		this.subscribedID = subscribedID;
 	}
-
-	public Collection<User> getSubscribers() {
-		return subscribers;
-	}
-
-	public void setSubscribers(Collection<User> subscribers) {
-		this.subscribers = subscribers;
-	}
 	
+
+	public Long getTargetId() {
+		return targetId;
+	}
+
+
+	public void setTargetId(Long targetId) {
+		this.targetId = targetId;
+	}
+
+
+	public User getUser() {
+		return user;
+	}
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 	
 
 }
+

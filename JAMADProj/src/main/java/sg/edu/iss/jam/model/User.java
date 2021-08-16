@@ -67,9 +67,10 @@ public class User {
 	@OneToMany(mappedBy = "playlistUser")
 	private Collection<Playlists> playlists;
 	
-	//ManyToMany relation with subscribed
-	@ManyToMany
+	//OneToMany relation with subscribed
+	@OneToMany(mappedBy = "user")
 	private Collection<Subscribed> subscribers;
+
 	
 	//OneToMany relation with channel
 	@OneToMany(mappedBy = "channelUser")
