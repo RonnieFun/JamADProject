@@ -130,7 +130,6 @@ public class MediaController {
 		
 		Media loadedMedia = uservice.findMediaByMediaId(1L);
 		int numberOfViews = loadedMedia.getViewCount();
-		numberOfViews += 1;
 		loadedMedia.setViewCount(numberOfViews);
 		
 		uservice.saveMedia(loadedMedia);

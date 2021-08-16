@@ -5,25 +5,6 @@
 <title>Insert title here</title>
 </head>
 <body class="userPages">
-	<!-- Artist Intro Section -->
- 	<div class="userPageArtistIntroSection">
-		<form name="artistForm" id="artistForm" method="post">
-	 		<input type = "hidden" id="artistId"  th:value = "${artistId}">
-			<span id="ArtistName" th:text="'Artist: ' + ${artistName}" class="artistName"></span>
-			
-			<!--  If the customer already subscribed the artist, it shows "UNSUBSCRIBE"	--> 	
-			<span th:if = "${subscribeStatus}" >
-				<button class="sbutton userSubscribeBtn" type= "button" id="zqButton" >UNSUBSCRIBE</button>
-			</span>
-			
-			<!--  Else if the customer haven't subscribed the artist, it shows "SUBSCRIBE" -->
-			<span th:unless = "${subscribeStatus}" >
-				<button class="sbutton userSubscribeBtn" type= "button" id="zqButton" >SUBSCRIBE</button>
-			</span> 
-		</form>	
-		<hr>
-	</div>
-	
 	<!-- Write Comments & Number of Comments Section -->
 	<form name="userCommentsForm" id="userCommentsForm" method="post">
 		<div class="userCommentsSection">

@@ -102,7 +102,6 @@ $(document).ready(function(){
 		var commentDisplayName = document.getElementById("commentDisplayName").value;
 		var commentMediaId = document.getElementById("commentMediaId").value;
 		var commentDateTime = document.getElementById("commentDateTime").value;
-		var commentedNumberOfComments = parseInt(document.getElementById("commentedNumberOfComments").value);
 		$.ajax({
 			type: "POST",
 			url: "/submitComments",
@@ -115,7 +114,6 @@ $(document).ready(function(){
 				commentDateTime :commentDateTime,
 			},
 			success: function (response) {
-				alert("AJAX SUCCESSFUL");
 				$('#userCommentsForm').load("http://localhost:8080/aftersubmitcomment");
 			}
 		})
