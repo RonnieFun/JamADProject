@@ -58,11 +58,11 @@ public class MediaController {
 	@GetMapping("/watchvideo")
 	public String watchVideo(Model model) {
 
-		int commentCount = uservice.findCommentsByMediaId(1L).size();
+		int commentCount = uservice.findCommentsByMediaId(2L).size();
 		
 		//Add new view count upon page load
 		
-		Media loadedMedia = uservice.findMediaByMediaId(1L);
+		Media loadedMedia = uservice.findMediaByMediaId(2L);
 		int numberOfViews = loadedMedia.getViewCount();
 		numberOfViews += 1;
 		loadedMedia.setViewCount(numberOfViews);
@@ -75,14 +75,14 @@ public class MediaController {
 		model.addAttribute("commentCount", commentCount);
 		model.addAttribute("user", uservice.findUserByUserId(1L));
 		model.addAttribute("playlists", uservice.findPlaylistsByUserId(1L));
-		model.addAttribute("media", uservice.findMediaByMediaId(1L));
+		model.addAttribute("media", uservice.findMediaByMediaId(2L));
 		model.addAttribute("allMedia", uservice.findAllMedia());
-		model.addAttribute("comments", uservice.findCommentsByMediaId(1L));
-		model.addAttribute("tags", uservice.findTagsByMediaId(1L));
+		model.addAttribute("comments", uservice.findCommentsByMediaId(2L));
+		model.addAttribute("tags", uservice.findTagsByMediaId(2L));
 		
 		boolean liked = false;
 		
-		Media selectedMedia = uservice.findMediaByMediaId(1L);
+		Media selectedMedia = uservice.findMediaByMediaId(2L);
 		
 		List<Playlists> loggedInUserPlaylists = uservice.findPlaylistsByUserId(1L);
 		
@@ -125,11 +125,11 @@ public class MediaController {
 	@GetMapping("/aftersubmitcomment")
 	public String afterSubmitComment(Model model) {
 
-		int commentCount = uservice.findCommentsByMediaId(1L).size();
+		int commentCount = uservice.findCommentsByMediaId(2L).size();
 		
 		//Add new view count upon page load
 		
-		Media loadedMedia = uservice.findMediaByMediaId(1L);
+		Media loadedMedia = uservice.findMediaByMediaId(2L);
 		int numberOfViews = loadedMedia.getViewCount();
 		loadedMedia.setViewCount(numberOfViews);
 		
@@ -141,14 +141,14 @@ public class MediaController {
 		model.addAttribute("commentCount", commentCount);
 		model.addAttribute("user", uservice.findUserByUserId(1L));
 		model.addAttribute("playlists", uservice.findPlaylistsByUserId(1L));
-		model.addAttribute("media", uservice.findMediaByMediaId(1L));
+		model.addAttribute("media", uservice.findMediaByMediaId(2L));
 		model.addAttribute("allMedia", uservice.findAllMedia());
-		model.addAttribute("comments", uservice.findCommentsByMediaId(1L));
-		model.addAttribute("tags", uservice.findTagsByMediaId(1L));
+		model.addAttribute("comments", uservice.findCommentsByMediaId(2L));
+		model.addAttribute("tags", uservice.findTagsByMediaId(2L));
 		
 		boolean liked = false;
 		
-		Media selectedMedia = uservice.findMediaByMediaId(1L);
+		Media selectedMedia = uservice.findMediaByMediaId(2L);
 		
 		List<Playlists> loggedInUserPlaylists = uservice.findPlaylistsByUserId(1L);
 		

@@ -94,15 +94,7 @@ public class JamadProjApplication {
 			List<Playlists> maxPlaylists = new ArrayList<>();
 			
 			List<Tag> maxTags = new ArrayList<>();
-			
-			Tag tag1 = new Tag("Rock", FirstPlayListMedia);
-			
-			Tag tag2 = new Tag("Romantic Songs", SecondPlayListMedia);
-			
-			tagrepo.save(tag1);
-			
-			tagrepo.save(tag2);
-			
+
 			Channel videoChannel = new Channel("Bruce Lee's Channel", "Nice Channel", MediaType.Video, 
 					"21 July 2021", FirstPlayListMedia, max);
 			
@@ -136,6 +128,25 @@ public class JamadProjApplication {
 			mediarepo.save(wwevideo);
 			mediarepo.save(maxvideo);
 			mediarepo.save(dinovideo);
+			
+			FirstPlayListMedia.add(jaychouvideo);
+			FirstPlayListMedia.add(bruceleevideo);
+			FirstPlayListMedia.add(jjlinvideo);
+			FirstPlayListMedia.add(monsterhuntervideo);
+			FirstPlayListMedia.add(wwevideo);
+			FirstPlayListMedia.add(maxvideo);
+			FirstPlayListMedia.add(dinovideo);
+			
+			Tag tag1 = new Tag("Classical Music", FirstPlayListMedia);
+			
+			Tag tag2 = new Tag("Romantic Songs", SecondPlayListMedia);
+			
+			tagrepo.save(tag1);
+			
+			tagrepo.save(tag2);
+			
+			maxTags.add(tag1);
+			maxTags.add(tag2);
 			
 			Playlists FirstPlaylist = new Playlists("Max's First Playlist", "1", "Nice Playlist", MediaType.Video, 
 					max, FirstPlayListMedia);

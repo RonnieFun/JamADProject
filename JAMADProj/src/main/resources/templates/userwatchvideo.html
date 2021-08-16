@@ -99,6 +99,9 @@
 			<a th:href="@{/home}" class="sideVideoLinkColor"><img th:src="${sideMedia.thumbnailUrl}" class="userPageSideVideos" alt="...">
 			<span class="col smallVidDescription">
 				<span th:text="${sideMedia.title}" class=""></span>
+				<span th:each = "tag: ${sideMedia.tagList}">
+	 				<span class="smallVidAuthor" th:text="${' | ' + tag.tagName}"></span>
+	 			</span>	
 				<br>
 				<br>
 	 			<span th:text="${'Author: ' + sideMedia.mediaList.channelUser.displayName}" class="smallVidAuthor"></span>
