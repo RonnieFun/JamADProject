@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,8 +34,10 @@ public class User {
 	
 	private String profileUrl;
 	
+	private boolean enabled;
+	
 	//OneToMany relation with Roles
-	@OneToMany(mappedBy = "roleUser")
+	@OneToMany(mappedBy = "roleUser", fetch= FetchType.EAGER)
 	private Collection<Roles> roles;
 	
 	//OneToMany relation with Sessions
@@ -300,6 +303,18 @@ public class User {
 	public void setComments(Collection<Comments> comments) {
 		this.comments = comments;
 	}
+
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = true;
+	}
+	
+	
 	
 	
 
