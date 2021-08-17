@@ -108,7 +108,7 @@ public class MediaController {
 					
 		boolean subscribeStatus = false;
 					
-					
+				
 		for(Subscribed s: customer.getSubscribers()) {
 			// if the customer already subscribed the artist, it shows true
 			if (s.getTargetId() == artistId) {
@@ -122,6 +122,7 @@ public class MediaController {
 		return "userwatchvideo";
 	}
 	
+	//For Partial Page Reload in Comments Section when user clicks Submit Comments button
 	@GetMapping("/aftersubmitcomment")
 	public String afterSubmitComment(Model model) {
 
@@ -140,51 +141,9 @@ public class MediaController {
 		
 		model.addAttribute("commentCount", commentCount);
 		model.addAttribute("user", uservice.findUserByUserId(1L));
-		model.addAttribute("playlists", uservice.findPlaylistsByUserId(1L));
 		model.addAttribute("media", uservice.findMediaByMediaId(2L));
-		model.addAttribute("allMedia", uservice.findAllMedia());
 		model.addAttribute("comments", uservice.findCommentsByMediaId(2L));
-		model.addAttribute("tags", uservice.findTagsByMediaId(2L));
 		
-		boolean liked = false;
-		
-		Media selectedMedia = uservice.findMediaByMediaId(2L);
-		
-		List<Playlists> loggedInUserPlaylists = uservice.findPlaylistsByUserId(1L);
-		
-		for (Playlists playlist : loggedInUserPlaylists) {
-			if(playlist.getMediaPlayList().contains(selectedMedia)) {
-				liked = true;
-			} 
-		}	
-		
-		model.addAttribute("liked", liked);
-
-		//BY ZHAO QI
-		// currently assume the userID = 3, 
-		Long customerId = (long) 2;
-		User customer = uservice.findUserByUserId(customerId);
-					
-		// this method aims to show how to subscribe an Artist,
-		// so we won't show media details
-					
-		Long artistId = (long) 1;
-		User jayChou = aservice.findById(artistId);
-		String artistName = jayChou.getFirstName() + " " + jayChou.getLastName();
-					
-		boolean subscribeStatus = false;
-					
-					
-		for(Subscribed s: customer.getSubscribers()) {
-			// if the customer already subscribed the artist, it shows true
-			if (s.getTargetId() == artistId) {
-				subscribeStatus = true;
-				}
-			}
-			model.addAttribute("subscribeStatus", subscribeStatus);
-			model.addAttribute("artistId", artistId);
-			model.addAttribute("artistName", artistName);
-
 		return "aftersubmitcomment";
 	}
 	
@@ -306,6 +265,7 @@ public class MediaController {
 		}		
 		return "redirect:/watchvideo";				
 	}
+	
 	
 	//ajax call for submit comments
 	@PostMapping("/submitComments")

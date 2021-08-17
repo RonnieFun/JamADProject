@@ -129,14 +129,6 @@ public class JamadProjApplication {
 			mediarepo.save(maxvideo);
 			mediarepo.save(dinovideo);
 			
-			FirstPlayListMedia.add(jaychouvideo);
-			FirstPlayListMedia.add(bruceleevideo);
-			FirstPlayListMedia.add(jjlinvideo);
-			FirstPlayListMedia.add(monsterhuntervideo);
-			FirstPlayListMedia.add(wwevideo);
-			FirstPlayListMedia.add(maxvideo);
-			FirstPlayListMedia.add(dinovideo);
-			
 			Tag tag1 = new Tag("Classical Music", FirstPlayListMedia);
 			
 			Tag tag2 = new Tag("Romantic Songs", SecondPlayListMedia);
