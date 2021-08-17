@@ -59,7 +59,7 @@ public class MediaController {
 	@GetMapping("/watchvideo")
 	public String watchVideo(Model model) {
 
-//		
+		
 //		//Add new view count upon page load
 //		
 //		Media loadedMedia = uservice.findMediaByMediaId(2L);
@@ -213,20 +213,20 @@ public class MediaController {
 		}
 	
 		// for artist, add the customer to the subscribed collection
-		Collection<Subscribed> customers_subscribed_me = new HashSet<Subscribed>();
+		Collection<Subscribed> customers_subscribed_me_list = new HashSet<Subscribed>();
 		Subscribed customer_subscribed_me = new Subscribed();
 		customer_subscribed_me.setTargetId(customerId);
 		customer_subscribed_me.setUser(artist);	
-		customers_subscribed_me.add(customer_subscribed_me);
-		artist.setSubscribers(customers_subscribed_me);
+		customers_subscribed_me_list.add(customer_subscribed_me);
+		artist.setSubscribers(customers_subscribed_me_list);
 		
 		// For customer, add the artist to the subscribed collection
-		Collection<Subscribed> artists_I_subscribed = new HashSet<Subscribed>();
+		Collection<Subscribed> artists_I_subscribed_list = new HashSet<Subscribed>();
 		Subscribed artist_I_subscribed = new Subscribed();
 		artist_I_subscribed.setTargetId(artistId);
 		artist_I_subscribed.setUser(customer);	
-		artists_I_subscribed.add(artist_I_subscribed);
-		customer.setSubscribers(artists_I_subscribed);
+		artists_I_subscribed_list.add(artist_I_subscribed);
+		customer.setSubscribers(artists_I_subscribed_list);
 		
 		aservice.saveUser(artist);
 		aservice.saveSubscribed(customer_subscribed_me);
@@ -243,7 +243,7 @@ public class MediaController {
 	@ResponseBody
 	public String unsubscribeArtist(@RequestParam(value = "artistId") Long artistId) throws Exception {
 		
-		// currently assume the userID = 3,
+		// currently assume the userID = 2,
 		Long customerId = (long) 2;
 		User customer = uservice.findUserByUserId(customerId);
 		User artist = aservice.findById(artistId);
