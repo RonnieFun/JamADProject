@@ -12,6 +12,7 @@ import sg.edu.iss.jam.model.Playlists;
 import sg.edu.iss.jam.model.Subscribed;
 import sg.edu.iss.jam.model.Tag;
 import sg.edu.iss.jam.model.User;
+import sg.edu.iss.jam.model.UserHistory;
 
 public interface UserInterface {
 
@@ -42,6 +43,9 @@ public interface UserInterface {
 	
 	//TAGS
 	List<Tag> findTagsByMediaId(Long id);
+	
+	//USER HISTORY
+	List<UserHistory> findUserHistoryByMediaId(Long id);
 
 }
 

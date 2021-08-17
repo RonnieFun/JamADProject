@@ -18,6 +18,7 @@ import sg.edu.iss.jam.model.Media;
 import sg.edu.iss.jam.model.Playlists;
 import sg.edu.iss.jam.model.Subscribed;
 import sg.edu.iss.jam.model.User;
+import sg.edu.iss.jam.model.UserHistory;
 import sg.edu.iss.jam.service.ArtistInterface;
 import sg.edu.iss.jam.service.UserInterface;
 
@@ -58,19 +59,26 @@ public class MediaController {
 	@GetMapping("/watchvideo")
 	public String watchVideo(Model model) {
 
-		int commentCount = uservice.findCommentsByMediaId(2L).size();
-		
-		//Add new view count upon page load
-		
-		Media loadedMedia = uservice.findMediaByMediaId(2L);
-		int numberOfViews = loadedMedia.getViewCount();
-		numberOfViews += 1;
-		loadedMedia.setViewCount(numberOfViews);
-		
-		uservice.saveMedia(loadedMedia);
+//		
+//		//Add new view count upon page load
+//		
+//		Media loadedMedia = uservice.findMediaByMediaId(2L);
+//		int numberOfViews = loadedMedia.getViewCount();
+//		numberOfViews += 1;
+//		loadedMedia.setViewCount(numberOfViews);
+//		
+//		uservice.saveMedia(loadedMedia);
 	
+//		model.addAttribute("commentCount", commentCount);
+		
 		//Currently, assume the userID = 1. This userID will be changed upon implementation
 		//of Spring Security to authenticate logged in user
+
+		int commentCount = uservice.findCommentsByMediaId(2L).size();
+		
+		List<UserHistory> userHistory = uservice.findUserHistoryByMediaId(2L);
+		
+		int viewCount = userHistory.size();
 		
 		model.addAttribute("commentCount", commentCount);
 		model.addAttribute("user", uservice.findUserByUserId(1L));
@@ -79,6 +87,7 @@ public class MediaController {
 		model.addAttribute("allMedia", uservice.findAllMedia());
 		model.addAttribute("comments", uservice.findCommentsByMediaId(2L));
 		model.addAttribute("tags", uservice.findTagsByMediaId(2L));
+		model.addAttribute("viewCount", viewCount);
 	    
 		boolean liked = false;
 		
@@ -123,17 +132,15 @@ public class MediaController {
 	
 	@GetMapping("/aftersubmitcomment")
 	public String afterSubmitComment(Model model) {
-
+		
+//		Media loadedMedia = uservice.findMediaByMediaId(2L);
+//		int numberOfViews = loadedMedia.getViewCount();
+//		loadedMedia.setViewCount(numberOfViews);
+//		
+//		uservice.saveMedia(loadedMedia);
+	
 		int commentCount = uservice.findCommentsByMediaId(2L).size();
 		
-		//Add new view count upon page load
-		
-		Media loadedMedia = uservice.findMediaByMediaId(2L);
-		int numberOfViews = loadedMedia.getViewCount();
-		loadedMedia.setViewCount(numberOfViews);
-		
-		uservice.saveMedia(loadedMedia);
-	
 		//Currently, assume the userID = 1. This userID will be changed upon implementation
 		//of Spring Security to authenticate logged in user
 		

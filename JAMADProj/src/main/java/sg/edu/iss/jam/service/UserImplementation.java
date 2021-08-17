@@ -11,6 +11,7 @@ import sg.edu.iss.jam.model.Comments;
 import sg.edu.iss.jam.model.Media;
 import sg.edu.iss.jam.model.Playlists;
 import sg.edu.iss.jam.model.User;
+import sg.edu.iss.jam.model.UserHistory;
 import sg.edu.iss.jam.repo.CommentsRepository;
 import sg.edu.iss.jam.repo.MediaRepository;
 import sg.edu.iss.jam.repo.PlaylistsRepository;
@@ -22,6 +23,7 @@ import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.repo.MediaRepository;
 import sg.edu.iss.jam.repo.SubscribedRepository;
 import sg.edu.iss.jam.repo.TagRepository;
+import sg.edu.iss.jam.repo.UserHistoryRepository;
 import sg.edu.iss.jam.repo.UserRepository;
 
 @Service
@@ -45,6 +47,8 @@ public class UserImplementation implements UserInterface {
 	@Autowired
 	CommentsRepository commentsrepo;
 	
+	@Autowired
+	UserHistoryRepository uhrepo;
 	
 	//USER REPO
 	@Transactional
@@ -136,4 +140,11 @@ public class UserImplementation implements UserInterface {
 		return commentsrepo.save(comment);
 	}
 
+	
+	//USERHISTORY REPO
+	@Transactional
+	public List<UserHistory> findUserHistoryByMediaId(Long id) {
+		
+		return uhrepo.findUserHistoryByMediaId(id);
+	}
 }

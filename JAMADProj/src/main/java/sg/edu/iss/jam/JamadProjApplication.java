@@ -31,6 +31,7 @@ import sg.edu.iss.jam.repo.MediaRepository;
 import sg.edu.iss.jam.repo.PlaylistsRepository;
 import sg.edu.iss.jam.repo.RolesRepository;
 import sg.edu.iss.jam.repo.TagRepository;
+import sg.edu.iss.jam.repo.UserHistoryRepository;
 import sg.edu.iss.jam.repo.UserRepository;
 
 @SpringBootApplication
@@ -56,6 +57,9 @@ public class JamadProjApplication {
 	
 	@Autowired
 	ChannelRepository channelrepo;
+	
+	@Autowired
+	UserHistoryRepository uhrepo;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(JamadProjApplication.class, args);
@@ -101,25 +105,25 @@ public class JamadProjApplication {
 			channelrepo.save(videoChannel);
 			
 			Media jaychouvideo = new Media(MediaType.Video, "http://localhost:8080/videos/android_screens_.mkv", "You've Got a Very Good Friend. Be Happy and Stay Safe! :) Have Fun!", "10:00", "21 July, 2002", "published", 
-					"http://localhost:8080/images/brucelee.PNG", 0, userHistory, maxComments, videoChannel, maxPlaylists, maxTags);
+					"http://localhost:8080/images/brucelee.PNG", userHistory, maxComments, videoChannel, maxPlaylists, maxTags);
 			
 			Media bruceleevideo = new Media(MediaType.Video, "http://localhost:8080/videos/bigbuckbunny.mp4", "Bruce Lee's Video - Best Kungfu", "12:00", "21 July, 2002", "published", 
-					"http://localhost:8080/images/pinkhat.png", 0, userHistory, maxComments, videoChannel, maxPlaylists, maxTags);
+					"http://localhost:8080/images/pinkhat.png", userHistory, maxComments, videoChannel, maxPlaylists, maxTags);
 			
 			Media jjlinvideo = new Media(MediaType.Video, "http://localhost:8080/videos/jazz_in_paris.mp3", "JJ Lin's best video in the world", "13:00", "21 July, 2002", "published", 
-					"http://localhost:8080/images/pinksneaker.jpg", 0, userHistory, maxComments, videoChannel, maxPlaylists, maxTags);
+					"http://localhost:8080/images/pinksneaker.jpg", userHistory, maxComments, videoChannel, maxPlaylists, maxTags);
 			
 			Media monsterhuntervideo = new Media(MediaType.Video, "http://localhost:8080/videos/samplevideo.mp4", "Monsters in the wild! Hide fast and run fast!", "14:00", "21 July, 2002", "published", 
-					"http://localhost:8080/images/kpopalbum.png", 0, userHistory, maxComments, videoChannel, maxPlaylists, maxTags);
+					"http://localhost:8080/images/kpopalbum.png", userHistory, maxComments, videoChannel, maxPlaylists, maxTags);
 			
 			Media wwevideo = new Media(MediaType.Video, "http://localhost:8080/videos/bigbuckbunny.mp4", "WWE Video", "15:00", "21 July, 2002", "published", 
-					"http://localhost:8080/images/pinkdress.jpg", 0, userHistory, maxComments, videoChannel, maxPlaylists, maxTags);
+					"http://localhost:8080/images/pinkdress.jpg", userHistory, maxComments, videoChannel, maxPlaylists, maxTags);
 			
 			Media maxvideo = new Media(MediaType.Video, "http://localhost:8080/videos/android_screens_.mkv", "Max's Personal Music Video - Come Support Me Bro", "16:00", "21 July, 2002", "published", 
-					"http://localhost:8080/images/pinkhat.png", 0, userHistory, maxComments, videoChannel, maxPlaylists, maxTags);
+					"http://localhost:8080/images/pinkhat.png", userHistory, maxComments, videoChannel, maxPlaylists, maxTags);
 			
 			Media dinovideo = new Media(MediaType.Video, "http://localhost:8080/videos/android_screens_.mkv", "Dino Video Dino Video Dino's Video! Woohoo! Dino Dino Dino Dino Dino :D Dino", "17:00", "21 July, 2002", "published", 
-					"http://localhost:8080/images/estelle.PNG", 0, userHistory, maxComments, videoChannel, maxPlaylists, maxTags);
+					"http://localhost:8080/images/estelle.PNG", userHistory, maxComments, videoChannel, maxPlaylists, maxTags);
 			
 			mediarepo.save(jaychouvideo);
 			mediarepo.save(bruceleevideo);
@@ -178,6 +182,16 @@ public class JamadProjApplication {
 		    
 		    maxComments.add(comment1);
 		    maxComments.add(comment2);
+		    
+		    UserHistory userHistory1 = new UserHistory(1, jayChou, FirstPlayListMedia);
+		    UserHistory userHistory2 = new UserHistory(2, zhaoQi, SecondPlayListMedia);
+		    UserHistory userHistory3 = new UserHistory(1, jayChou, SecondPlayListMedia);
+		    UserHistory userHistory4 = new UserHistory(2, zhaoQi, FirstPlayListMedia);
+		    
+		    uhrepo.save(userHistory1);
+		    uhrepo.save(userHistory2);
+		    uhrepo.save(userHistory3);
+		    uhrepo.save(userHistory4);
 		};
 	}
 	

@@ -28,9 +28,7 @@ public class Media {
 	private String publishStatus;
 	
 	private String thumbnailUrl;
-	
-	private int viewCount;
-	
+
 	//relation with userhistory
 	@ManyToMany(mappedBy = "mediaHistoryList")
 	private Collection<UserHistory> userHistories;
@@ -56,7 +54,7 @@ public class Media {
 	}
 
 	public Media(MediaType mediaType, String mediaUrl, String title, String duration, String createdOn,
-			String publishStatus, String thumbnailUrl, int viewCount, Collection<UserHistory> userHistories,
+			String publishStatus, String thumbnailUrl, Collection<UserHistory> userHistories,
 			Collection<Comments> commentList, Channel mediaList, Collection<Playlists> playLists,
 			Collection<Tag> tagList) {
 		super();
@@ -67,7 +65,6 @@ public class Media {
 		this.createdOn = createdOn;
 		this.publishStatus = publishStatus;
 		this.thumbnailUrl = thumbnailUrl;
-		this.viewCount = viewCount;
 		this.userHistories = userHistories;
 		this.commentList = commentList;
 		this.mediaList = mediaList;
@@ -137,14 +134,6 @@ public class Media {
 
 	public void setThumbnailUrl(String thumbnailUrl) {
 		this.thumbnailUrl = thumbnailUrl;
-	}
-
-	public int getViewCount() {
-		return viewCount;
-	}
-
-	public void setViewCount(int viewCount) {
-		this.viewCount = viewCount;
 	}
 
 	public Collection<UserHistory> getUserHistories() {

@@ -13,7 +13,7 @@
  	<!-- Video Introduction Section -->
  	<div class="userPageVideoIntroSection">
  		<span th:text="'Title: ' + ${media.title}" class="userVideoTitleLabel"></span>
-		<span th:text="${media.viewCount} + ' views, published on ' + ${media.createdOn}" class="numberOfReviews"></span> 
+		<span th:text="${viewCount} + ' views, published on ' + ${media.createdOn}" class="numberOfReviews"></span> 
  		<!-- Like Button Heart Shape -->
 		<i th:if="${liked == false}" id="heartButton" class="fas fa-heart userPageHeartIcon" onclick="openForm()" aria-hidden="true"></i>
 		<i th:if="${liked == true}" id="heartButton" class="fas fa-heart userPageHeartIconLiked" onclick="" aria-hidden="true"></i>
