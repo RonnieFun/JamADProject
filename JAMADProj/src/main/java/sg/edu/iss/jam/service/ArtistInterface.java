@@ -1,6 +1,7 @@
 package sg.edu.iss.jam.service;
 import java.util.List;
 
+import sg.edu.iss.jam.model.Category;
 import sg.edu.iss.jam.model.Product;
 import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.model.Subscribed;
@@ -23,6 +24,10 @@ public interface ArtistInterface {
 	void saveProduct(Product product);
 	
 	long getQuantitySold(Long productID);
+
+	Product getProductByID(long productid);
+
+	List<Product> getProductListByArtistIDAndCategory(long artistid, Category category);
 
 }
 

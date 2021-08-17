@@ -14,7 +14,7 @@
         </div>
     </form>
 
-    <a th:href="@{/home}" class="helpIcon btn"><i class="fa fa-question-circle"></i><span class="smallHelpText">Help</span></a>
+   <!--  <a th:href="@{/home}" class="helpIcon btn"><i class="fa fa-question-circle"></i><span class="smallHelpText">Help</span></a> -->
     
 	<button class="addShoppingCartIcon btn"><i class="fa fa-cart-plus"></i></button>
 	<span class='badge' id='cartQuantity'> 50 </span>
@@ -23,54 +23,20 @@
 		<span class="smallProfileNameText" th:text="${artistName}"/>
 	</a>	
  </nav>
- 
- <div class="cartIntroSection">
 
- 	 <img class="smallBanner" th:src="@{/images/samplebanner.jpg}" alt="Artist Profile Small Banner"></img>
- 	 <img class="profileImageIcon2" th:src="${profileUrl}" alt="Artist Profile Photo"/><span class="mediumProfileNameText" th:text="${artistName}"/>
- 	 <!--<span class="lastActiveText">Active 30 minutes ago</span>-->
- 	 
- 	 <div class="aboutShopSection">
- 	 	<span class="aboutShopHeader h6">About Shop</span>
- 	 	<span class="aboutShopFeature1"><i class="fa fa-heart heartIcon"></i>&nbsp;&nbsp;Welcome to my store!</span>
- 	 	<span class="aboutShopFeature2"><i class="fa fa-bullhorn fa-flip-horizontal trumpetIcon "></i>&nbsp;&nbsp;The limited edition of my newest single is available! Get them now!</span>
- 	 	<span class="aboutShopFeature3"><img class="bikiniIcon" th:src="@{/images/bikini.png}"/>&nbsp;&nbsp;Get your summer fashion needs from my clothing line.</span>
- 	 	<span class="aboutShopFeature4"><span class="grinIcon">&#128522;</span>&nbsp;&nbsp;Enjoy shopping!</span>
- 	 </div>
- </div>
- 
- <!-- PRODUCTS ON SALE NAVBAR -->
-    <section class="productsOnSaleSection">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-12 col-md">
-            <!-- Product Categories -->
-            <nav class="navbar spaceEvenly">
-              <a class="nav-link active blackFontText ml-5 h6" data-toggle="tab" href="#">Home</a>
-              <a class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/carthometab/}+${artistId}">All Products</a>
-              <a class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/carthometab/}+${artistId}+@{/MusicCollection}">Music Collection</a>
-              <a class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/carthometab/}+${artistId}+@{/Merchandise}">Merchandise</a>
-              <a class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/carthometab/}+${artistId}+@{/Clothing}">Clothing</a>
-              
-   			  <span style="color:#E56A6A; font-size: 1.4vw; margin-bottom: 10px;">|</span>
-              
-              <div class="dropdown">
-			        <a class="nav-link active blackFontText dropdown-toggle h6" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			          More
-			        </a>
-			        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-				         <li><a class="dropdown-item" href="#">Most Popular</a></li>
-				          <li><a class="dropdown-item" href="#">Highest Price</a></li>
-				          <li><a class="dropdown-item" href="#">Lowest Price</a></li>
-			        </ul>
-			  </div>
-            </nav>
-          	</div>
-          </div>
-        </div>
-  	</section>
+<section class="productsContentSection">
+<div class="row" th:object = ${product}>
+  <div class="column">
+    <img th:src="*{productUrl}" alt="...">
+  </div>
+  <div class="column">
+    <img th:src="*{productUrl}" alt="..." >
+  </div>
+</div>
+</section>
+
 <!-- SELLING CONTENT -->
-    <section class="productsContentSection">
+    <!-- <section class="productsContentSection">
       <div class="container">
         <div class="row col-lg-11 mx-auto">
 	        <div style="margin-bottom: 18px;">
@@ -80,39 +46,39 @@
 			
 			
           <div class="col-6 col-md-3 col-lg-3 mb-5" th:each="product: ${productList}">
-            <!-- Card -->
+            Card
             <div class="card mb-1 h-100">
 
-              <!-- Image -->
-              <a th:href="@{/product/details/}+${product.productID}">
+              Image
+              <a th:href="@{/product/detail/}+${product.productID}">
                 <img th:src="${product.productUrl}" alt="..." class="card-img-top productPhotoSize">
               </a>
 
-              <!-- Collapse -->
+              Collapse
               <div class="card-collapse-parent">
 
-                <!-- Body -->
+                Body
                 <div class="card-body px-0 bg-white">
 
-                  <!-- Heading -->
+                  Heading
                   <div class="mb-1 productHeading h6">
                     <a th:text="${product.productName}"></a>
                   </div>
                   
-                  <!-- Quantity Sold -->
+                  Quantity Sold
                   <div class="quantitySold" th:text="${product.productQty}">
                   </div>
 
-				 <!-- Country Of Origin -->
+				 Country Of Origin
 				 <div class="productCountryOrigin">
 				 	Singapore
 				 </div>
 
-                  <!-- Price -->
+                  Price
                   <div class="mb-1 productPrice h6" th:text="${product.productPrice}">
                   </div>
                   
-                  <!-- Like Button Heart Shape -->
+                  Like Button Heart Shape
 				  <label for="heartLikeButton">
 				    <i class="far fa-heart likeIcon" aria-hidden="true"></i>
 				  </label>
@@ -126,15 +92,14 @@
           
           </div>
         </div>
-    </section>
+    </section> -->
 <div class="footer">
   <p style="margin-top: 3px;">@2020-2021 Jam | Term 2</p>
 </div>
-<div id="divArtistId" th:text="${artistId}" style="display: none;">
 </div>
 </body>
 
-<script>
+<!-- <script>
 function myFunction() {
 	  var artistId = $('#divArtistId').text();
 	  alert(artistId);
@@ -173,5 +138,5 @@ function myFunction() {
 	  
 	  
 	}
-</script> 
+</script>  -->
 </html>

@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import sg.edu.iss.jam.model.Category;
 import sg.edu.iss.jam.model.Product;
 import sg.edu.iss.jam.model.Subscribed;
 import sg.edu.iss.jam.model.User;
@@ -82,5 +83,19 @@ public class ArtistImplementation implements ArtistInterface {
 		else {
 		return odrepo.countbyProductId(productID);
 		}
+	}
+
+
+	@Override
+	public Product getProductByID(long productid) {
+		// TODO Auto-generated method stub
+		return prepo.getById(productid);
+	}
+
+
+	@Override
+	public List<Product> getProductListByArtistIDAndCategory(long artistid, Category category) {
+		// TODO Auto-generated method stub
+		return prepo.getProductListByArtistIDAndCategory(artistid,category);
 	}
 }
