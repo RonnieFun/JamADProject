@@ -1,14 +1,18 @@
 package sg.edu.iss.jam.service;
 
 import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import sg.edu.iss.jam.model.Product;
-import sg.edu.iss.jam.model.User;
-import sg.edu.iss.jam.repo.ProductRepository;
 import sg.edu.iss.jam.model.Subscribed;
+import sg.edu.iss.jam.model.User;
+import sg.edu.iss.jam.repo.OrderDetailsRepository;
+import sg.edu.iss.jam.repo.OrdersRepository;
+import sg.edu.iss.jam.repo.ProductRepository;
 import sg.edu.iss.jam.repo.SubscribedRepository;
 import sg.edu.iss.jam.repo.UserRepository;
 
@@ -20,10 +24,12 @@ public class ArtistImplementation implements ArtistInterface {
 	
 	@Autowired
 	SubscribedRepository subrepo;
-	
 
 	@Autowired
 	ProductRepository prepo;
+	
+	@Autowired
+	OrderDetailsRepository odrepo;
 	
 	@Transactional
 	public User findById(Long userID) {
@@ -61,5 +67,20 @@ public class ArtistImplementation implements ArtistInterface {
 		// TODO Auto-generated method stub
 		return urepo.getById(artistid);
 	}
+	
+	@Transactional
+	public void saveProduct(Product product) {
+		prepo.save(product);
+	}
 
+
+	@Override
+	public long getQuantitySold(Long productID) {
+		if (odrepo.countbyProductId(productID) == null) {
+			return (long) 0;
+		}
+		else {
+		return odrepo.countbyProductId(productID);
+		}
+	}
 }

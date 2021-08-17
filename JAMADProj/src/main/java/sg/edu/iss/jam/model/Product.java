@@ -8,40 +8,43 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Product {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long productID;
-	
+
+	@NotNull (message = "Product name must be filled in.")
 	private String productName;
-	
+
 	private String productDes;
-	
+
+	@NotNull (message = "Product quantity must be filled in.")
 	private int productQty;
-	
+
 	private int productCategory;
-	
+
+	@NotNull (message = "Product price must be filled in.")
 	private double productPrice;
-	
+
 	private String productUrl;
-	
-	//relation with Wishlist
+
+	// relation with Wishlist
 	@ManyToMany
 	private Collection<Wishlist> wishlists;
 	
-	//relation with shoppingCart
+	@OneToMany(mappedBy = "product")
+	private Collection<OrderDetails> orderDetails;
+
+	// relation with shoppingCart
 	@ManyToMany(mappedBy = "products")
 	private Collection<ShoppingCart> shoppingCarts;
-	
-	//ManyToMany relation with orders
-	@ManyToMany
-	private Collection<Orders> orders;
-	
-	//ManyToOne relation with User
+
+	// ManyToOne relation with User
 	@ManyToOne
 	private User productUser;
 
@@ -61,11 +64,8 @@ public class Product {
 		this.productUrl = productUrl;
 		this.wishlists = wishlists;
 		this.shoppingCarts = shoppingCarts;
-		this.orders = orders;
 		this.productUser = productUser;
 	}
-
-
 
 	public Long getProductID() {
 		return productID;
@@ -131,14 +131,6 @@ public class Product {
 		this.shoppingCarts = shoppingCarts;
 	}
 
-	public Collection<Orders> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(Collection<Orders> orders) {
-		this.orders = orders;
-	}
-
 	public User getProductUser() {
 		return productUser;
 	}
@@ -154,6 +146,5 @@ public class Product {
 	public void setProductUrl(String productUrl) {
 		this.productUrl = productUrl;
 	}
-	
 
 }

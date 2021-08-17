@@ -19,6 +19,10 @@ public interface ArtistInterface {
 	List<Product> getProductListByArtistID(long userID);
 
 	User getArtistByID(long artistid);
+	
+	void saveProduct(Product product);
+	
+	long getQuantitySold(Long productID);
 
 }
 
