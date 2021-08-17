@@ -79,7 +79,7 @@ public class MediaController {
 		model.addAttribute("allMedia", uservice.findAllMedia());
 		model.addAttribute("comments", uservice.findCommentsByMediaId(2L));
 		model.addAttribute("tags", uservice.findTagsByMediaId(2L));
-		
+	    
 		boolean liked = false;
 		
 		Media selectedMedia = uservice.findMediaByMediaId(2L);
@@ -106,8 +106,7 @@ public class MediaController {
 		User jayChou = aservice.findById(artistId);
 		String artistName = jayChou.getFirstName() + " " + jayChou.getLastName();
 					
-		boolean subscribeStatus = false;
-					
+		boolean subscribeStatus = false;				
 					
 		for(Subscribed s: customer.getSubscribers()) {
 			// if the customer already subscribed the artist, it shows true
@@ -205,7 +204,7 @@ public class MediaController {
 		if (artist == null || customer == null || customerId == artistId) {
 			return "userwatchvideo";
 		}
-			
+	
 		// for artist, add the customer to the subscribed collection
 		Collection<Subscribed> customers_subscribed_me = new HashSet<Subscribed>();
 		Subscribed customer_subscribed_me = new Subscribed();
@@ -221,7 +220,6 @@ public class MediaController {
 		artist_I_subscribed.setUser(customer);	
 		artists_I_subscribed.add(artist_I_subscribed);
 		customer.setSubscribers(artists_I_subscribed);
-		
 		
 		aservice.saveUser(artist);
 		aservice.saveSubscribed(customer_subscribed_me);
@@ -279,10 +277,8 @@ public class MediaController {
 		User commentUser = uservice.findUserByUserId(commentUserId);
 		Media commentedMedia = uservice.findMediaByMediaId(commentMediaId);
 		List<Comments> existingUserComments = uservice.findCommentsByMediaId(commentMediaId);
-		
+		 
 		//Add new Comment to existing user's comments
-		
-	
 		
 		Comments newComment = new Comments(commentDateTime, submittedComment, commentedMedia, commentUser);
 		

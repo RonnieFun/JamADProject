@@ -103,22 +103,22 @@ public class JamadProjApplication {
 			Media jaychouvideo = new Media(MediaType.Video, "http://localhost:8080/videos/android_screens_.mkv", "You've Got a Very Good Friend. Be Happy and Stay Safe! :) Have Fun!", "10:00", "21 July, 2002", "published", 
 					"http://localhost:8080/images/brucelee.PNG", 0, userHistory, maxComments, videoChannel, maxPlaylists, maxTags);
 			
-			Media bruceleevideo = new Media(MediaType.Video, "http://localhost:8080/videos/bigbuckbunny.mp4", "Bruce Lee's Video - Best Kungfu", "10:00", "21 July, 2002", "published", 
+			Media bruceleevideo = new Media(MediaType.Video, "http://localhost:8080/videos/bigbuckbunny.mp4", "Bruce Lee's Video - Best Kungfu", "12:00", "21 July, 2002", "published", 
 					"http://localhost:8080/images/pinkhat.png", 0, userHistory, maxComments, videoChannel, maxPlaylists, maxTags);
 			
-			Media jjlinvideo = new Media(MediaType.Video, "http://localhost:8080/videos/jazz_in_paris.mp3", "JJ Lin's best video in the world", "10:00", "21 July, 2002", "published", 
+			Media jjlinvideo = new Media(MediaType.Video, "http://localhost:8080/videos/jazz_in_paris.mp3", "JJ Lin's best video in the world", "13:00", "21 July, 2002", "published", 
 					"http://localhost:8080/images/pinksneaker.jpg", 0, userHistory, maxComments, videoChannel, maxPlaylists, maxTags);
 			
-			Media monsterhuntervideo = new Media(MediaType.Video, "http://localhost:8080/videos/samplevideo.mp4", "Monsters in the wild! Hide fast and run fast!", "10:00", "21 July, 2002", "published", 
+			Media monsterhuntervideo = new Media(MediaType.Video, "http://localhost:8080/videos/samplevideo.mp4", "Monsters in the wild! Hide fast and run fast!", "14:00", "21 July, 2002", "published", 
 					"http://localhost:8080/images/kpopalbum.png", 0, userHistory, maxComments, videoChannel, maxPlaylists, maxTags);
 			
-			Media wwevideo = new Media(MediaType.Video, "http://localhost:8080/videos/bigbuckbunny.mp4", "WWE Video", "10:00", "21 July, 2002", "published", 
+			Media wwevideo = new Media(MediaType.Video, "http://localhost:8080/videos/bigbuckbunny.mp4", "WWE Video", "15:00", "21 July, 2002", "published", 
 					"http://localhost:8080/images/pinkdress.jpg", 0, userHistory, maxComments, videoChannel, maxPlaylists, maxTags);
 			
-			Media maxvideo = new Media(MediaType.Video, "http://localhost:8080/videos/android_screens_.mkv", "Max's Personal Music Video - Come Support Me Bro", "10:00", "21 July, 2002", "published", 
+			Media maxvideo = new Media(MediaType.Video, "http://localhost:8080/videos/android_screens_.mkv", "Max's Personal Music Video - Come Support Me Bro", "16:00", "21 July, 2002", "published", 
 					"http://localhost:8080/images/pinkhat.png", 0, userHistory, maxComments, videoChannel, maxPlaylists, maxTags);
 			
-			Media dinovideo = new Media(MediaType.Video, "http://localhost:8080/videos/android_screens_.mkv", "Dino Video Dino Video Dino's Video! Woohoo! Dino Dino Dino Dino Dino :D Dino", "10:00", "21 July, 2002", "published", 
+			Media dinovideo = new Media(MediaType.Video, "http://localhost:8080/videos/android_screens_.mkv", "Dino Video Dino Video Dino's Video! Woohoo! Dino Dino Dino Dino Dino :D Dino", "17:00", "21 July, 2002", "published", 
 					"http://localhost:8080/images/estelle.PNG", 0, userHistory, maxComments, videoChannel, maxPlaylists, maxTags);
 			
 			mediarepo.save(jaychouvideo);
