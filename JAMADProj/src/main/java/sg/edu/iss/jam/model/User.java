@@ -45,7 +45,7 @@ public class User {
 	private Collection<Sessions> sessions;
 	
 	//ManyToMany relation with Orders
-	@ManyToMany
+	@OneToMany(mappedBy = "user")
 	private Collection<Orders> orders;
 	
 	//oneToOne relation with wishlist
