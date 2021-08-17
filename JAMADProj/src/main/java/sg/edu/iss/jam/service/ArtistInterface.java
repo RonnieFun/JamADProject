@@ -1,5 +1,6 @@
 package sg.edu.iss.jam.service;
 
+import sg.edu.iss.jam.model.Channel;
 import sg.edu.iss.jam.model.Subscribed;
 import sg.edu.iss.jam.model.User;
 
@@ -12,6 +13,8 @@ public interface ArtistInterface {
 	Subscribed saveSubscribed(Subscribed subscribed);
 
 	void deleteSubscribed(Subscribed s);
+	
+	Channel saveChannel(Channel channel);
 
 }
 

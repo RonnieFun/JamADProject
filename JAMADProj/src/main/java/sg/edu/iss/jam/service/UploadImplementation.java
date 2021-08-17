@@ -29,7 +29,7 @@ public class UploadImplementation implements UploadInterface {
 
 	@Autowired
 	public UploadImplementation() {
-		this.fileStorageLocation = Paths.get("src\\main\\resources\\static\\media\\video");
+		this.fileStorageLocation = Paths.get("src\\main\\resources\\static\\media");
 	}
 
 	@Override
@@ -44,12 +44,16 @@ public class UploadImplementation implements UploadInterface {
 	@Override
 	public void store(MultipartFile file, String Mediatype) {
 
-//		if (Mediatype == "Audio") {
-//			this.fileStorageLocation= Paths.get(fileStorageLocation.toString(),"Audio");
-//		} else if (Mediatype == "Video") {
-//			this.fileStorageLocation= Paths.get(fileStorageLocation.toString(),"Video");
-
-//		}
+		if (Mediatype == "Audio") {
+			this.fileStorageLocation= Paths.get(fileStorageLocation.toString(),"\\Audio");
+		} else if (Mediatype == "Video") {
+			this.fileStorageLocation= Paths.get(fileStorageLocation.toString(),"\\Videos");
+		} else if (Mediatype =="thumbnail") {
+			this.fileStorageLocation= Paths.get(fileStorageLocation.toString(),"\\Thumbnail");
+		}
+		
+		
+		
 		System.out.println(this.fileStorageLocation);
 		try {
 			if (file.isEmpty()) {

@@ -5,8 +5,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import sg.edu.iss.jam.model.Channel;
 import sg.edu.iss.jam.model.Subscribed;
 import sg.edu.iss.jam.model.User;
+import sg.edu.iss.jam.repo.ChannelRepository;
 import sg.edu.iss.jam.repo.SubscribedRepository;
 import sg.edu.iss.jam.repo.UserRepository;
 
@@ -18,6 +20,9 @@ public class ArtistImplementation implements ArtistInterface {
 	
 	@Autowired
 	SubscribedRepository subrepo;
+	
+	@Autowired
+	ChannelRepository channelrepo;
 	
 	@Transactional
 	public User findById(Long userID) {
@@ -44,5 +49,14 @@ public class ArtistImplementation implements ArtistInterface {
 	public void deleteSubscribed(Subscribed s) {
 		subrepo.delete(s);
 	}
+
+
+	@Override
+	@Transactional
+	public Channel saveChannel(Channel channel) {
+		return channelrepo.save(channel);
+	}
+	
+
 
 }
