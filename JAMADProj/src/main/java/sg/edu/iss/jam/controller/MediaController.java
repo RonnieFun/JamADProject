@@ -108,7 +108,7 @@ public class MediaController {
 					
 		boolean subscribeStatus = false;
 					
-				
+					
 		for(Subscribed s: customer.getSubscribers()) {
 			// if the customer already subscribed the artist, it shows true
 			if (s.getTargetId() == artistId) {
@@ -122,7 +122,6 @@ public class MediaController {
 		return "userwatchvideo";
 	}
 	
-	//For Partial Page Reload in Comments Section when user clicks Submit Comments button
 	@GetMapping("/aftersubmitcomment")
 	public String afterSubmitComment(Model model) {
 
@@ -204,7 +203,7 @@ public class MediaController {
 		User artist = aservice.findById(artistId);
 		
 		if (artist == null || customer == null || customerId == artistId) {
-			return "redirect:/watchvideo";
+			return "userwatchvideo";
 		}
 			
 		// for artist, add the customer to the subscribed collection
@@ -230,7 +229,7 @@ public class MediaController {
 		uservice.saveUser(customer);
 		uservice.saveSubscribed(artist_I_subscribed);
 		
-		return "redirect:/watchvideo";
+		return "userwatchvideo";
 	
 	}
 	
@@ -245,7 +244,7 @@ public class MediaController {
 		User artist = aservice.findById(artistId);
 		
 		if (artist == null || customer == null || customerId == artistId) {
-			return "redirect:/watchvideo";
+			return "userwatchvideo";
 		}
 		
 		// for artist, remove the customer from subscribed collection
@@ -263,9 +262,8 @@ public class MediaController {
 				uservice.deleteSubscribed(s);
 			}
 		}		
-		return "redirect:/watchvideo";				
+		return "userwatchvideo";				
 	}
-	
 	
 	//ajax call for submit comments
 	@PostMapping("/submitComments")
