@@ -39,8 +39,8 @@ public class Media {
 	
 	//relation with channel
 	@ManyToOne
-	private Channel mediaList;
-	
+	private Channel channel;
+
 	//relation with playlists
 	@ManyToMany(mappedBy = "mediaPlayList")
 	private Collection<Playlists> playLists;
@@ -52,10 +52,10 @@ public class Media {
 	public Media() {
 		super();
 	}
-
+	
 	public Media(MediaType mediaType, String mediaUrl, String title, String duration, String createdOn,
 			String publishStatus, String thumbnailUrl, Collection<UserHistory> userHistories,
-			Collection<Comments> commentList, Channel mediaList, Collection<Playlists> playLists,
+			Collection<Comments> commentList, Channel channel, Collection<Playlists> playLists,
 			Collection<Tag> tagList) {
 		super();
 		this.mediaType = mediaType;
@@ -67,7 +67,7 @@ public class Media {
 		this.thumbnailUrl = thumbnailUrl;
 		this.userHistories = userHistories;
 		this.commentList = commentList;
-		this.mediaList = mediaList;
+		this.channel = channel;
 		this.playLists = playLists;
 		this.tagList = tagList;
 	}
@@ -151,13 +151,13 @@ public class Media {
 	public void setCommentList(Collection<Comments> commentList) {
 		this.commentList = commentList;
 	}
-	
-	public Channel getMediaList() {
-		return mediaList;
+
+	public Channel getChannel() {
+		return channel;
 	}
 
-	public void setMediaList(Channel mediaList) {
-		this.mediaList = mediaList;
+	public void setChannel(Channel channel) {
+		this.channel = channel;
 	}
 
 	public Collection<Playlists> getPlayLists() {

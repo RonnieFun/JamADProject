@@ -25,6 +25,7 @@ import sg.edu.iss.jam.model.Playlists;
 import sg.edu.iss.jam.model.Role;
 import sg.edu.iss.jam.model.Roles;
 import sg.edu.iss.jam.model.User;
+
 import sg.edu.iss.jam.repo.ChannelRepository;
 import sg.edu.iss.jam.repo.CommentsRepository;
 import sg.edu.iss.jam.repo.MediaRepository;
@@ -32,6 +33,11 @@ import sg.edu.iss.jam.repo.PlaylistsRepository;
 import sg.edu.iss.jam.repo.RolesRepository;
 import sg.edu.iss.jam.repo.TagRepository;
 import sg.edu.iss.jam.repo.UserHistoryRepository;
+
+import sg.edu.iss.jam.repo.OrderDetailsRepository;
+import sg.edu.iss.jam.repo.ProductRepository;
+import sg.edu.iss.jam.repo.RolesRepository;
+
 import sg.edu.iss.jam.repo.UserRepository;
 
 @SpringBootApplication
@@ -61,23 +67,30 @@ public class JamadProjApplication {
 	@Autowired
 	UserHistoryRepository uhrepo;
 	
+	@Autowired
+	RolesRepository rrepo;
+
+	@Autowired
+	ProductRepository prepo;
+
+	@Autowired
+	OrderDetailsRepository odrepo;
+
 	public static void main(String[] args) {
 		SpringApplication.run(JamadProjApplication.class, args);
 	}
 
 	@Bean
 	CommandLineRunner runner() {
-		
+
 		return args -> {
 			
 			// ZQ's dummy data
 			Roles Artist = new Roles(Role.Artist);
 			Roles Customer = new Roles(Role.Customer);
 			Roles ServiceProvider = new Roles(Role.ServiceProvider);
-			
+
 			rolesrepo.save(Artist);
-			rolesrepo.save(Customer);
-			rolesrepo.save(ServiceProvider);
 			
 			List<Roles> maxRoles = new ArrayList<>();
 			
@@ -159,11 +172,11 @@ public class JamadProjApplication {
 			List<Roles> jayChouRoles = new ArrayList<>();
 			jayChouRoles.add(Artist);
 			User jayChou = new User("Jay", "Chou", "jaychou@gmail.com", "abcdefg", "21 June 1990", "MaxChen87", "Hello I am JayChou, I am an Artist", "www.jaychou.com", jayChouRoles);
-			
+
 			List<Roles> qiZhaoRoles = new ArrayList<>();
 			qiZhaoRoles.add(Customer);
 		    User zhaoQi = new User("Qi", "Zhao", "qizhao@gmail.com", "abcdefg", "20 August 1998", "QiZhao98", "Hello I am Qi Zhao, I am a customer", "www.qizhao.com", qiZhaoRoles);
-		    
+
 		    urepo.save(jayChou);
 		    urepo.save(zhaoQi);
 			
@@ -192,7 +205,23 @@ public class JamadProjApplication {
 		    uhrepo.save(userHistory2);
 		    uhrepo.save(userHistory3);
 		    uhrepo.save(userHistory4);
+		    
+//set order details for testing			
+//			OrderDetails od1 = new OrderDetails();
+//			od1.setProduct(prepo.getById((long) 1));
+//			od1.setQuantity(3);
+//			OrderDetails od2 = new OrderDetails();
+//			od1.setProduct(prepo.getById((long) 1));
+//			od1.setQuantity(4);
+//			OrderDetails od3 = new OrderDetails();
+//			od1.setProduct(prepo.getById((long) 1));
+//			od1.setQuantity(2);
+//
+//			odrepo.save(od1);
+//			odrepo.save(od2);
+//			odrepo.save(od3);
+
 		};
 	}
-	
+
 }

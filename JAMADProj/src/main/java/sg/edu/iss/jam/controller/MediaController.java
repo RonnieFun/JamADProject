@@ -46,12 +46,12 @@ public class MediaController {
 		return "signup2";
 	}
 	
-	@GetMapping("/carthometab")
+	@GetMapping("/carthometab2")
 	public String shoppingCartHome(Model model) {
 		return "carthometab";
 	}
 	
-	@GetMapping("/cartothertab")
+	@GetMapping("/cartothertab2")
 	public String shoppingCartOther(Model model) {
 		return "cartothertab";
 	}
