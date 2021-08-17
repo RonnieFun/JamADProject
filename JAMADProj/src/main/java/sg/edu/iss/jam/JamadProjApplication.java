@@ -1,5 +1,8 @@
 package sg.edu.iss.jam;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -7,7 +10,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import sg.edu.iss.jam.model.Max;
-import sg.edu.iss.jam.model.OrderDetails;
+import sg.edu.iss.jam.model.Role;
+import sg.edu.iss.jam.model.Roles;
+import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.repo.MaxRepository;
 import sg.edu.iss.jam.repo.OrderDetailsRepository;
 import sg.edu.iss.jam.repo.ProductRepository;
@@ -90,6 +95,23 @@ public class JamadProjApplication {
 //			testrepo.save(signup7);
 //			testrepo.save(signup8);
 //			testrepo.save(signup9);
+			
+			// ZQ's dummy data
+			Roles Artist = new Roles(Role.Artist);
+			Roles Customer = new Roles(Role.Customer);
+			Roles ServiceProvider = new Roles(Role.ServiceProvider);
+
+			List<Roles> jayChouRoles = new ArrayList<>();
+			jayChouRoles.add(Artist);
+			User jayChou = new User("Jay", "Chou", "jaychou@gmail.com", "abcdefg", "21 June 1990", "MaxChen87", "Hello I am JayChou, I am an Artist", "www.jaychou.com", jayChouRoles);
+
+			List<Roles> qiZhaoRoles = new ArrayList<>();
+			qiZhaoRoles.add(Customer);
+		    User zhaoQi = new User("Qi", "Zhao", "qizhao@gmail.com", "abcdefg", "20 August 1998", "QiZhao98", "Hello I am Qi Zhao, I am a customer", "www.qizhao.com", qiZhaoRoles);
+
+
+		    urepo.save(jayChou);
+		    urepo.save(zhaoQi);
 
 			Max signup9 = new Max(9L, "Bruce Lee", "3 Years Ago",
 					"Thank you everyone for supporting me! I will continue to work hard "
