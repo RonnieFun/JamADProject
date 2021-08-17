@@ -26,6 +26,7 @@ public class Channel {
 	private String createdOn;
 	
 	//ManyToMany relation with media
+
 	@OneToMany(mappedBy = "channel")
 	private Collection<Media> channelMediaList;
 	

@@ -373,6 +373,16 @@ body {
 	border: 1px solid red;
 }
 
+.jamHeaderUser2{
+	background-color: white;
+	font-family: 'Roboto', sans-serif;
+	top:2%;
+	overflow:hidden;
+	width: 100%;
+	height: 115px;
+	position:absolute;
+}
+
 .loginUsernameLabel{
 	color: rgba(255, 255, 255, 1);
 	font-family: 'Roboto', sans-serif;
@@ -1011,6 +1021,15 @@ body {
 	cursor: pointer;
 	margin-left: 92.5%;
 	margin-top: -6%;
+	color: LightPink;
+	position: absolute;
+	font-size: 2rem;
+}
+
+.userPageHeartIconLiked{
+	cursor: pointer;
+	margin-left: 92.5%;
+	margin-top: -6%;
 	color: #ff4d4d;
 	position: absolute;
 	font-size: 2rem;
@@ -1048,6 +1067,29 @@ body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 1.1vw;
 	margin-top: -5%;
+}
+
+.playlistFormPopup{
+	display: none;
+	background-color: rgba(242.24999696016312, 233.16562682390213, 233.16562682390213, 1);
+	position: absolute;
+	left: 45%;
+	margin-top: -5%;
+	z-index:9;
+	border: 1px solid black;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.8vw;
+	padding: 10px 15px;
+	border-radius: 56px;
+}
+
+.saveToPlaylistButton{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.8vw;
+	background-color: rgba(239.0625, 104.58984375, 104.58984375, 0.7200000286102295);
+	padding: 3px 3%;
+	margin-left: 3%;
+	margin-top: 3%;
 }
 
 .userSubscribeBtn{
@@ -1170,19 +1212,13 @@ body {
 	position: absolute;
 	margin-left: 15%;
 	margin-top: -10%;
-	display: flex;
+	display: block;
     flex-direction: row;
     font-size: 1vw;
 	font-family: 'Roboto', sans-serif;
 }
 
 .smallVidAuthor{
-	width: 15%;
-	position: absolute;
-	display: flex;
-  	margin-left: 15%;
-  	margin-bottom: 30px;
-  	margin-top: -5%;
   	font-size: 0.9vw;
 	font-family: 'Roboto', sans-serif;
 	color: Gray;
@@ -1296,6 +1332,15 @@ body {
 }
 
 .userPageHeartIcon{
+	cursor: pointer;
+	margin-left: 92.5%;
+	margin-top: -6%;
+	color: LightPink;
+	position: absolute;
+	font-size: 2rem;
+}
+
+.userPageHeartIconLiked{
 	cursor: pointer;
 	margin-left: 92.5%;
 	margin-top: -6%;
@@ -1458,19 +1503,13 @@ body {
 	position: absolute;
 	margin-left: 15%;
 	margin-top: -12%;
-	display: flex;
+	display: block;
     flex-direction: row;
     font-size: 1vw;
 	font-family: 'Roboto', sans-serif;
 }
 
 .smallVidAuthor{
-	width: 15%;
-	position: absolute;
-	display: flex;
-  	margin-left: 15%;
-  	margin-bottom: 30px;
-  	margin-top: -7%;
   	font-size: 0.9vw;
 	font-family: 'Roboto', sans-serif;
 	color: Gray;
@@ -1583,10 +1622,19 @@ body {
 }
 
 .userPageHeartIcon{
-	color: #ff4d4d;
+	color: LightPink;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPageHeartIconLiked{
+	cursor: pointer;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	color: #ff4d4d;
+	position: absolute;
 	font-size: 2rem;
 }
 
@@ -1750,20 +1798,16 @@ body {
 	position: absolute;
 	margin-left: 15%;
 	margin-top: -11.9%;
-	display: flex;
+	display: block;
     flex-direction: row;
     font-size: 1vw;
 	font-family: 'Roboto', sans-serif;
 }
 
 .smallVidAuthor{
-	position: absolute;
-	display: flex;
-  	margin-left: 15%;
-  	margin-bottom: 30px;
-  	margin-top: -6.5%;
   	font-size: 0.95vw;
 	font-family: 'Roboto', sans-serif;
+	color: Gray;
 }
 }
 
@@ -1859,10 +1903,19 @@ body {
 }
 
 .userPageHeartIcon{
-	color: #ff4d4d;
+	color: LightPink;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPageHeartIconLiked{
+	cursor: pointer;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	color: #ff4d4d;
+	position: absolute;
 	font-size: 2rem;
 }
 
@@ -2026,20 +2079,16 @@ body {
 	position: absolute;
 	margin-left: 15%;
 	margin-top: -11%;
-	display: flex;
+	display: block;
     flex-direction: row;
     font-size: 1vw;
 	font-family: 'Roboto', sans-serif;
 }
 
 .smallVidAuthor{
-	position: absolute;
-	display: flex;
-  	margin-left: 15%;
-  	margin-bottom: 30px;
-  	margin-top: -6%;
   	font-size: 0.95vw;
 	font-family: 'Roboto', sans-serif;
+	color: Gray;
 }
 }
 
@@ -2135,10 +2184,19 @@ body {
 }
 
 .userPageHeartIcon{
-	color: #ff4d4d;
+	color: LightPink;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPageHeartIconLiked{
+	cursor: pointer;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	color: #ff4d4d;
+	position: absolute;
 	font-size: 2rem;
 }
 
@@ -2302,20 +2360,16 @@ body {
 	position: absolute;
 	margin-left: 15%;
 	margin-top: -10.5%;
-	display: flex;
+	display: block;
     flex-direction: row;
     font-size: 1vw;
 	font-family: 'Roboto', sans-serif;
 }
 
 .smallVidAuthor{
-	position: absolute;
-	display: flex;
-  	margin-left: 15%;
-  	margin-bottom: 30px;
-  	margin-top: -5.5%;
   	font-size: 0.95vw;
 	font-family: 'Roboto', sans-serif;
+	color: Gray;
 }
 }
 
@@ -2411,10 +2465,19 @@ body {
 }
 
 .userPageHeartIcon{
-	color: #ff4d4d;
+	color: LightPink;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPageHeartIconLiked{
+	cursor: pointer;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	color: #ff4d4d;
+	position: absolute;
 	font-size: 2rem;
 }
 
@@ -2578,20 +2641,16 @@ body {
 	position: absolute;
 	margin-left: 15%;
 	margin-top: -9.7%;
-	display: flex;
+	display: block;
     flex-direction: row;
     font-size: 1vw;
 	font-family: 'Roboto', sans-serif;
 }
 
 .smallVidAuthor{
-	position: absolute;
-	display: flex;
-  	margin-left: 15%;
-  	margin-bottom: 30px;
-  	margin-top: -5%;
   	font-size: 0.95vw;
 	font-family: 'Roboto', sans-serif;
+	color: Gray;
 }
 }
 
@@ -2687,10 +2746,19 @@ body {
 }
 
 .userPageHeartIcon{
-	color: #ff4d4d;
+	color: LightPink;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPageHeartIconLiked{
+	cursor: pointer;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	color: #ff4d4d;
+	position: absolute;
 	font-size: 2rem;
 }
 
@@ -2854,20 +2922,16 @@ body {
 	position: absolute;
 	margin-left: 15%;
 	margin-top: -9.4%;
-	display: flex;
+	display: block;
     flex-direction: row;
     font-size: 1vw;
 	font-family: 'Roboto', sans-serif;
 }
 
 .smallVidAuthor{
-	position: absolute;
-	display: flex;
-  	margin-left: 15%;
-  	margin-bottom: 30px;
-  	margin-top: -4.7%;
   	font-size: 0.95vw;
 	font-family: 'Roboto', sans-serif;
+	color: Gray;
 }
 }
 
@@ -2963,10 +3027,19 @@ body {
 }
 
 .userPageHeartIcon{
-	color: #ff4d4d;
+	color: LightPink;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPageHeartIconLiked{
+	cursor: pointer;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	color: #ff4d4d;
+	position: absolute;
 	font-size: 2rem;
 }
 
@@ -3130,20 +3203,16 @@ body {
 	position: absolute;
 	margin-left: 15%;
 	margin-top: -8.7%;
-	display: flex;
+	display: block;
     flex-direction: row;
     font-size: 1vw;
 	font-family: 'Roboto', sans-serif;
 }
 
 .smallVidAuthor{
-	position: absolute;
-	display: flex;
-  	margin-left: 15%;
-  	margin-bottom: 30px;
-  	margin-top: -4%;
   	font-size: 0.95vw;
 	font-family: 'Roboto', sans-serif;
+	color: Gray;
 }
 }
 
@@ -3240,10 +3309,19 @@ body {
 }
 
 .userPageHeartIcon{
-	color: #ff4d4d;
+	color: LightPink;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPageHeartIconLiked{
+	cursor: pointer;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	color: #ff4d4d;
+	position: absolute;
 	font-size: 2rem;
 }
 
@@ -3407,20 +3485,16 @@ body {
 	position: absolute;
 	margin-left: 15%;
 	margin-top: -8.7%;
-	display: flex;
+	display: block;
     flex-direction: row;
     font-size: 1vw;
 	font-family: 'Roboto', sans-serif;
 }
 
 .smallVidAuthor{
-	position: absolute;
-	display: flex;
-  	margin-left: 15%;
-  	margin-bottom: 30px;
-  	margin-top: -4%;
   	font-size: 0.95vw;
 	font-family: 'Roboto', sans-serif;
+	color: Gray;
 }
 }
 
@@ -3517,10 +3591,19 @@ body {
 }
 
 .userPageHeartIcon{
-	color: #ff4d4d;
+	color: LightPink;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPageHeartIconLiked{
+	cursor: pointer;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	color: #ff4d4d;
+	position: absolute;
 	font-size: 2rem;
 }
 
@@ -3684,20 +3767,16 @@ body {
 	position: absolute;
 	margin-left: 15%;
 	margin-top: -8%;
-	display: flex;
+	display: block;
     flex-direction: row;
     font-size: 1vw;
 	font-family: 'Roboto', sans-serif;
 }
 
 .smallVidAuthor{
-	position: absolute;
-	display: flex;
-  	margin-left: 15%;
-  	margin-bottom: 30px;
-  	margin-top: -3%;
   	font-size: 0.95vw;
 	font-family: 'Roboto', sans-serif;
+	color: Gray;
 }
 }
 

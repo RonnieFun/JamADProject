@@ -17,11 +17,25 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
   src="https://code.jquery.com/jquery-3.6.0.js"
   integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
   crossorigin="anonymous"></script>
-
-
 </head>
 
 <body>
+
+ <nav th:fragment="watchVideosNavBar" class="navbar jamHeaderUser">
+ 	<img th:src="@{/images/JAM_LOGO.png}" class="logo3">
+ 	<form class="navbar-form form-inline" th:action="@{/home/searchresults}" method="post">
+        <div class="input-group userPageSearchBox">
+             <input type="text" id="search" name ="searchTerm" class="form-control" placeholder="Search">   
+        </div>
+        <button type="submit" value="Search" class="userPageSearchButton"><i class="material-icons">&#xE8B6;</i></button>
+    </form>	
+   
+    <img th:src="@{/images/brucelee.PNG}" class="userPageProfilePhoto" alt="User's Profile Photo">
+ </nav>
+
+<div th:fragment="footer" class="footer">
+  <p style="margin-top: 3px;">@2020-2021 Jam | Term 2</p>
+</div>
 
 </body>
 </html>

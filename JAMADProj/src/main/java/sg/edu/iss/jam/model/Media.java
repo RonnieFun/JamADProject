@@ -28,11 +28,10 @@ public class Media {
 	private String publishStatus;
 	
 	private String thumbnailUrl;
-	
+
 	//relation with userhistory
 	@ManyToMany(mappedBy = "mediaHistoryList")
 	private Collection<UserHistory> userHistories;
-	
 	
 	//relation with comment
 	@OneToMany(mappedBy = "mediaComment")
@@ -41,7 +40,7 @@ public class Media {
 	//relation with channel
 	@ManyToOne
 	private Channel channel;
-	
+
 	//relation with playlists
 	@ManyToMany(mappedBy = "mediaPlayList")
 	private Collection<Playlists> playLists;
@@ -72,7 +71,6 @@ public class Media {
 		this.playLists = playLists;
 		this.tagList = tagList;
 	}
-
 
 	public Long getId() {
 		return id;

@@ -84,11 +84,9 @@ public class User {
 	@OneToMany(mappedBy = "commentUser")
 	private Collection<Comments> comments;
 
-
 	public User() {
 		super();
 	}
-
 
 	public User(String firstName, String lastName, String email, String password, String dateOfBath, String displayName,
 			String about, String profileUrl, Collection<Roles> roles) {
@@ -103,7 +101,6 @@ public class User {
 		this.profileUrl = profileUrl;
 		this.roles = roles;
 	}
-
 
 	public Long getUserID() {
 		return userID;
