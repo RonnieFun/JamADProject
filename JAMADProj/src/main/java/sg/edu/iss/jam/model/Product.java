@@ -43,9 +43,9 @@ public class Product {
 	@OneToMany(mappedBy = "product")
 	private Collection<OrderDetails> orderDetails;
 
-	// relation with shoppingCart
-	@ManyToMany(mappedBy = "products")
-	private Collection<ShoppingCart> shoppingCarts;
+	// relation with cartDetails
+	@OneToMany(mappedBy = "product")
+	private Collection<ShoppingCartDetails> shoppingCartDetails;
 
 	// ManyToOne relation with User
 	@ManyToOne
@@ -54,14 +54,12 @@ public class Product {
 	public Product() {
 		super();
 	}
-
 	
-
 	public Product(@NotNull(message = "Product name must be filled in.") String productName, String productDes,
 			@NotNull(message = "Product quantity must be filled in.") int productQty, Category productCategory,
 			@NotNull(message = "Product price must be filled in.") double productPrice, String productUrl,
 			Collection<Wishlist> wishlists, Collection<OrderDetails> orderDetails,
-			Collection<ShoppingCart> shoppingCarts, User productUser) {
+			Collection<ShoppingCartDetails> shoppingCartDetails, User productUser) {
 		super();
 		this.productName = productName;
 		this.productDes = productDes;
@@ -71,9 +69,11 @@ public class Product {
 		this.productUrl = productUrl;
 		this.wishlists = wishlists;
 		this.orderDetails = orderDetails;
-		this.shoppingCarts = shoppingCarts;
+		this.shoppingCartDetails = shoppingCartDetails;
 		this.productUser = productUser;
 	}
+
+
 
 
 
@@ -150,12 +150,12 @@ public class Product {
 		this.wishlists = wishlists;
 	}
 
-	public Collection<ShoppingCart> getShoppingCarts() {
-		return shoppingCarts;
+	public Collection<ShoppingCartDetails> getShoppingCartDetails() {
+		return shoppingCartDetails;
 	}
 
-	public void setShoppingCarts(Collection<ShoppingCart> shoppingCarts) {
-		this.shoppingCarts = shoppingCarts;
+	public void setShoppingCartDetails(Collection<ShoppingCartDetails> shoppingCartDetails) {
+		this.shoppingCartDetails = shoppingCartDetails;
 	}
 
 	public User getProductUser() {

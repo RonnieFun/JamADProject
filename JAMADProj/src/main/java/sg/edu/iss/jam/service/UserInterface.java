@@ -7,12 +7,13 @@ import org.springframework.data.jpa.repository.Query;
 import sg.edu.iss.jam.model.Comments;
 import sg.edu.iss.jam.model.Media;
 import sg.edu.iss.jam.model.Playlists;
-
+import sg.edu.iss.jam.model.Product;
 import sg.edu.iss.jam.model.Playlists;
 import sg.edu.iss.jam.model.Subscribed;
 import sg.edu.iss.jam.model.Tag;
 import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.model.UserHistory;
+import sg.edu.iss.jam.model.ShoppingCart;
 
 public interface UserInterface {
 
@@ -46,6 +47,8 @@ public interface UserInterface {
 	
 	//USER HISTORY
 	List<UserHistory> findUserHistoryByMediaId(Long id);
+	
+	ShoppingCart getShoppingCartByUserID(long userID);
 
 }
 

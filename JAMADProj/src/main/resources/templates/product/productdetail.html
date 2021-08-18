@@ -23,79 +23,202 @@
 		<span class="smallProfileNameText" th:text="${artistName}"/>
 	</a>	
  </nav>
+ 
+ <div class="container-fluid px-xl-0">
+            <div class="row align-items-center mx-xl-0">
+              <div class="col-12 col-lg-6 col-xl-5 py-4 py-xl-0 px-xl-0">
 
-<section class="productsContentSection">
-<div class="row" th:object = ${product}>
-  <div class="column">
-    <img th:src="*{productUrl}" alt="...">
-  </div>
-  <div class="column">
-    <img th:src="*{productUrl}" alt="..." >
-  </div>
-</div>
-</section>
+                <!-- Image -->
+                <img class="img-fluid" src="./assets/img/products/product-7.jpg" alt="...">
 
-<!-- SELLING CONTENT -->
-    <!-- <section class="productsContentSection">
-      <div class="container">
-        <div class="row col-lg-11 mx-auto">
-	        <div style="margin-bottom: 18px;">
-				<span class="pt-0 mt-0 pb-2 trendingText">Trending</span>
-				<a th:onclick="myFunction();" class="seeAllProductsLink">See all ></a>
-			</div>
-			
-			
-          <div class="col-6 col-md-3 col-lg-3 mb-5" th:each="product: ${productList}">
-            Card
-            <div class="card mb-1 h-100">
+                <!-- Button -->
+                <a class="btn btn-sm btn-block btn-primary" href="./product.html">
+                  More Product Info <i class="fe fe-info ml-2"></i>
+                </a>
 
-              Image
-              <a th:href="@{/product/detail/}+${product.productID}">
-                <img th:src="${product.productUrl}" alt="..." class="card-img-top productPhotoSize">
-              </a>
+              </div>
+              <div class="col-12 col-lg-6 col-xl-7 py-9 px-md-9">
 
-              Collapse
-              <div class="card-collapse-parent">
+                <!-- Heading -->
+                <h4 class="mb-3">Leather Sneakers</h4>
 
-                Body
-                <div class="card-body px-0 bg-white">
-
-                  Heading
-                  <div class="mb-1 productHeading h6">
-                    <a th:text="${product.productName}"></a>
-                  </div>
-                  
-                  Quantity Sold
-                  <div class="quantitySold" th:text="${product.productQty}">
-                  </div>
-
-				 Country Of Origin
-				 <div class="productCountryOrigin">
-				 	Singapore
-				 </div>
-
-                  Price
-                  <div class="mb-1 productPrice h6" th:text="${product.productPrice}">
-                  </div>
-                  
-                  Like Button Heart Shape
-				  <label for="heartLikeButton">
-				    <i class="far fa-heart likeIcon" aria-hidden="true"></i>
-				  </label>
-				  <input id="heartLikeButton" type="button" />
-				  
+                <!-- Price -->
+                <div class="mb-7">
+                  <span class="h5">$85.00</span>
+                  <span class="font-size-sm">(In Stock)</span>
                 </div>
+
+                <!-- Form -->
+                <form>
+                  <div class="form-group">
+
+                    <!-- Label -->
+                    <p>
+                      Color: <strong id="modalProductColorCaption">White</strong>
+                    </p>
+
+                    <!-- Radio -->
+                    <div class="mb-8 ml-n1">
+                      <div class="custom-control custom-control-inline custom-control-img">
+                        <input type="radio" class="custom-control-input" id="modalProductColorOne" name="modalProductColor" data-toggle="form-caption" data-target="#modalProductColorCaption" value="White" checked>
+                        <label class="custom-control-label" for="modalProductColorOne">
+                          <span class="embed-responsive embed-responsive-1by1 bg-cover" style="background-image: url(./assets/img/products/product-7.jpg);"></span>
+                        </label>
+                      </div>
+                      <div class="custom-control custom-control-inline custom-control-img">
+                        <input type="radio" class="custom-control-input" id="modalProductColorTwo" name="modalProductColor" data-toggle="form-caption" data-target="#modalProductColorCaption" value="Black">
+                        <label class="custom-control-label" for="modalProductColorTwo">
+                          <span class="embed-responsive embed-responsive-1by1 bg-cover" style="background-image: url(./assets/img/products/product-49.jpg);"></span>
+                        </label>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="form-group">
+
+                    <!-- Label -->
+                    <p>
+                      Size: <strong><span id="modalProductSizeCaption">7.5</span> US</strong>
+                    </p>
+
+                    <!-- Radio -->
+                    <div class="mb-2">
+                      <div class="custom-control custom-control-inline custom-control-size mb-2">
+                        <input type="radio" class="custom-control-input" name="modalProductSize" id="modalProductSizeOne" value="6" data-toggle="form-caption" data-target="#modalProductSizeCaption">
+                        <label class="custom-control-label" for="modalProductSizeOne">6</label>
+                      </div>
+                      <div class="custom-control custom-control-inline custom-control-size mb-2">
+                        <input type="radio" class="custom-control-input" name="modalProductSize" id="modalProductSizeTwo" value="6.5" data-toggle="form-caption" data-target="#modalProductSizeCaption" disabled>
+                        <label class="custom-control-label" for="modalProductSizeTwo">6.5</label>
+                      </div>
+                      <div class="custom-control custom-control-inline custom-control-size mb-2">
+                        <input type="radio" class="custom-control-input" name="modalProductSize" id="modalProductSizeThree" value="7" data-toggle="form-caption" data-target="#modalProductSizeCaption">
+                        <label class="custom-control-label" for="modalProductSizeThree">7</label>
+                      </div>
+                      <div class="custom-control custom-control-inline custom-control-size mb-2">
+                        <input type="radio" class="custom-control-input" name="modalProductSize" id="modalProductSizeFour" value="7.5" data-toggle="form-caption" data-target="#modalProductSizeCaption" checked>
+                        <label class="custom-control-label" for="modalProductSizeFour">7.5</label>
+                      </div>
+                      <div class="custom-control custom-control-inline custom-control-size mb-2">
+                        <input type="radio" class="custom-control-input" name="modalProductSize" id="modalProductSizeFive" value="8" data-toggle="form-caption" data-target="#modalProductSizeCaption">
+                        <label class="custom-control-label" for="modalProductSizeFive">8</label>
+                      </div>
+                      <div class="custom-control custom-control-inline custom-control-size mb-2">
+                        <input type="radio" class="custom-control-input" name="modalProductSize" id="modalProductSizeSix" value="8.5" data-toggle="form-caption" data-target="#modalProductSizeCaption">
+                        <label class="custom-control-label" for="modalProductSizeSix">8.5</label>
+                      </div>
+                      <div class="custom-control custom-control-inline custom-control-size mb-2">
+                        <input type="radio" class="custom-control-input" name="modalProductSize" id="modalProductSizeSeven" value="9" data-toggle="form-caption" data-target="#modalProductSizeCaption" disabled>
+                        <label class="custom-control-label" for="modalProductSizeSeven">9</label>
+                      </div>
+                      <div class="custom-control custom-control-inline custom-control-size mb-2">
+                        <input type="radio" class="custom-control-input" name="modalProductSize" id="modalProductSizeEight" value="9.5" data-toggle="form-caption" data-target="#modalProductSizeCaption" disabled>
+                        <label class="custom-control-label" for="modalProductSizeEight">9.5</label>
+                      </div>
+                      <div class="custom-control custom-control-inline custom-control-size mb-2">
+                        <input type="radio" class="custom-control-input" name="modalProductSize" id="modalProductSizeNine" value="10" data-toggle="form-caption" data-target="#modalProductSizeCaption">
+                        <label class="custom-control-label" for="modalProductSizeNine">10</label>
+                      </div>
+                      <div class="custom-control custom-control-inline custom-control-size mb-2">
+                        <input type="radio" class="custom-control-input" name="modalProductSize" id="modalProductSizeTen" value="10.5" data-toggle="form-caption" data-target="#modalProductSizeCaption">
+                        <label class="custom-control-label" for="modalProductSizeTen">10.5</label>
+                      </div>
+                      <div class="custom-control custom-control-inline custom-control-size mb-2">
+                        <input type="radio" class="custom-control-input" name="modalProductSize" id="modalProductSizeEleven" value="11" data-toggle="form-caption" data-target="#modalProductSizeCaption">
+                        <label class="custom-control-label" for="modalProductSizeEleven">11</label>
+                      </div>
+                      <div class="custom-control custom-control-inline custom-control-size mb-2">
+                        <input type="radio" class="custom-control-input" name="modalProductSize" id="modalProductSizeTwelve" value="12" data-toggle="form-caption" data-target="#modalProductSizeCaption">
+                        <label class="custom-control-label" for="modalProductSizeTwelve">12</label>
+                      </div>
+                      <div class="custom-control custom-control-inline custom-control-size mb-2">
+                        <input type="radio" class="custom-control-input" name="modalProductSize" id="modalProductSizeThirteen" value="13" data-toggle="form-caption" data-target="#modalProductSizeCaption">
+                        <label class="custom-control-label" for="modalProductSizeThirteen">13</label>
+                      </div>
+                      <div class="custom-control custom-control-inline custom-control-size mb-2">
+                        <input type="radio" class="custom-control-input" name="modalProductSize" id="modalProductSizeFourteen" value="14" data-toggle="form-caption" data-target="#modalProductSizeCaption">
+                        <label class="custom-control-label" for="modalProductSizeFourteen">14</label>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="form-group mb-0">
+                    <div class="form-row">
+                      <div class="col-12 col-lg-auto">
+
+                        <!-- Quantity -->
+                        <select class="custom-select mb-2">
+                          <option value="1" selected>1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+
+                      </div>
+                      <div class="col-12 col-lg">
+
+                        <!-- Submit -->
+                        <button type="submit" class="btn btn-block btn-dark mb-2">
+                          Add to Cart <i class="fe fe-shopping-cart ml-2"></i>
+                        </button>
+
+                      </div>
+                      <div class="col-12 col-lg-auto">
+
+                        <!-- Wishlist -->
+                        <button class="btn btn-outline-dark btn-block mb-2" data-toggle="button">
+                          Wishlist <i class="fe fe-heart ml-2"></i>
+                        </button>
+
+                      </div>
+                    </div>
+                  </div>
+                </form>
+
               </div>
             </div>
+          </div>
 
-          </div>
-          
-          </div>
-        </div>
-    </section> -->
+<!-- <section th:object = ${product}>
+<img th:src="*{productUrl}" alt="..." class="col-md-3 col-lg-4 userPageImage" />
+</section>
+
+<section>
+<form name="productForm" id="productForm" method="post">
+	<div class="userPageSideImageSection flex-container" th:object = ${product}>
+		<label th:text="*{productName}" class="titleName"></label>
+		<br><br>
+		<label th:text="*{productDes}"></label>
+		<br><br>
+		<label th:text="*{productCategory}"></label>
+		<div>
+		<button id="addToCart" type="button">Add To Cart</button>
+		</div>
+		<label th:text="*{productName}"></label>
+		<label th:text="*{productDes}"></label>
+		<label th:text="*{productCategory}"></label>
+		<label th:text="*{productPrice}"></label>
+		<span th:each = "sideMedia: ${allMedia}"> th:each goes into this span to iterate and generate videos list
+			<a th:href="@{/home}" class="sideVideoLinkColor"><img th:src="${sideMedia.thumbnailUrl}" class="userPageSideVideos" alt="...">
+			<span class="col smallVidDescription">
+				<span th:text="${sideMedia.title}" class=""></span>
+				<span th:each = "tag: ${sideMedia.tagList}">
+	 				<span class="smallVidAuthor" th:text="${' | ' + tag.tagName}"></span>
+	 			</span>	
+				<br>
+				<br>
+	 			<span th:text="${'Author: ' + sideMedia.channel.channelUser.displayName}" class="smallVidAuthor"></span>
+	 		</span>
+	 		<span th:text="${sideMedia.duration}" class="sideVideoDuration"></span>
+	 		</a>
+ 		</span>
+	</div>
+	</form>
+</section> -->
+
 <div class="footer">
   <p style="margin-top: 3px;">@2020-2021 Jam | Term 2</p>
-</div>
 </div>
 </body>
 
