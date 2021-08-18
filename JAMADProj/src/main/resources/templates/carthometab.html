@@ -17,7 +17,7 @@
     <a th:href="@{/home}" class="helpIcon btn"><i class="fa fa-question-circle"></i><span class="smallHelpText">Help</span></a>
     
 	<button class="addShoppingCartIcon btn"><i class="fa fa-cart-plus"></i></button>
-	<span class='badge' id='cartQuantity'> 50 </span>
+	<!-- <span class='badge' id='cartQuantity'> 50 </span> -->
 	
 	<a th:href="@{/home}" class="profileImageIconLink"><img class="profileImageIcon" th:src="${profileUrl}" alt="Artist Small Profile Photo"/>
 		<span class="smallProfileNameText" th:text="${artistName}"/>
@@ -52,7 +52,7 @@
               <a class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/carthometab/}+${artistId}+@{/Merchandise}">Merchandise</a>
               <a class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/carthometab/}+${artistId}+@{/Clothing}">Clothing</a>
               
-   			  <span style="color:#E56A6A; font-size: 1.4vw; margin-bottom: 10px;">|</span>
+   			  <!-- <span style="color:#E56A6A; font-size: 1.4vw; margin-bottom: 10px;">|</span>
               
               <div class="dropdown">
 			        <a class="nav-link active blackFontText dropdown-toggle h6" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -63,7 +63,7 @@
 				          <li><a class="dropdown-item" href="#">Highest Price</a></li>
 				          <li><a class="dropdown-item" href="#">Lowest Price</a></li>
 			        </ul>
-			  </div>
+			  </div> -->
             </nav>
           	</div>
           </div>
@@ -73,7 +73,7 @@
     <section class="productsContentSection">
       <div class="container">
         <div class="row col-lg-11 mx-auto">
-	        <div style="margin-bottom: 18px;">
+	        <div style="margin-bottom: 18px;" th:if="${status =='home'}">
 				<span class="pt-0 mt-0 pb-2 trendingText">Trending</span>
 				<a th:onclick="myFunction();" class="seeAllProductsLink">See all ></a>
 			</div>
@@ -84,9 +84,15 @@
             <div class="card mb-1 h-100">
 
               <!-- Image -->
-              <a th:href="@{/product/details/}+${product.productID}">
+              <!-- <a th:href="@{/product/details/}+${product.productID}">
+                <img th:src="${product.productUrl}" alt="..." class="card-img-top productPhotoSize">
+              </a> -->
+              
+              <a data-toggle="modal" data-target="#exampleModal">
                 <img th:src="${product.productUrl}" alt="..." class="card-img-top productPhotoSize">
               </a>
+              
+              <th:block th:replace="_modals :: modal('exampleModal')">modal</th:block>
 
               <!-- Collapse -->
               <div class="card-collapse-parent">
@@ -134,7 +140,6 @@
 </div>
 </body>
 
-<script>
 function myFunction() {
 	  var artistId = $('#divArtistId').text();
 	  alert(artistId);
