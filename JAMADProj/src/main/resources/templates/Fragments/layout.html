@@ -4,6 +4,7 @@
 <head th:fragment="headerfiles">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" 
@@ -19,7 +20,54 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
   crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body> 
+
+<div th:fragment = "navbar">
+
+
+	<div class="header">
+		<div class="header_left">
+			<img th:src="@{/images/JAM_LOGO.png}" class="" alt="JAM Logo"/>
+			<div class="header_input">
+				<span class="material-icons"> search </span>
+				<input type="text" placeholder="search JAM"/>
+			</div>
+		</div>
+		
+		<div class="header_middle">
+			<div class="header_option active">
+				<span class="material-icons"> home </span>
+			</div>
+			
+			<div class="header_option">
+				<span class="material-icons"> groups </span>
+			</div>
+			
+			<div class="header_option">
+				<span class="material-icons"> videocam </span>
+			</div>
+			
+			<div class="header_option">
+				<span class="material-icons"> music_note </span>
+			</div>
+			
+			<div class="header_option">
+				<span class="material-icons"> shopping_bag </span>
+			</div>
+		
+		</div>
+		
+		<div class="header_right">
+			<div class="header_info">
+				<img th:src="@{/images/brucelee.png}" class="" alt="profileIcon"/>
+				<h5>User</h5>
+			</div>
+			<span class="material-icons"> notifications</span>
+			<span class="material-icons"> expand_more</span>
+		</div>
+	
+	</div>
+</div>
 
  <nav th:fragment="watchVideosNavBar" class="navbar jamHeaderUser">
  	<img th:src="@{/images/JAM_LOGO.png}" class="logo3">
