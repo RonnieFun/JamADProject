@@ -32,26 +32,26 @@
          <form method="POST" th:object="${cartForm}" th:action="@{/shoppingcart}">
           
                <div class="product-preview-container"
-                        th:each="cartLineInfo, varStatus : ${cartForm.products}">
+                        th:each="cartLineInfo, varStatus : ${cartForm.cartDetails}">
             <tr>
-              <td><img th:src="${cartLineInfo.productUrl}" width="190px"></td>
+              <td><img th:src="${cartLineInfo.product.productUrl}" width="190px"></td>
               <td>
-                <b style="color: #000;font-size:16px; font-weight: 600" th:utext="${cartLineInfo.productName}"></b>
+                <b style="color: #000;font-size:16px; font-weight: 600" th:utext="${cartLineInfo.product.productName}"></b>
                 <p style="font-size: 14px;">CORE BLACK / CORE BLACK / CORE BLACK<br>
                 SIZE: M 7.5 / W 8.5<br>
-                PRICE: <span th:utext="${cartLineInfo.productPrice}"></span>
+                PRICE: <span th:utext="${cartLineInfo.product.productPrice}"></span>
                 </p>
                 
                 
                        <!--  <input type="hidden"      
                            th:name="|cartLines[${varStatus.index}].productInfo.code|"                       
                            th:value="${cartLineInfo.productInfo.code}" /> -->
-                <a th:href="@{|/shoppingCartRemoveProduct?code=${cartLineInfo.productID}|}" style="margin-right: 10px;"> Remove</a>
+                <a th:href="@{|/shoppingCartRemoveProduct?code=${cartLineInfo.product.productID}|}" style="margin-right: 10px;"> Remove</a>
               </td>
-              <td> <input type="text" th:name="|cartLines[${varStatus.index}].quantity|" th:value="${cartLineInfo.quantity}" class="form-control" style="width: 50px; height: 35px;">
+              <td> <input type="text" th:name="|cartDetails[${varStatus.index}].quantity|" th:value="${cartLineInfo.quantity}" class="form-control" style="width: 50px; height: 35px;">
               
               </td>
-              <td>$<span th:utext="${cartLineInfo.productPrice}"></span></td>
+              <td>$<span th:utext="${cartLineInfo.product.productPrice}"></span></td>
             </tr>
               </div>
 
