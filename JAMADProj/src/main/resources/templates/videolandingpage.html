@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="Fragments/layout.html :: headerfiles"> </head>
+<body>
+<!-- <nav class="navbar jamHeaderUser">
+ 	<img th:src="@{/images/JAM_LOGO.png}" class="logo3">
+ 	<form class="navbar-form form-inline" th:action="@{/home/searchresults}" method="post">
+        <div class="input-group userPageSearchBox">
+             <input type="text" id="search" name ="searchTerm" class="form-control" placeholder="Search">   
+        </div>
+        <button type="submit" value="Search" class="userPageSearchButton"><i class="material-icons">&#xE8B6;</i></button>
+    </form>	
+    <img th:src="@{/images/brucelee.PNG}" class="userPageProfilePhoto" alt="User's Profile Photo">
+</nav> -->
+
+
+<section  class="productsContentSection">
+    <div class="container">
+      
+	        <div style="margin-bottom: 18px;">
+				<span class="pt-0 mt-0 pb-2 trendingText">Most popular videos</span>
+			</div>
+			<div class="col-6 col-md-3 col-lg-3 mb-5">
+			
+			<a th:href="@{/home}" class="sideVideoLinkColor">
+			<img th:src="@{/images/bruceleethumbnail.jpg}" class="card-img-top productPhotoSize" alt="...">
+			<div th:text="${'Title: ' + videoTitle1}" class="mb-1 productHeading h6"></div>
+			<div th:text="${'Tag: ' + viddescription}" class="mb-1 productHeading h6"></div>
+			</a>
+			<a th:href="@{/watchvideo}" class="sideVideoLinkColor">
+	 		<div th:text="${'Author: ' + vidauthor}" class="mb-1 productHeading h6" ></div>
+	 		<div th:text="${videoDuration1}"  ></div>
+	 		</a>
+	 		
+	 		
+	 		<a th:href="@{/home}" class="sideVideoLinkColor">
+	 		<img th:src="@{/images/cutepokemon.jpg}" class="card-img-top productPhotoSize" alt="...">
+			<div th:text="${'Title: ' + videoTitle2}" class="mb-1 productHeading h6"></div>
+			<div th:text="${'Tag: ' + viddescription}" class="mb-1 productHeading h6"></div>
+			</a>
+			<a th:href="@{/watchvideo}" class="sideVideoLinkColor">
+	 		<div th:text="${'Author: ' + vidauthor}" class="mb-1 productHeading h6" ></div>
+	 		<div th:text="${videoDuration3}"></div>
+	 		</a>
+			
+			<a th:href="@{/home}" class="sideVideoLinkColor">
+	 		<img th:src="@{/images/samplebanner.jpg}"  class="card-img-top productPhotoSize" alt="...">
+			<div th:text="${'Title: ' + videoTitle2}" class="mb-1 productHeading h6"></div>
+			<div th:text="${'Tag: ' + viddescription}" class="mb-1 productHeading h6"></div>
+			</a>
+			<a th:href="@{/watchvideo}" class="sideVideoLinkColor">
+	 		<div th:text="${'Author: ' + vidauthor}" class="mb-1 productHeading h6" ></div>
+	 		<div th:text="${videoDuration3}"></div>
+	 		
+		</div>
+	</div>
+</section>
+</body>
+</html>
+
+
+
+
+ <div class="footer">
+  <p style="margin-top: 3px;">@2020-2021 Jam | Term 2</p>
+</div> 
+
+</body>   
+</html> -->
