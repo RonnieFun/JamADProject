@@ -28,6 +28,7 @@ public class ScyController {
 		String videoDuration1 = "5:39"; 
 		String videoDuration2 = "13:45";
 		String videoDuration3 = "120:12";
+		//
 		
 //		model.addAttribute("videoTitle", videoTitle);
 		model.addAttribute("viddescription", viddescription);
