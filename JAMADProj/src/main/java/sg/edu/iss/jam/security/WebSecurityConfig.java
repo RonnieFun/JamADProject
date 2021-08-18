@@ -42,10 +42,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.anyRequest().permitAll()
+			.antMatchers("/images/**","/css/**","/videos/**","/home**","/**").permitAll()
+			.antMatchers("/signup").permitAll()
+			.anyRequest().authenticated()
 			.and()
-			.formLogin().permitAll()
+			.formLogin()
+				.loginPage("/signup")
+				.usernameParameter("email")
+				.permitAll()
 			.and()
+			.csrf().disable().cors().and()
+
 			.logout().permitAll()
 			;
 	}

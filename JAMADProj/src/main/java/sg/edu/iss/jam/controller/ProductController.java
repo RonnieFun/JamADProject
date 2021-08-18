@@ -1,14 +1,20 @@
 package sg.edu.iss.jam.controller;
-
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
 import sg.edu.iss.jam.model.Category;
+import sg.edu.iss.jam.model.Product;
 import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.service.ArtistInterface;
 
@@ -22,6 +28,7 @@ public class ProductController {
 		//long userID = (long) 1;
 		User artist =null;
 		artist =  aservice.getArtistByID(artistid);
+		model.addAttribute("status", "home");
 		model.addAttribute("artistId", artist.getUserID());
 		model.addAttribute("artistName", artist.getDisplayName());
 		model.addAttribute("profileUrl", artist.getProfileUrl());
@@ -49,7 +56,27 @@ public class ProductController {
 	
 	@GetMapping("/cartothertab")
 	public String shoppingCartOther(Model model) {
-		return "cartothertab";
+		return "product/checkout";
 	}
+
+	// ajax call
+	@RequestMapping(value = "/getAllProduct", method = RequestMethod.POST)
+	@ResponseBody
+	public String add(@RequestParam(value = "artistId") Long artistId) throws Exception {
+
+		List<Product> productList = aservice.getProductListByArtistID(artistId);
+		System.out.println(productList.size());
+//		String jsSon = null;
+//		ObjectMapper mapper = new ObjectMapper();
+//		if (!productList.isEmpty()) {
+//			try {
+//				jsSon = mapper.writeValueAsString(productList);
+//			} catch (JsonGenerationException e) {
+//				e.printStackTrace();
+//			}
+//		}
+		return "carthometab";
+	}
+
 
 }

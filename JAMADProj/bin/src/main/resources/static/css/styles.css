@@ -1,0 +1,4465 @@
+@charset "ISO-8859-1";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+
+body {
+	background-color:rgba(242.24999696016312, 233.16562682390213, 233.16562682390213, 1);
+	font-family: 'Roboto', sans-serif;
+}
+
+.cartHorizonalLine { 
+	margin-top: 220px; 
+}
+
+.cartIntroSection{
+	background-color: white;
+	padding-bottom: 90px;
+	margin-top: 40px;
+	border-bottom: 2px solid #B8C5D0;
+}
+
+.smallBanner{
+	position: relative;
+	height: 110px;
+	width: 23%;
+	margin-left: 16%;
+	margin-top: 1.5%;
+	top: 17px;
+	border: 1.5px solid black;
+	filter: blur(0.9px);
+  	-webkit-filter: blur(0.9px);
+}
+
+.aboutShopSection{
+	position:absolute;
+	background-color:rgba(244.3749949336052, 239.28384572267532, 239.28384572267532, 0.550000011920929);
+	width:43%;
+	height:200px;
+	margin-left: 43%;
+	top: 150px;
+}
+
+.aboutShopHeader{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.05vw;
+	margin-left: 2.8%;
+	margin-top: 2%;
+	font-weight: 900;
+}
+
+.aboutShopFeature1{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1vw;
+	margin-left: 6.5%;
+	margin-top: 7%;
+}
+
+.aboutShopFeature2{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1vw;
+	margin-left: 6%;
+	margin-top: 12.5%;
+}
+
+.aboutShopFeature3{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1vw;
+	margin-left: 6.5%;
+	margin-top: 18%;
+}
+
+.aboutShopFeature4{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1vw;
+	margin-left: 6.5%;
+	margin-top: 23.5%;
+}
+
+@media only screen and (min-width: 1650px) {
+	
+	.cartIntroSection{
+	background-color: white;
+	padding-bottom: 90px;
+	margin-top: 60px;
+	border-bottom: 2px solid #B8C5D0;
+}
+	
+	.aboutShopSection{
+	position:absolute;
+	background-color:rgba(244.3749949336052, 239.28384572267532, 239.28384572267532, 0.550000011920929);
+	width:43%;
+	height:210px;
+	margin-left: 43%;
+	top: 160px;
+}
+	
+  .aboutShopHeader{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	margin-left: 2.8%;
+	margin-top: 2%;
+	font-weight: 900;
+}
+
+.aboutShopFeature1{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.9vw;
+	margin-left: 6.5%;
+	margin-top: 7%;
+}
+
+.aboutShopFeature2{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.9vw;
+	margin-left: 6%;
+	margin-top: 12.5%;
+}
+
+.aboutShopFeature3{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.9vw;
+	margin-left: 6.5%;
+	margin-top: 18%;
+}
+
+.aboutShopFeature4{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.9vw;
+	margin-left: 6.5%;
+	margin-top: 23.5%;
+	}
+}
+
+@media only screen and (min-width: 1750px) and (max-width: 2000px) {
+	
+	.cartIntroSection{
+	background-color: white;
+	padding-bottom: 90px;
+	margin-top: 55px;
+	border-bottom: 2px solid #B8C5D0;
+}
+	
+	.aboutShopSection{
+	position:absolute;
+	background-color:rgba(244.3749949336052, 239.28384572267532, 239.28384572267532, 0.550000011920929);
+	width:43%;
+	height:210px;
+	margin-left: 43%;
+	top: 160px;
+}
+	
+  .aboutShopHeader{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	margin-left: 2.8%;
+	margin-top: 2%;
+	font-weight: 900;
+}
+
+.aboutShopFeature1{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.9vw;
+	margin-left: 6.5%;
+	margin-top: 6%;
+}
+
+.aboutShopFeature2{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.9vw;
+	margin-left: 6%;
+	margin-top: 10%;
+}
+
+.aboutShopFeature3{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.9vw;
+	margin-left: 6.5%;
+	margin-top: 15%;
+}
+
+.aboutShopFeature4{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.9vw;
+	margin-left: 6.5%;
+	margin-top: 20%;
+	}
+}
+
+@media only screen and (min-width: 2001px) {
+	
+	.cartIntroSection{
+	background-color: white;
+	padding-bottom: 90px;
+	margin-top: 75px;
+	border-bottom: 2px solid #B8C5D0;
+}
+	
+	.aboutShopSection{
+	position:absolute;
+	background-color:rgba(244.3749949336052, 239.28384572267532, 239.28384572267532, 0.550000011920929);
+	width:43%;
+	height:220px;
+	margin-left: 43%;
+	top: 180px;
+}
+	
+  .aboutShopHeader{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.85vw;
+	margin-left: 2.8%;
+	margin-top: 1.5%;
+	font-weight: 900;
+}
+
+.aboutShopFeature1{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.8vw;
+	margin-left: 6.5%;
+	margin-top: 5%;
+}
+
+.aboutShopFeature2{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.8vw;
+	margin-left: 6%;
+	margin-top: 9%;
+}
+
+.aboutShopFeature3{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.8vw;
+	margin-left: 6.5%;
+	margin-top: 13%;
+}
+
+.aboutShopFeature4{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.85vw;
+	margin-left: 6.5%;
+	margin-top: 17.5%;
+	}
+
+}
+
+
+.heartIcon{
+	position: sticky;
+	color: hotpink;
+	margin-left: -11%;
+}
+
+.trumpetIcon{
+	position: sticky;
+	margin-left: -3%;
+}
+
+.shirtIcon{
+	position: sticky;
+	color: hotpink;
+	margin-left: -5%;
+}
+
+.bikiniIcon{
+	position: sticky;
+	color: hotpink;
+	margin-left: -3.4%;
+	width: 3.2%;
+	height: 3.2%;
+}
+
+.grinIcon{
+	position: sticky;
+	margin-left: -15%;
+	
+}
+
+.logo{
+	margin-top: 30px; 
+	margin-left:2%;
+	border-radius: 56px;
+	height:70px; 
+	width: 12%; 
+}
+
+.logo2{
+	margin-top: 30px;
+	margin-left: 1.2%;
+	border-radius: 56px;
+	width: 12%;
+	height: 68px;
+}
+
+.logo3{
+	margin-left: 1.2%;
+	width: 14%;
+	height: 70px;
+	position: absolute;
+}
+
+.biglogo{
+	margin-left: 7%;
+	border-radius: 56px;
+	width: 40%;
+	height: 45%;
+}
+
+.userPages{
+	background-color: white;
+}
+
+.jamHeader{
+	background-color:rgba(239.0625, 104.58984375, 104.58984375, 0.7200000286102295);
+	font-family: 'Roboto', sans-serif;
+	top:2%;
+	border-radius: 56px;
+	overflow:hidden;
+	margin-left: 1%;
+	width:98%;
+	height: 180px;
+	position:absolute;
+}
+
+.jamHeader2{
+	background-color:rgba(239.0625, 104.58984375, 104.58984375, 0.7200000286102295);
+	font-family: 'Roboto', sans-serif;
+	top:2%;
+	border-radius: 56px;
+	overflow:hidden;
+	margin-left: 13.3%;
+	width:85%;
+	height: 100px;
+	position:absolute;
+}
+
+.jamHeader3{
+	background-color:rgba(239.0625, 104.58984375, 104.58984375, 0.7200000286102295);
+	font-family: 'Roboto', sans-serif;
+	top:2%;
+	border-radius: 56px;
+	overflow:hidden;
+	margin-left: 13.3%;
+	width:85%;
+	height: 105px;
+	position:absolute;
+}
+
+.jamHeaderUser{
+	background-color: white;
+	font-family: 'Roboto', sans-serif;
+	top:2%;
+	overflow:hidden;
+	width: 100%;
+	height: 115px;
+	position:absolute;
+	border: 1px solid red;
+}
+
+.loginUsernameLabel{
+	color: rgba(255, 255, 255, 1);
+	font-family: 'Roboto', sans-serif;
+	font-size:110%;
+	margin-left: 56.5%;
+	top:55px;
+	width:80px;
+	height:21px;
+	position:absolute;
+}
+
+.loginPasswordLabel{
+	color: rgba(255, 255, 255, 1);
+	font-family: 'Roboto', sans-serif;
+	font-size:110%;
+	margin-left: 71.5%;
+	top:55px;
+	width:80px;
+	height:21px;
+	position:absolute;
+}
+
+.loginBtn{
+	color:white;
+	background: crimson;
+	font-size:105%;
+	font-family: 'Roboto', sans-serif;
+	text-align: center;
+	margin-left: 86%;
+	top:91px;
+	position:absolute;
+	height:20%;
+	width:5%;
+}
+
+.loginBtn:hover{
+	color:black;
+}
+
+.loginUsernameInputBox { 
+	background-color:rgba(255, 255, 255, 1);
+	font-family: 'Roboto', sans-serif;
+	margin-left: 56.5%;
+	top:85px;
+	border: 1px solid black;
+	width:13%;
+	height:43px;
+	position:absolute;
+}
+
+.loginPasswordInputBox { 
+	background-color:rgba(255, 255, 255, 1);
+	font-family: 'Roboto', sans-serif;
+	margin-left: 71.5%;
+	top:85px;
+	border: 1px solid black;
+	width:13%;
+	height:43px;
+	position:absolute;
+}
+
+.tickboxKeepLoggedIn { 
+	background-color:rgba(255, 255, 255, 1);
+	margin-left: 56.5%;
+	top:140px;
+	border: 1px solid black;
+	width:15px;
+	height:15px;
+	position:absolute;
+}
+
+.tickboxForgotPassword { 
+	background-color:rgba(255, 255, 255, 1);
+	margin-left: 71.5%;
+	top:140px;
+	border: 1px solid black;
+	width:15px;
+	height:15px;
+	position:absolute;
+}
+
+.tickboxProceedToSetUpArtist { 
+	background-color:rgba(255, 255, 255, 1);
+	margin-right: 10%;
+	margin-top: 30px;
+	border: 1px solid black;
+	margin-left: 3%;
+	width:15px;
+	height:15px;
+	position:absolute;
+}
+
+
+.keepMeLoggedInText { 
+	color:rgba(255, 255, 255, 1);
+	font-family: 'Roboto', sans-serif;
+	text-align:left;
+	font-size:110%;
+	margin-left: 58%;
+	top:135px;
+	letter-spacing:0;
+	width:148px;
+	height:21px;
+	position:absolute;
+}
+
+.forgotYourPasswordText { 
+	color:rgba(255, 255, 255, 1);
+	font-family: 'Roboto', sans-serif;
+	text-align:left;
+	font-size:110%;
+	position:absolute;
+	margin-left: 71.7%;
+	top:135px;
+	letter-spacing:0;
+	width:175px;
+	height:21px;
+}
+
+.forgotYourPasswordText:hover { 
+	color: crimson;
+	font-family: 'Roboto', sans-serif;
+	text-align:left;
+	font-size:110%;
+	position:absolute;
+	margin-left: 71.7%;
+	top:135px;
+	letter-spacing:0;
+	width:175px;
+	height:21px;
+}
+
+#signUpHeader{
+	font-family: 'Roboto', sans-serif;
+	font-size: 240%;
+	font-weight:900;
+	color:#000;
+	margin-left: 3%;
+	margin-top: 50px;
+	width:50%;
+}
+
+.signUpBody{
+	width: 92%;
+	height:645px;
+	left: 1.3%;
+	top: 25%;
+	position:absolute;
+}
+
+.signUpBody2{
+	width: 92%;
+	height:500px;
+	left: 1.3%;
+	top: 25%;
+	position:absolute;
+}
+
+#signUpForm{
+	font-family: 'Roboto', sans-serif;
+	font-size:20px;
+	top:120px;
+	left:57%;
+	top: 0px;
+	margin-top: 1%;
+	position:absolute;
+	width:50%;
+	height:495px;
+}
+
+#trendyVideoIntro{
+	font-family: 'Roboto', sans-serif;
+	left:15%;
+	font-weight:bold;
+	position:absolute;
+	top: calc(-0.1vh);
+}
+
+.signUpVideoYoutube{
+  width: 37%;
+  height: 55%;
+  margin-left: 15%;
+  margin-top: 6.6%;
+}
+
+.signUpPageVideo{
+  width: 37%;
+  height: 55%;
+  margin-left: 15%;
+  margin-top: calc(3.5vh + 3.6%);
+}
+
+@media only screen and (max-width: 1400px) {
+  #trendyVideoIntro{
+  	font-family: 'Roboto', sans-serif;
+	left:15%;
+	font-weight:bold;
+	position:absolute;
+	margin-top: calc(1vh + 3.6%);
+	}	
+}
+
+#proceedSignUpArtist{
+	margin-left: 7.5%; 
+	margin-top: 23px; 
+	margin-bottom: 2%;
+	font-family: 'Roboto', sans-serif;
+}
+
+#proceedWithoutSignIn{
+	margin-left: 15%;
+	font-size: 20px;
+	font-family: 'Roboto', sans-serif;
+	color: blue;
+	position: absolute;
+}
+
+#proceedWithoutSignIn:hover{
+	color: crimson;
+}
+
+#trendyImg{
+	top: 60px;
+	left:15%;
+	max-width: 100%;
+	height: auto;
+}
+
+#firstNameInput{
+	background:white;
+	font-size:18px;
+	font-family: 'Roboto', sans-serif;
+	padding:10px;
+	margin-top: 3%;
+	border-width: 1px;
+	border-style:solid;
+	border-color: gray;
+	margin-right: 9.5%;
+	margin-left: 3%;
+	width:34%;
+	height:40px;
+}
+
+#lastNameInput{
+	background:white;
+	font-size:18px;
+	font-family: 'Roboto', sans-serif;
+	padding:10px;
+	margin-top: 3%;
+	border-width: 1px;
+	border-style:solid;
+	border-color: gray;
+	width:32%;
+	height:40px;
+}
+
+#stageNameInput{
+	background:white;
+	font-size:1.2vw;
+	font-family: 'Roboto', sans-serif;
+	padding:10px;
+	border-width: 1px;
+	border-style:solid;
+	border-color: black;
+	width:34%;
+	height:40px;
+	margin-top:-10px;
+}
+
+.signupAboutTextArea{
+	display: block;
+	font-size: 1.2vw;
+	font-family: 'Roboto', sans-serif;
+	margin-top: 16%;
+	padding: 10px;
+	border-width: 1px;
+	border-style:solid;
+	border-color: black;
+	width: 70%;
+	height: 30%;
+	resize:none;
+}
+
+.editShowReelBtn{
+	background: #E56A6A;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 900;
+	font-size:1.4vw;
+	color:white;
+	margin-left: 3.5%;
+	width:17%;
+	height:50px;
+	left:50%;
+	margin-top: 2%;
+	border-radius:56px;
+	border-width: 1px;
+	border-style:solid;
+	border-color: gray;
+	position: fixed;
+}
+
+.editShowReelBtn:hover{
+	background: crimson;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 900;
+	font-size:1.4vw;
+	color:white;
+	margin-left: 3.5%;
+	width:17%;
+	height:50px;
+	left:50%;
+	margin-top: 2%;
+	border-radius:56px;
+	border-width: 1px;
+	border-style:solid;
+	border-color: gray;
+	position: fixed;
+}
+
+.artistSignupImage { 
+	float:right;
+	border-radius:50%;
+	border-width: 15px;
+	border-style:solid;
+	border-color: white;
+	width:27%;
+	height:12vw;
+	padding-left: 0px;
+	margin-left: 43.5%;
+	margin-top: -12.3%;
+	position: absolute;
+}
+
+.uploadArtistImage{
+	position: absolute;
+	margin-left: 66.2%;
+	margin-top: 7.8%;
+}
+
+
+.artistSignupImage2 { 
+	float:right;
+	border-radius:50%;
+	border-width: 15px;
+	border-style:solid;
+	border-color: white;
+	width:27%;
+	height:12vw;
+	background-image:url("../images/default_user.jpg");
+	background-repeat:no-repeat;
+	background-size:cover;
+	padding-left: 0px;
+	margin-right: 29.5%;
+	margin-top: -7.3%;
+}
+
+.uploadArtistImage2{
+	margin-left: 91%;
+	margin-top: 79%;
+}
+
+
+.cameraIcon{
+	cursor:pointer;
+}
+
+.likeIcon{
+	color: black;
+	cursor: pointer;
+	position: absolute;
+	left: 22px;
+	bottom: 20px;
+}
+
+#heartLikeButton{
+	display: none;
+}
+
+.uploadArtistImage>input {
+  display: none;
+}
+
+.uploadArtistImage2>input {
+  display: none;
+}
+
+.forArtistsText{
+	font-size: 460%;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 200;
+	margin-left: 15%;
+	width: 10%;
+	line-height: 115%;
+	margin-top: 2%;
+}
+
+#finishForNow{
+	margin-left: 4%;
+	margin-top: 95px;
+	font-size: 1.3vw;
+	font-family: 'Roboto', sans-serif;
+	color: #5166D3;
+	text-decoration: none;
+	position: fixed;
+}
+
+#finishForNow:hover{
+	margin-left: 4%;
+	margin-top: 95px;
+	font-size: 1.3vw;
+	font-family: 'Roboto', sans-serif;
+	color: crimson;
+	text-decoration: none;
+	position: fixed;
+}
+
+#emailInput{
+	background:white;
+	font-size:18px;
+	font-family: 'Roboto', sans-serif;
+	padding:10px;
+	margin-top:5%;
+	border-width: 1px;
+	border-style:solid;
+	border-color: gray;
+	margin-left: 3%;
+	width:76.5%;
+	height:40px;
+}
+
+#passwordInput{
+	background:white;
+	font-size:18px;
+	font-family: 'Roboto', sans-serif;
+	padding:10px;
+	margin-top:5%;
+	border-width: 1px;
+	border-style:solid;
+	border-color: gray;
+	margin-right: 9.5%;
+	margin-left: 3%;
+	width:34%;
+	height:40px;
+}
+
+#reenterPasswordInput{
+	background:white;
+	padding:10px;
+	font-size:18px;
+	font-family: 'Roboto', sans-serif;
+	margin-top:5%;
+	border-width: 1px;
+	border-style:solid;
+	border-color: gray;
+	width:32.5%;
+	height:40px;
+}
+
+.signUpBtn{
+	background: #E56A6A;
+	font-family: 'Roboto', sans-serif;
+	font-size:32px;
+	color:white;
+	margin-left: 2%;
+	width:250px;
+	height:60px;
+	left:50%;
+	top:625px;
+	border-radius:56px;
+	border-width: 1px;
+	border-style:solid;
+	border-color: gray;
+}
+
+.signUpBtn:hover{
+	background: crimson;
+	font-family: 'Roboto', sans-serif;
+	font-size:32px;
+	color:white;
+	margin-left: 2%;
+	width:250px;
+	height:60px;
+	left:50%;
+	top:625px;
+	border-radius:56px;
+	border-width: 1px;
+	border-style:solid;
+	border-color: gray;
+}
+
+.footer{
+   position: fixed;
+   bottom: 0%;
+   width: 100%;
+   background-color: white;
+   color: gray;
+   text-align: center;
+   font-family: 'Roboto', sans-serif;
+   height: 28px;
+   font-size:14px;
+}
+
+.searchBox {
+    position: absolute;
+    margin-left: 6%;
+    width: 40%;
+    top: 32px;
+    font-family: 'Roboto', sans-serif;
+}
+
+    .searchBox input {
+        padding-right: 35px;
+        min-height: 38px;
+        border: none;
+        background: #faf7fd;
+        border-radius: 0px !important;
+        font-family: 'Roboto', sans-serif;
+    }
+
+        .searchBox input:focus {
+            background: #fff;
+            box-shadow: none;
+            font-family: 'Roboto', sans-serif;
+        }
+
+    .searchBox .input-group-addon {
+        min-width: 35px;
+        border: none;
+        background: transparent;
+        position: absolute;
+        right: 0;
+        z-index: 9;
+        padding: 10px 7px;
+        height: 100%;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .searchBox i {
+        color: Gray;
+        font-size: 19px;
+        margin-top: 1%;
+    }
+    
+.userPageSearchBox {
+    position: absolute;
+    margin-left: 19.5%;
+    width: 57%;
+    top: 40px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1vw;
+}
+    .userPageSearchBox input {
+        padding-right: 35px;
+        height: 38px;
+        background: white;
+        border: 1px solid black !important;
+        font-family: 'Roboto', sans-serif;
+    }
+
+        .userPageSearchBox input:focus {
+            background: #fff;
+            box-shadow: none;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+.userPageSearchButton{
+	margin-left: 77.2%;
+	width: 70px;
+	max-width: 70px;
+	height: 35px;
+    border: none;
+	background-color: #C4C4C4;
+	position: absolute;
+	margin-top: -15px;
+	padding: 3px 10px;
+	font-family: 'Roboto', sans-serif;
+}
+
+.userPageSearchButton i{
+	color: black;
+    font-size: 1.4rem;
+    margin-top: 7%;
+}
+
+.userPageProfilePhoto{
+	border-radius: 50%;
+	border: none;
+	width:5.8%;
+	height: 79%;
+	margin-left: 92%;
+	position: absolute;
+}
+
+.userPageVideoIntroSection{
+	position: absolute;
+	margin-left: 7.4%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 4.1%;
+	height: 100vh;
+}
+
+.userPageVideoIntroSection hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.userPageMainVideo{
+  max-width: 50%;
+  width: 50%;
+  height: 55%;
+  margin-left: 7.5%;
+  margin-top: calc(3.5vh + 9.5%);
+  padding: 0px;
+}
+
+.userVideoTitleLabel{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.1vw;
+	margin-top: -7%;
+}
+
+.numberOfReviews{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.8vw;
+	margin-top: -3.5%;
+}
+
+.userPageHeartIcon{
+	cursor: pointer;
+	margin-left: 92.5%;
+	margin-top: -6%;
+	color: #ff4d4d;
+	position: absolute;
+	font-size: 2rem;
+}
+
+.userPagelikeBtn{
+	background-color: white;
+	border: none;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	font-size: 1.2vw;
+	font-family: 'Roboto', sans-serif;
+	position: absolute;
+}
+
+.userPageArtistIntroSection{
+	position: absolute;
+	margin-left: 7.4%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 7.5%;
+}
+
+.userPageArtistIntroSection hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.artistName{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.1vw;
+	margin-top: -5%;
+}
+
+.userSubscribeBtn{
+	font-family: 'Roboto', sans-serif;
+    font-size: 0.95vw;
+	color: white;
+	background-color: crimson;
+	position: absolute;
+	margin-left: 88%;
+	margin-top: -5%;
+}
+
+.userCommentsSection{
+	position: absolute;
+	margin-left: 7.4%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 10.9%;
+}
+
+.userCommentsSection hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.userCommentsSection hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+
+.numberOfComments{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	margin-top: -4.5%;
+}
+
+.commentsTextArea{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.85vw;
+	padding-left: 1%;
+	resize:none;
+	border-width: 1px;
+	border-style:solid;
+	border-color: black;
+	width: 99.8%;
+	height: 30%;
+	resize:none;
+}
+
+.userCommentsBtn{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	color: white;
+	background-color: #279A0A;
+	position: absolute;
+	margin-top: 14.4%;
+	margin-left: 53.3%;
+}
+
+.listOfComments{
+	position: absolute;
+	margin-left: 8%;
+	width: 49%;
+	max-width: 49%;
+	margin-top: 17.5%;
+}
+
+.commentName{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 900;
+	font-size: 1vw;
+}
+
+.commentDate{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	font-size: 1vw;
+}
+
+.commentDetails{
+  font-family: 'Roboto', sans-serif;
+  font-size: 1vw;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  width: 97%;
+  max-width: 97%;
+}
+
+.userPageSideVideosSection{
+  margin-left: 63%;
+  margin-top: calc(3.5vh - 31.5%);
+}
+
+.userPageSideVideos{
+  display: flex;
+  flex-direction: column;
+  width: 37%;
+  height: 170px;
+  margin-top: calc(2.5vh + 0.5%);
+}
+
+.sideVideoLinkColor{
+	color: black;
+}
+
+.smallVidDescription{
+	width: 15%;
+	position: absolute;
+	margin-left: 15%;
+	margin-top: -10%;
+	display: flex;
+    flex-direction: row;
+    font-size: 1vw;
+	font-family: 'Roboto', sans-serif;
+}
+
+.smallVidAuthor{
+	width: 15%;
+	position: absolute;
+	display: flex;
+  	margin-left: 15%;
+  	margin-bottom: 30px;
+  	margin-top: -5%;
+  	font-size: 0.9vw;
+	font-family: 'Roboto', sans-serif;
+	color: Gray;
+}
+
+.sideVideoDuration{
+	position: absolute;
+	display: block;
+  	right: 0;
+  	margin-right: 23.7%;
+  	margin-bottom: 10px;
+  	margin-top: -1.6%;
+  	font-size: 0.8vw;
+	font-family: 'Roboto', sans-serif;
+	color: white;
+	background-color: black;
+	padding: 0px 0.2%;
+}
+
+@media only screen and (max-width: 1199px) and (min-width: 1150px){
+	.userPageSearchBox {
+    position: absolute;
+    margin-left: 19.5%;
+    width: 57%;
+    top: 40px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1vw;
+}
+    .userPageSearchBox input {
+        padding-right: 35px;
+        height: 38px;
+        background: white;
+        border: 1px solid black !important;
+        font-family: 'Roboto', sans-serif;
+    }
+
+        .userPageSearchBox input:focus {
+            background: #fff;
+            box-shadow: none;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+.userPageSearchButton{
+	margin-left: 77.2%;
+	width: 70px;
+	max-width: 70px;
+	height: 35px;
+    border: none;
+	background-color: #C4C4C4;
+	position: absolute;
+	margin-top: -15px;
+	padding: 3px 10px;
+	font-family: 'Roboto', sans-serif;
+}
+
+.userPageSearchButton i{
+	color: black;
+    font-size: 1.4rem;
+    margin-top: 7%;
+}
+
+.userPageProfilePhoto{
+	border-radius: 50%;
+	border: none;
+	width:5.8%;
+	height: 72%;
+	margin-top: 1%;
+	margin-left: 92%;
+	position: absolute;
+}
+
+.userPageVideoIntroSection{
+	position: absolute;
+	margin-left: 7.4%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 4.1%;
+	height: 100vh;
+}
+
+.userPageVideoIntroSection hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.userPageMainVideo{
+  max-width: 50%;
+  width: 50%;
+  height: 55%;
+  margin-left: 7.5%;
+  margin-top: calc(3.5vh + 11.5%);
+  padding: 0px;
+}
+
+.userVideoTitleLabel{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.1vw;
+	margin-top: -7%;
+}
+
+.numberOfReviews{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.8vw;
+	margin-top: -3.5%;
+}
+
+.userPageHeartIcon{
+	cursor: pointer;
+	margin-left: 92.5%;
+	margin-top: -6%;
+	color: #ff4d4d;
+	position: absolute;
+	font-size: 2rem;
+}
+
+.userPagelikeBtn{
+	background-color: white;
+	border: none;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	font-size: 1.2vw;
+	font-family: 'Roboto', sans-serif;
+	position: absolute;
+}
+
+.userPageArtistIntroSection{
+	position: absolute;
+	margin-left: 7.4%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 7.5%;
+}
+
+.userPageArtistIntroSection hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.artistName{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.1vw;
+	margin-top: -5%;
+}
+
+.userSubscribeBtn{
+	font-family: 'Roboto', sans-serif;
+    font-size: 0.95vw;
+	color: white;
+	background-color: crimson;
+	position: absolute;
+	margin-left: 87.5%;
+	margin-top: -5%;
+}
+
+.userCommentsSection{
+	position: absolute;
+	margin-left: 7.4%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 10.9%;
+}
+
+.userCommentsSection hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.userCommentsSection hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+
+.numberOfComments{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	margin-top: -4.5%;
+}
+
+.commentsTextArea{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.85vw;
+	padding-left: 1%;
+	resize:none;
+	border-width: 1px;
+	border-style:solid;
+	border-color: black;
+	width: 100%;
+	height: 30%;
+	resize:none;
+}
+
+.userCommentsBtn{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	color: white;
+	background-color: #279A0A;
+	position: absolute;
+	margin-top: 14.4%;
+	margin-left: 53.1%;
+}
+
+.listOfComments{
+	position: absolute;
+	margin-left: 8%;
+	width: 49%;
+	max-width: 49%;
+	margin-top: 17.5%;
+}
+
+.commentName{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 900;
+	font-size: 1vw;
+}
+
+.commentDate{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	font-size: 1vw;
+}
+
+.commentDetails{
+  font-family: 'Roboto', sans-serif;
+  font-size: 1vw;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  width: 97%;
+  max-width: 97%;
+}
+
+.userPageSideVideosSection{
+  margin-left: 63%;
+  margin-top: calc(3.5vh - 33.4%);
+}
+
+.userPageSideVideos{
+  display: flex;
+  flex-direction: column;
+  width: 37%;
+  height: 140px;
+  margin-top: calc(2.5vh + 0.5%);
+}
+
+.sideVideoLinkColor{
+	color: black;
+}
+
+.smallVidDescription{
+	width: 15%;
+	position: absolute;
+	margin-left: 15%;
+	margin-top: -12%;
+	display: flex;
+    flex-direction: row;
+    font-size: 1vw;
+	font-family: 'Roboto', sans-serif;
+}
+
+.smallVidAuthor{
+	width: 15%;
+	position: absolute;
+	display: flex;
+  	margin-left: 15%;
+  	margin-bottom: 30px;
+  	margin-top: -7%;
+  	font-size: 0.9vw;
+	font-family: 'Roboto', sans-serif;
+	color: Gray;
+}
+
+.sideVideoDuration{
+	position: absolute;
+	display: block;
+  	right: 0;
+  	margin-right: 23.7%;
+  	margin-bottom: 10px;
+  	margin-top: -1.6%;
+  	font-size: 0.8vw;
+	font-family: 'Roboto', sans-serif;
+	color: white;
+	background-color: black;
+	padding: 0px 0.2%;
+}
+}
+
+@media only screen and (max-width: 1300px) and (min-width: 1199px){
+	.userPageSearchBox {
+    position: absolute;
+    margin-left: 19.5%;
+    width: 57%;
+    top: 40px;
+    font-family: 'Roboto', sans-serif;
+}
+    .userPageSearchBox input {
+        padding-right: 35px;
+        height: 34px;
+        background: white;
+        border: 1px solid black !important;
+        font-family: 'Roboto', sans-serif;
+    }
+
+        .userPageSearchBox input:focus {
+            background: #fff;
+            box-shadow: none;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+.userPageSearchButton{
+	margin-left: 77.2%;
+	width: 70px;
+	max-width: 70px;
+	height: 32px;
+    border: none;
+	background-color: #C4C4C4;
+	position: absolute;
+	margin-top: -15px;
+	padding: 3px 10px;
+	font-family: 'Roboto', sans-serif;
+}
+
+.userPageSearchButton i{
+	color: black;
+    font-size: 1.4rem;
+    margin-top: 7%;
+}
+
+.userPageProfilePhoto{
+	border-radius: 50%;
+	border: none;
+	width:5.8%;
+	height: 79%;
+	margin-left: 92%;
+	position: absolute;
+}
+
+.userPageVideoIntroSection{
+	position: absolute;
+	margin-left: 7.4%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 4.1%;
+	height: 100vh;
+}
+
+.userPageVideoIntroSection hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.userPageMainVideo{
+  max-width: 50%;
+  width: 50%;
+  height: 55%;
+  margin-left: 7.5%;
+  margin-top: calc(3.5vh + 11%);
+  padding: 0px;
+}
+
+.userVideoTitleLabel{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.1vw;
+	margin-top: -7%;
+}
+
+.numberOfReviews{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.8vw;
+	margin-top: -3.5%;
+}
+
+.userPageHeartIcon{
+	color: #ff4d4d;
+	position: absolute;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPagelikeBtn{
+	background-color: white;
+	border: none;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	font-size: 1.2vw;
+	font-family: 'Roboto', sans-serif;
+	position: absolute;
+}
+
+.userPagelikeBtn:hover{
+	background-color: white;
+	color: hotpink;
+	border: none;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	font-size: 1.2vw;
+	font-family: 'Roboto', sans-serif;
+	position: absolute;
+}
+
+.userPageArtistIntroSection{
+	position: absolute;
+	margin-left: 7.4%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 7.5%;
+}
+
+.userPageArtistIntroSection hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.artistName{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.1vw;
+	margin-top: -5%;
+}
+
+.userSubscribeBtn{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	color: white;
+	background-color: crimson;
+	position: absolute;
+	margin-left: 87.5%;
+	margin-top: -5%;
+}
+
+.userCommentsSection{
+	position: absolute;
+	margin-left: 7.4%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 10.9%;
+}
+
+.userCommentsSection hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.userCommentsSection hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+
+.numberOfComments{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	margin-top: -4.5%;
+}
+
+.commentsTextArea{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.85vw;
+	padding-left: 1%;
+	resize:none;
+	border-width: 1px;
+	border-style:solid;
+	border-color: black;
+	width: 99.8%;
+	height: 30%;
+	resize:none;
+}
+
+.userCommentsBtn{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	color: white;
+	background-color: #279A0A;
+	position: absolute;
+	margin-top: 14.4%;
+	margin-left: 53%;
+}
+
+.listOfComments{
+	position: absolute;
+	margin-left: 8%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 17.5%;
+}
+
+.commentName{
+	font-family: 'Roboto', sans-serif;
+  	font-size: 1vw;
+	font-weight: 900;
+}
+
+.commentDate{
+	font-family: 'Roboto', sans-serif;
+  	font-size: 1vw;
+	font-weight: 400;
+}
+
+.commentDetails{
+  font-family: 'Roboto', sans-serif;
+  font-size: 1vw;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  width: 97%;
+  max-width: 97%;
+}
+
+.userPageSideVideosSection{
+  margin-left: 63%;
+  margin-top: calc(3vh - 33%);
+}
+
+.userPageSideVideos{
+  display: flex;
+  flex-direction: column;
+  width: 37%;
+  height: 150px;
+  margin-top: calc(2.5vh + 2.6%);
+}
+
+.smallVidDescription{
+	position: absolute;
+	margin-left: 15%;
+	margin-top: -11.9%;
+	display: flex;
+    flex-direction: row;
+    font-size: 1vw;
+	font-family: 'Roboto', sans-serif;
+}
+
+.smallVidAuthor{
+	position: absolute;
+	display: flex;
+  	margin-left: 15%;
+  	margin-bottom: 30px;
+  	margin-top: -6.5%;
+  	font-size: 0.95vw;
+	font-family: 'Roboto', sans-serif;
+}
+}
+
+@media only screen and (max-width: 1400px) and (min-width: 1300px){
+	.userPageSearchBox {
+    position: absolute;
+    margin-left: 19.5%;
+    width: 57%;
+    top: 40px;
+    font-family: 'Roboto', sans-serif;
+}
+    .userPageSearchBox input {
+        padding-right: 35px;
+        height: 34px;
+        background: white;
+        border: 1px solid black !important;
+        font-family: 'Roboto', sans-serif;
+    }
+
+        .userPageSearchBox input:focus {
+            background: #fff;
+            box-shadow: none;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+.userPageSearchButton{
+	margin-left: 77.2%;
+	width: 70px;
+	max-width: 70px;
+	height: 32px;
+    border: none;
+	background-color: #C4C4C4;
+	position: absolute;
+	margin-top: -15px;
+	padding: 3px 10px;
+	font-family: 'Roboto', sans-serif;
+}
+
+.userPageSearchButton i{
+	color: black;
+    font-size: 1.4rem;
+    margin-top: 7%;
+}
+
+.userPageProfilePhoto{
+	border-radius: 50%;
+	border: none;
+	width:5.8%;
+	height: 79%;
+	margin-left: 92%;
+	position: absolute;
+}
+
+.userPageVideoIntroSection{
+	position: absolute;
+	margin-left: 7.4%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 4.1%;
+	height: 100vh;
+}
+
+.userPageVideoIntroSection hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.userPageMainVideo{
+  max-width: 50%;
+  width: 50%;
+  height: 55%;
+  margin-left: 7.5%;
+  margin-top: calc(3.5vh + 11%);
+  padding: 0px;
+}
+
+.userVideoTitleLabel{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.1vw;
+	margin-top: -7%;
+}
+
+.numberOfReviews{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.8vw;
+	margin-top: -3.5%;
+}
+
+.userPageHeartIcon{
+	color: #ff4d4d;
+	position: absolute;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPagelikeBtn{
+	background-color: white;
+	border: none;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	font-size: 1.2vw;
+	font-family: 'Roboto', sans-serif;
+	position: absolute;
+}
+
+.userPagelikeBtn:hover{
+	background-color: white;
+	color: hotpink;
+	border: none;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	font-size: 1.2vw;
+	font-family: 'Roboto', sans-serif;
+	position: absolute;
+}
+
+.userPageArtistIntroSection{
+	position: absolute;
+	margin-left: 7.4%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 7.5%;
+}
+
+.userPageArtistIntroSection hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.artistName{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.1vw;
+	margin-top: -5%;
+}
+
+.userSubscribeBtn{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	color: white;
+	background-color: crimson;
+	position: absolute;
+	margin-left: 87.6%;
+	margin-top: -5%;
+}
+
+.userCommentsSection{
+	position: absolute;
+	margin-left: 7.4%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 10.9%;
+}
+
+.userCommentsSection hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.userCommentsSection hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+
+.numberOfComments{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	margin-top: -4.5%;
+}
+
+.commentsTextArea{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.85vw;
+	padding-left: 1%;
+	resize:none;
+	border-width: 1px;
+	border-style:solid;
+	border-color: black;
+	width: 99.8%;
+	height: 30%;
+	resize:none;
+}
+
+.userCommentsBtn{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	color: white;
+	background-color: #279A0A;
+	position: absolute;
+	margin-top: 14.4%;
+	margin-left: 53.1%;
+}
+
+.listOfComments{
+	position: absolute;
+	margin-left: 8%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 17.5%;
+}
+
+.commentName{
+	font-family: 'Roboto', sans-serif;
+  	font-size: 1vw;
+	font-weight: 900;
+}
+
+.commentDate{
+	font-family: 'Roboto', sans-serif;
+  	font-size: 1vw;
+	font-weight: 400;
+}
+
+.commentDetails{
+  font-family: 'Roboto', sans-serif;
+  font-size: 1vw;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  width: 97%;
+  max-width: 97%;
+}
+
+.userPageSideVideosSection{
+  margin-left: 63%;
+  margin-top: calc(3vh - 33%);
+}
+
+.userPageSideVideos{
+  display: flex;
+  flex-direction: column;
+  width: 37%;
+  height: 150px;
+  margin-top: calc(2.5vh + 3.4%);
+}
+
+.smallVidDescription{
+	position: absolute;
+	margin-left: 15%;
+	margin-top: -11%;
+	display: flex;
+    flex-direction: row;
+    font-size: 1vw;
+	font-family: 'Roboto', sans-serif;
+}
+
+.smallVidAuthor{
+	position: absolute;
+	display: flex;
+  	margin-left: 15%;
+  	margin-bottom: 30px;
+  	margin-top: -6%;
+  	font-size: 0.95vw;
+	font-family: 'Roboto', sans-serif;
+}
+}
+
+@media only screen and (max-width: 1500px) and (min-width: 1400px){
+	.userPageSearchBox {
+    position: absolute;
+    margin-left: 19.5%;
+    width: 57%;
+    top: 40px;
+    font-family: 'Roboto', sans-serif;
+}
+    .userPageSearchBox input {
+        padding-right: 35px;
+        height: 34px;
+        background: white;
+        border: 1px solid black !important;
+        font-family: 'Roboto', sans-serif;
+    }
+
+        .userPageSearchBox input:focus {
+            background: #fff;
+            box-shadow: none;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+.userPageSearchButton{
+	margin-left: 77.2%;
+	width: 70px;
+	max-width: 70px;
+	height: 32px;
+    border: none;
+	background-color: #C4C4C4;
+	position: absolute;
+	margin-top: -15px;
+	padding: 3px 10px;
+	font-family: 'Roboto', sans-serif;
+}
+
+.userPageSearchButton i{
+	color: black;
+    font-size: 1.4rem;
+    margin-top: 7%;
+}
+
+.userPageProfilePhoto{
+	border-radius: 50%;
+	border: none;
+	width:5.8%;
+	height: 79%;
+	margin-left: 92%;
+	position: absolute;
+}
+
+.userPageVideoIntroSection{
+	position: absolute;
+	margin-left: 7.4%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 4.1%;
+	height: 100vh;
+}
+
+.userPageVideoIntroSection hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.userPageMainVideo{
+  max-width: 50%;
+  width: 50%;
+  height: 55%;
+  margin-left: 7.5%;
+  margin-top: calc(3.5vh + 11%);
+  padding: 0px;
+}
+
+.userVideoTitleLabel{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.1vw;
+	margin-top: -7%;
+}
+
+.numberOfReviews{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.8vw;
+	margin-top: -3.5%;
+}
+
+.userPageHeartIcon{
+	color: #ff4d4d;
+	position: absolute;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPagelikeBtn{
+	background-color: white;
+	border: none;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	font-size: 1.2vw;
+	font-family: 'Roboto', sans-serif;
+	position: absolute;
+}
+
+.userPagelikeBtn:hover{
+	background-color: white;
+	color: hotpink;
+	border: none;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	font-size: 1.2vw;
+	font-family: 'Roboto', sans-serif;
+	position: absolute;
+}
+
+.userPageArtistIntroSection{
+	position: absolute;
+	margin-left: 7.4%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 7.5%;
+}
+
+.userPageArtistIntroSection hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.artistName{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.1vw;
+	margin-top: -5%;
+}
+
+.userSubscribeBtn{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	color: white;
+	background-color: crimson;
+	position: absolute;
+	margin-left: 87.6%;
+	margin-top: -5%;
+}
+
+.userCommentsSection{
+	position: absolute;
+	margin-left: 7.4%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 10.9%;
+}
+
+.userCommentsSection hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.userCommentsSection hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+
+.numberOfComments{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	margin-top: -4.5%;
+}
+
+.commentsTextArea{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.85vw;
+	padding-left: 1%;
+	resize:none;
+	border-width: 1px;
+	border-style:solid;
+	border-color: black;
+	width: 99.8%;
+	height: 30%;
+	resize:none;
+}
+
+.userCommentsBtn{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	color: white;
+	background-color: #279A0A;
+	position: absolute;
+	margin-top: 14.4%;
+	margin-left: 53.1%;
+}
+
+.listOfComments{
+	position: absolute;
+	margin-left: 8%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 17.5%;
+}
+
+.commentName{
+	font-family: 'Roboto', sans-serif;
+  	font-size: 1vw;
+	font-weight: 900;
+}
+
+.commentDate{
+	font-family: 'Roboto', sans-serif;
+  	font-size: 1vw;
+	font-weight: 400;
+}
+
+.commentDetails{
+  font-family: 'Roboto', sans-serif;
+  font-size: 1vw;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  width: 97%;
+  max-width: 97%;
+}
+
+.userPageSideVideosSection{
+  margin-left: 63%;
+  margin-top: calc(3vh - 33%);
+}
+
+.userPageSideVideos{
+  display: flex;
+  flex-direction: column;
+  width: 37%;
+  height: 150px;
+  margin-top: calc(2.5vh + 3.4%);
+}
+
+.smallVidDescription{
+	position: absolute;
+	margin-left: 15%;
+	margin-top: -10.5%;
+	display: flex;
+    flex-direction: row;
+    font-size: 1vw;
+	font-family: 'Roboto', sans-serif;
+}
+
+.smallVidAuthor{
+	position: absolute;
+	display: flex;
+  	margin-left: 15%;
+  	margin-bottom: 30px;
+  	margin-top: -5.5%;
+  	font-size: 0.95vw;
+	font-family: 'Roboto', sans-serif;
+}
+}
+
+@media only screen and (max-width: 1600px) and (min-width: 1500px){
+	.userPageSearchBox {
+    position: absolute;
+    margin-left: 19.5%;
+    width: 57%;
+    top: 40px;
+    font-family: 'Roboto', sans-serif;
+}
+    .userPageSearchBox input {
+        padding-right: 35px;
+        height: 34px;
+        background: white;
+        border: 1px solid black !important;
+        font-family: 'Roboto', sans-serif;
+    }
+
+        .userPageSearchBox input:focus {
+            background: #fff;
+            box-shadow: none;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+.userPageSearchButton{
+	margin-left: 77.2%;
+	width: 70px;
+	max-width: 70px;
+	height: 32px;
+    border: none;
+	background-color: #C4C4C4;
+	position: absolute;
+	margin-top: -15px;
+	padding: 3px 10px;
+	font-family: 'Roboto', sans-serif;
+}
+
+.userPageSearchButton i{
+	color: black;
+    font-size: 1.4rem;
+    margin-top: 7%;
+}
+
+.userPageProfilePhoto{
+	border-radius: 50%;
+	border: none;
+	width:5.8%;
+	height: 79%;
+	margin-left: 92%;
+	position: absolute;
+}
+
+.userPageVideoIntroSection{
+	position: absolute;
+	margin-left: 7.4%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 4.1%;
+	height: 100vh;
+}
+
+.userPageVideoIntroSection hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.userPageMainVideo{
+  max-width: 50%;
+  width: 50%;
+  height: 55%;
+  margin-left: 7.5%;
+  margin-top: calc(3.5vh + 11%);
+  padding: 0px;
+}
+
+.userVideoTitleLabel{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.1vw;
+	margin-top: -7%;
+}
+
+.numberOfReviews{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.8vw;
+	margin-top: -3.5%;
+}
+
+.userPageHeartIcon{
+	color: #ff4d4d;
+	position: absolute;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPagelikeBtn{
+	background-color: white;
+	border: none;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	font-size: 1.2vw;
+	font-family: 'Roboto', sans-serif;
+	position: absolute;
+}
+
+.userPagelikeBtn:hover{
+	background-color: white;
+	color: hotpink;
+	border: none;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	font-size: 1.2vw;
+	font-family: 'Roboto', sans-serif;
+	position: absolute;
+}
+
+.userPageArtistIntroSection{
+	position: absolute;
+	margin-left: 7.4%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 7.5%;
+}
+
+.userPageArtistIntroSection hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.artistName{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.1vw;
+	margin-top: -5%;
+}
+
+.userSubscribeBtn{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	color: white;
+	background-color: crimson;
+	position: absolute;
+	margin-left: 87.6%;
+	margin-top: -5%;
+}
+
+.userCommentsSection{
+	position: absolute;
+	margin-left: 7.4%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 10.9%;
+}
+
+.userCommentsSection hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.userCommentsSection hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+
+.numberOfComments{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	margin-top: -4.5%;
+}
+
+.commentsTextArea{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.85vw;
+	padding-left: 1%;
+	resize:none;
+	border-width: 1px;
+	border-style:solid;
+	border-color: black;
+	width: 99.8%;
+	height: 30%;
+	resize:none;
+}
+
+.userCommentsBtn{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	color: white;
+	background-color: #279A0A;
+	position: absolute;
+	margin-top: 14.4%;
+	margin-left: 53.1%;
+}
+
+.listOfComments{
+	position: absolute;
+	margin-left: 8%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 17.5%;
+}
+
+.commentName{
+	font-family: 'Roboto', sans-serif;
+  	font-size: 1vw;
+	font-weight: 900;
+}
+
+.commentDate{
+	font-family: 'Roboto', sans-serif;
+  	font-size: 1vw;
+	font-weight: 400;
+}
+
+.commentDetails{
+  font-family: 'Roboto', sans-serif;
+  font-size: 1vw;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  width: 97%;
+  max-width: 97%;
+}
+
+.userPageSideVideosSection{
+  margin-left: 63%;
+  margin-top: calc(3vh - 33%);
+}
+
+.userPageSideVideos{
+  display: flex;
+  flex-direction: column;
+  width: 37%;
+  height: 150px;
+  margin-top: calc(2.5vh + 5.4%);
+}
+
+.smallVidDescription{
+	position: absolute;
+	margin-left: 15%;
+	margin-top: -9.7%;
+	display: flex;
+    flex-direction: row;
+    font-size: 1vw;
+	font-family: 'Roboto', sans-serif;
+}
+
+.smallVidAuthor{
+	position: absolute;
+	display: flex;
+  	margin-left: 15%;
+  	margin-bottom: 30px;
+  	margin-top: -5%;
+  	font-size: 0.95vw;
+	font-family: 'Roboto', sans-serif;
+}
+}
+
+@media only screen and (max-width: 1700px) and (min-width: 1600px){
+	.userPageSearchBox {
+    position: absolute;
+    margin-left: 19.5%;
+    width: 57%;
+    top: 40px;
+    font-family: 'Roboto', sans-serif;
+}
+    .userPageSearchBox input {
+        padding-right: 35px;
+        height: 34px;
+        background: white;
+        border: 1px solid black !important;
+        font-family: 'Roboto', sans-serif;
+    }
+
+        .userPageSearchBox input:focus {
+            background: #fff;
+            box-shadow: none;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+.userPageSearchButton{
+	margin-left: 77.2%;
+	width: 70px;
+	max-width: 70px;
+	height: 32px;
+    border: none;
+	background-color: #C4C4C4;
+	position: absolute;
+	margin-top: -15px;
+	padding: 3px 10px;
+	font-family: 'Roboto', sans-serif;
+}
+
+.userPageSearchButton i{
+	color: black;
+    font-size: 1.4rem;
+    margin-top: 7%;
+}
+
+.userPageProfilePhoto{
+	border-radius: 50%;
+	border: none;
+	width:5.8%;
+	height: 79%;
+	margin-left: 92%;
+	position: absolute;
+}
+
+.userPageVideoIntroSection{
+	position: absolute;
+	margin-left: 7.4%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 4.1%;
+	height: 100vh;
+}
+
+.userPageVideoIntroSection hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.userPageMainVideo{
+  max-width: 50%;
+  width: 50%;
+  height: 55%;
+  margin-left: 7.5%;
+  margin-top: calc(3.5vh + 11%);
+  padding: 0px;
+}
+
+.userVideoTitleLabel{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.1vw;
+	margin-top: -7%;
+}
+
+.numberOfReviews{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.8vw;
+	margin-top: -3.5%;
+}
+
+.userPageHeartIcon{
+	color: #ff4d4d;
+	position: absolute;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPagelikeBtn{
+	background-color: white;
+	border: none;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	font-size: 1.2vw;
+	font-family: 'Roboto', sans-serif;
+	position: absolute;
+}
+
+.userPagelikeBtn:hover{
+	background-color: white;
+	color: hotpink;
+	border: none;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	font-size: 1.2vw;
+	font-family: 'Roboto', sans-serif;
+	position: absolute;
+}
+
+.userPageArtistIntroSection{
+	position: absolute;
+	margin-left: 7.4%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 7.5%;
+}
+
+.userPageArtistIntroSection hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.artistName{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.1vw;
+	margin-top: -5%;
+}
+
+.userSubscribeBtn{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	color: white;
+	background-color: crimson;
+	position: absolute;
+	margin-left: 88%;
+	margin-top: -5%;
+}
+
+.userCommentsSection{
+	position: absolute;
+	margin-left: 7.4%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 10.9%;
+}
+
+.userCommentsSection hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.userCommentsSection hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+
+.numberOfComments{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	margin-top: -4.5%;
+}
+
+.commentsTextArea{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.85vw;
+	padding-left: 1%;
+	resize:none;
+	border-width: 1px;
+	border-style:solid;
+	border-color: black;
+	width: 99.8%;
+	height: 30%;
+	resize:none;
+}
+
+.userCommentsBtn{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	color: white;
+	background-color: #279A0A;
+	position: absolute;
+	margin-top: 14.4%;
+	margin-left: 53.2%;
+}
+
+.listOfComments{
+	position: absolute;
+	margin-left: 8%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 17.5%;
+}
+
+.commentName{
+	font-family: 'Roboto', sans-serif;
+  	font-size: 1vw;
+	font-weight: 900;
+}
+
+.commentDate{
+	font-family: 'Roboto', sans-serif;
+  	font-size: 1vw;
+	font-weight: 400;
+}
+
+.commentDetails{
+  font-family: 'Roboto', sans-serif;
+  font-size: 1vw;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  width: 97%;
+  max-width: 97%;
+}
+
+.userPageSideVideosSection{
+  margin-left: 63%;
+  margin-top: calc(3vh - 33%);
+}
+
+.userPageSideVideos{
+  display: flex;
+  flex-direction: column;
+  width: 37%;
+  height: 150px;
+  margin-top: calc(2.5vh + 3.4%);
+}
+
+.smallVidDescription{
+	position: absolute;
+	margin-left: 15%;
+	margin-top: -9.4%;
+	display: flex;
+    flex-direction: row;
+    font-size: 1vw;
+	font-family: 'Roboto', sans-serif;
+}
+
+.smallVidAuthor{
+	position: absolute;
+	display: flex;
+  	margin-left: 15%;
+  	margin-bottom: 30px;
+  	margin-top: -4.7%;
+  	font-size: 0.95vw;
+	font-family: 'Roboto', sans-serif;
+}
+}
+
+@media only screen and (max-width: 1800px) and (min-width: 1700px){
+	.userPageSearchBox {
+    position: absolute;
+    margin-left: 19.5%;
+    width: 57%;
+    top: 40px;
+    font-family: 'Roboto', sans-serif;
+}
+    .userPageSearchBox input {
+        padding-right: 35px;
+        height: 34px;
+        background: white;
+        border: 1px solid black !important;
+        font-family: 'Roboto', sans-serif;
+    }
+
+        .userPageSearchBox input:focus {
+            background: #fff;
+            box-shadow: none;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+.userPageSearchButton{
+	margin-left: 77.2%;
+	width: 70px;
+	max-width: 70px;
+	height: 32px;
+    border: none;
+	background-color: #C4C4C4;
+	position: absolute;
+	margin-top: -15px;
+	padding: 3px 10px;
+	font-family: 'Roboto', sans-serif;
+}
+
+.userPageSearchButton i{
+	color: black;
+    font-size: 1.4rem;
+    margin-top: 7%;
+}
+
+.userPageProfilePhoto{
+	border-radius: 50%;
+	border: none;
+	width:5.8%;
+	height: 79%;
+	margin-left: 92%;
+	position: absolute;
+}
+
+.userPageVideoIntroSection{
+	position: absolute;
+	margin-left: 7.4%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 4.1%;
+	height: 100vh;
+}
+
+.userPageVideoIntroSection hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.userPageMainVideo{
+  max-width: 50%;
+  width: 50%;
+  height: 55%;
+  margin-left: 7.5%;
+  margin-top: calc(3.5vh + 11%);
+  padding: 0px;
+}
+
+.userVideoTitleLabel{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.1vw;
+	margin-top: -7%;
+}
+
+.numberOfReviews{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.8vw;
+	margin-top: -3.5%;
+}
+
+.userPageHeartIcon{
+	color: #ff4d4d;
+	position: absolute;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPagelikeBtn{
+	background-color: white;
+	border: none;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	font-size: 1.2vw;
+	font-family: 'Roboto', sans-serif;
+	position: absolute;
+}
+
+.userPagelikeBtn:hover{
+	background-color: white;
+	color: hotpink;
+	border: none;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	font-size: 1.2vw;
+	font-family: 'Roboto', sans-serif;
+	position: absolute;
+}
+
+.userPageArtistIntroSection{
+	position: absolute;
+	margin-left: 7.4%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 7.5%;
+}
+
+.userPageArtistIntroSection hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.artistName{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.1vw;
+	margin-top: -5%;
+}
+
+.userSubscribeBtn{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	color: white;
+	background-color: crimson;
+	position: absolute;
+	margin-left: 88%;
+	margin-top: -5%;
+}
+
+.userCommentsSection{
+	position: absolute;
+	margin-left: 7.4%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 10.9%;
+}
+
+.userCommentsSection hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.userCommentsSection hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+
+.numberOfComments{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	margin-top: -4.5%;
+}
+
+.commentsTextArea{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.85vw;
+	padding-left: 1%;
+	resize:none;
+	border-width: 1px;
+	border-style:solid;
+	border-color: black;
+	width: 99.8%;
+	height: 30%;
+	resize:none;
+}
+
+.userCommentsBtn{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	color: white;
+	background-color: #279A0A;
+	position: absolute;
+	margin-top: 14.4%;
+	margin-left: 53.2%;
+}
+
+.listOfComments{
+	position: absolute;
+	margin-left: 8%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 17.5%;
+}
+
+.commentName{
+	font-family: 'Roboto', sans-serif;
+  	font-size: 1vw;
+	font-weight: 900;
+}
+
+.commentDate{
+	font-family: 'Roboto', sans-serif;
+  	font-size: 1vw;
+	font-weight: 400;
+}
+
+.commentDetails{
+  font-family: 'Roboto', sans-serif;
+  font-size: 1vw;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  width: 97%;
+  max-width: 97%;
+}
+
+.userPageSideVideosSection{
+  margin-left: 63%;
+  margin-top: calc(3vh - 32.5%);
+}
+
+.userPageSideVideos{
+  display: flex;
+  flex-direction: column;
+  width: 37%;
+  height: 150px;
+  margin-top: calc(2.5vh + 3.4%);
+}
+
+.smallVidDescription{
+	position: absolute;
+	margin-left: 15%;
+	margin-top: -8.7%;
+	display: flex;
+    flex-direction: row;
+    font-size: 1vw;
+	font-family: 'Roboto', sans-serif;
+}
+
+.smallVidAuthor{
+	position: absolute;
+	display: flex;
+  	margin-left: 15%;
+  	margin-bottom: 30px;
+  	margin-top: -4%;
+  	font-size: 0.95vw;
+	font-family: 'Roboto', sans-serif;
+}
+}
+
+@media only screen and (max-width: 1921px) and (min-width: 1800px){
+	.userPageSearchBox {
+    position: absolute;
+    margin-left: 19.5%;
+    width: 57%;
+    top: 40px;
+    font-family: 'Roboto', sans-serif;
+}
+    .userPageSearchBox input {
+        padding-right: 35px;
+        height: 37px;
+        background: white;
+        border: 1px solid black !important;
+        font-family: 'Roboto', sans-serif;
+        font-size: 1.6vh;
+    }
+
+        .userPageSearchBox input:focus {
+            background: #fff;
+            box-shadow: none;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+.userPageSearchButton{
+	margin-left: 77.2%;
+	width: 70px;
+	max-width: 70px;
+	height: 34px;
+    border: none;
+	background-color: #C4C4C4;
+	position: absolute;
+	margin-top: -15px;
+	padding: 3px 10px;
+	font-family: 'Roboto', sans-serif;
+}
+
+.userPageSearchButton i{
+	color: black;
+    font-size: 1.4rem;
+    margin-top: 7%;
+}
+
+.userPageProfilePhoto{
+	border-radius: 50%;
+	border: none;
+	width:5.8%;
+	height: 79%;
+	margin-left: 92%;
+	position: absolute;
+}
+
+.userPageVideoIntroSection{
+	position: absolute;
+	margin-left: 7.4%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 4.1%;
+	height: 100vh;
+}
+
+.userPageVideoIntroSection hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.userPageMainVideo{
+  max-width: 50%;
+  width: 50%;
+  height: 55%;
+  margin-left: 7.5%;
+  margin-top: calc(3.5vh + 11%);
+  padding: 0px;
+}
+
+.userVideoTitleLabel{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.1vw;
+	margin-top: -7%;
+}
+
+.numberOfReviews{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.8vw;
+	margin-top: -3.5%;
+}
+
+.userPageHeartIcon{
+	color: #ff4d4d;
+	position: absolute;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPagelikeBtn{
+	background-color: white;
+	border: none;
+	margin-left: 91.7%;
+	margin-top: -6%;
+	font-size: 1.2vw;
+	font-family: 'Roboto', sans-serif;
+	position: absolute;
+}
+
+.userPagelikeBtn:hover{
+	background-color: white;
+	color: hotpink;
+	border: none;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	font-size: 1.2vw;
+	font-family: 'Roboto', sans-serif;
+	position: absolute;
+}
+
+.userPageArtistIntroSection{
+	position: absolute;
+	margin-left: 7.4%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 7.5%;
+}
+
+.userPageArtistIntroSection hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.artistName{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.1vw;
+	margin-top: -5%;
+}
+
+.userSubscribeBtn{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	color: white;
+	background-color: crimson;
+	position: absolute;
+	margin-left: 88.2%;
+	margin-top: -5%;
+}
+
+.userCommentsSection{
+	position: absolute;
+	margin-left: 7.4%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 10.9%;
+}
+
+.userCommentsSection hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.userCommentsSection hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+
+.numberOfComments{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	margin-top: -4.5%;
+}
+
+.commentsTextArea{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.85vw;
+	padding-left: 1%;
+	resize:none;
+	border-width: 1px;
+	border-style:solid;
+	border-color: black;
+	width: 99.8%;
+	height: 30%;
+	resize:none;
+}
+
+.userCommentsBtn{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	color: white;
+	background-color: #279A0A;
+	position: absolute;
+	margin-top: 14.4%;
+	margin-left: 53.4%;
+}
+
+.listOfComments{
+	position: absolute;
+	margin-left: 8%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 17.5%;
+}
+
+.commentName{
+	font-family: 'Roboto', sans-serif;
+  	font-size: 1vw;
+	font-weight: 900;
+}
+
+.commentDate{
+	font-family: 'Roboto', sans-serif;
+  	font-size: 1vw;
+	font-weight: 400;
+}
+
+.commentDetails{
+  font-family: 'Roboto', sans-serif;
+  font-size: 1vw;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  width: 97%;
+  max-width: 97%;
+}
+
+.userPageSideVideosSection{
+  margin-left: 63%;
+  margin-top: calc(3vh - 32.5%);
+}
+
+.userPageSideVideos{
+  display: flex;
+  flex-direction: column;
+  width: 37%;
+  height: 170px;
+  margin-top: calc(2.5vh + 3.4%);
+}
+
+.smallVidDescription{
+	position: absolute;
+	margin-left: 15%;
+	margin-top: -8.7%;
+	display: flex;
+    flex-direction: row;
+    font-size: 1vw;
+	font-family: 'Roboto', sans-serif;
+}
+
+.smallVidAuthor{
+	position: absolute;
+	display: flex;
+  	margin-left: 15%;
+  	margin-bottom: 30px;
+  	margin-top: -4%;
+  	font-size: 0.95vw;
+	font-family: 'Roboto', sans-serif;
+}
+}
+
+@media only screen and (min-width: 1921px){
+	.userPageSearchBox {
+    position: absolute;
+    margin-left: 19.5%;
+    width: 57%;
+    top: 40px;
+    font-family: 'Roboto', sans-serif;
+}
+    .userPageSearchBox input {
+        padding-right: 35px;
+        height: 40px;
+        background: white;
+        border: 1px solid black !important;
+        font-family: 'Roboto', sans-serif;
+        font-size: 1.5vh;
+    }
+
+        .userPageSearchBox input:focus {
+            background: #fff;
+            box-shadow: none;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+.userPageSearchButton{
+	margin-left: 77.2%;
+	width: 70px;
+	max-width: 70px;
+	height: 35px;
+    border: none;
+	background-color: #C4C4C4;
+	position: absolute;
+	margin-top: -15px;
+	padding: 3px 10px;
+	font-family: 'Roboto', sans-serif;
+}
+
+.userPageSearchButton i{
+	color: black;
+    font-size: 1.4rem;
+    margin-top: 7%;
+}
+
+.userPageProfilePhoto{
+	border-radius: 50%;
+	border: none;
+	width:5%;
+	height: 79%;
+	margin-left: 92%;
+	position: absolute;
+}
+
+.userPageVideoIntroSection{
+	position: absolute;
+	margin-left: 7.4%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 4.1%;
+	height: 100vh;
+}
+
+.userPageVideoIntroSection hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.userPageMainVideo{
+  max-width: 50%;
+  width: 50%;
+  height: 55%;
+  margin-left: 7.5%;
+  margin-top: calc(3.5vh + 11%);
+  padding: 0px;
+}
+
+.userVideoTitleLabel{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.1vw;
+	margin-top: -7%;
+}
+
+.numberOfReviews{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.8vw;
+	margin-top: -3.5%;
+}
+
+.userPageHeartIcon{
+	color: #ff4d4d;
+	position: absolute;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPagelikeBtn{
+	background-color: white;
+	border: none;
+	margin-left: 91.7%;
+	margin-top: -6%;
+	font-size: 1.2vw;
+	font-family: 'Roboto', sans-serif;
+	position: absolute;
+}
+
+.userPagelikeBtn:hover{
+	background-color: white;
+	color: hotpink;
+	border: none;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	font-size: 1.2vw;
+	font-family: 'Roboto', sans-serif;
+	position: absolute;
+}
+
+.userPageArtistIntroSection{
+	position: absolute;
+	margin-left: 7.4%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 7.5%;
+}
+
+.userPageArtistIntroSection hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.artistName{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.1vw;
+	margin-top: -5%;
+}
+
+.userSubscribeBtn{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	color: white;
+	background-color: crimson;
+	position: absolute;
+	margin-left: 88.4%;
+	margin-top: -5%;
+}
+
+.userCommentsSection{
+	position: absolute;
+	margin-left: 7.4%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 10.9%;
+}
+
+.userCommentsSection hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.userCommentsSection hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+
+.numberOfComments{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	margin-top: -4.5%;
+}
+
+.commentsTextArea{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.85vw;
+	padding-left: 1%;
+	resize:none;
+	border-width: 1px;
+	border-style:solid;
+	border-color: black;
+	width: 99.8%;
+	height: 30%;
+	resize:none;
+}
+
+.userCommentsBtn{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	color: white;
+	background-color: #279A0A;
+	position: absolute;
+	margin-top: 14.4%;
+	margin-left: 53.6%;
+}
+
+.listOfComments{
+	position: absolute;
+	margin-left: 8%;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 17.5%;
+}
+
+.commentName{
+	font-family: 'Roboto', sans-serif;
+  	font-size: 1vw;
+	font-weight: 900;
+}
+
+.commentDate{
+	font-family: 'Roboto', sans-serif;
+  	font-size: 1vw;
+	font-weight: 400;
+}
+
+.commentDetails{
+  font-family: 'Roboto', sans-serif;
+  font-size: 1vw;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  width: 97%;
+  max-width: 97%;
+}
+
+.userPageSideVideosSection{
+  margin-left: 63%;
+  margin-top: calc(3vh - 32.5%);
+}
+
+.userPageSideVideos{
+  display: flex;
+  flex-direction: column;
+  width: 37%;
+  height: 200px;
+  margin-top: calc(2.5vh + 3.4%);
+}
+
+.smallVidDescription{
+	position: absolute;
+	margin-left: 15%;
+	margin-top: -8%;
+	display: flex;
+    flex-direction: row;
+    font-size: 1vw;
+	font-family: 'Roboto', sans-serif;
+}
+
+.smallVidAuthor{
+	position: absolute;
+	display: flex;
+  	margin-left: 15%;
+  	margin-bottom: 30px;
+  	margin-top: -3%;
+  	font-size: 0.95vw;
+	font-family: 'Roboto', sans-serif;
+}
+}
+
+
+.addShoppingCartIcon{
+	position: absolute;
+	top: 54px;
+	margin-left: 65.8%;
+	font-size: 1.7vw;
+	padding: 0px;
+}
+
+.helpIcon{
+	position:absolute;
+	top: 10px;
+	margin-left: 66%;
+	padding: 0px;
+	font-size: 1.7vw;
+}	
+
+.profileImageIconLink{
+	position:absolute;
+	margin-left: 75%;
+	padding: 0px;
+	top: 16px;
+	text-decoration: none;
+}
+
+.profileImageIcon{
+	position:absolute;
+	border-radius: 50%;
+	width:37px;
+	height: 35px;
+	padding: 0px;
+}
+
+.profileImageIcon2{
+	position:absolute;
+	border-radius: 50%;
+	border-width: 3px;
+	border-style:solid;
+	border-color: white;
+	width:80px;
+	height: 75px;
+	padding: 0px;
+	top: 190px;
+	left: 17%;
+}
+
+.smallHelpText{
+	position:absolute;
+	top: 8px;
+	color: white;
+	font-size: 1vw;
+	margin-left: 60%;
+}
+
+.smallProfileNameText{
+	color: white;
+	font-size: 1vw;
+	padding-left: 50px;
+	vertical-align: middle;
+}
+
+.mediumProfileNameText{
+	position: absolute;
+	font-weight: 900;
+	font-size: 1.2vw;
+	font-family: 'Roboto', sans-serif;
+	vertical-align: middle;
+	top: 200px;
+	left: 23%;
+	color: white;
+	text-shadow:
+    -1px -1px 0 #000,
+     0   -1px 0 #000,
+     1px -1px 0 #000,
+     1px  0   0 #000,
+     1px  1px 0 #000,
+     0    1px 0 #000,
+    -1px  1px 0 #000,
+    -1px  0   0 #000;
+}
+
+.lastActiveText{
+	position: absolute;
+	font-weight: 800;
+	font-size: 0.9vw;
+	font-family: 'Roboto', sans-serif;
+	vertical-align: middle;
+	top: 225px;
+	left: 23%;
+	color: #B8C5D0;
+	text-shadow:
+    -1px -1px 0 #000,
+     0   -1px 0 #000,
+     1px -1px 0 #000,
+     1px  0   0 #000,
+     1px  1px 0 #000,
+     0    1px 0 #000,
+    -1px  1px 0 #000,
+    -1px  0   0 #000;
+}
+
+
+
+.addShoppingCartIcon{
+	position: absolute;
+	top: 54px;
+	margin-left: 65.8%;
+	font-size: 1.7vw;
+	padding: 0px;
+}
+
+.helpIcon{
+	position:absolute;
+	top: 10px;
+	margin-left: 66%;
+	padding: 0px;
+	font-size: 1.7vw;
+}	
+
+.profileImageIconLink{
+	position:absolute;
+	margin-left: 75%;
+	padding: 0px;
+	top: 16px;
+	text-decoration: none;
+}
+
+.profileImageIcon{
+	position:absolute;
+	border-radius: 50%;
+	width:37px;
+	height: 35px;
+	padding: 0px;
+}
+
+.profileImageIcon2{
+	position:absolute;
+	border-radius: 50%;
+	border-width: 3px;
+	border-style:solid;
+	border-color: white;
+	width:80px;
+	height: 75px;
+	padding: 0px;
+	top: 190px;
+	left: 17%;
+}
+
+.smallHelpText{
+	position:absolute;
+	top: 8px;
+	color: white;
+	font-size: 1vw;
+	margin-left: 60%;
+}
+
+.smallProfileNameText{
+	color: white;
+	font-size: 1vw;
+	padding-left: 50px;
+	vertical-align: middle;
+}
+
+.mediumProfileNameText{
+	position: absolute;
+	font-weight: 900;
+	font-size: 1.2vw;
+	font-family: 'Roboto', sans-serif;
+	vertical-align: middle;
+	top: 200px;
+	left: 23%;
+	color: white;
+	text-shadow:
+    -1px -1px 0 #000,
+     0   -1px 0 #000,
+     1px -1px 0 #000,
+     1px  0   0 #000,
+     1px  1px 0 #000,
+     0    1px 0 #000,
+    -1px  1px 0 #000,
+    -1px  0   0 #000;
+}
+
+.lastActiveText{
+	position: absolute;
+	font-weight: 800;
+	font-size: 0.9vw;
+	font-family: 'Roboto', sans-serif;
+	vertical-align: middle;
+	top: 225px;
+	left: 23%;
+	color: #B8C5D0;
+	text-shadow:
+    -1px -1px 0 #000,
+     0   -1px 0 #000,
+     1px -1px 0 #000,
+     1px  0   0 #000,
+     1px  1px 0 #000,
+     0    1px 0 #000,
+    -1px  1px 0 #000,
+    -1px  0   0 #000;
+}
+
+@media only screen and (max-width: 1300px) {
+  .mediumProfileNameText{
+	position: absolute;
+	font-weight: 900;
+	font-size: 1.2vw;
+	font-family: 'Roboto', sans-serif;
+	vertical-align: middle;
+	top: 200px;
+	left: 24.5%;
+	color: white;
+	text-shadow:
+    -1px -1px 0 #000,
+     0   -1px 0 #000,
+     1px -1px 0 #000,
+     1px  0   0 #000,
+     1px  1px 0 #000,
+     0    1px 0 #000,
+    -1px  1px 0 #000,
+    -1px  0   0 #000;
+	}
+
+	.lastActiveText{
+		position: absolute;
+		font-weight: 800;
+		font-size: 0.9vw;
+		font-family: 'Roboto', sans-serif;
+		vertical-align: middle;
+		top: 225px;
+		left: 24.5%;
+		color: #B8C5D0;
+		text-shadow:
+	    -1px -1px 0 #000,
+	     0   -1px 0 #000,
+	     1px -1px 0 #000,
+	     1px  0   0 #000,
+	     1px  1px 0 #000,
+	     0    1px 0 #000,
+	    -1px  1px 0 #000,
+	    -1px  0   0 #000;
+	}
+}
+
+@media only screen and (max-width: 1400px) {
+  .mediumProfileNameText{
+	position: absolute;
+	font-weight: 900;
+	font-size: 1.2vw;
+	font-family: 'Roboto', sans-serif;
+	vertical-align: middle;
+	top: 200px;
+	left: 24.1%;
+	color: white;
+	text-shadow:
+    -1px -1px 0 #000,
+     0   -1px 0 #000,
+     1px -1px 0 #000,
+     1px  0   0 #000,
+     1px  1px 0 #000,
+     0    1px 0 #000,
+    -1px  1px 0 #000,
+    -1px  0   0 #000;
+	}
+
+	.lastActiveText{
+		position: absolute;
+		font-weight: 800;
+		font-size: 0.9vw;
+		font-family: 'Roboto', sans-serif;
+		vertical-align: middle;
+		top: 225px;
+		left: 24.1%;
+		color: #B8C5D0;
+		text-shadow:
+	    -1px -1px 0 #000,
+	     0   -1px 0 #000,
+	     1px -1px 0 #000,
+	     1px  0   0 #000,
+	     1px  1px 0 #000,
+	     0    1px 0 #000,
+	    -1px  1px 0 #000,
+	    -1px  0   0 #000;
+	}
+}
+
+@media only screen and (min-width: 1401px) {
+  .mediumProfileNameText{
+	position: absolute;
+	font-weight: 900;
+	font-size: 1.2vw;
+	font-family: 'Roboto', sans-serif;
+	vertical-align: middle;
+	top: 205px;
+	left: 23%;
+	color: white;
+	text-shadow:
+    -1px -1px 0 #000,
+     0   -1px 0 #000,
+     1px -1px 0 #000,
+     1px  0   0 #000,
+     1px  1px 0 #000,
+     0    1px 0 #000,
+    -1px  1px 0 #000,
+    -1px  0   0 #000;
+	}
+
+	.lastActiveText{
+		position: absolute;
+		font-weight: 800;
+		font-size: 0.9vw;
+		font-family: 'Roboto', sans-serif;
+		vertical-align: middle;
+		top: 230px;
+		left: 23%;
+		color: #B8C5D0;
+		text-shadow:
+	    -1px -1px 0 #000,
+	     0   -1px 0 #000,
+	     1px -1px 0 #000,
+	     1px  0   0 #000,
+	     1px  1px 0 #000,
+	     0    1px 0 #000,
+	    -1px  1px 0 #000,
+	    -1px  0   0 #000;
+	}
+	
+	.profileImageIcon2{
+		position:absolute;
+		border-radius: 50%;
+		border-width: 3px;
+		border-style:solid;
+		border-color: white;
+		width:80px;
+		height: 75px;
+		padding: 0px;
+		top: 195px;
+		left: 17%;
+	}
+}
+
+@media only screen and (min-width: 1700px) {
+  .mediumProfileNameText{
+	position: absolute;
+	font-weight: 900;
+	font-size: 1.2vw;
+	font-family: 'Roboto', sans-serif;
+	vertical-align: middle;
+	top: 220px;
+	left: 22.2%;
+	color: white;
+	text-shadow:
+    -1px -1px 0 #000,
+     0   -1px 0 #000,
+     1px -1px 0 #000,
+     1px  0   0 #000,
+     1px  1px 0 #000,
+     0    1px 0 #000,
+    -1px  1px 0 #000,
+    -1px  0   0 #000;
+	}
+
+	.lastActiveText{
+		position: absolute;
+		font-weight: 800;
+		font-size: 0.9vw;
+		font-family: 'Roboto', sans-serif;
+		vertical-align: middle;
+		top: 250px;
+		left: 22.2%;
+		color: #B8C5D0;
+		text-shadow:
+	    -1px -1px 0 #000,
+	     0   -1px 0 #000,
+	     1px -1px 0 #000,
+	     1px  0   0 #000,
+	     1px  1px 0 #000,
+	     0    1px 0 #000,
+	    -1px  1px 0 #000,
+	    -1px  0   0 #000;
+	}
+	
+	.profileImageIcon2{
+		position:absolute;
+		border-radius: 50%;
+		border-width: 3px;
+		border-style:solid;
+		border-color: white;
+		width:80px;
+		height: 75px;
+		padding: 0px;
+		top: 210px;
+		left: 17%;
+	}
+	
+}
+
+@media only screen and (min-width: 2001px) {
+  .mediumProfileNameText{
+	position: absolute;
+	font-weight: 900;
+	font-size: 1.2vw;
+	font-family: 'Roboto', sans-serif;
+	vertical-align: middle;
+	top: 240px;
+	left: 21.2%;
+	color: white;
+	text-shadow:
+    -1px -1px 0 #000,
+     0   -1px 0 #000,
+     1px -1px 0 #000,
+     1px  0   0 #000,
+     1px  1px 0 #000,
+     0    1px 0 #000,
+    -1px  1px 0 #000,
+    -1px  0   0 #000;
+	}
+
+	.lastActiveText{
+		position: absolute;
+		font-weight: 800;
+		font-size: 0.9vw;
+		font-family: 'Roboto', sans-serif;
+		vertical-align: middle;
+		top: 275px;
+		left: 21.2%;
+		color: #B8C5D0;
+		text-shadow:
+	    -1px -1px 0 #000,
+	     0   -1px 0 #000,
+	     1px -1px 0 #000,
+	     1px  0   0 #000,
+	     1px  1px 0 #000,
+	     0    1px 0 #000,
+	    -1px  1px 0 #000,
+	    -1px  0   0 #000;
+	}
+	
+	.profileImageIcon2{
+		position:absolute;
+		border-radius: 50%;
+		border-width: 3px;
+		border-style:solid;
+		border-color: white;
+		width:80px;
+		height: 75px;
+		padding: 0px;
+		top: 235px;
+		left: 17%;
+	}
+	
+}
+
+.productsOnSaleSection{
+	background-color:white; 
+	padding-top: 10px;
+}
+
+.productsFilter{
+	background-color:#C4C4C4; 
+	padding-top: 10px;
+}
+
+.productPhotoSize{
+	height: 230px;
+}
+
+.productsContentSection{
+	margin-top: 2.5%;
+}
+
+.productsContentSection2{
+	margin-top: 2.5%;
+}
+
+.blackFontText{
+	color: black;
+}
+
+@media only screen and (min-width: 1700px) {
+	.blackFontText{
+	color: black;
+	font-size: 1vw;
+	}
+}
+
+a.nav-link.active.blackFontText.ml-5 {
+    margin-left: 2%;
+}
+
+.spaceEvenly{
+	justify-content: space-evenly;
+}
+
+.spaceLeft{
+	margin-left: -1%;
+	justify-content: left;
+}
+
+.sortLabel{
+	font-size: 1vw;
+	margin-bottom: 1%;
+}
+
+.popularSort{
+	margin-left: 2.5%;
+	padding: 5px 3%;
+	border: none;
+	background-color: white;
+	font-size: 0.95vw;
+	margin-bottom: 1%;
+}
+
+.latestSort{
+	margin-left: 2.5%;
+	padding: 5px 3%;
+	border: none;
+	background-color: white;
+	font-size: 0.95vw;
+	margin-bottom: 1%;
+}
+
+.salesSort{
+	margin-left: 2.5%;
+	padding: 5px 2%;
+	border: none;
+	background-color: white;
+	font-size: 0.95vw;
+	margin-bottom: 1%;
+}
+
+.priceSort{
+	margin-left: 56%;
+	padding: 5px 60%;
+	border: none;
+	background-color: white;
+	font-size: 0.95vw;
+	display: inline-block;
+	margin-bottom: 20%;
+}
+
+.nav-link.active:focus{
+    color: #ff6f61;
+    border-bottom: 1px solid #ff6f61;
+}
+
+.nav-link:hover {
+	color: coral;
+}
+
+.productPrice{
+	color: hotpink;
+	position: sticky;
+	text-align: left;
+	margin-left: 7%;
+	font-family: 'Roboto', sans-serif;
+}
+
+.productHeading{
+	position: sticky;
+	text-align: left;
+	margin-left: 7%;
+	font-family: 'Roboto', sans-serif;
+}
+
+.quantitySold{
+	position: absolute;
+	text-align: right;
+	margin-left: 58%;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.9rem;
+}
+
+.productCountryOrigin{
+	position: absolute;
+	text-align: right;
+	margin-left: 58%;
+	font-family: 'Roboto', sans-serif;
+	margin-top: 11%;
+	color: #89969F;
+	font-size: 0.9rem;
+}
+
+.trendingText{
+	color: #7E7E7E;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.2vw;
+	font-weight: 900;
+}
+
+.seeAllProductsLink{
+	position: relative;
+	margin-left: 85%;
+	padding: 0px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.2vw;
+	color: Tomato;
+	text-decoration: none;
+}
+
+@media only screen and (min-width: 1849px) {
+	 .seeAllProductsLink{
+	position: relative;
+	margin-left: 84%;
+	padding: 0px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.2vw;
+	color: Tomato;
+	text-decoration: none;
+	}
+}
+
+#cartQuantity {
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+    font-size: 0.9vw;
+    background: #ff0000;
+    padding: 1px 5px;
+    vertical-align: top;
+    top: 54px;
+    margin-left: 67.6%;
+    border-radius: 56px;
+}
+
+@media only screen and (min-width: 2001px) {
+	 .seeAllProductsLink{
+	position: relative;
+	margin-left: 82%;
+	padding: 0px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.2vw;
+	color: Tomato;
+	text-decoration: none;
+	}
+}
+
+#cartQuantity {
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+    font-size: 0.9vw;
+    background: #ff0000;
+    padding: 1px 5px;
+    vertical-align: top;
+    top: 54px;
+    margin-left: 67.6%;
+    border-radius: 56px;
+}
+
+@media only screen and (max-width: 1160px) {
+  .loginBtn{
+  	color:white;
+  	background:deeppink;
+  	font-size:78%;
+  	font-family: 'Roboto', sans-serif;
+	text-align: center;
+	margin-left: 86%;
+	top:91px;
+	height:20%;
+	width:5%;
+	position:absolute;
+	}
+	.loginBtn:hover{
+		color:black;
+	}
+}
+
+@media only screen and (min-width: 1600px) {
+	.biglogo{
+		margin-left: 12%;
+		border-radius: 56px;
+		width: 35%;
+		height: 45%;
+	}
+	
+	.forArtistsText{
+		font-size: 460%;
+		font-family: 'Roboto', sans-serif;
+		font-weight: 200;
+		margin-left: 20%;
+		width: 10%;
+		line-height: 115%;
+		margin-top: 2%;
+	}
+}
+
+@media only screen and (min-width: 2000px) {
+	  #finishForNow{
+		margin-left: 4%;
+		margin-top: 105px;
+		font-size: 1.3vw;
+		font-family: 'Roboto', sans-serif;
+		color: #5166D3;
+		text-decoration: none;
+		position: fixed;
+	}
+	
+		#finishForNow:hover{
+		margin-left: 4%;
+		margin-top: 105px;
+		font-size: 1.3vw;
+		font-family: 'Roboto', sans-serif;
+		color: crimson;
+		text-decoration: none;
+		position: fixed;
+	}
+	
+		.biglogo{
+		margin-left: 12%;
+		border-radius: 56px;
+		width: 35%;
+		height: 45%;
+	}
+	
+	.forArtistsText{
+		font-size: 460%;
+		font-family: 'Roboto', sans-serif;
+		font-weight: 200;
+		margin-left: 17%;
+		width: 10%;
+		line-height: 115%;
+		margin-top: 2%;
+	}
+	
+	.artistSignupImage { 
+	float:right;
+	border-radius:50%;
+	border-width: 15px;
+	border-style:solid;
+	border-color: white;
+	width:27%;
+	height:12vw;
+	padding-left: 0px;
+	margin-left: 43.5%;
+	margin-top: -13.3%;
+	position: absolute;
+	}
+
+	.uploadArtistImage{
+		position: absolute;
+		margin-left: 66.2%;
+		margin-top: 7.8%;
+	}
+	
+	
+	.artistSignupImage2{ 
+		float:right;
+		border-radius:50%;
+		border-width: 15px;
+		border-style:solid;
+		border-color: white;
+		width:27%;
+		height:12vw;
+		background-image:url("../images/default_user.jpg");
+		background-repeat:no-repeat;
+		background-size:cover;
+		padding-left: 0px;
+		margin-right: 29.5%;
+		margin-top: -9%;
+	}	
+	
+}

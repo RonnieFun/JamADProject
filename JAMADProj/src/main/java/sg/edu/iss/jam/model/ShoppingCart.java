@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -15,26 +15,25 @@ public class ShoppingCart {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long shoppingCartID;
 	
-	private int quantity;
-	
 	//OneToOne relation with user
 	@OneToOne(mappedBy = "shoppingCart")
 	private User shoppingCartUser;
 	
-	//relation with product
-	@ManyToMany
-	private Collection<Product> products;
+	//relation with shoppingcartDetail
+	@OneToMany(mappedBy="shoppingCart")
+	private Collection<ShoppingCartDetails> cartDetails;
 
 	public ShoppingCart() {
 		super();
 	}
 
-	public ShoppingCart(int quantity, User shoppingCartUser, Collection<Product> products) {
+	public ShoppingCart(User shoppingCartUser, Collection<ShoppingCartDetails> cartDetails) {
 		super();
-		this.quantity = quantity;
 		this.shoppingCartUser = shoppingCartUser;
-		this.products = products;
+		this.cartDetails = cartDetails;
 	}
+
+
 
 	public Long getShoppingCartID() {
 		return shoppingCartID;
@@ -42,14 +41,6 @@ public class ShoppingCart {
 
 	public void setShoppingCartID(Long shoppingCartID) {
 		this.shoppingCartID = shoppingCartID;
-	}
-
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
 	}
 
 	public User getShoppingCartUser() {
@@ -60,12 +51,14 @@ public class ShoppingCart {
 		this.shoppingCartUser = shoppingCartUser;
 	}
 
-	public Collection<Product> getProducts() {
-		return products;
+
+	public Collection<ShoppingCartDetails> getCartDetails() {
+		return cartDetails;
 	}
 
-	public void setProducts(Collection<Product> products) {
-		this.products = products;
+
+	public void setCartDetails(Collection<ShoppingCartDetails> cartDetails) {
+		this.cartDetails = cartDetails;
 	}
 
 	
