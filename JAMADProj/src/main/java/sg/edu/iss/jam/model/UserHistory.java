@@ -21,7 +21,6 @@ public class UserHistory {
 	@ManyToOne
 	private User historyUser;
 	
-	
 	//ManyToMany relation with media
 	@ManyToMany
 	private Collection<Media> mediaHistoryList;

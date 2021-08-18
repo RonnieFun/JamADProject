@@ -29,7 +29,6 @@ public class Subscribed {
 		super();
 	}
 
-
 	public Long getSubscribedID() {
 		return subscribedID;
 	}

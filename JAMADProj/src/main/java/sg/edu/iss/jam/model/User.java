@@ -45,7 +45,7 @@ public class User {
 	private Collection<Sessions> sessions;
 	
 	//ManyToMany relation with Orders
-	@ManyToMany
+	@OneToMany(mappedBy = "user")
 	private Collection<Orders> orders;
 	
 	//oneToOne relation with wishlist
@@ -84,11 +84,9 @@ public class User {
 	@OneToMany(mappedBy = "commentUser")
 	private Collection<Comments> comments;
 
-
 	public User() {
 		super();
 	}
-
 
 	public User(String firstName, String lastName, String email, String password, String dateOfBath, String displayName,
 			String about, String profileUrl, Collection<Roles> roles) {
@@ -103,7 +101,6 @@ public class User {
 		this.profileUrl = profileUrl;
 		this.roles = roles;
 	}
-
 
 	public Long getUserID() {
 		return userID;

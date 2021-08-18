@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="Fragments/layout.html :: headerfiles"> </head>
+<head th:replace="Fragments/layout.html :: headerfiles"> 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
 <body>
   <img th:src="@{/images/JAM_LOGO.png}" class="logo2" alt="JAM Logo">
  <nav class="navbar jamHeader3">
@@ -15,17 +17,17 @@
     <a th:href="@{/home}" class="helpIcon btn"><i class="fa fa-question-circle"></i><span class="smallHelpText">Help</span></a>
     
 	<button class="addShoppingCartIcon btn"><i class="fa fa-cart-plus"></i></button>
-	<span class='badge' id='cartQuantity'> 50 </span>
+	<!-- <span class='badge' id='cartQuantity'> 50 </span> -->
 	
-	<a th:href="@{/home}" class="profileImageIconLink"><img class="profileImageIcon" th:src="@{/images/estelle.PNG}" alt="Artist Small Profile Photo"/>
-		<span class="smallProfileNameText">Estelle Chen</span>
+	<a th:href="@{/home}" class="profileImageIconLink"><img class="profileImageIcon" th:src="${profileUrl}" alt="Artist Small Profile Photo"/>
+		<span class="smallProfileNameText" th:text="${artistName}"/>
 	</a>	
  </nav>
  
  <div class="cartIntroSection">
 
  	 <img class="smallBanner" th:src="@{/images/samplebanner.jpg}" alt="Artist Profile Small Banner"></img>
- 	 <img class="profileImageIcon2" th:src="@{/images/estelle.PNG}" alt="Artist Profile Photo"/><span class="mediumProfileNameText">Estelle Chen</span>
+ 	 <img class="profileImageIcon2" th:src="${profileUrl}" alt="Artist Profile Photo"/><span class="mediumProfileNameText" th:text="${artistName}"/>
  	 <!--<span class="lastActiveText">Active 30 minutes ago</span>-->
  	 
  	 <div class="aboutShopSection">
@@ -45,12 +47,12 @@
             <!-- Product Categories -->
             <nav class="navbar spaceEvenly">
               <a class="nav-link active blackFontText ml-5 h6" data-toggle="tab" href="#">Home</a>
-              <a class="nav-link active blackFontText h6" data-toggle="tab" href="#">All Products</a>
-              <a class="nav-link active blackFontText h6" data-toggle="tab" href="#">Music Collection</a>
-              <a class="nav-link active blackFontText h6" data-toggle="tab" href="#">Merchandise</a>
-              <a class="nav-link active blackFontText h6" data-toggle="tab" href="#">Hoodies & Sweaters</a>
+              <a class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/carthometab/}+${artistId}">All Products</a>
+              <a class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/carthometab/}+${artistId}+@{/MusicCollection}">Music Collection</a>
+              <a class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/carthometab/}+${artistId}+@{/Merchandise}">Merchandise</a>
+              <a class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/carthometab/}+${artistId}+@{/Clothing}">Clothing</a>
               
-   			  <span style="color:#E56A6A; font-size: 1.4vw; margin-bottom: 10px;">|</span>
+   			  <!-- <span style="color:#E56A6A; font-size: 1.4vw; margin-bottom: 10px;">|</span>
               
               <div class="dropdown">
 			        <a class="nav-link active blackFontText dropdown-toggle h6" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -61,7 +63,7 @@
 				          <li><a class="dropdown-item" href="#">Highest Price</a></li>
 				          <li><a class="dropdown-item" href="#">Lowest Price</a></li>
 			        </ul>
-			  </div>
+			  </div> -->
             </nav>
           	</div>
           </div>
@@ -71,18 +73,26 @@
     <section class="productsContentSection">
       <div class="container">
         <div class="row col-lg-11 mx-auto">
-	        <div style="margin-bottom: 18px;">
+	        <div style="margin-bottom: 18px;" th:if="${status =='home'}">
 				<span class="pt-0 mt-0 pb-2 trendingText">Trending</span>
-				<a th:href="@{/home}" class="seeAllProductsLink">See all ></a>
+				<a th:onclick="myFunction();" class="seeAllProductsLink">See all ></a>
 			</div>
-          <div class="col-6 col-md-3 col-lg-3 mb-5">
+			
+			
+          <div class="col-6 col-md-3 col-lg-3 mb-5" th:each="product: ${productList}">
             <!-- Card -->
             <div class="card mb-1 h-100">
 
               <!-- Image -->
-              <a th:href="@{/home}">
-                <img th:src="@{/images/pinkdress.jpg}" alt="..." class="card-img-top productPhotoSize">
+              <!-- <a th:href="@{/product/details/}+${product.productID}">
+                <img th:src="${product.productUrl}" alt="..." class="card-img-top productPhotoSize">
+              </a> -->
+              
+              <a data-toggle="modal" data-target="#exampleModal">
+                <img th:src="${product.productUrl}" alt="..." class="card-img-top productPhotoSize">
               </a>
+              
+              <th:block th:replace="_modals :: modal('exampleModal')">modal</th:block>
 
               <!-- Collapse -->
               <div class="card-collapse-parent">
@@ -92,12 +102,11 @@
 
                   <!-- Heading -->
                   <div class="mb-1 productHeading h6">
-                    <a>Pink Dress</a>
+                    <a th:text="${product.productName}"></a>
                   </div>
                   
                   <!-- Quantity Sold -->
-                  <div class="quantitySold">
-                  	10mil sold
+                  <div class="quantitySold" th:text="${product.productQty}">
                   </div>
 
 				 <!-- Country Of Origin -->
@@ -106,8 +115,7 @@
 				 </div>
 
                   <!-- Price -->
-                  <div class="mb-1 productPrice h6">
-                    $129.00
+                  <div class="mb-1 productPrice h6" th:text="${product.productPrice}">
                   </div>
                   
                   <!-- Like Button Heart Shape -->
@@ -122,454 +130,53 @@
 
           </div>
           
-          <div class="col-6 col-md-3 col-lg-3 mb-5">
-
-            <!-- Card -->
-            <div class="card mb-1 h-100">
-
-              <!-- Image -->
-              <a th:href="@{/home}">
-                <img th:src="@{/images/kpopalbum.png}" alt="..." class="card-img-top productPhotoSize">
-              </a>
-
-              <!-- Collapse -->
-              <div class="card-collapse-parent">
-
-                <!-- Body -->
-                <div class="card-body px-0 bg-white">
-
-                  <!-- Heading -->
-                  <div class="mb-1 productHeading h6">
-                    <a>Best Album Collection</a>
-                  </div>
-                  
-                  <!-- Quantity Sold -->
-                  <div class="quantitySold">
-                  	10mil sold
-                  </div>
-
-					<!-- Country Of Origin -->
-				 <div class="productCountryOrigin">
-				 	Singapore
-				 </div>
-
-                  <!-- Price -->
-                  <div class="mb-1 productPrice h6">
-                      $76.00
-                  </div>
-                  
-                  <!-- Like Button Heart Shape -->
-				  <label for="heartLikeButton">
-				    <i class="far fa-heart likeIcon" aria-hidden="true"></i>
-				  </label>
-				  <input id="heartLikeButton" type="button" />
-
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-          <div class="col-6 col-md-3 col-lg-3 mb-5">
-
-            <!-- Card -->
-            <div class="card mb-1 h-100">
-
-              <!-- Image -->
-              <a th:href="@{/home}">
-                <img th:src="@{/images/pinkhat.png}" alt="..." class="card-img-top productPhotoSize">
-              </a>
-
-              <!-- Collapse -->
-              <div class="card-collapse-parent">
-
-                <!-- Body -->
-                <div class="card-body px-0 bg-white">
-
-                  <!-- Heading -->
-                  <div class="mb-1 productHeading h6">
-                    <a>Nice Pink Hat</a>
-                  </div>
-
-				<!-- Quantity Sold -->
-                  <div class="quantitySold">
-                  	10mil sold
-                  </div>
-
-					<!-- Country Of Origin -->
-				 <div class="productCountryOrigin">
-				 	Singapore
-				 </div>
-
-                  <!-- Price -->
-                  <div class="mb-1 productPrice h6">
-                    $115.00
-                  </div>
-                  
-                  <!-- Like Button Heart Shape -->
-				  <label for="heartLikeButton">
-				    <i class="far fa-heart likeIcon" aria-hidden="true"></i>
-				  </label>
-				  <input id="heartLikeButton" type="button" />
-                  
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-          <div class="col-6 col-md-3 col-lg-3 mb-5">
-
-            <!-- Card -->
-            <div class="card mb-1 h-100">
-
-              <!-- Image -->
-              <a th:href="@{/home}">
-                <img th:src="@{/images/pinksneaker.jpg}" alt="..." class="card-img-top productPhotoSize">
-              </a>
-
-              <!-- Collapse -->
-              <div class="card-collapse-parent">
-
-                <!-- Body -->
-                <div class="card-body px-0 bg-white">
-
-                  <!-- Heading -->
-                  <div class="mb-1 productHeading h6">
-                    <a>Pink Sneakers</a>
-                  </div>
-
-					<!-- Quantity Sold -->
-                  <div class="quantitySold">
-                  	10mil sold
-                  </div>
-                  
-                  <!-- Country Of Origin -->
-				 <div class="productCountryOrigin">
-				 	Singapore
-				 </div>
-
-                  <!-- Price -->
-                  <div class="mb-1 productPrice h6">
-                    $65.00
-                  </div>
-                  
-                  <!-- Like Button Heart Shape -->
-				  <label for="heartLikeButton">
-				    <i class="far fa-heart likeIcon" aria-hidden="true"></i>
-				  </label>
-				  <input id="heartLikeButton" type="button" />
-
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-          <div class="col-6 col-md-3 col-lg-3 mb-5">
-
-            <!-- Card -->
-            <div class="card mb-1 h-100">
-
-              <!-- Image -->
-              <a th:href="@{/home}">
-                <img th:src="@{/images/cutepokemon.jpg}" alt="..." class="card-img-top productPhotoSize">
-              </a>
-
-              <!-- Collapse -->
-              <div class="card-collapse-parent">
-
-                <!-- Body -->
-                <div class="card-body px-0 bg-white">
-
-                  <!-- Heading -->
-                  <div class="mb-1 productHeading h6">
-                    <a>Cute Pokemon</a>
-                  </div>
-                  
-                  <!-- Quantity Sold -->
-                  <div class="quantitySold">
-                  	10mil sold
-                  </div>
-
-					<!-- Country Of Origin -->
-				 <div class="productCountryOrigin">
-				 	Singapore
-				 </div>
-
-                  <!-- Price -->
-                  <div class="mb-1 productPrice h6">
-                    $29.00
-                  </div>
-                  
-                  <!-- Like Button Heart Shape -->
-					  <label for="heartLikeButton">
-					    <i class="far fa-heart likeIcon" aria-hidden="true"></i>
-					  </label>
-					  <input id="heartLikeButton" type="button" />
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-          
-          <div class="col-6 col-md-3 col-lg-3 mb-5">
-
-            <!-- Card -->
-            <div class="card mb-1 h-100">
-
-              <!-- Image -->
-              <a th:href="@{/home}">
-                <img th:src="@{/images/cutepokemon.jpg}" alt="..." class="card-img-top productPhotoSize">
-              </a>
-
-              <!-- Collapse -->
-              <div class="card-collapse-parent">
-
-                <!-- Body -->
-                <div class="card-body px-0 bg-white">
-
-                  <!-- Heading -->
-                  <div class="mb-1 productHeading h6">
-                    <a>Cute Pokemon</a>
-                  </div>
-                  
-                  <!-- Quantity Sold -->
-                  <div class="quantitySold">
-                  	10mil sold
-                  </div>
-
-					<!-- Country Of Origin -->
-				 <div class="productCountryOrigin">
-				 	Singapore
-				 </div>
-
-                  <!-- Price -->
-                  <div class="mb-1 productPrice h6">
-                    $29.00
-                  </div>
-                  
-                  <!-- Like Button Heart Shape -->
-					  <label for="heartLikeButton">
-					    <i class="far fa-heart likeIcon" aria-hidden="true"></i>
-					  </label>
-					  <input id="heartLikeButton" type="button" />
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-          
-          <div class="col-6 col-md-3 col-lg-3 mb-5">
-
-            <!-- Card -->
-            <div class="card mb-1 h-100">
-
-              <!-- Image -->
-              <a th:href="@{/home}">
-                <img th:src="@{/images/cutepokemon.jpg}" alt="..." class="card-img-top productPhotoSize">
-              </a>
-
-              <!-- Collapse -->
-              <div class="card-collapse-parent">
-
-                <!-- Body -->
-                <div class="card-body px-0 bg-white">
-
-                  <!-- Heading -->
-                  <div class="mb-1 productHeading h6">
-                    <a>Cute Pokemon</a>
-                  </div>
-                  
-                  <!-- Quantity Sold -->
-                  <div class="quantitySold">
-                  	10mil sold
-                  </div>
-
-					<!-- Country Of Origin -->
-				 <div class="productCountryOrigin">
-				 	Singapore
-				 </div>
-
-                  <!-- Price -->
-                  <div class="mb-1 productPrice h6">
-                    $29.00
-                  </div>
-                  
-                  <!-- Like Button Heart Shape -->
-					  <label for="heartLikeButton">
-					    <i class="far fa-heart likeIcon" aria-hidden="true"></i>
-					  </label>
-					  <input id="heartLikeButton" type="button" />
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-          
-          <div class="col-6 col-md-3 col-lg-3 mb-5">
-
-            <!-- Card -->
-            <div class="card mb-1 h-100">
-
-              <!-- Image -->
-              <a th:href="@{/home}">
-                <img th:src="@{/images/cutepokemon.jpg}" alt="..." class="card-img-top productPhotoSize">
-              </a>
-
-              <!-- Collapse -->
-              <div class="card-collapse-parent">
-
-                <!-- Body -->
-                <div class="card-body px-0 bg-white">
-
-                  <!-- Heading -->
-                  <div class="mb-1 productHeading h6">
-                    <a>Cute Pokemon</a>
-                  </div>
-                  
-                  <!-- Quantity Sold -->
-                  <div class="quantitySold">
-                  	10mil sold
-                  </div>
-
-					<!-- Country Of Origin -->
-				 <div class="productCountryOrigin">
-				 	Singapore
-				 </div>
-
-                  <!-- Price -->
-                  <div class="mb-1 productPrice h6">
-                    $29.00
-                  </div>
-                  
-                  <!-- Like Button Heart Shape -->
-					  <label for="heartLikeButton">
-					    <i class="far fa-heart likeIcon" aria-hidden="true"></i>
-					  </label>
-					  <input id="heartLikeButton" type="button" />
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-          
-          <div class="col-6 col-md-3 col-lg-3 mb-5">
-
-            <!-- Card -->
-            <div class="card mb-1 h-100">
-
-              <!-- Image -->
-              <a th:href="@{/home}">
-                <img th:src="@{/images/cutepokemon.jpg}" alt="..." class="card-img-top productPhotoSize">
-              </a>
-
-              <!-- Collapse -->
-              <div class="card-collapse-parent">
-
-                <!-- Body -->
-                <div class="card-body px-0 bg-white">
-
-                  <!-- Heading -->
-                  <div class="mb-1 productHeading h6">
-                    <a>Cute Pokemon</a>
-                  </div>
-                  
-                  <!-- Quantity Sold -->
-                  <div class="quantitySold">
-                  	10mil sold
-                  </div>
-
-					<!-- Country Of Origin -->
-				 <div class="productCountryOrigin">
-				 	Singapore
-				 </div>
-
-                  <!-- Price -->
-                  <div class="mb-1 productPrice h6">
-                    $29.00
-                  </div>
-                  
-                  <!-- Like Button Heart Shape -->
-					  <label for="heartLikeButton">
-					    <i class="far fa-heart likeIcon" aria-hidden="true"></i>
-					  </label>
-					  <input id="heartLikeButton" type="button" />
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-          
-          <div class="col-6 col-md-3 col-lg-3 mb-5">
-
-            <!-- Card -->
-            <div class="card mb-1 h-100">
-
-              <!-- Image -->
-              <a th:href="@{/home}">
-                <img th:src="@{/images/cutepokemon.jpg}" alt="..." class="card-img-top productPhotoSize">
-              </a>
-
-              <!-- Collapse -->
-              <div class="card-collapse-parent">
-
-                <!-- Body -->
-                <div class="card-body px-0 bg-white">
-
-                  <!-- Heading -->
-                  <div class="mb-1 productHeading h6">
-                    <a>Cute Pokemon</a>
-                  </div>
-                  
-                  <!-- Quantity Sold -->
-                  <div class="quantitySold">
-                  	10mil sold
-                  </div>
-
-					<!-- Country Of Origin -->
-				 <div class="productCountryOrigin">
-				 	Singapore
-				 </div>
-
-                  <!-- Price -->
-                  <div class="mb-1 productPrice h6">
-                    $29.00
-                  </div>
-                  
-                  <!-- Like Button Heart Shape -->
-					  <label for="heartLikeButton">
-					    <i class="far fa-heart likeIcon" aria-hidden="true"></i>
-					  </label>
-					  <input id="heartLikeButton" type="button" />
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-          
           </div>
         </div>
     </section>
-
 <div class="footer">
   <p style="margin-top: 3px;">@2020-2021 Jam | Term 2</p>
 </div>
-
+<div id="divArtistId" th:text="${artistId}" style="display: none;">
+</div>
 </body>
+
+function myFunction() {
+	  var artistId = $('#divArtistId').text();
+	  alert(artistId);
+	  //document.getElementById("demo").innerHTML = "You selected: " + x;
+	  $.ajax({
+	        type: 'POST',
+	        url: "/getAllProduct",
+	        contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+	        data:{
+	        	artistId :artistId
+	        },
+	        success: function(response){
+	        	//console.log(response);
+	        	//$('#courseId').empty();
+	        	var jason =$.parseJSON(response);
+	        	console.log(jason)
+	        	/* $.each(jason, function(key, value) {
+  					var $option = $("<option/>", {
+    					value: key,
+    					text: key + ' | '+value
+  						});
+  					$('#courseId').append($option);
+				}); */
+	        	/* for(var i in jason){
+	        		console.log(jason[i]);
+	        		//$('#courseId').append('<option th:value="'+jason[i] +'">'+ jason[i] +'</option>')
+	        		
+	        	} */
+	        	
+	        },
+	        error:function(xmlHttpRequest, textStatus, errorThrown){
+	        	console.log("error"+ errorThrown);
+	            alert("error");
+	        } 
+	    });
+	  
+	  
+	}
+</script> 
 </html>
