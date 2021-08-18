@@ -20,12 +20,20 @@ public class ShoppingCartDetails {
 	
 	@ManyToOne
 	private ShoppingCart shoppingCart;
+	
 
-	public ShoppingCartDetails(int quantity, Product product) {
+	public ShoppingCartDetails() {
+		super();
+	}
+	
+	public ShoppingCartDetails(int quantity, Product product, ShoppingCart shoppingCart) {
 		super();
 		this.quantity = quantity;
 		this.product = product;
+		this.shoppingCart = shoppingCart;
 	}
+
+
 
 	public Long getCartDetailID() {
 		return cartDetailID;
