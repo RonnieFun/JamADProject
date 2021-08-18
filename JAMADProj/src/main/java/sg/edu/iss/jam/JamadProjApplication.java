@@ -146,6 +146,14 @@ public class JamadProjApplication {
 			mediarepo.save(maxvideo);
 			mediarepo.save(dinovideo);
 			
+			FirstPlayListMedia.add(jaychouvideo);
+			FirstPlayListMedia.add(bruceleevideo);
+			FirstPlayListMedia.add(jjlinvideo);
+			FirstPlayListMedia.add(monsterhuntervideo);
+			FirstPlayListMedia.add(wwevideo);
+			FirstPlayListMedia.add(maxvideo);
+			FirstPlayListMedia.add(dinovideo);
+			
 			Tag tag1 = new Tag("Classical Music", FirstPlayListMedia);
 			
 			Tag tag2 = new Tag("Romantic Songs", SecondPlayListMedia);
@@ -205,6 +213,11 @@ public class JamadProjApplication {
 		    uhrepo.save(userHistory2);
 		    uhrepo.save(userHistory3);
 		    uhrepo.save(userHistory4);
+		    
+		    userHistory.add(userHistory1);
+		    userHistory.add(userHistory2);
+		    userHistory.add(userHistory3);
+		    userHistory.add(userHistory4);
 		    
 //set order details for testing			
 //			OrderDetails od1 = new OrderDetails();
