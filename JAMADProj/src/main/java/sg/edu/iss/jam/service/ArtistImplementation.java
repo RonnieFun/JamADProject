@@ -59,9 +59,9 @@ public class ArtistImplementation implements ArtistInterface {
 	}
 	
 	@Override
-	public List<Product> getProductListByArtistID(long userID) {
+	public List<Product> getProductListByArtistID(long artistid) {
 		// TODO Auto-generated method stub
-		return prepo.findAll();
+		return prepo.getProductListByArtistID(artistid);
 	}
 	@Override
 	public User getArtistByID(long artistid) {

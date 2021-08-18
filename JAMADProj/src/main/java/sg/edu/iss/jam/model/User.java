@@ -26,7 +26,7 @@ public class User {
 	
 	private String password;
 	
-	private String dateOfBath;
+	private String dateOfBirth;
 	
 	private String displayName;
 	
@@ -97,7 +97,7 @@ public class User {
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
-		this.dateOfBath = dateOfBath;
+		this.dateOfBirth = dateOfBath;
 		this.displayName = displayName;
 		this.about = about;
 		this.profileUrl = profileUrl;
@@ -156,12 +156,12 @@ public class User {
 
 
 	public String getDateOfBath() {
-		return dateOfBath;
+		return dateOfBirth;
 	}
 
 
 	public void setDateOfBath(String dateOfBath) {
-		this.dateOfBath = dateOfBath;
+		this.dateOfBirth = dateOfBath;
 	}
 
 

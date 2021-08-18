@@ -31,11 +31,14 @@
 
 	<div align="center">
 		&nbsp;
-		<h1>Add Product</h1>
-		<form action="#" th:object="${newProduct}" enctype="multipart/form-data"
+		<h1>Edit Product</h1>
+		<form action="#" th:object="${product}" enctype="multipart/form-data"
 			th:action="@{/artist/saveproduct}" method="post">
 			<fieldset>
 				<input type="hidden" th:field="*{productID}">
+			</fieldset>
+			<fieldset>
+				<input type="hidden" th:field="*{productUrl}">
 			</fieldset>
 			&nbsp;
 			<fieldset>
@@ -59,11 +62,12 @@
 			</fieldset>
 			&nbsp;
 			<fieldset>
-				Product Category: <select required th:value="*{productCategory}" name="productCategory">
+				Product Category: <select required th:value="*{productCategory}"
+					name="productCategory">
 					<th:block>
-						<option disabled selected value="">Select an option</option>
 						<option th:each="category : ${categories}"
-							th:value="${category.key}" th:text="${category.value}">
+							th:value="${category.key}" th:text="${category.value}"
+							th:selected="${category.key==product.productCategory}">
 						</option>
 					</th:block>
 				</select>
@@ -78,14 +82,13 @@
 			</fieldset>
 			&nbsp;
 			<fieldset>
-			
+
 				<p>
-				Product Image:
-					<input required type="file" accept="image/*" name="file" id="file"
-						onchange="loadFile(event)">
+					Product Image: <input type="file" accept="image/*" name="image"
+						id="file" onchange="loadFile(event)">
 				</p>
 				<p>
-					<img id="output" width="30%" />
+					<img id="output" th:src="*{productUrl}" width="30%" />
 				</p>
 			</fieldset>
 			&nbsp;

@@ -22,7 +22,7 @@ public class Tag {
 
 	public Tag() {
 		super();
-	}
+	}	
 
 	public Tag(String tagName, Collection<Media> mediaTagList) {
 		super();

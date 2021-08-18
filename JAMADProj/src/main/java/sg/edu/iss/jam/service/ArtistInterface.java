@@ -3,7 +3,6 @@ import java.util.List;
 
 import sg.edu.iss.jam.model.Category;
 import sg.edu.iss.jam.model.Product;
-import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.model.Subscribed;
 import sg.edu.iss.jam.model.User;
 
@@ -28,6 +27,6 @@ public interface ArtistInterface {
 	Product getProductByID(long productid);
 
 	List<Product> getProductListByArtistIDAndCategory(long artistid, Category category);
-
+	
 }
 
