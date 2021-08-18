@@ -999,7 +999,7 @@ body {
   width: 50%;
   height: 55%;
   margin-left: 7.5%;
-  margin-top: calc(3.5vh + 9.5%);
+  margin-top: calc(8vh - 0.01%);
   padding: 0px;
 }
 
@@ -1326,7 +1326,7 @@ body {
   width: 50%;
   height: 55%;
   margin-left: 7.5%;
-  margin-top: calc(3.5vh + 11.5%);
+  margin-top: calc(8vh - 0.01%);
   padding: 0px;
 }
 
@@ -1616,7 +1616,7 @@ body {
   width: 50%;
   height: 55%;
   margin-left: 7.5%;
-  margin-top: calc(3.5vh + 11%);
+  margin-top: calc(8vh - 0.01%);
   padding: 0px;
 }
 
@@ -1902,7 +1902,7 @@ body {
   width: 50%;
   height: 55%;
   margin-left: 7.5%;
-  margin-top: calc(3.5vh + 11%);
+  margin-top: calc(8vh - 0.01%);
   padding: 0px;
 }
 
@@ -2183,7 +2183,7 @@ body {
   width: 50%;
   height: 55%;
   margin-left: 7.5%;
-  margin-top: calc(3.5vh + 11%);
+  margin-top: calc(8vh - 0.01%);
   padding: 0px;
 }
 
@@ -2464,7 +2464,7 @@ body {
   width: 50%;
   height: 55%;
   margin-left: 7.5%;
-  margin-top: calc(3.5vh + 11%);
+  margin-top: calc(8vh - 0.01%);
   padding: 0px;
 }
 
@@ -2745,7 +2745,7 @@ body {
   width: 50%;
   height: 55%;
   margin-left: 7.5%;
-  margin-top: calc(3.5vh + 11%);
+  margin-top: calc(8vh - 0.01%);
   padding: 0px;
 }
 
@@ -3026,7 +3026,7 @@ body {
   width: 50%;
   height: 55%;
   margin-left: 7.5%;
-  margin-top: calc(3.5vh + 11%);
+  margin-top: calc(8vh - 0.01%);
   padding: 0px;
 }
 
@@ -3308,7 +3308,7 @@ body {
   width: 50%;
   height: 55%;
   margin-left: 7.5%;
-  margin-top: calc(3.5vh + 11%);
+  margin-top: calc(8vh - 0.01%);
   padding: 0px;
 }
 
@@ -3590,7 +3590,7 @@ body {
   width: 50%;
   height: 55%;
   margin-left: 7.5%;
-  margin-top: calc(3.5vh + 11%);
+  margin-top: calc(8vh - 0.01%);
   padding: 0px;
 }
 
@@ -4933,14 +4933,10 @@ body{
 	.feed{
 	width: 50%;
 	padding: 10px 50px;
-	}
-
 	}	
 	.ml-auto,
-.mx-auto {
-  margin-left: auto !important; }
-
-	
+	.mx-auto {
+  margin-left: auto !important; }	
 }
 
 
