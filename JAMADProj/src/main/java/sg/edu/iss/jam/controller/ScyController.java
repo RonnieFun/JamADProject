@@ -1,5 +1,6 @@
 package sg.edu.iss.jam.controller;
 
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,32 +39,22 @@ public class ScyController {
 		model.addAttribute("videoDuration3", videoDuration3);
 		
 		List<SCY> counts=scyservice.findAllCounts();
-		List<SCY> top2=counts.stream()
+		List<SCY> top3=counts.stream()
 								.sorted(Comparator.comparing(SCY::getCount).thenComparing(SCY::getTitle).reversed())
 								.limit(3)
 								.collect(Collectors.toList());
 		
-		String title1=top2.get(0).getTitle();
-		String title2=top2.get(1).getTitle();
-		String title3=top2.get(2).getTitle();
+		String title1=top3.get(0).getTitle();
+		String title2=top3.get(1).getTitle();
+		String title3=top3.get(2).getTitle();
 		model.addAttribute("videoTitle1", title1);
 		model.addAttribute("videoTitle2", title2);
-		model.addAttribute("videoTitle2", title3);
+		model.addAttribute("videoTitle3", title3);
 		return "videolandingpage";
 		}
-	
-////	Code for displaying all the students' course grades without filtering based on lecturer id
-//	@Query("SELECT sc FROM StudentCourseDetails sc JOIN sc.course c JOIN sc.student u "
-//			+ "WHERE sc.enrolmentStatus = :enrolmentStatus AND u.userID = :userID AND u.role = :role")
-//	  List<StudentCourseDetails> findGradesByStudentId(@Param("enrolmentStatus") EnrolmentStatus enrolmentStatus,
-//			  @Param("userID") Long userID, @Param("role") Roles role);
-////display all video with count top15 based on 
-//	@Query("Select media From Meida m Join m.userHistories u"
-//			+ "Where m.type=:type")
-//	List<Meida> findVideoByCount(@Param("type") MediaType type);
-	
-	
-	
+//	
+//
+//	
 	
 	
 	
