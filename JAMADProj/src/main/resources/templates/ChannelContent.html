@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="Fragments/layout.html :: headerfiles">
+</head>
+<meta charset="ISO-8859-1">
+<title>Channel Content</title>
+
+<h1>Channel List</h1>
+<div class="container">
+	<div class="row">
+		<div class="container">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Title</th>
+						<th>Category</th>
+						<th>Description</th>
+						<th>Visibility</th>
+						<th>Uploaded Date</th>
+						<th>Views</th>
+						<th>Comments</th>
+						<th>Manage</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr th:each="MediaDTO:${MediaDTOList}">
+						<td th:text=${MediaDTO.media.title}></td>
+						<td th:text=${MediaDTO.tags}></td>
+						<td>Desc Place holder</td>
+						<td th:text=${MediaDTO.media.publishStatus}></td>
+						<td th:text=${MediaDTO.media.createdOn}></td>
+						<td th:text=${MediaDTO.viewcount}></td>
+						<td th:text=${MediaDTO.commentscount}></td>
+						<td></td>
+
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

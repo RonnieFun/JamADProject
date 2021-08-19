@@ -23,7 +23,6 @@ public class Channel {
 	
 	private String channelDescription;
 	
-	@Enumerated(EnumType.STRING)
 	private MediaType mediaType;
 	
 	private String createdOn;
