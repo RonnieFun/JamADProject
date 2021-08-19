@@ -27,6 +27,13 @@ public interface ArtistInterface {
 	Product getProductByID(long productid);
 
 	List<Product> getProductListByArtistIDAndCategory(long artistid, Category category);
+
+	List<Object[]> getTopAllProductsInPastWeekByOrderDetailsQuantity(int i);
+	
+//	List<Object[]> getTopMusicCollectionProductsInPastWeekByOrderDetailsQuantity(int i);
+//	
+//	List<Object[]> getTopMerchandiseProductsInPastWeekByOrderDetailsQuantity(int i);
+//	
+//	List<Object[]> getTopClothingProductsInPastWeekByOrderDetailsQuantity(int i);
 	
 }
-

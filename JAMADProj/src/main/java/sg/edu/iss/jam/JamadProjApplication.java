@@ -1,8 +1,9 @@
 package sg.edu.iss.jam;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+
+import javax.validation.constraints.Max;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -10,46 +11,26 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-<<<<<<< HEAD
-import sg.edu.iss.jam.model.Max;
-import sg.edu.iss.jam.model.Media;
-import sg.edu.iss.jam.model.MediaType;
-=======
 import sg.edu.iss.jam.model.Channel;
 import sg.edu.iss.jam.model.Comments;
-
 import sg.edu.iss.jam.model.Media;
+import sg.edu.iss.jam.model.MediaType;
+import sg.edu.iss.jam.model.Playlists;
+import sg.edu.iss.jam.model.Product;
 import sg.edu.iss.jam.model.Role;
 import sg.edu.iss.jam.model.Roles;
 import sg.edu.iss.jam.model.Tag;
 import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.model.UserHistory;
-import sg.edu.iss.jam.model.MediaType;
-import sg.edu.iss.jam.model.Playlists;
-
-import sg.edu.iss.jam.model.Media;
-import sg.edu.iss.jam.model.MediaType;
-import sg.edu.iss.jam.model.Role;
-import sg.edu.iss.jam.model.Roles;
-import sg.edu.iss.jam.model.User;
-<<<<<<< HEAD
-import sg.edu.iss.jam.repo.MaxRepository;
-import sg.edu.iss.jam.repo.MediaRepository;
-=======
-
 import sg.edu.iss.jam.repo.ChannelRepository;
 import sg.edu.iss.jam.repo.CommentsRepository;
 import sg.edu.iss.jam.repo.MediaRepository;
+import sg.edu.iss.jam.repo.OrderDetailsRepository;
 import sg.edu.iss.jam.repo.PlaylistsRepository;
+import sg.edu.iss.jam.repo.ProductRepository;
 import sg.edu.iss.jam.repo.RolesRepository;
 import sg.edu.iss.jam.repo.TagRepository;
 import sg.edu.iss.jam.repo.UserHistoryRepository;
-
-import sg.edu.iss.jam.repo.MediaRepository;
-import sg.edu.iss.jam.repo.OrderDetailsRepository;
-import sg.edu.iss.jam.repo.ProductRepository;
-import sg.edu.iss.jam.repo.RolesRepository;
-
 import sg.edu.iss.jam.repo.UserRepository;
 
 @SpringBootApplication
@@ -99,7 +80,6 @@ public class JamadProjApplication {
 	CommandLineRunner runner() {
 
 		return args -> {
-<<<<<<< HEAD
 
 //			Max signup1 = new Max(1L, "Brandon", "1 Day Ago", "How's everyone doing?");
 //			Max signup2 = new Max(2L, "Chang Ying", "2 Days Ago", "This is so cool! I'm excited!");
@@ -128,6 +108,8 @@ public class JamadProjApplication {
 //			prepo.save(product2);
 //			prepo.save(product3);
 //			prepo.save(product4);
+			
+			
 //			Max signup1 = new Max(1L, "Brandon", "1 Day Ago", "How's everyone doing?");
 //			Max signup2 = new Max(2L, "Chang Ying", "2 Days Ago", "This is so cool! I'm excited!");
 //			Max signup3 = new Max(3L, "Phyu Sin", "1 Day Ago", "I can't wait to go on the concert tour!");
@@ -150,11 +132,9 @@ public class JamadProjApplication {
 //			testrepo.save(signup7);
 //			testrepo.save(signup8);
 //			testrepo.save(signup9);
-=======
->>>>>>> refs/remotes/origin/master
+
 			
 			// ZQ's dummy data
-<<<<<<< HEAD
 //			Roles Artist = new Roles(Role.Artist);
 //			Roles Customer = new Roles(Role.Customer);
 //			Roles ServiceProvider = new Roles(Role.ServiceProvider);
@@ -194,7 +174,6 @@ public class JamadProjApplication {
 //			media2.setMediaType(MediaType.Music);
 //			mrepo.save(media1);
 //			mrepo.save(media2);
-=======
 			Roles Artist = new Roles(Role.Artist);
 			Roles Customer = new Roles(Role.Customer);
 			Roles ServiceProvider = new Roles(Role.ServiceProvider);
@@ -296,7 +275,6 @@ public class JamadProjApplication {
 
 		    urepo.save(jayChou);
 		    urepo.save(zhaoQi);
->>>>>>> refs/remotes/origin/master
 			
 		    Comments comment1 = new Comments("27 July 2021, 11:59", 
 		    		"Nice music, nice mv, Thanks! "
@@ -314,21 +292,21 @@ public class JamadProjApplication {
 		    maxComments.add(comment1);
 		    maxComments.add(comment2);
 		    
-		    UserHistory userHistory1 = new UserHistory(1, jayChou, FirstPlayListMedia);
-		    UserHistory userHistory2 = new UserHistory(2, zhaoQi, SecondPlayListMedia);
-		    UserHistory userHistory3 = new UserHistory(1, jayChou, SecondPlayListMedia);
-		    UserHistory userHistory4 = new UserHistory(2, zhaoQi, FirstPlayListMedia);
-		    
-		    uhrepo.save(userHistory1);
-		    uhrepo.save(userHistory2);
-		    uhrepo.save(userHistory3);
-		    uhrepo.save(userHistory4);
-		    
-		    userHistory.add(userHistory1);
-		    userHistory.add(userHistory2);
-		    userHistory.add(userHistory3);
-		    userHistory.add(userHistory4);
-		    
+//		    UserHistory userHistory1 = new UserHistory(1, jayChou, FirstPlayListMedia);
+//		    UserHistory userHistory2 = new UserHistory(2, zhaoQi, SecondPlayListMedia);
+//		    UserHistory userHistory3 = new UserHistory(1, jayChou, SecondPlayListMedia);
+//		    UserHistory userHistory4 = new UserHistory(2, zhaoQi, FirstPlayListMedia);
+//		    
+//		    uhrepo.save(userHistory1);
+//		    uhrepo.save(userHistory2);
+//		    uhrepo.save(userHistory3);
+//		    uhrepo.save(userHistory4);
+//		    
+//		    userHistory.add(userHistory1);
+//		    userHistory.add(userHistory2);
+//		    userHistory.add(userHistory3);
+//		    userHistory.add(userHistory4);
+//		    
 //set order details for testing			
 //			OrderDetails od1 = new OrderDetails();
 //			od1.setProduct(prepo.getById((long) 1));

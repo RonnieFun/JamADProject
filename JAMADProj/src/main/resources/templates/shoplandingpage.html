@@ -30,33 +30,12 @@
 			<span class="smallProfileNameText">Estelle Chen</span> </a>
 	</nav>
 
-	<div class="cartIntroSection">
-
-		<img class="smallBanner" th:src="@{/images/samplebanner.jpg}"
-			alt="Artist Profile Small Banner"></img> <img
-			class="profileImageIcon2" th:src="@{/images/estelle.PNG}"
-			alt="Artist Profile Photo" /><span class="mediumProfileNameText">Estelle
-			Chen</span>
-
-		<div class="aboutShopSection">
-			<span class="aboutShopHeader h6">About Shop</span> <span
-				class="aboutShopFeature1"><i class="fa fa-heart heartIcon"></i>&nbsp;&nbsp;Welcome
-				to my store!</span> <span class="aboutShopFeature2"><i
-				class="fa fa-bullhorn fa-flip-horizontal trumpetIcon "></i>&nbsp;&nbsp;The
-				limited edition of my newest single is available! Get them now!</span> <span
-				class="aboutShopFeature3"><img class="bikiniIcon"
-				th:src="@{/images/bikini.png}" />&nbsp;&nbsp;Get your summer
-				fashion needs from my clothing line.</span> <span class="aboutShopFeature4"><span
-				class="grinIcon">&#128522;</span>&nbsp;&nbsp;Enjoy shopping!</span>
-		</div>
-	</div>
-
-
 	<!-- PRODUCTS ON SALE NAVBAR -->
 	<section class="productsOnSaleSection">
 		<div class="container">
 			<div class="row align-items-center">
 				<div class="col-12 col-md">
+					&nbsp;
 					<!-- Product Categories -->
 					<nav class="navbar spaceEvenly">
 						<a th:if="${category} == 'allProducts'"
@@ -89,70 +68,52 @@
 						<a th:unless="${category} == 'clothing'"
 							class="nav-link active blackFontText h6" data-toggle="tab"
 							href="/artist/manageshop/clothing">Clothing</a>
-
-
-						<!--    			  <span style="color:#E56A6A; font-size: 1.4vw; margin-bottom: 10px;">|</span> -->
-
-						<!--               <div class="dropdown"> -->
-						<!-- 			        <a class="nav-link active blackFontText dropdown-toggle h6" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
-						<!-- 			          More -->
-						<!-- 			        </a> -->
-						<!-- 			        <ul class="dropdown-menu" aria-labelledby="navbarDropdown"> -->
-						<!-- 				         <li><a class="dropdown-item" href="#">Most Popular</a></li> -->
-						<!-- 				          <li><a class="dropdown-item" href="#">Highest Price</a></li> -->
-						<!-- 				          <li><a class="dropdown-item" href="#">Lowest Price</a></li> -->
-						<!-- 			        </ul> -->
-						<!-- 			  </div> -->
 					</nav>
 				</div>
 			</div>
 		</div>
 	</section>
-
-	<!-- SELLING CONTENT -->
-	&nbsp;
-	<div align="center">
-		<form action="/artist/addnewproduct">
-			<button style="background-color: #FFB6C1">+ Add new item</button>
-		</form>
-	</div>
-
 	<section class="productsContentSection2">
-		<div class="container">
-			<div class="row col-lg-11 mx-auto">
-				<div style="margin-bottom: 18px;">
-					<section class="productsFilter">
-						<div class="container">
-							<div class="row align-items-center">
-								<div class="col-12 col-md">
-									<!-- Product Categories -->
-									<nav class="navbar spaceLeft py-0">
-										<a class="nav-link blackFontText ml-5 sortLabel"
-											data-toggle="tab" href="#">Sort by:</a> <a
-											class="nav-link blackFontText popularSort" data-toggle="tab"
-											href="#">Popular</a> <a
-											class="nav-link blackFontText latestSort" data-toggle="tab"
-											href="#">Latest</a> <a
-											class="nav-link blackFontText salesSort" data-toggle="tab"
-											href="#">Top Sales</a>
 
-										<div class="dropdown">
-											<a class="nav-link blackFontText dropdown-toggle priceSort"
-												href="#" id="navbarDropdown" role="button"
-												data-bs-toggle="dropdown" aria-haspopup="true"
-												aria-expanded="false"> Price </a>
-											<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-												<li><a class="dropdown-item" href="#">Highest Price</a></li>
-												<li><a class="dropdown-item" href="#">Lowest Price</a></li>
-												<li><a class="dropdown-item" href="#">Promotions</a></li>
-											</ul>
-										</div>
-									</nav>
-								</div>
-							</div>
-						</div>
-					</section>
-				</div>
+		<div class="container">
+			<h3 class="col-md-auto">Trending Products</h3>
+			<hr>
+
+			<div class="row col-lg-11 mx-auto">
+
+				<!-- 				<div style="margin-bottom: 18px;"> -->
+				<!-- 					<section class="productsFilter"> -->
+				<!-- 						<div class="container"> -->
+				<!-- 							<div class="row align-items-center"> -->
+				<!-- 								<div class="col-12 col-md"> -->
+				<!-- 									Product Categories -->
+				<!-- 									<nav class="navbar spaceLeft py-0"> -->
+				<!-- 										<a class="nav-link blackFontText ml-5 sortLabel" -->
+				<!-- 											data-toggle="tab" href="#">Sort by:</a> <a -->
+				<!-- 											class="nav-link blackFontText popularSort" data-toggle="tab" -->
+				<!-- 											href="#">Popular</a> <a -->
+				<!-- 											class="nav-link blackFontText latestSort" data-toggle="tab" -->
+				<!-- 											href="#">Latest</a> <a -->
+				<!-- 											class="nav-link blackFontText salesSort" data-toggle="tab" -->
+				<!-- 											href="#">Top Sales</a> -->
+
+				<!-- 										<div class="dropdown"> -->
+				<!-- 											<a class="nav-link blackFontText dropdown-toggle priceSort" -->
+				<!-- 												href="#" id="navbarDropdown" role="button" -->
+				<!-- 												data-bs-toggle="dropdown" aria-haspopup="true" -->
+				<!-- 												aria-expanded="false"> Price </a> -->
+				<!-- 											<ul class="dropdown-menu" aria-labelledby="navbarDropdown"> -->
+				<!-- 												<li><a class="dropdown-item" href="#">Highest Price</a></li> -->
+				<!-- 												<li><a class="dropdown-item" href="#">Lowest Price</a></li> -->
+				<!-- 												<li><a class="dropdown-item" href="#">Promotions</a></li> -->
+				<!-- 											</ul> -->
+				<!-- 										</div> -->
+				<!-- 									</nav> -->
+				<!-- 								</div> -->
+				<!-- 							</div> -->
+				<!-- 						</div> -->
+				<!-- 					</section> -->
+				<!-- 				</div> -->
 
 				<th:block th:each="productAndCount: ${productsAndCountShop}">
 					<div class="col-6 col-md-3 col-lg-3 mb-5">
@@ -168,6 +129,18 @@
 
 								<!-- Body -->
 								<div class="card-body px-0 bg-white">
+									<div class="row">
+										<div class="col-4">
+											<img class="rounded-circle" width="100%"
+												style="padding-left: 30%; padding-bottom: 10%"
+												th:src="${productAndCount.key.productUser.profileUrl}">
+										</div>
+										<div class="col">
+											<h5><strong
+												th:text="${productAndCount.key.productUser.firstName + ' ' +
+												productAndCount.key.productUser.lastName}"></strong></h5>
+										</div>
+									</div>
 
 									<!-- Heading -->
 
@@ -175,12 +148,16 @@
 										th:text="${productAndCount.key.productName}"></div>
 
 									<!-- Quantity Sold -->
-									<div class="quantitySold"
-										th:text="${productAndCount.value} + ' sold'"></div>
+									<div class="quantitySold" style="padding-right:10%"
+										th:text="${productAndCount.value} + ' sold in the past week'"></div>
 
 									<!-- Price -->
 									<div class="mb-1 productPrice h6"
 										th:text="${#numbers.formatCurrency(productAndCount.key.productPrice)}"></div>
+
+									<label for="heartLikeButton"> <i
+										class="far fa-heart likeIcon" aria-hidden="true"></i>
+									</label> <input id="heartLikeButton" type="button" />
 
 								</div>
 							</div>

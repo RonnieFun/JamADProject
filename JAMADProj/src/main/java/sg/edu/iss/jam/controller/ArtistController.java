@@ -49,6 +49,7 @@ public class ArtistController {
 		}
 		model.addAttribute("productsAndCountShop", productsAndCountShop);
 		model.addAttribute("artist", artist);
+		model.addAttribute("category", "allProducts");
 		return "artistmanageshop";
 	}
 
@@ -64,6 +65,7 @@ public class ArtistController {
 		}
 		model.addAttribute("productsAndCountShop", productsAndCountShop);
 		model.addAttribute("artist", artist);
+		model.addAttribute("category", "musicCollection");
 		return "artistmanageshop";
 	}
 
@@ -79,10 +81,11 @@ public class ArtistController {
 		}
 		model.addAttribute("productsAndCountShop", productsAndCountShop);
 		model.addAttribute("artist", artist);
+		model.addAttribute("category", "merchandise");
 		return "artistmanageshop";
 	}
 
-	// awaiting sessions and userid
+	// TODO awaiting sessions and userid
 	@GetMapping("/manageshop/clothing")
 	public String manageShopClothing(Model model) {
 		User artist = arservice.getArtistByID(1);
@@ -94,6 +97,7 @@ public class ArtistController {
 		}
 		model.addAttribute("productsAndCountShop", productsAndCountShop);
 		model.addAttribute("artist", artist);
+		model.addAttribute("category", "clothing");
 		return "artistmanageshop";
 	}
 
@@ -129,6 +133,7 @@ public class ArtistController {
 		return "editproduct";
 	}
 
+	// TODO awaiting sessions and userid
 	@PostMapping("/saveproduct")
 	public String saveProduct(@Valid @ModelAttribute("product") Product product,
 			@RequestParam("file") Optional<MultipartFile> rawfile, BindingResult bindingResult, Model model) {
@@ -152,23 +157,13 @@ public class ArtistController {
 			try (InputStream inputStream = file.getInputStream()) {
 				Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
 			product.setProductUrl("/productimages/" + filename);
 			arservice.saveProduct(product);
-
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 		return "redirect:/artist/manageshop";
-
-		// add in the user who saved this product
 	}
 }
 //		Courses course1 = new Courses();
