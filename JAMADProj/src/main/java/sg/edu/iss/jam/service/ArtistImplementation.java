@@ -1,5 +1,6 @@
 package sg.edu.iss.jam.service;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import sg.edu.iss.jam.model.Category;
@@ -20,7 +22,6 @@ import sg.edu.iss.jam.repo.ChannelRepository;
 import sg.edu.iss.jam.repo.CommentsRepository;
 import sg.edu.iss.jam.repo.MediaRepository;
 import sg.edu.iss.jam.repo.OrderDetailsRepository;
-import sg.edu.iss.jam.repo.OrdersRepository;
 import sg.edu.iss.jam.repo.ProductRepository;
 import sg.edu.iss.jam.repo.SubscribedRepository;
 import sg.edu.iss.jam.repo.TagRepository;
@@ -84,9 +85,9 @@ public class ArtistImplementation implements ArtistInterface {
 	}
 	
 	@Override
-	public List<Product> getProductListByArtistID(long userID) {
+	public List<Product> getProductListByArtistID(long artistid) {
 		// TODO Auto-generated method stub
-		return prepo.findAll();
+		return prepo.getProductListByArtistID(artistid);
 	}
 	@Override
 	public User getArtistByID(long artistid) {
@@ -120,9 +121,31 @@ public class ArtistImplementation implements ArtistInterface {
 
 	@Override
 	public List<Product> getProductListByArtistIDAndCategory(long artistid, Category category) {
-		// TODO Auto-generated method stub
 		return prepo.getProductListByArtistIDAndCategory(artistid,category);
 	}
+
+	@Override
+	public List<Object[]> getTopAllProductsInPastWeekByOrderDetailsQuantity(int i) {
+		return prepo.getTopProductsByOrderDetailsQuantity(PageRequest.of(0, i), LocalDate.now().minusWeeks(1));
+	}
+//
+//
+//	@Override
+//	public List<Object[]> getTopMusicCollectionProductsInPastWeekByOrderDetailsQuantity(int i) {
+//		return prepo.getTopProductsByCategoryInPastWeekByOrderDetailsQuantity(PageRequest.of(0, i), LocalDate.now().minusWeeks(1), Category.MusicCollection);
+//	}
+//
+//
+//	@Override
+//	public List<Object[]> getTopMerchandiseProductsInPastWeekByOrderDetailsQuantity(int i) {
+//		return prepo.getTopProductsByCategoryInPastWeekByOrderDetailsQuantity(PageRequest.of(0, i), LocalDate.now().minusWeeks(1), Category.Merchandise);
+//	}
+//
+//
+//	@Override
+//	public List<Object[]> getTopClothingProductsInPastWeekByOrderDetailsQuantity(int i) {
+//		return prepo.getTopProductsByCategoryInPastWeekByOrderDetailsQuantity(PageRequest.of(0, i), LocalDate.now().minusWeeks(1), Category.Clothing);
+//	}
 
 
 	@Override
