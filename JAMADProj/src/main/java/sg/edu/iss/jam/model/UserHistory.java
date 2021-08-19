@@ -1,6 +1,7 @@
 package sg.edu.iss.jam.model;
 
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Collection;
 
 import javax.persistence.Entity;
@@ -16,7 +17,7 @@ public class UserHistory {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private LocalDateTime timeConsumed;
+	private LocalDateTime datetime;
 	
 	//ManyToOne relation with user 
 	@ManyToOne
@@ -32,8 +33,10 @@ public class UserHistory {
 	}
 
 
-	public UserHistory(User historyUser, Collection<Media> mediaHistoryList) {
+	public UserHistory(LocalDate datetime, User historyUser, Collection<Media> mediaHistoryList) {
 		super();
+
+		this.datetime = datetime;
 		this.historyUser = historyUser;
 		this.mediaHistoryList = mediaHistoryList;
 	}
@@ -47,6 +50,18 @@ public class UserHistory {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+
+
+	public LocalDate getDatetime() {
+		return datetime;
+	}
+
+
+	public void setDatetime(LocalDate datetime) {
+		this.datetime = datetime;
+	}
+
 
 	public User getHistoryUser() {
 		return historyUser;
@@ -65,14 +80,5 @@ public class UserHistory {
 
 	public void setMediaHistoryList(Collection<Media> mediaHistoryList) {
 		this.mediaHistoryList = mediaHistoryList;
-	}
-	
-	public LocalDateTime getTimeConsumed() {
-		return timeConsumed;
-	}
-
-
-	public void setTimeConsumed(LocalDateTime timeConsumed) {
-		this.timeConsumed = timeConsumed;
 	}
 }

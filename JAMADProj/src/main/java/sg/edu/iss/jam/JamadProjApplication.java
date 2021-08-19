@@ -307,6 +307,21 @@ public class JamadProjApplication {
 //		    userHistory.add(userHistory3);
 //		    userHistory.add(userHistory4);
 //		    
+//		    UserHistory userHistory1 = new UserHistory(1, jayChou, FirstPlayListMedia);
+//		    UserHistory userHistory2 = new UserHistory(2, zhaoQi, SecondPlayListMedia);
+//		    UserHistory userHistory3 = new UserHistory(1, jayChou, SecondPlayListMedia);
+//		    UserHistory userHistory4 = new UserHistory(2, zhaoQi, FirstPlayListMedia);
+//		    
+//		    uhrepo.save(userHistory1);
+//		    uhrepo.save(userHistory2);
+//		    uhrepo.save(userHistory3);
+//		    uhrepo.save(userHistory4);
+//		    
+//		    userHistory.add(userHistory1);
+//		    userHistory.add(userHistory2);
+//		    userHistory.add(userHistory3);
+//		    userHistory.add(userHistory4);
+		    
 //set order details for testing			
 //			OrderDetails od1 = new OrderDetails();
 //			od1.setProduct(prepo.getById((long) 1));
