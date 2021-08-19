@@ -6,7 +6,6 @@ import sg.edu.iss.jam.model.Category;
 import sg.edu.iss.jam.model.Channel;
 import sg.edu.iss.jam.model.Media;
 import sg.edu.iss.jam.model.Product;
-import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.model.Subscribed;
 import sg.edu.iss.jam.model.User;
 
@@ -46,5 +45,12 @@ public interface ArtistInterface {
 	
 	String getTagsByMedia(Media Media);
 
+	List<Object[]> getTopAllProductsInPastWeekByOrderDetailsQuantity(int i);
+	
+//	List<Object[]> getTopMusicCollectionProductsInPastWeekByOrderDetailsQuantity(int i);
+//	
+//	List<Object[]> getTopMerchandiseProductsInPastWeekByOrderDetailsQuantity(int i);
+//	
+//	List<Object[]> getTopClothingProductsInPastWeekByOrderDetailsQuantity(int i);
+	
 }
-

@@ -16,7 +16,7 @@
 
     <a th:href="@{/home}" class="helpIcon btn"><i class="fa fa-question-circle"></i><span class="smallHelpText">Help</span></a>
     
-	<button class="addShoppingCartIcon btn"><i class="fa fa-cart-plus"></i></button>
+	<button class="addShoppingCartIcon btn" onclick="location.href='/shoppingcart'"><i class="fa fa-cart-plus"></i></button>
 	<!-- <span class='badge' id='cartQuantity'> 50 </span> -->
 	
 	<a th:href="@{/home}" class="profileImageIconLink"><img class="profileImageIcon" th:src="${profileUrl}" alt="Artist Small Profile Photo"/>
@@ -88,11 +88,11 @@
                 <img th:src="${product.productUrl}" alt="..." class="card-img-top productPhotoSize">
               </a> -->
               
-              <a data-toggle="modal" data-target="#exampleModal">
+              <a>
                 <img th:src="${product.productUrl}" alt="..." class="card-img-top productPhotoSize">
               </a>
               
-              <th:block th:replace="_modals :: modal('exampleModal')">modal</th:block>
+              <!-- <th:block th:replace="_modals :: modal('exampleModal')">modal</th:block> -->
 
               <!-- Collapse -->
               <div class="card-collapse-parent">
@@ -139,7 +139,7 @@
 <div id="divArtistId" th:text="${artistId}" style="display: none;">
 </div>
 </body>
-
+<script>
 function myFunction() {
 	  var artistId = $('#divArtistId').text();
 	  alert(artistId);

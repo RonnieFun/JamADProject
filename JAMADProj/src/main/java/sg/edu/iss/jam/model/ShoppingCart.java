@@ -1,5 +1,6 @@
 package sg.edu.iss.jam.model;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+
 
 @Entity
 public class ShoppingCart {
@@ -62,4 +65,59 @@ public class ShoppingCart {
 	}
 
 	
+	public double getAmountTotal() {
+        double total = 0;
+        for (ShoppingCartDetails line : this.cartDetails) {
+            total += line.getAmount();
+        }
+        return total;
+    }
+	
+	public int getQuantityTotal() {
+        int quantity = 0;
+        for (ShoppingCartDetails line : this.cartDetails) {
+            quantity += line.getQuantity();
+        }
+        return quantity;
+    }
+	
+	public void updateQuantity(ShoppingCart cartForm) {
+        if (cartForm != null) {
+            Collection<ShoppingCartDetails> lines = cartForm.getCartDetails();
+            for (ShoppingCartDetails line : lines) {
+                this.updateProduct(line.getProduct().getProductID(), line.getQuantity());
+            }
+        }
+ 
+    }
+	
+	public void updateProduct(Long id, int quantity) {
+        ShoppingCartDetails line = this.findLineByID(id);
+ 
+        if (line != null) {
+            if (quantity <= 0) {
+                this.cartDetails.remove(line);
+            } else {
+                line.setQuantity(quantity);
+            }
+        }
+    }
+	
+	private ShoppingCartDetails findLineByID(Long id) {
+        for (ShoppingCartDetails line : this.cartDetails) {
+            if (line.getProduct().getProductID().equals(id)) {
+                return line;
+            }
+        }
+        return null;
+    }
+	
+	
+	 public void removeProduct(Product productInfo) {
+	        ShoppingCartDetails line = this.findLineByID(productInfo.getProductID());
+	        if (line != null) {
+	            this.cartDetails.remove(line);
+	        }
+	    }
+	 
 }

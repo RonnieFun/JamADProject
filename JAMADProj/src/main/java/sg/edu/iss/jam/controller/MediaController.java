@@ -1,6 +1,7 @@
 package sg.edu.iss.jam.controller;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -82,7 +83,7 @@ public class MediaController {
 		Media selectedMedia = uservice.findMediaByMediaId(2L);
 		
 		// Add new userhistory object based on logged in user's userid on each page reload
-		UserHistory userhistory = new UserHistory(LocalDate.now(), loggedInUser, selectedMedia);
+		UserHistory userhistory = new UserHistory(LocalDateTime.now(), loggedInUser, selectedMedia);
 		List<UserHistory> userHistory = uservice.findUserHistoryByMediaId(2L);
 		uservice.saveUserHistory(userhistory);
 		userHistory.add(userhistory);

@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import sg.edu.iss.jam.model.Category;
 import sg.edu.iss.jam.model.Channel;
 import sg.edu.iss.jam.model.Media;
 import sg.edu.iss.jam.model.MediaType;
@@ -46,35 +48,78 @@ import sg.edu.iss.jamDTO.MediaDTO;
 @Controller
 @RequestMapping("/artist")
 public class ArtistController {
-	
+
 	@Autowired
 	ChannelRepository ChannelRepo;
 	@Autowired
 	MediaRepository MediaRepo;
 	@Autowired
 	UserRepository UserRepo;
-
 	@Autowired
 	ArtistInterface ArtistService;
-	
 
-	@Autowired
-	ArtistInterface arservice;
-
+	// TODO awaiting sessions and userid
 	@GetMapping("/manageshop")
-	public String manageShop(Model model) {
-		User artist = arservice.getArtistByID(1);
-		List<Product> productsInShop = arservice.getProductListByArtistID(1);
+	public String manageShopAllProducts(Model model) {
+		User artist = ArtistService.getArtistByID(1);
+		List<Product> productsInShop = ArtistService.getProductListByArtistID((long) 1);
 		Map<Product, Long> productsAndCountShop = new HashMap<Product, Long>();
-		for (Product product: productsInShop) 
-		{
-			Long quantity = arservice.getQuantitySold(product.getProductID());
+		for (Product product : productsInShop) {
+			Long quantity = ArtistService.getQuantitySold(product.getProductID());
 			productsAndCountShop.put(product, quantity);
-			
+
 		}
 		model.addAttribute("productsAndCountShop", productsAndCountShop);
 		model.addAttribute("artist", artist);
-		
+		model.addAttribute("category", "allProducts");
+		return "artistmanageshop";
+	}
+
+	// TODO awaiting sessions and userid
+	@GetMapping("/manageshop/musiccollection")
+	public String manageShopMusicCollection(Model model) {
+		User artist = ArtistService.getArtistByID(1);
+		List<Product> productsInShop = ArtistService.getProductListByArtistIDAndCategory(1, Category.MusicCollection);
+		Map<Product, Long> productsAndCountShop = new HashMap<Product, Long>();
+		for (Product product : productsInShop) {
+			Long quantity = ArtistService.getQuantitySold(product.getProductID());
+			productsAndCountShop.put(product, quantity);
+		}
+		model.addAttribute("productsAndCountShop", productsAndCountShop);
+		model.addAttribute("artist", artist);
+		model.addAttribute("category", "musicCollection");
+		return "artistmanageshop";
+	}
+
+	// TODO awaiting sessions and userid
+	@GetMapping("/manageshop/merchandise")
+	public String manageShopMerchandise(Model model) {
+		User artist = ArtistService.getArtistByID(1);
+		List<Product> productsInShop = ArtistService.getProductListByArtistIDAndCategory(1, Category.Merchandise);
+		Map<Product, Long> productsAndCountShop = new HashMap<Product, Long>();
+		for (Product product : productsInShop) {
+			Long quantity = ArtistService.getQuantitySold(product.getProductID());
+			productsAndCountShop.put(product, quantity);
+		}
+		model.addAttribute("productsAndCountShop", productsAndCountShop);
+		model.addAttribute("artist", artist);
+		model.addAttribute("category", "merchandise");
+		return "artistmanageshop";
+	}
+
+	// TODO awaiting sessions and userid
+	@GetMapping("/manageshop/clothing")
+	public String manageShopClothing(Model model) {
+		User artist = ArtistService.getArtistByID(1);
+		List<Product> productsInShop = ArtistService.getProductListByArtistIDAndCategory(1, Category.Clothing);
+		Map<Product, Long> productsAndCountShop = new HashMap<Product, Long>();
+		for (Product product : productsInShop) {
+			Long quantity = ArtistService.getQuantitySold(product.getProductID());
+			productsAndCountShop.put(product, quantity);
+		}
+		model.addAttribute("productsAndCountShop", productsAndCountShop);
+		model.addAttribute("artist", artist);
+		model.addAttribute("category", "clothing");
 		return "artistmanageshop";
 	}
 
@@ -82,35 +127,67 @@ public class ArtistController {
 	public String addNewProduct(Model model) {
 		Product newProduct = new Product();
 		model.addAttribute("newProduct", newProduct);
+		Map<Category, String> categories = new HashMap<Category, String>();
+		for (Category category : Category.values()) {
+			if (category == Category.MusicCollection) {
+				categories.put(category, "Music Collection");
+			} else {
+				categories.put(category, category.toString());
+			}
+		}
+		model.addAttribute("categories", categories);
 		return "addnewproduct";
 	}
 
+	@GetMapping("/editproduct")
+	public String editProduct(@RequestParam("productID") Long productID, Model model) {
+		Product product = ArtistService.getProductByID(productID);
+		model.addAttribute("product", product);
+		Map<Category, String> categories = new HashMap<Category, String>();
+		for (Category category : Category.values()) {
+			if (category == Category.MusicCollection) {
+				categories.put(category, "Music Collection");
+			} else {
+				categories.put(category, category.toString());
+			}
+		}
+		model.addAttribute("categories", categories);
+		return "editproduct";
+	}
+
+	// TODO awaiting sessions and userid
 	@PostMapping("/saveproduct")
-	public String saveProduct(@Valid @ModelAttribute("product") Product product, BindingResult bindingResult,
-			Model model) {
-//		
-//		Path fileStorageLocation = Paths.get("src\\main\\resources\\static\\media\\ProductImages");		
-//		Path destinationFile = fileStorageLocation.resolve(Paths.get(file.getOriginalFilename())).normalize()
-//				.toAbsolutePath();
-//		try (InputStream inputStream = file.getInputStream()) {
-//			Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-		arservice.saveProduct(product);
-		
+	public String saveProduct(@Valid @ModelAttribute("product") Product product,
+			@RequestParam("file") Optional<MultipartFile> rawfile, BindingResult bindingResult, Model model) {
+
 		if (bindingResult.hasErrors()) {
-		return "admin/courseform";
-	}
+			return "admin/courseform";
+		}
 
+		product.setProductUser(ArtistService.findById((long) 1));
+		ArtistService.saveProduct(product);
+
+		if (!rawfile.isEmpty()) {
+
+			MultipartFile file = rawfile.get();
+			Long productidtemp = product.getProductID();
+
+			Path fileStorageLocation = Paths.get("src/main/resources/static/productimages");
+			String filename = productidtemp.toString() + "_productimg."
+					+ file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+			Path destinationFile = fileStorageLocation.resolve(Paths.get(filename)).toAbsolutePath();
+			try (InputStream inputStream = file.getInputStream()) {
+				Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			product.setProductUrl("/productimages/" + filename);
+			ArtistService.saveProduct(product);
+		}
 		return "redirect:/artist/manageshop";
-
-		// add in the user who saved this product
 	}
-	
-	
+
 	@GetMapping("/channel")
 	public String ViewChannel(Model model) {
 
@@ -163,13 +240,13 @@ public class ArtistController {
 
 		// get AristID(userID)
 		Long userid = (long) 1;
-		
-		//get enum mediatype
+
+		// get enum mediatype
 		MediaType mediaType = MediaType.valueOf(MediaTypeString);
-		
+
 		// get channelID
 		Channel Channel = ChannelRepo.findByChannelUserAndMediaType(UserRepo.findById(userid), mediaType);
-		
+
 		// Get all media where channel=channelID
 		Collection<Media> medias = ArtistService.getMedias(Channel.getChannelID());
 
@@ -179,14 +256,11 @@ public class ArtistController {
 		// Add all media to MediaDTO, count view, count comments, concat all tags
 		for (Iterator<Media> iterator = medias.iterator(); iterator.hasNext();) {
 			Media Media = (Media) iterator.next();
-			MediaDTOList.add(new MediaDTO(Media,
-					ArtistService.getViewcountByMedia(Media),
-					ArtistService.getCommentcountByMedia(Media),
-					ArtistService.getTagsByMedia(Media)));
+			MediaDTOList.add(new MediaDTO(Media, ArtistService.getViewcountByMedia(Media),
+					ArtistService.getCommentcountByMedia(Media), ArtistService.getTagsByMedia(Media)));
 		}
-		
 
-		model.addAttribute("MediaDTOList",MediaDTOList);
+		model.addAttribute("MediaDTOList", MediaDTOList);
 
 		return "ChannelContent.html";
 	}
@@ -218,8 +292,6 @@ public class ArtistController {
 
 		return ResponseEntity.ok("Channel Updated");
 	}
-	
-	
 }
 //		Courses course1 = new Courses();
 //		List<Users> lecturers = leservice.getAllUsersByRole(Roles.LECTURER);
@@ -285,6 +357,3 @@ public class ArtistController {
 //			}
 //		}
 //		return "forward:/admin/courselist";
-
-
-
