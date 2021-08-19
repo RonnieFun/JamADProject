@@ -1,5 +1,6 @@
 package sg.edu.iss.jam.controller;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -76,23 +77,29 @@ public class MediaController {
 
 		int commentCount = uservice.findCommentsByMediaId(2L).size();
 		
+		User loggedInUser = uservice.findUserByUserId(1L);
 		
+		Media selectedMedia = uservice.findMediaByMediaId(2L);
+		
+		// Add new userhistory object based on logged in user's userid on each page reload
+		UserHistory userhistory = new UserHistory(LocalDate.now(), loggedInUser, selectedMedia);
 		List<UserHistory> userHistory = uservice.findUserHistoryByMediaId(2L);
+		uservice.saveUserHistory(userhistory);
+		userHistory.add(userhistory);
 		
+		//Retrieve number of views based on userhistory size for the selected Media
 		int viewCount = userHistory.size();
 		
 		model.addAttribute("commentCount", commentCount);
-		model.addAttribute("user", uservice.findUserByUserId(1L));
+		model.addAttribute("user", loggedInUser);
 		model.addAttribute("playlists", uservice.findPlaylistsByUserId(1L));
-		model.addAttribute("media", uservice.findMediaByMediaId(2L));
+		model.addAttribute("media", selectedMedia);
 		model.addAttribute("allMedia", uservice.findAllMedia());
 		model.addAttribute("comments", uservice.findCommentsByMediaId(2L));
 		model.addAttribute("tags", uservice.findTagsByMediaId(2L));
 		model.addAttribute("viewCount", viewCount);
 	    
 		boolean liked = false;
-		
-		Media selectedMedia = uservice.findMediaByMediaId(2L);
 		
 		List<Playlists> loggedInUserPlaylists = uservice.findPlaylistsByUserId(1L);
 		

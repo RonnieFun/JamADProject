@@ -49,6 +49,8 @@ public interface UserInterface {
 	List<UserHistory> findUserHistoryByMediaId(Long id);
 	
 	ShoppingCart getShoppingCartByUserID(long userID);
+	
+	UserHistory saveUserHistory(UserHistory userHistory);
 
 }
 

@@ -153,6 +153,11 @@ public class UserImplementation implements UserInterface {
 		
 		return uhrepo.findUserHistoryByMediaId(id);
 	}
+	
+	@Transactional
+	public UserHistory saveUserHistory(UserHistory userHistory) {
+		return uhrepo.save(userHistory);
+	}
 
 	@Transactional
 	public ShoppingCart getShoppingCartByUserID(long userID) {

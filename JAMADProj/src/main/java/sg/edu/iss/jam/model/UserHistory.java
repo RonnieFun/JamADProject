@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class UserHistory {
@@ -23,20 +24,19 @@ public class UserHistory {
 	private User historyUser;
 	
 	//ManyToMany relation with media
-	@ManyToMany
-	private Collection<Media> mediaHistoryList;
-
+	@ManyToOne
+	private Media mediaHistory;
 
 	public UserHistory() {
 		super();
 	}
 
 
-	public UserHistory(LocalDate datetime, User historyUser, Collection<Media> mediaHistoryList) {
+	public UserHistory(LocalDate datetime, User historyUser, Media mediaHistory) {
 		super();
 		this.datetime = datetime;
 		this.historyUser = historyUser;
-		this.mediaHistoryList = mediaHistoryList;
+		this.mediaHistory = mediaHistory;
 	}
 
 
@@ -70,13 +70,16 @@ public class UserHistory {
 	}
 
 
-	public Collection<Media> getMediaHistoryList() {
-		return mediaHistoryList;
+	public Media getMediaHistory() {
+		return mediaHistory;
 	}
 
 
-	public void setMediaHistoryList(Collection<Media> mediaHistoryList) {
-		this.mediaHistoryList = mediaHistoryList;
+	public void setMediaHistory(Media mediaHistory) {
+		this.mediaHistory = mediaHistory;
 	}
+
+
+	
 	
 }
