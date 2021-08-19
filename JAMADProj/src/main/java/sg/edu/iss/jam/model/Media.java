@@ -23,6 +23,8 @@ public class Media {
 	
 	private String duration;
 	
+	private String desc;
+	
 	private String createdOn;
 	
 	private String publishStatus;
