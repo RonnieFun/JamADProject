@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import sg.edu.iss.jam.model.Product;
 import sg.edu.iss.jam.model.ShoppingCart;
+import sg.edu.iss.jam.model.ShoppingCartDetails;
 import sg.edu.iss.jam.service.UserInterface;
 @Controller
 public class ShoppingCartController {
@@ -34,9 +35,9 @@ public class ShoppingCartController {
 	         @ModelAttribute("cartForm") ShoppingCart cartForm) {
 		long userID = (long) 1;
 		ShoppingCart cartInfo = uservice.getShoppingCartByUserID(userID);
-	    //cartInfo.updateQuantity(cartForm);
+	    cartInfo.updateQuantity(cartForm);
 	 
-	    return "redirect:product/shoppingCart";
+	    return "redirect:shoppingcart";
 	}
 	
 	@RequestMapping({ "/shoppingCartRemoveProduct" })
@@ -51,13 +52,18 @@ public class ShoppingCartController {
 	    	 long userID = (long) 1;
 	 
 	         ShoppingCart cartInfo = uservice.getShoppingCartByUserID(userID);
-	 
-	         //ProductInfo productInfo = new ProductInfo(product);
-	 
-	         cartInfo.removeProduct(product);
+	         uservice.removeCartDetails(product.getProductID(),cartInfo.getShoppingCartID());
 	 
 	      }
 	 
-	      return "redirect:product/shoppingCart";
+	      return "redirect:shoppingcart";
 	   }
+	
+	@GetMapping("/checkout")
+	public String checkOut(Model model) {
+		long userID = (long) 1;
+		//model.addAttribute("cartForm", uservice.getShoppingCartByUserID(userID));
+		//System.out.println(uservice.getShoppingCartByUserID(userID));
+		return "product/checkout";
+	}
 }

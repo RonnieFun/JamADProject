@@ -18,6 +18,7 @@ import sg.edu.iss.jam.repo.CommentsRepository;
 import sg.edu.iss.jam.repo.MediaRepository;
 import sg.edu.iss.jam.repo.PlaylistsRepository;
 import sg.edu.iss.jam.repo.ProductRepository;
+import sg.edu.iss.jam.repo.ShoppingCartDetailsRepository;
 import sg.edu.iss.jam.model.Playlists;
 import sg.edu.iss.jam.model.Subscribed;
 import sg.edu.iss.jam.model.Tag;
@@ -29,6 +30,7 @@ import sg.edu.iss.jam.repo.UserHistoryRepository;
 import sg.edu.iss.jam.repo.ShoppingCartRepository;
 import sg.edu.iss.jam.repo.UserRepository;
 import sg.edu.iss.jam.model.ShoppingCart;
+import sg.edu.iss.jam.model.ShoppingCartDetails;
 @Service
 public class UserImplementation implements UserInterface {
 
@@ -55,6 +57,9 @@ public class UserImplementation implements UserInterface {
 	
 	@Autowired
 	ShoppingCartRepository shrepo;
+	
+	@Autowired
+	ShoppingCartDetailsRepository shdrepo;
 	
 	@Autowired
 	ProductRepository prepo;
@@ -168,4 +173,12 @@ public class UserImplementation implements UserInterface {
 		// TODO Auto-generated method stub
 		return prepo.getById(id);
 	}
+
+	@Override
+	public void removeCartDetails(Long productID,Long cartID) {
+		// TODO Auto-generated method stub
+		shdrepo.deleteCartDetailsByID(productID,cartID);
+	}
+
+	
 }
