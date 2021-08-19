@@ -46,7 +46,7 @@
                        <!--  <input type="hidden"      
                            th:name="|cartLines[${varStatus.index}].productInfo.code|"                       
                            th:value="${cartLineInfo.productInfo.code}" /> -->
-                <a th:href="@{|/shoppingCartRemoveProduct?code=${cartLineInfo.product.productID}|}" style="margin-right: 10px;"> Remove</a>
+                <a th:href="@{|/shoppingCartRemoveProduct?id=${cartLineInfo.product.productID}|}" style="margin-right: 10px;"> Remove</a>
               </td>
               <td> <input type="text" th:name="|cartDetails[${varStatus.index}].quantity|" th:value="${cartLineInfo.quantity}" class="form-control" style="width: 50px; height: 35px;">
               
@@ -59,7 +59,6 @@
               <td colspan="7" align="right">
               <input class="btn btn-dark" type="submit" value="Update Quantity" />
               <a th:href="@{/productList}" style="margin-left: 20px;">Continue Shopping</a>
-              <a th:href="@{/shoppingCartCustomer}">Checkout</a>
                
               </td>
               <td></td>
@@ -71,28 +70,26 @@
       </th:block>
           </table>
         </div> <!-- -----col-lg-8 col-sm-8 col-xs-12 end --- -->
-        <!-- <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="col-lg-4 col-sm-4 col-xs-12">
           <h5 style="font-weight: bold;">SUMMARY</h5>
           <table class="table cart-subtotal">
             <tr>
               <td>
-                Do you have a Promo Code? <i class="fas fa-chevron-down"></i> <i class="fas fa-question-circle"></i><br><br>
                 Subtotal <i class="fas fa-question-circle"></i><br><br>
                 Quantity <br><br>
                 Estimated Shipping & Handling<br><br>
                 Estimated TAX
               </td>
               <td>
-              <br><br>
-              $<span th:utext="${myCart.amountTotal}"></span><br><br>
-              [<span th:utext="${myCart.quantityTotal}"></span> ITEMS]<br><br>
+              $<span th:utext="${cartForm.amountTotal}"></span><br><br>
+              [<span th:utext="${cartForm.quantityTotal}"></span> ITEMS]<br><br>
               FREE<br><br>
               $0.0
             </td> 
          
             <tr>
               <td><b>TOTAL</b></td>
-              <td><b>$<span th:utext="${myCart.amountTotal}"></span></b></td> 
+              <td><b>$<span th:utext="${cartForm.amountTotal}"></span></b></td> 
             </tr>
 
 
@@ -102,14 +99,14 @@
           
           <a th:href="@{/shoppingCartCustomer}" class="btn btn-dark btn-lg btn-block">CHECKOUT <span class="fa fa-arrow-right" style="margin-left: 9px;"></span></a>
           
-          <a href="https://www.paypal.com/webapps/hermes?token=EC-7N9771196T667744L" class="btn btn-outline-light btn-lg btn-block"><img src="https://www.nike.com/assets/experience/pet/payment-icons/paypal@2x.png" ></a>
+          <!-- <a href="https://www.paypal.com/webapps/hermes?token=EC-7N9771196T667744L" class="btn btn-outline-light btn-lg btn-block"><img src="https://www.nike.com/assets/experience/pet/payment-icons/paypal@2x.png" ></a>
 
           <br><br>
           <h5 style="font-weight: bold;">ACCEPTED PAYMENT METHODS</h5><br>
-          <img src="https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/enUS/Images/visa-master-amex-disc-pp-apple-affirm_tcm221-444412.png">
+          <img src="https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/enUS/Images/visa-master-amex-disc-pp-apple-affirm_tcm221-444412.png"> -->
           
           
-        </div> -->
+        </div>
       </div>
     </div>
        

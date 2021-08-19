@@ -56,6 +56,9 @@ public class UserImplementation implements UserInterface {
 	@Autowired
 	ShoppingCartRepository shrepo;
 	
+	@Autowired
+	ProductRepository prepo;
+	
 	//USER REPO
 	@Transactional
 	public User findUserByUserId(Long userID) {
@@ -158,5 +161,11 @@ public class UserImplementation implements UserInterface {
 	public ShoppingCart getShoppingCartByUserID(long userID) {
 		// TODO Auto-generated method stub
 		return shrepo.getByUserID(userID);
+	}
+
+	@Override
+	public Product findProduct(Long id) {
+		// TODO Auto-generated method stub
+		return prepo.getById(id);
 	}
 }

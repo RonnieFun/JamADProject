@@ -67,7 +67,7 @@ public class ProductController {
 
 		List<Product> productList = aservice.getProductListByArtistID(artistId);
 		System.out.println(productList.size());
-//		String jsSon = null;
+		String jsSon = null;
 //		ObjectMapper mapper = new ObjectMapper();
 //		if (!productList.isEmpty()) {
 //			try {
