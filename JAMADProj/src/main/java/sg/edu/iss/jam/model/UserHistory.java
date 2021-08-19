@@ -33,7 +33,7 @@ public class UserHistory {
 	}
 
 
-	public UserHistory(LocalDate datetime, User historyUser, Collection<Media> mediaHistoryList) {
+	public UserHistory(LocalDateTime datetime, User historyUser, Collection<Media> mediaHistoryList) {
 		super();
 
 		this.datetime = datetime;
@@ -53,12 +53,12 @@ public class UserHistory {
 
 
 
-	public LocalDate getDatetime() {
+	public LocalDateTime getDatetime() {
 		return datetime;
 	}
 
 
-	public void setDatetime(LocalDate datetime) {
+	public void setDatetime(LocalDateTime datetime) {
 		this.datetime = datetime;
 	}
 
