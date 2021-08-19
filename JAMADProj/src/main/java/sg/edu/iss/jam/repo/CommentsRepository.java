@@ -15,4 +15,7 @@ public interface CommentsRepository extends JpaRepository<Comments, Long> {
 	
 	@Query("SELECT c FROM Comments c WHERE c.commentUser.userID = :userID")
 	List<Comments> findCommentsByUserId(@Param("userID") Long userID);
+	
+	@Query("Select count(distinct c) from Comments c Join c.mediaComment m where m.id =:MediaID")
+	public int CountCommentsByMedia(@Param("MediaID") long MediaID);
 }
