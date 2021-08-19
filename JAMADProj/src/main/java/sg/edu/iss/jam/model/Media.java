@@ -21,6 +21,8 @@ public class Media {
 	
 	private String title;
 	
+	private String description;
+	
 	private String duration;
 	
 	private String createdOn;
@@ -71,6 +73,30 @@ public class Media {
 		this.playLists = playLists;
 		this.tagList = tagList;
 	}
+	
+	
+
+	public Media(MediaType mediaType, String mediaUrl, String title, String description, String duration, String createdOn,
+			String publishStatus, String thumbnailUrl, Collection<UserHistory> userHistories,
+			Collection<Comments> commentList, Channel channel, Collection<Playlists> playLists,
+			Collection<Tag> tagList) {
+		super();
+		this.mediaType = mediaType;
+		this.mediaUrl = mediaUrl;
+		this.title = title;
+		this.description = description;
+		this.duration = duration;
+		this.createdOn = createdOn;
+		this.publishStatus = publishStatus;
+		this.thumbnailUrl = thumbnailUrl;
+		this.userHistories = userHistories;
+		this.commentList = commentList;
+		this.channel = channel;
+		this.playLists = playLists;
+		this.tagList = tagList;
+	}
+
+
 
 	public Long getId() {
 		return id;
@@ -174,6 +200,14 @@ public class Media {
 
 	public void setTagList(Collection<Tag> tagList) {
 		this.tagList = tagList;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String desc) {
+		this.description = desc;
 	}
 
 	
