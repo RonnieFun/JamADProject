@@ -76,6 +76,7 @@ public class MediaController {
 
 		int commentCount = uservice.findCommentsByMediaId(2L).size();
 		
+		
 		List<UserHistory> userHistory = uservice.findUserHistoryByMediaId(2L);
 		
 		int viewCount = userHistory.size();
