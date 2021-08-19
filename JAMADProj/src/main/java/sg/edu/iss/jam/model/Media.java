@@ -32,8 +32,8 @@ public class Media {
 	private String thumbnailUrl;
 
 	//relation with userhistory
-	@ManyToMany(mappedBy = "mediaHistoryList")
-	private Collection<UserHistory> userHistories;
+	@OneToMany(mappedBy = "mediaHistory")
+	private Collection<UserHistory> userHistory;
 	
 	//relation with comment
 	@OneToMany(mappedBy = "mediaComment")
@@ -56,7 +56,7 @@ public class Media {
 	}
 	
 	public Media(MediaType mediaType, String mediaUrl, String title, String duration, String createdOn,
-			String publishStatus, String thumbnailUrl, Collection<UserHistory> userHistories,
+			String publishStatus, String thumbnailUrl, Collection<UserHistory> userHistory,
 			Collection<Comments> commentList, Channel channel, Collection<Playlists> playLists,
 			Collection<Tag> tagList) {
 		super();
@@ -67,7 +67,7 @@ public class Media {
 		this.createdOn = createdOn;
 		this.publishStatus = publishStatus;
 		this.thumbnailUrl = thumbnailUrl;
-		this.userHistories = userHistories;
+		this.userHistory = userHistory;
 		this.commentList = commentList;
 		this.channel = channel;
 		this.playLists = playLists;
@@ -77,7 +77,7 @@ public class Media {
 	
 
 	public Media(MediaType mediaType, String mediaUrl, String title, String description, String duration, String createdOn,
-			String publishStatus, String thumbnailUrl, Collection<UserHistory> userHistories,
+			String publishStatus, String thumbnailUrl, Collection<UserHistory> userHistory,
 			Collection<Comments> commentList, Channel channel, Collection<Playlists> playLists,
 			Collection<Tag> tagList) {
 		super();
@@ -89,7 +89,7 @@ public class Media {
 		this.createdOn = createdOn;
 		this.publishStatus = publishStatus;
 		this.thumbnailUrl = thumbnailUrl;
-		this.userHistories = userHistories;
+		this.userHistory = userHistory;
 		this.commentList = commentList;
 		this.channel = channel;
 		this.playLists = playLists;
@@ -162,12 +162,12 @@ public class Media {
 		this.thumbnailUrl = thumbnailUrl;
 	}
 
-	public Collection<UserHistory> getUserHistories() {
-		return userHistories;
+	public Collection<UserHistory> getUserHistory() {
+		return userHistory;
 	}
 
-	public void setUserHistories(Collection<UserHistory> userHistories) {
-		this.userHistories = userHistories;
+	public void setUserHistory(Collection<UserHistory> userHistory) {
+		this.userHistory = userHistory;
 	}
 
 	public Collection<Comments> getCommentList() {

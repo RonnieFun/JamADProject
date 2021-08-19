@@ -51,6 +51,8 @@ public interface UserInterface {
 	
 	ShoppingCart getShoppingCartByUserID(long userID);
 	
+	UserHistory saveUserHistory(UserHistory userHistory);
+
 	Product findProduct(Long id);
 
 	void removeCartDetails(Long productID, Long cartID);

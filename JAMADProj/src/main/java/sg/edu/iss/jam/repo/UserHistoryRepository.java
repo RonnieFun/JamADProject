@@ -10,9 +10,9 @@ import sg.edu.iss.jam.model.UserHistory;
 
 public interface UserHistoryRepository extends JpaRepository<UserHistory, Long> {
 
-	@Query("SELECT uh FROM UserHistory uh JOIN uh.mediaHistoryList m WHERE m.id = :id")
+	@Query("SELECT uh FROM UserHistory uh JOIN uh.mediaHistory m WHERE m.id = :id")
 	public List<UserHistory> findUserHistoryByMediaId(@Param("id") Long id);
 	
-	@Query("Select count(distinct h) from UserHistory h Join h.mediaHistoryList m where m.id =:mediaID")
+	@Query("Select count(distinct h) from UserHistory h Join h.mediaHistory m where m.id =:mediaID")
 	public int CountViewsByMedia(@Param("mediaID") long mediaID);
 }
