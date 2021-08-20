@@ -11,6 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import sg.edu.iss.jam.model.Category;
 import sg.edu.iss.jam.model.Channel;
 import sg.edu.iss.jam.model.Comments;
 import sg.edu.iss.jam.model.Media;
@@ -336,6 +337,22 @@ public class JamadProjApplication {
 //			odrepo.save(od1);
 //			odrepo.save(od2);
 //			odrepo.save(od3);
+			
+//			Product product1 = new Product();
+//			product1.setProductName("Clothing");
+//			product1.setProductCategory(Category.Clothing);
+//			
+//			Product product2 = new Product();
+//			product2.setProductName("Merchandise");
+//			product2.setProductCategory(Category.Merchandise);
+//			
+//			Product product3 = new Product();
+//			product3.setProductName("Music Collection");
+//			product3.setProductCategory(Category.MusicCollection);
+//			
+//			prepo.save(product1);
+//			prepo.save(product2);
+//			prepo.save(product3);
 
 		};
 	}

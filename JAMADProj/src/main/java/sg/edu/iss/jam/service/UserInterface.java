@@ -57,6 +57,17 @@ public interface UserInterface {
 
 	void removeCartDetails(Long productID, Long cartID);
 
+	List<Object[]> getTopAllProductsInPastWeekByOrderDetailsQuantity(int i);
+	
+	List<Object[]> getTopMusicCollectionProductsInPastWeekByOrderDetailsQuantity(int i);
+	
+	List<Object[]> getTopMerchandiseProductsInPastWeekByOrderDetailsQuantity(int i);
+	
+	List<Object[]> getTopClothingProductsInPastWeekByOrderDetailsQuantity(int i);
+	List<Object[]> getAllProducts();
+	List<Object[]> getAllMusicCollections();
+	List<Object[]> getAllClothing();
+	List<Object[]> getAllMerchandise();
 
 }
 

@@ -167,7 +167,7 @@ public class ArtistController {
 		product.setProductUser(ArtistService.findById((long) 1));
 		ArtistService.saveProduct(product);
 
-		if (!rawfile.isEmpty()) {
+		if (!rawfile.get().isEmpty()) {
 
 			MultipartFile file = rawfile.get();
 			Long productidtemp = product.getProductID();
@@ -184,6 +184,13 @@ public class ArtistController {
 
 			product.setProductUrl("/productimages/" + filename);
 			ArtistService.saveProduct(product);
+			
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return "redirect:/artist/manageshop";
 	}
