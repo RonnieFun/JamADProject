@@ -11,6 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import sg.edu.iss.jam.model.Category;
 import sg.edu.iss.jam.model.Channel;
 import sg.edu.iss.jam.model.Comments;
 import sg.edu.iss.jam.model.Media;
@@ -19,6 +20,8 @@ import sg.edu.iss.jam.model.Playlists;
 import sg.edu.iss.jam.model.Product;
 import sg.edu.iss.jam.model.Role;
 import sg.edu.iss.jam.model.Roles;
+import sg.edu.iss.jam.model.ShoppingCart;
+import sg.edu.iss.jam.model.ShoppingCartDetails;
 import sg.edu.iss.jam.model.Tag;
 import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.model.UserHistory;
@@ -29,6 +32,8 @@ import sg.edu.iss.jam.repo.OrderDetailsRepository;
 import sg.edu.iss.jam.repo.PlaylistsRepository;
 import sg.edu.iss.jam.repo.ProductRepository;
 import sg.edu.iss.jam.repo.RolesRepository;
+import sg.edu.iss.jam.repo.ShoppingCartDetailsRepository;
+import sg.edu.iss.jam.repo.ShoppingCartRepository;
 import sg.edu.iss.jam.repo.TagRepository;
 import sg.edu.iss.jam.repo.UserHistoryRepository;
 import sg.edu.iss.jam.repo.UserRepository;
@@ -71,6 +76,12 @@ public class JamadProjApplication {
 	
 	@Autowired
 	MediaRepository mrepo;
+	
+	@Autowired
+	ShoppingCartRepository srepo;
+	
+	@Autowired
+	ShoppingCartDetailsRepository shdrepo;
 
 	public static void main(String[] args) {
 		SpringApplication.run(JamadProjApplication.class, args);
@@ -291,6 +302,26 @@ public class JamadProjApplication {
 		    
 		    maxComments.add(comment1);
 		    maxComments.add(comment2);
+		    
+		    
+		    List<Product> productList = new ArrayList<>();
+		    Product p1 = new Product("Nice Pink Hat","Top Selling product",1,Category.Clothing,13.0,"http://picture-cdn.wheretoget.it/0v3cfh-l-610x610.jpg",null,null,null,max);
+		    Product p2 = new Product("Bickni","Top Selling product",1,Category.Clothing,13.0,"http://picture-cdn.wheretoget.it/0v3cfh-l-610x610.jpg",null,null,null,max);
+		    prepo.save(p1);
+		    prepo.save(p2);
+		    productList.add(p1);
+		    productList.add(p2);
+		    
+		    ShoppingCart shop =  new ShoppingCart(max, null);
+		    srepo.save(shop);
+		    
+		    List<ShoppingCartDetails> detailList = new ArrayList<>();
+		    ShoppingCartDetails detail = new ShoppingCartDetails(2, p1,shop);
+		    ShoppingCartDetails detail2 = new ShoppingCartDetails(3, p2,shop);
+		    detailList.add(detail);
+		    detailList.add(detail2);
+		    shdrepo.save(detail);
+		    shdrepo.save(detail2);
 		    
 //		    UserHistory userHistory1 = new UserHistory(1, jayChou, FirstPlayListMedia);
 //		    UserHistory userHistory2 = new UserHistory(2, zhaoQi, SecondPlayListMedia);

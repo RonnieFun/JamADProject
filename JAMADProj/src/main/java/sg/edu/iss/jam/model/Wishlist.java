@@ -19,7 +19,7 @@ public class Wishlist {
 	
 	
 	//relation with user
-	@OneToOne(cascade = {CascadeType.ALL})
+	@OneToOne
 	private User wishlistUser;
 	
 	//ManyToMany relation with product 

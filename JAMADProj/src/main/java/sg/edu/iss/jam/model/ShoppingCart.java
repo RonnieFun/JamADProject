@@ -20,7 +20,7 @@ public class ShoppingCart {
 	private Long shoppingCartID;
 	
 	//OneToOne relation with user
-	@OneToOne(cascade = {CascadeType.ALL})
+	@OneToOne
 	private User shoppingCartUser;
 	
 	//relation with shoppingcartDetail
