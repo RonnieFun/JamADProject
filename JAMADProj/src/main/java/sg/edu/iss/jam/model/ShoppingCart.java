@@ -2,6 +2,7 @@ package sg.edu.iss.jam.model;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +20,7 @@ public class ShoppingCart {
 	private Long shoppingCartID;
 	
 	//OneToOne relation with user
-	@OneToOne(mappedBy = "shoppingCart")
+	@OneToOne(cascade = {CascadeType.ALL})
 	private User shoppingCartUser;
 	
 	//relation with shoppingcartDetail

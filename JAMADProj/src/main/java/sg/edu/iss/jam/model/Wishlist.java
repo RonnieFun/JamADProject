@@ -2,6 +2,7 @@ package sg.edu.iss.jam.model;
 
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,7 +19,7 @@ public class Wishlist {
 	
 	
 	//relation with user
-	@OneToOne(mappedBy = "wishlist")
+	@OneToOne(cascade = {CascadeType.ALL})
 	private User wishlistUser;
 	
 	//ManyToMany relation with product 
