@@ -52,7 +52,6 @@ public class User {
 	@OneToOne(mappedBy = "wishlistUser")  
 	private Wishlist wishlist;
 	
-	
 	//relation with product 
 	@OneToMany(mappedBy = "productUser")
 	private Collection<Product> products;
