@@ -2,6 +2,7 @@ package sg.edu.iss.jam.controller;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import sg.edu.iss.jam.model.Channel;
 import sg.edu.iss.jam.model.Comments;
 import sg.edu.iss.jam.model.Media;
+import sg.edu.iss.jam.model.MediaType;
 import sg.edu.iss.jam.model.Playlists;
 import sg.edu.iss.jam.model.Subscribed;
 import sg.edu.iss.jam.model.User;
@@ -306,5 +309,141 @@ public class MediaController {
 
 		return "userwatchvideo";
 	}
+	
+	
+	
+//--------------------------Artist Video Channel Page by ZQ--------------------------------------------------
+	@GetMapping("/viewartistvideochannel")
+	public String viewArtistVideoChannel1(Model model) {
+		
+		String artistVideoChannelName = "";
+		int numberOfArtistVideos = 0;
+		List<Media> artistVideos = new ArrayList<Media>();
+		
+		// currently assume the userID = 17
+		Long customerId = (long) 17;
+		User customer = uservice.findUserByUserId(customerId);
+				
+		// currently assume the artistID = 1		
+		Long artistId = (long) 1;
+		User artist = aservice.findById(artistId);
+		// get artist's name (will change to displayName while DB data is ready)
+		String artistName = artist.getFirstName() + " " + artist.getLastName();
+		// get artist's video channel and videos
+		List<Channel> artistChannels = (List<Channel>) artist.getChannels();
+		
+		for(Channel c: artistChannels) {
+			if(c.getMediaType() == MediaType.Video) {	
+				artistVideos = (List<Media>) c.getChannelMediaList();
+				
+				artistVideoChannelName =  c.getChannelName();
+				numberOfArtistVideos =  c.getChannelMediaList().size();
+			}
+		}
+		// get artist's subscribers
+		List<Subscribed> users_subscribed_jaychou = (List<Subscribed>) artist.getSubscribers();
+		int NumberOfSubscribers = 0;
+		
+		if (users_subscribed_jaychou == null) {
+			NumberOfSubscribers = 0;
+		}	
+		NumberOfSubscribers = users_subscribed_jaychou.size();
+		
+		// check the subscribe status
+		boolean subscribeStatus = false;
+		for(Subscribed s: customer.getSubscribers()) {
+			// if the customer already subscribed the artist, it shows true
+			if (s.getTargetId() == artistId) {
+				subscribeStatus = true;
+			}
+		}
+		
+		
+		model.addAttribute("artistVideoChannelName", artistVideoChannelName);
+		model.addAttribute("numberOfArtistVideos", numberOfArtistVideos);
+		model.addAttribute("artistVideos", artistVideos);
+		model.addAttribute("numberOfSubscribers", NumberOfSubscribers);
+		model.addAttribute("subscribeStatus", subscribeStatus);
+		model.addAttribute("artistName", artistName);
+		model.addAttribute("artistId", artistId);
+		model.addAttribute("artist", artist);
+		
+		return "ArtistVideoChannel";
+	}
+	
+	
+	@GetMapping("/subscribenoajax")
+	public String subscribeArtistNoAjax(){
+		Long artistId = (long) 1;
+		
+		// currently assume the userID = 17,
+		Long customerId = (long) 17;
+		User customer = uservice.findUserByUserId(customerId);
+		User artist = aservice.findById(artistId);
+		
+		if (artist == null || customer == null || customerId == artistId) {
+			return "redirect:/viewartistvideochannel";
+		}
+			
+		// for artist, add the customer to the subscribed collection
+		Collection<Subscribed> customers_subscribed_me = new HashSet<Subscribed>();
+		Subscribed customer_subscribed_me = new Subscribed();
+		customer_subscribed_me.setTargetId(customerId);
+		customer_subscribed_me.setUser(artist);	
+		customers_subscribed_me.add(customer_subscribed_me);
+		artist.setSubscribers(customers_subscribed_me);
+		
+		// For customer, add the artist to the subscribed collection
+		Collection<Subscribed> artists_I_subscribed = new HashSet<Subscribed>();
+		Subscribed artist_I_subscribed = new Subscribed();
+		artist_I_subscribed.setTargetId(artistId);
+		artist_I_subscribed.setUser(customer);	
+		artists_I_subscribed.add(artist_I_subscribed);
+		customer.setSubscribers(artists_I_subscribed);
+		
+		
+		aservice.saveUser(artist);
+		aservice.saveSubscribed(customer_subscribed_me);
+		
+		uservice.saveUser(customer);
+		uservice.saveSubscribed(artist_I_subscribed);
+		
+		return "redirect:/viewartistvideochannel";
+	}
+	
+	
+	@GetMapping("/unsubscribenoajax")	
+	public String unsubscribeArtistNoAjax() {
+		Long artistId = (long) 1;
+		
+		// currently assume the userID = 17,
+		Long customerId = (long) 17;
+		User customer = uservice.findUserByUserId(customerId);
+		User artist = aservice.findById(artistId);
+		
+		
+		if (artist == null || customer == null || customerId == artistId) {
+			return "redirect:/viewartistvideochannel";
+		}
+		
+		// for artist, remove the customer from subscribed collection
+		Collection<Subscribed> customers_subscribed_me = artist.getSubscribers();
+		for (Subscribed s: customers_subscribed_me) {
+			if (s.getTargetId() == customerId) {
+				aservice.deleteSubscribed(s);
+			}
+		}
+		
+		// for customer, remove the artist from subscribed collection
+		Collection<Subscribed> artists_I_subscribed = customer.getSubscribers();
+		for (Subscribed s: artists_I_subscribed) {
+			if (s.getTargetId() == artistId) {
+				uservice.deleteSubscribed(s);
+			}
+		}		
+		return "redirect:/viewartistvideochannel";
+				
+	}
+
 
 }
