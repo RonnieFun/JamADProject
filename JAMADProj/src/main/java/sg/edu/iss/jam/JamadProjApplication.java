@@ -82,15 +82,28 @@ public class JamadProjApplication {
 	
 	@Autowired
 	ShoppingCartDetailsRepository shdrepo;
+	
+	@Autowired
+	ChannelRepository crepo;
 
 	public static void main(String[] args) {
 		SpringApplication.run(JamadProjApplication.class, args);
 	}
 
-//	@Bean
-//	CommandLineRunner runner() {
-//
-//		return args -> {
+	@Bean
+	CommandLineRunner runner() {
+
+		return args -> {
+//			Channel channel1 = new Channel();
+//			channel1.setMediaType(MediaType.Music);
+//			channel1.setChannelName("This is music");
+//			Channel channel2 = new Channel();
+//			channel2.setMediaType(MediaType.Video);
+//			channel2.setChannelName("This is video");
+//			crepo.save(channel1);
+//			crepo.save(channel2);
+		};
+	}
 //
 ////			Max signup1 = new Max(1L, "Brandon", "1 Day Ago", "How's everyone doing?");
 ////			Max signup2 = new Max(2L, "Chang Ying", "2 Days Ago", "This is so cool! I'm excited!");
