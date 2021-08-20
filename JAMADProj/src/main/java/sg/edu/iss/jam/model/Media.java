@@ -1,5 +1,7 @@
 package sg.edu.iss.jam.model;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +17,7 @@ public class Media {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Enumerated(EnumType.STRING)
 	private MediaType mediaType;
 	
 	private String mediaUrl;
@@ -30,6 +33,8 @@ public class Media {
 	private String publishStatus;
 	
 	private String thumbnailUrl;
+	
+	private int AlbumOrder;
 
 	//relation with userhistory
 	@OneToMany(mappedBy = "mediaHistory")
@@ -42,14 +47,71 @@ public class Media {
 	//relation with channel
 	@ManyToOne
 	private Channel channel;
+	
+	//relation with album for music
+	@ManyToOne
+	private Album album;
 
 	//relation with playlists
 	@ManyToMany(mappedBy = "mediaPlayList")
 	private Collection<Playlists> playLists;
 	
+	//relation with playlistorder
+	@OneToMany(mappedBy = "media")
+	private Collection<PlaylistOrder> PlaylistOrder;
+	
 	//relation with tag
 	@ManyToMany(mappedBy = "mediaTagList")
 	private Collection<Tag> tagList;
+	
+	
+
+
+	public Media(MediaType mediaType, String mediaUrl, String title, String description, String duration,
+			String createdOn, String publishStatus, String thumbnailUrl, int albumOrder,
+			Collection<UserHistory> userHistory, Collection<Comments> commentList, Channel channel, Album album,
+			Collection<Playlists> playLists, Collection<sg.edu.iss.jam.model.PlaylistOrder> playlistOrder,
+			Collection<Tag> tagList) {
+		super();
+		this.mediaType = mediaType;
+		this.mediaUrl = mediaUrl;
+		this.title = title;
+		this.description = description;
+		this.duration = duration;
+		this.createdOn = createdOn;
+		this.publishStatus = publishStatus;
+		this.thumbnailUrl = thumbnailUrl;
+		AlbumOrder = albumOrder;
+		this.userHistory = userHistory;
+		this.commentList = commentList;
+		this.channel = channel;
+		this.album = album;
+		this.playLists = playLists;
+		PlaylistOrder = playlistOrder;
+		this.tagList = tagList;
+	}
+
+	public Media(MediaType mediaType, String mediaUrl, String title, String description, String duration,
+			String createdOn, String publishStatus, String thumbnailUrl, int albumOrder,
+			Collection<UserHistory> userHistory, Collection<Comments> commentList, Channel channel, Album album,
+			Collection<Playlists> playLists, Collection<Tag> tagList) {
+		super();
+		this.mediaType = mediaType;
+		this.mediaUrl = mediaUrl;
+		this.title = title;
+		this.description = description;
+		this.duration = duration;
+		this.createdOn = createdOn;
+		this.publishStatus = publishStatus;
+		this.thumbnailUrl = thumbnailUrl;
+		AlbumOrder = albumOrder;
+		this.userHistory = userHistory;
+		this.commentList = commentList;
+		this.channel = channel;
+		this.album = album;
+		this.playLists = playLists;
+		this.tagList = tagList;
+	}
 
 	public Media() {
 		super();
@@ -210,5 +272,30 @@ public class Media {
 		this.description = desc;
 	}
 
+	public int getAlbumOrder() {
+		return AlbumOrder;
+	}
+
+	public void setAlbumOrder(int albumOrder) {
+		AlbumOrder = albumOrder;
+	}
+
+	public Album getAlbum() {
+		return album;
+	}
+
+	public void setAlbum(Album album) {
+		this.album = album;
+	}
+
+	public Collection<PlaylistOrder> getPlaylistOrder() {
+		return PlaylistOrder;
+	}
+
+	public void setPlaylistOrder(Collection<PlaylistOrder> playlistOrder) {
+		PlaylistOrder = playlistOrder;
+	}
+	
+	
 	
 }

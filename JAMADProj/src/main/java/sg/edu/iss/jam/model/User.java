@@ -49,9 +49,8 @@ public class User {
 	private Collection<Orders> orders;
 	
 	//oneToOne relation with wishlist
-	@OneToOne(cascade = {CascadeType.ALL})  
+	@OneToOne(mappedBy = "wishlistUser")  
 	private Wishlist wishlist;
-	
 	
 	//relation with product 
 	@OneToMany(mappedBy = "productUser")
@@ -59,7 +58,7 @@ public class User {
 	
 	
 	//OneToOne relation with shoppingcart
-	@OneToOne(cascade = {CascadeType.ALL})  
+	@OneToOne(mappedBy = "shoppingCartUser")
 	private ShoppingCart shoppingCart;
 	
 	//OneToMany relation with userhistory
