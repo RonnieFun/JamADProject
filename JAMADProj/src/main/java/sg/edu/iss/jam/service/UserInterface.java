@@ -14,6 +14,7 @@ import sg.edu.iss.jam.model.Tag;
 import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.model.UserHistory;
 import sg.edu.iss.jam.model.ShoppingCart;
+import sg.edu.iss.jam.model.ShoppingCartDetails;
 
 public interface UserInterface {
 
@@ -49,6 +50,13 @@ public interface UserInterface {
 	List<UserHistory> findUserHistoryByMediaId(Long id);
 	
 	ShoppingCart getShoppingCartByUserID(long userID);
+	
+	UserHistory saveUserHistory(UserHistory userHistory);
+
+	Product findProduct(Long id);
+
+	void removeCartDetails(Long productID, Long cartID);
+
 
 }
 

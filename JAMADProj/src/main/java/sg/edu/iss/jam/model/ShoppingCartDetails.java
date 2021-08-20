@@ -59,7 +59,9 @@ public class ShoppingCartDetails {
 		this.product = product;
 	}
 	
-	
+	public double getAmount() {
+        return this.product.getProductPrice() * this.quantity;
+    }
 	
 	
 	
