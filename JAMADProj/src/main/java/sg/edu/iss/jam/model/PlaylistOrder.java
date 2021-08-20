@@ -2,12 +2,17 @@ package sg.edu.iss.jam.model;
 
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class PlaylistOrder {
 	
-	private String PlaylistOrderID;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long PlaylistOrderID;
 	
 	private int PlaylistOrder;
 	
@@ -24,13 +29,16 @@ public class PlaylistOrder {
 		this.media = media;
 	}
 
-	public String getPlaylistOrderID() {
+	
+	public Long getPlaylistOrderID() {
 		return PlaylistOrderID;
 	}
 
-	public void setPlaylistOrderID(String playlistOrderID) {
+
+	public void setPlaylistOrderID(Long playlistOrderID) {
 		PlaylistOrderID = playlistOrderID;
 	}
+
 
 	public int getPlaylistOrder() {
 		return PlaylistOrder;
