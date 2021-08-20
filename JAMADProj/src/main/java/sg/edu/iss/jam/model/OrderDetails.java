@@ -22,6 +22,13 @@ public class OrderDetails {
 	@ManyToOne
 	private Orders order;
 	
+	public OrderDetails(int quantity, Product product, Orders order) {
+		super();
+		this.quantity = quantity;
+		this.product = product;
+		this.order = order;
+	}
+
 	public Long getOrderDetailId() {
 		return orderDetailId;
 	}

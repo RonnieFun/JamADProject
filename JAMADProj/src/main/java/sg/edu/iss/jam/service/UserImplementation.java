@@ -13,12 +13,16 @@ import sg.edu.iss.jam.controller.ShoppingCartController;
 import sg.edu.iss.jam.model.Category;
 import sg.edu.iss.jam.model.Comments;
 import sg.edu.iss.jam.model.Media;
+import sg.edu.iss.jam.model.OrderDetails;
+import sg.edu.iss.jam.model.Orders;
 import sg.edu.iss.jam.model.Playlists;
 import sg.edu.iss.jam.model.Product;
 import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.model.UserHistory;
 import sg.edu.iss.jam.repo.CommentsRepository;
 import sg.edu.iss.jam.repo.MediaRepository;
+import sg.edu.iss.jam.repo.OrderDetailsRepository;
+import sg.edu.iss.jam.repo.OrdersRepository;
 import sg.edu.iss.jam.repo.PlaylistsRepository;
 import sg.edu.iss.jam.repo.ProductRepository;
 import sg.edu.iss.jam.repo.ShoppingCartDetailsRepository;
@@ -69,6 +73,14 @@ public class UserImplementation implements UserInterface {
 	ProductRepository prepo;
 
 	// USER REPO
+	
+	@Autowired
+	OrdersRepository orepo;
+	
+	@Autowired
+	OrderDetailsRepository odrepo;
+	
+	//USER REPO
 	@Transactional
 	public User findUserByUserId(Long userID) {
 		return urepo.findById(userID).get();
@@ -228,4 +240,21 @@ public class UserImplementation implements UserInterface {
 		return prepo.getAllProductsAndQuantityByCategory(Category.Merchandise);
 	}
 
+	@Override
+	public Long getItemCountByUserID(long artistid) {
+		// TODO Auto-generated method stub
+		return shdrepo.getItemCount(artistid);
+	}
+
+	@Override
+	public void saveOrder(Orders neworder) {
+		// TODO Auto-generated method stub
+		orepo.save(neworder);
+	}
+
+	@Override
+	public void saveOrderDetailsList(List<OrderDetails> orderDetailList) {
+		// TODO Auto-generated method stub
+		odrepo.saveAll(orderDetailList);
+	}
 }

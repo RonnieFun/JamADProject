@@ -16,8 +16,7 @@
 
     <a th:href="@{/home}" class="helpIcon btn"><i class="fa fa-question-circle"></i><span class="smallHelpText">Help</span></a>
     
-	<button class="addShoppingCartIcon btn" onclick="location.href='/shoppingcart'"><i class="fa fa-cart-plus"></i></button>
-	<!-- <span class='badge' id='cartQuantity'> 50 </span> -->
+	<button class="addShoppingCartIcon btn" onclick="location.href='/shoppingcart'"><i class="fa fa-cart-plus"style="font-size:24px"></i><span class='badge badge-warning' id='lblCartCount' th:text="${count}"></span></button>
 	
 	<a th:href="@{/home}" class="profileImageIconLink"><img class="profileImageIcon" th:src="${profileUrl}" alt="Artist Small Profile Photo"/>
 		<span class="smallProfileNameText" th:text="${artistName}"/>
@@ -52,18 +51,6 @@
               <a class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/carthometab/}+${artistId}+@{/Merchandise}">Merchandise</a>
               <a class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/carthometab/}+${artistId}+@{/Clothing}">Clothing</a>
               
-   			  <!-- <span style="color:#E56A6A; font-size: 1.4vw; margin-bottom: 10px;">|</span>
-              
-              <div class="dropdown">
-			        <a class="nav-link active blackFontText dropdown-toggle h6" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			          More
-			        </a>
-			        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-				         <li><a class="dropdown-item" href="#">Most Popular</a></li>
-				          <li><a class="dropdown-item" href="#">Highest Price</a></li>
-				          <li><a class="dropdown-item" href="#">Lowest Price</a></li>
-			        </ul>
-			  </div> -->
             </nav>
           	</div>
           </div>
@@ -73,10 +60,39 @@
     <section class="productsContentSection">
       <div class="container">
         <div class="row col-lg-11 mx-auto">
-	        <div style="margin-bottom: 18px;" th:if="${status =='home'}">
-				<span class="pt-0 mt-0 pb-2 trendingText">Trending</span>
-				<a th:onclick="myFunction();" class="seeAllProductsLink">See all ></a>
-			</div>
+	       <div style="margin-bottom: 18px;">
+					<section class="productsFilter">
+						<div class="container">
+							<div class="row align-items-center">
+								<div class="col-12 col-md">
+									<!-- Product Categories -->
+									<nav class="navbar spaceLeft py-0">
+										<a class="nav-link blackFontText ml-5 sortLabel"
+											data-toggle="tab" href="#">Sort by:</a> <a
+											class="nav-link blackFontText popularSort" data-toggle="tab"
+											href="#">Popular</a> <a
+											class="nav-link blackFontText latestSort" data-toggle="tab"
+											href="#">Latest</a> <a
+											class="nav-link blackFontText salesSort" data-toggle="tab"
+											href="#">Top Sales</a>
+
+										<div class="dropdown">
+											<a class="nav-link blackFontText dropdown-toggle priceSort"
+												href="#" id="navbarDropdown" role="button"
+												data-bs-toggle="dropdown" aria-haspopup="true"
+												aria-expanded="false"> Price </a>
+											<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+												<li><a class="dropdown-item" href="#">Highest Price</a></li>
+												<li><a class="dropdown-item" href="#">Lowest Price</a></li>
+												<li><a class="dropdown-item" href="#">Promotions</a></li>
+											</ul>
+										</div>
+									</nav>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
 			
 			
           <div class="col-6 col-md-3 col-lg-3 mb-5" th:each="product: ${productList}">
