@@ -1,5 +1,9 @@
 package sg.edu.iss.jam.controller;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import sg.edu.iss.jam.model.OrderDetails;
+import sg.edu.iss.jam.model.Orders;
 import sg.edu.iss.jam.model.Product;
 import sg.edu.iss.jam.model.ShoppingCart;
 import sg.edu.iss.jam.model.ShoppingCartDetails;
+import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.service.UserInterface;
 @Controller
 public class ShoppingCartController {
@@ -62,8 +69,29 @@ public class ShoppingCartController {
 	@GetMapping("/checkout")
 	public String checkOut(Model model) {
 		long userID = (long) 1;
+		model.addAttribute("cartForm", uservice.getShoppingCartByUserID(userID));
 		//model.addAttribute("cartForm", uservice.getShoppingCartByUserID(userID));
 		//System.out.println(uservice.getShoppingCartByUserID(userID));
 		return "product/checkout";
+	}
+	
+	@GetMapping("/placeorder")
+	public String placeOrder(Model model) {
+		long userID = (long) 1;
+		User user = null;
+		user = uservice.findUserByUserId(1L);
+		ShoppingCart cart = uservice.getShoppingCartByUserID(userID);
+		if(cart.getCartDetails()!=null) {
+			Orders neworder = new Orders(LocalDate.now(), null, user,null);
+			uservice.saveOrder(neworder);
+			
+			List<OrderDetails> orderDetailList = new ArrayList<>();
+			for (ShoppingCartDetails cardetail : cart.getCartDetails()) {
+				OrderDetails newOrderDetail= new OrderDetails(cardetail.getQuantity(), cardetail.getProduct(), neworder);
+				orderDetailList.add(newOrderDetail);
+			}
+			uservice.saveOrderDetailsList(orderDetailList);
+		}
+		return "product/orderconfirm";
 	}
 }
