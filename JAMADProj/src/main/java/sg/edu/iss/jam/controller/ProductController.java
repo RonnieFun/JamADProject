@@ -18,18 +18,25 @@ import sg.edu.iss.jam.model.Category;
 import sg.edu.iss.jam.model.Product;
 import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.service.ArtistInterface;
+import sg.edu.iss.jam.service.UserInterface;
 
 @Controller
 public class ProductController {
 	@Autowired
 	ArtistInterface aservice;
 
+	@Autowired
+	UserInterface uservice;
+	
 	@GetMapping("/carthometab/{artistid}")
 	public String shoppingCartHome(Model model, @PathVariable long artistid) {
 		// long userID = (long) 1;
 		User artist = null;
 		artist = aservice.getArtistByID(artistid);
+		//userId need to replace
+		Long count  =  uservice.getItemCountByUserID(artistid);
 		model.addAttribute("status", "home");
+		model.addAttribute("count", count);
 		model.addAttribute("artistId", artist.getUserID());
 		model.addAttribute("artistName", artist.getDisplayName());
 		model.addAttribute("profileUrl", artist.getProfileUrl());
@@ -42,6 +49,9 @@ public class ProductController {
 		// long userID = (long) 1;
 		User artist = null;
 		artist = aservice.getArtistByID(artistid);
+		//userId need to replace
+		Long count  =  uservice.getItemCountByUserID(artistid);
+		model.addAttribute("count", count);
 		model.addAttribute("artistId", artist.getUserID());
 		model.addAttribute("artistName", artist.getDisplayName());
 		model.addAttribute("profileUrl", artist.getProfileUrl());
