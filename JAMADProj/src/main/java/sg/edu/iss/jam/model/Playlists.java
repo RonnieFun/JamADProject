@@ -3,11 +3,14 @@ package sg.edu.iss.jam.model;
 import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 
 @Entity
@@ -19,10 +22,12 @@ public class Playlists {
 	
 	private String playlistName;
 	
-	private String playlistOrder;
+	//deleted
+	//private String playlistOrder;
 	
 	private String playlistDescription;
 	
+	@Enumerated(EnumType.STRING)
 	private MediaType mediaType;
 	
 	//ManyToOne relation with user
@@ -32,21 +37,30 @@ public class Playlists {
 	//ManyToMany relation with media
 	@ManyToMany
 	private Collection<Media> mediaPlayList;
+	
+	@OneToMany(mappedBy = "playlists")
+	private Collection<PlaylistOrder> playlistsorder;
 
 	public Playlists() {
 		super();
 	}
+	
+	
 
-	public Playlists(String playlistName, String playlistOrder, String playlistDescription, MediaType mediaType,
-			User playlistUser, Collection<Media> mediaPlayList) {
+
+	public Playlists(String playlistName, String playlistDescription, MediaType mediaType, User playlistUser,
+			Collection<Media> mediaPlayList, Collection<PlaylistOrder> playlistsorder) {
 		super();
 		this.playlistName = playlistName;
-		this.playlistOrder = playlistOrder;
 		this.playlistDescription = playlistDescription;
 		this.mediaType = mediaType;
 		this.playlistUser = playlistUser;
 		this.mediaPlayList = mediaPlayList;
+		this.playlistsorder = playlistsorder;
 	}
+
+
+
 
 	public Long getPlaylistID() {
 		return playlistID;
@@ -64,13 +78,6 @@ public class Playlists {
 		this.playlistName = playlistName;
 	}
 
-	public String getPlaylistOrder() {
-		return playlistOrder;
-	}
-
-	public void setPlaylistOrder(String playlistOrder) {
-		this.playlistOrder = playlistOrder;
-	}
 
 	public String getPlaylistDescription() {
 		return playlistDescription;
@@ -103,6 +110,21 @@ public class Playlists {
 	public void setMediaPlayList(Collection<Media> mediaPlayList) {
 		this.mediaPlayList = mediaPlayList;
 	}
+
+
+
+
+	public Collection<PlaylistOrder> getPlaylistsorder() {
+		return playlistsorder;
+	}
+
+
+
+
+	public void setPlaylistsorder(Collection<PlaylistOrder> playlistsorder) {
+		this.playlistsorder = playlistsorder;
+	}
+	
 	
 	
 

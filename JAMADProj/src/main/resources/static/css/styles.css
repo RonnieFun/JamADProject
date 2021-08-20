@@ -29,6 +29,79 @@ body {
   	-webkit-filter: blur(0.9px);
 }
 
+.artistIntroSectionzq{
+	background-color: white;
+	padding-bottom: 60px;
+	margin-top: 0px;
+	border-bottom: 2px solid #B8C5D0;
+}
+
+
+.aboutArtistSectionzq{
+	position:absolute;
+	background-color:white;
+	width:43%;
+	height:180px;
+	margin-left: 35%;
+	margin-top: 6%;
+	top: 17px;
+}
+
+.smallBannerzq{
+	position: relative;
+	height: 250px;
+	width: 20%;
+	margin-left: 10%;
+	margin-top: 1.5%;
+	top: 17px;
+	border: 1.5px solid black;
+	filter: blur(0.9px);
+  	-webkit-filter: blur(0.9px);
+}
+
+.aboutArtistHeaderzq{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.65vw;
+	margin-left: 6%;
+	margin-top: 2%;
+	font-weight: 900;
+}
+
+.aboutArtistFeature1zq{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1vw;
+	margin-left: 6.5%;
+	margin-top: 9%;
+}
+
+.aboutArtistFeature2zq{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1vw;
+	margin-left: 6.5%;
+	margin-top: 14%;
+}
+
+.aboutArtistFeature3zq{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1vw;
+	margin-left: 6.5%;
+	margin-top: 20%;
+}
+
+.aboutArtistFeature4zq{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1vw;
+	margin-left: 6.5%;
+	margin-top: 21.5%;
+}
+
+
+
 .aboutShopSection{
 	position:absolute;
 	background-color:rgba(244.3749949336052, 239.28384572267532, 239.28384572267532, 0.550000011920929);
@@ -4938,7 +5011,26 @@ body{
 	.mx-auto {
   margin-left: auto !important; }	
 }
+.badge {
+  padding-left: 9px;
+  padding-right: 9px;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  border-radius: 9px;
+}
 
+.label-warning[href],
+.badge-warning[href] {
+  background-color: #c67605;
+}
+#lblCartCount {
+    font-size: 12px;
+    background: #ff0000;
+    color: #fff;
+    padding: 0 5px;
+    vertical-align: top;
+    margin-left: -10px; 
+}
 
 
 

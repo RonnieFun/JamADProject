@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="Fragments/layout.html :: headerfiles"> </head>
+
+<body>
+	<nav th:replace="Fragments/layout.html :: navbar"></nav>
+	
+	<!-- Artist Introduction Section -->
+	
+<div class="cartIntroSection">
+
+ 	 <img class="smallBanner" th:src="@{artist.profileUrl}" alt=""></img>
+ 	 
+ 	 <div class="aboutShopSection">
+		<span  class="aboutShopHeader h6">  <i th:text="'Artist: ' + ${artistName}" ></i></span>
+		<span  class="aboutShopFeature1" th:text="'Channel Name: ' + ${artistMusicChannelName}" ></span>
+ 	 	<span class="aboutShopFeature2" th:text="'Subscribers: ' + ${numberOfSubscribers}"></span> 
+ 	 	<span class="aboutShopFeature3" th:text="'Musics: ' + ${numberOfArtistMusics}"></span>
+ 	 	<span class="aboutShopFeature4">
+ 	 		<!--  If the customer already subscribed the artist, it shows "UNSUBSCRIBE"	--> 	
+			<span th:if = "${subscribeStatus}" >
+				<Button class ="userSubscribeBtn"><a th:href="@{/music/unsubscribefrommusic}">UNSUBSCRIBE</a></Button>
+			</span>
+		
+			<!--  Else if the customer haven't subscribed the artist, it shows "SUBSCRIBE" -->
+			<span th:unless = "${subscribeStatus}" >
+				<Button class ="userSubscribeBtn"> <a t th:href="@{/music/subscribefrommusic}">SUBSCRIBE</a></Button>
+			</span> 
+ 	 	</span>
+ 	 </div>
+</div> 
+ 
+	
+</body>
+</html>
