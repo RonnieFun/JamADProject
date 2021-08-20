@@ -34,6 +34,8 @@ public class User {
 	
 	private String profileUrl;
 	
+	private String shopDescription;
+	
 	private boolean enabled;
 	
 	//OneToMany relation with Roles
@@ -82,6 +84,10 @@ public class User {
 	//OneToMany relation with comment
 	@OneToMany(mappedBy = "commentUser")
 	private Collection<Comments> comments;
+	
+	//OneToMany relation with payment
+	@OneToMany(mappedBy = "user")
+	private Collection<Payment> paymentList;
 
 	public User() {
 		super();
@@ -308,6 +314,30 @@ public class User {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = true;
+	}
+
+	public String getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(String dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public String getShopDescription() {
+		return shopDescription;
+	}
+
+	public void setShopDescription(String shopDescription) {
+		this.shopDescription = shopDescription;
+	}
+
+	public Collection<Payment> getPaymentList() {
+		return paymentList;
+	}
+
+	public void setPaymentList(Collection<Payment> paymentList) {
+		this.paymentList = paymentList;
 	}
 	
 	

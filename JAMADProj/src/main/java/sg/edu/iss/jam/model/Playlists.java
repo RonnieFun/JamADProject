@@ -38,7 +38,7 @@ public class Playlists {
 	@ManyToMany
 	private Collection<Media> mediaPlayList;
 	
-	@OneToMany(mappedBy = "playlist")
+	@OneToMany(mappedBy = "playlists")
 	private Collection<PlaylistOrder> playlistsorder;
 
 	public Playlists() {
