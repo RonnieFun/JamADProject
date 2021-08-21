@@ -28,6 +28,13 @@ public class Album {
 	@OneToMany(mappedBy = "album")
 	private Collection<Media> AlbumMedia;
 
+	
+	
+	
+	public Album() {
+		super();
+	}
+
 	public Album(String albumDescription, String albumImgURL, Channel channel, Collection<Media> albumMedia) {
 		super();
 		AlbumDescription = albumDescription;

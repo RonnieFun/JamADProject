@@ -62,7 +62,7 @@ public class MediaController {
 		return "cartothertab";
 	}
 	
-	@GetMapping("/watchvideo")
+	@GetMapping("/video/watchvideo")
 	public String watchVideo(Model model) {
 
 		
@@ -82,7 +82,7 @@ public class MediaController {
 
 		int commentCount = uservice.findCommentsByMediaId(2L).size();
 		
-		User loggedInUser = uservice.findUserByUserId(1L);
+		User loggedInUser = uservice.findUserByUserId(2L);
 		
 		Media selectedMedia = uservice.findMediaByMediaId(2L);
 		
@@ -97,7 +97,7 @@ public class MediaController {
 		
 		model.addAttribute("commentCount", commentCount);
 		model.addAttribute("user", loggedInUser);
-		model.addAttribute("playlists", uservice.findPlaylistsByUserId(1L));
+		model.addAttribute("playlists", uservice.findPlaylistsByUserId(2L));
 		model.addAttribute("media", selectedMedia);
 		model.addAttribute("allMedia", uservice.findAllMedia());
 		model.addAttribute("comments", uservice.findCommentsByMediaId(2L));
@@ -106,7 +106,7 @@ public class MediaController {
 	    
 		boolean liked = false;
 		
-		List<Playlists> loggedInUserPlaylists = uservice.findPlaylistsByUserId(1L);
+		List<Playlists> loggedInUserPlaylists = uservice.findPlaylistsByUserId(2L);
 		
 		for (Playlists playlist : loggedInUserPlaylists) {
 			if(playlist.getMediaPlayList().contains(selectedMedia)) {
@@ -143,7 +143,7 @@ public class MediaController {
 		return "userwatchvideo";
 	}
 	
-	@GetMapping("/aftersubmitcomment")
+	@GetMapping("/video/aftersubmitcomment")
 	public String afterSubmitComment(Model model) {
 		
 //		Media loadedMedia = uservice.findMediaByMediaId(2L);
@@ -158,7 +158,7 @@ public class MediaController {
 		//of Spring Security to authenticate logged in user
 		
 		model.addAttribute("commentCount", commentCount);
-		model.addAttribute("user", uservice.findUserByUserId(1L));
+		model.addAttribute("user", uservice.findUserByUserId(2L));
 		model.addAttribute("media", uservice.findMediaByMediaId(2L));
 		model.addAttribute("comments", uservice.findCommentsByMediaId(2L));
 		
@@ -166,7 +166,7 @@ public class MediaController {
 	}
 	
 	//ajax call for Like Button Add to play list
-	@PostMapping("/addToPlaylist")
+	@PostMapping("/video/addToPlaylist")
 	@ResponseBody
 	public String addToPlaylist(Model model, 
 			@RequestParam(value = "userID") Long userID, 
@@ -191,7 +191,7 @@ public class MediaController {
 	}
 	
 	//ajax call for Like Button Remove from play list
-	@PostMapping("/removeFromPlaylist")
+	@PostMapping("/video/removeFromPlaylist")
 	@ResponseBody
 	public String removeFromPlaylist(Model model, 
 			@RequestParam(value = "userID") Long userID, 
@@ -212,7 +212,7 @@ public class MediaController {
 	}
 	
 	//ajax call for Subscribe button
-	@PostMapping("/subscribe")
+	@PostMapping("/video/subscribe")
 	@ResponseBody
 	public String subscribeArtist(@RequestParam(value = "artistId") Long artistId) throws Exception{
 		
@@ -252,7 +252,7 @@ public class MediaController {
 	}
 	
 	//ajax call for unsubscribe button
-	@PostMapping("/unsubscribe")	
+	@PostMapping("/video/unsubscribe")	
 	@ResponseBody
 	public String unsubscribeArtist(@RequestParam(value = "artistId") Long artistId) throws Exception {
 		
@@ -284,7 +284,7 @@ public class MediaController {
 	}
 	
 	//ajax call for submit comments
-	@PostMapping("/submitComments")
+	@PostMapping("/video/submitComments")
 	@ResponseBody
 	public String submitComments(Model model, 
 			@RequestParam(value = "submittedComment") String submittedComment,

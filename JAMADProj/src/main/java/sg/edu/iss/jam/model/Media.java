@@ -114,7 +114,9 @@ public class Media {
 		this.duration = duration;
 	}
 
-
+	public Media() {
+		super();
+	}
 
 	public Media(MediaType mediaType, String mediaUrl, String title, String description, String duration,
 			LocalDate createdOn, String publishStatus, String thumbnailUrl) {
@@ -239,6 +241,14 @@ public class Media {
 
 	public void setPlaylistOrder(Collection<PlaylistOrder> playlistOrder) {
 		PlaylistOrder = playlistOrder;
+	}
+
+	public LocalDate getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(LocalDate createdOn) {
+		this.createdOn = createdOn;
 	}
 	
 	
