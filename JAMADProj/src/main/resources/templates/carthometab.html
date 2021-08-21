@@ -45,7 +45,7 @@
           <div class="col-12 col-md">
             <!-- Product Categories -->
             <nav class="navbar spaceEvenly">
-              <a class="nav-link active blackFontText ml-5 h6" data-toggle="tab" href="#">Home</a>
+              <!-- <a class="nav-link active blackFontText ml-5 h6" data-toggle="tab" href="#">Home</a> -->
               <a class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/carthometab/}+${artistId}">All Products</a>
               <a class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/carthometab/}+${artistId}+@{/MusicCollection}">Music Collection</a>
               <a class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/carthometab/}+${artistId}+@{/Merchandise}">Merchandise</a>
@@ -70,7 +70,7 @@
 										<a class="nav-link blackFontText ml-5 sortLabel"
 											data-toggle="tab" href="#">Sort by:</a> <a
 											class="nav-link blackFontText popularSort" data-toggle="tab"
-											href="#">Popular</a> <a
+											th:href="@{/carthometab/}+${artistId}+${status}">Popular</a> <a
 											class="nav-link blackFontText latestSort" data-toggle="tab"
 											href="#">Latest</a> <a
 											class="nav-link blackFontText salesSort" data-toggle="tab"
@@ -126,19 +126,24 @@
                   </div>
 
 				 <!-- Country Of Origin -->
-				 <div class="productCountryOrigin">
+				 <!-- <div class="productCountryOrigin">
 				 	Singapore
-				 </div>
+				 </div> -->
 
                   <!-- Price -->
                   <div class="mb-1 productPrice h6" th:text="${product.productPrice}">
                   </div>
                   
                   <!-- Like Button Heart Shape -->
-				  <label for="heartLikeButton">
+				  <!-- <label for="heartLikeButton">
 				    <i class="far fa-heart likeIcon" aria-hidden="true"></i>
 				  </label>
-				  <input id="heartLikeButton" type="button" />
+				  <input id="heartLikeButton" type="button" /> -->
+				  <br>
+				  <div class="btn-ground text-center">
+                    <button type="button" class="btn btn-primary" th:onclick="'javascript:myFunction(' + ${product.productID} + ')'"><i class="fa fa-shopping-cart"></i> Add To Cart</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#product_view"><i class="fa fa-search"></i> Quick View</button>
+                </div>
 				  
                 </div>
               </div>
@@ -156,34 +161,18 @@
 </div>
 </body>
 <script>
-function myFunction() {
-	  var artistId = $('#divArtistId').text();
-	  alert(artistId);
-	  //document.getElementById("demo").innerHTML = "You selected: " + x;
+
+function myFunction(productID) {
 	  $.ajax({
 	        type: 'POST',
-	        url: "/getAllProduct",
+	        url: "/addToCart",
 	        contentType:'application/x-www-form-urlencoded; charset=UTF-8',
 	        data:{
-	        	artistId :artistId
+	        	productId :productID
 	        },
 	        success: function(response){
-	        	//console.log(response);
-	        	//$('#courseId').empty();
-	        	var jason =$.parseJSON(response);
-	        	console.log(jason)
-	        	/* $.each(jason, function(key, value) {
-  					var $option = $("<option/>", {
-    					value: key,
-    					text: key + ' | '+value
-  						});
-  					$('#courseId').append($option);
-				}); */
-	        	/* for(var i in jason){
-	        		console.log(jason[i]);
-	        		//$('#courseId').append('<option th:value="'+jason[i] +'">'+ jason[i] +'</option>')
-	        		
-	        	} */
+	        	
+	        	$("#lblCartCount").text(response);
 	        	
 	        },
 	        error:function(xmlHttpRequest, textStatus, errorThrown){

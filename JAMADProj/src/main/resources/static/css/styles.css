@@ -29,6 +29,79 @@ body {
   	-webkit-filter: blur(0.9px);
 }
 
+.artistIntroSectionzq{
+	background-color: white;
+	padding-bottom: 60px;
+	margin-top: 0px;
+	border-bottom: 2px solid #B8C5D0;
+}
+
+
+.aboutArtistSectionzq{
+	position:absolute;
+	background-color:white;
+	width:43%;
+	height:180px;
+	margin-left: 35%;
+	margin-top: 6%;
+	top: 17px;
+}
+
+.smallBannerzq{
+	position: relative;
+	height: 250px;
+	width: 20%;
+	margin-left: 10%;
+	margin-top: 1.5%;
+	top: 17px;
+	border: 1.5px solid black;
+	filter: blur(0.9px);
+  	-webkit-filter: blur(0.9px);
+}
+
+.aboutArtistHeaderzq{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.65vw;
+	margin-left: 6%;
+	margin-top: 2%;
+	font-weight: 900;
+}
+
+.aboutArtistFeature1zq{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1vw;
+	margin-left: 6.5%;
+	margin-top: 9%;
+}
+
+.aboutArtistFeature2zq{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1vw;
+	margin-left: 6.5%;
+	margin-top: 14%;
+}
+
+.aboutArtistFeature3zq{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1vw;
+	margin-left: 6.5%;
+	margin-top: 20%;
+}
+
+.aboutArtistFeature4zq{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1vw;
+	margin-left: 6.5%;
+	margin-top: 21.5%;
+}
+
+
+
 .aboutShopSection{
 	position:absolute;
 	background-color:rgba(244.3749949336052, 239.28384572267532, 239.28384572267532, 0.550000011920929);
@@ -1213,7 +1286,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 170px;
-  margin-top: calc(2.5vh + 0.5%);
+  margin-top: calc(2.5vh + 12%);
 }
 
 .sideVideoLinkColor{
@@ -1504,7 +1577,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 140px;
-  margin-top: calc(2.5vh + 0.5%);
+  margin-top: calc(2.5vh + 12%);
 }
 
 .sideVideoLinkColor{
@@ -1809,7 +1882,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 2.6%);
+  margin-top: calc(2.5vh + 10%);
 }
 
 .smallVidDescription{
@@ -2090,7 +2163,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 3.4%);
+  margin-top: calc(2.5vh + 12%);
 }
 
 .smallVidDescription{
@@ -2371,7 +2444,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 3.4%);
+  margin-top: calc(2.5vh + 12%);
 }
 
 .smallVidDescription{
@@ -2652,7 +2725,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 5.4%);
+  margin-top: calc(2.5vh + 13%);
 }
 
 .smallVidDescription{
@@ -2933,7 +3006,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 3.4%);
+  margin-top: calc(2.5vh + 12%);
 }
 
 .smallVidDescription{
@@ -3214,7 +3287,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 3.4%);
+  margin-top: calc(2.5vh + 12%);
 }
 
 .smallVidDescription{
@@ -3496,7 +3569,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 170px;
-  margin-top: calc(2.5vh + 3.4%);
+  margin-top: calc(2.5vh + 11.5%);
 }
 
 .smallVidDescription{
@@ -3778,7 +3851,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 200px;
-  margin-top: calc(2.5vh + 3.4%);
+  margin-top: calc(2.5vh + 12%);
 }
 
 .smallVidDescription{

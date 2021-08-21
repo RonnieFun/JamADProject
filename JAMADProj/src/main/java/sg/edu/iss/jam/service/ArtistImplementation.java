@@ -164,4 +164,11 @@ public class ArtistImplementation implements ArtistInterface {
 
 		return Concat;
 	}
+
+
+	@Override
+	public List<Product> getPopularProductByCategory(long artistid, Category category) {
+		// TODO Auto-generated method stub
+		return prepo.getPopularProductByCategory(artistid,category);
+	}
 }

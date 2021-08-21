@@ -1,6 +1,7 @@
 package sg.edu.iss.jam.model;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -8,7 +9,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -111,7 +111,13 @@ public class Channel {
 	public void setChannelUser(User channelUser) {
 		this.channelUser = channelUser;
 	}
-	
-	
 
+
+	public Collection<Album> getAlbumslist() {
+		return albumslist;
+	}
+
+	public void setAlbumslist(Collection<Album> albumslist) {
+		this.albumslist = albumslist;
+	}
 }

@@ -65,6 +65,10 @@ public interface UserInterface {
 	void saveOrder(Orders neworder);
 	
 	void saveOrderDetailsList(List<OrderDetails> orderDetailList);
+	
+	void saveCartDetails(ShoppingCartDetails carddetail);
+	
+	ShoppingCartDetails getCartDetailByProductID(Long productId, Long shoppingCartID);
 
 	List<Object[]> getTopAllProductsInPastWeekByOrderDetailsQuantity(int i);
 	

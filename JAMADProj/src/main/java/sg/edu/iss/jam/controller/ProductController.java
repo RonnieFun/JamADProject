@@ -51,13 +51,30 @@ public class ProductController {
 		artist = aservice.getArtistByID(artistid);
 		//userId need to replace
 		Long count  =  uservice.getItemCountByUserID(artistid);
+		
+		model.addAttribute("status", category);
 		model.addAttribute("count", count);
 		model.addAttribute("artistId", artist.getUserID());
 		model.addAttribute("artistName", artist.getDisplayName());
 		model.addAttribute("profileUrl", artist.getProfileUrl());
-		model.addAttribute("productList", aservice.getProductListByArtistIDAndCategory(artistid, category));
+		model.addAttribute("productList", aservice.getPopularProductByCategory(artistid,category));
 		return "carthometab";
 	}
+	
+//	@GetMapping("/carthometab/{artistid}/{category}")
+//	public String getPopularProductByCategory(Model model, @PathVariable long artistid, @PathVariable Category category) {
+//		// long userID = (long) 1;
+//		User artist = null;
+//		artist = aservice.getArtistByID(artistid);
+//		//userId need to replace
+//		Long count  =  uservice.getItemCountByUserID(artistid);
+//		model.addAttribute("count", count);
+//		model.addAttribute("artistId", artist.getUserID());
+//		model.addAttribute("artistName", artist.getDisplayName());
+//		model.addAttribute("profileUrl", artist.getProfileUrl());
+//		//model.addAttribute("productList", aservice.getProductListByArtistIDAndCategory(artistid, category));
+//		return "carthometab";
+//	}
 
 	@GetMapping("/product/details/{productid}")
 	public String productDetail(Model model, @PathVariable long productid) {

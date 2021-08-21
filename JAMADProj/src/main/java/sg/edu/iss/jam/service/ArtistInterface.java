@@ -31,6 +31,8 @@ public interface ArtistInterface {
 
 	List<Product> getProductListByArtistIDAndCategory(long artistid, Category category);
 	
+
+	
 	Channel getChannel(Long channelID);
 	
 	Channel saveChannel(Channel channel);
@@ -41,5 +43,16 @@ public interface ArtistInterface {
 	
 	int getViewcountByMedia(Media Media);
 	
-	String getTagsByMedia(Media Media);	
+	String getTagsByMedia(Media Media);
+
+	List<Object[]> getTopAllProductsInPastWeekByOrderDetailsQuantity(int i);
+
+	List<Product> getPopularProductByCategory(long artistid, Category category);
+	
+//	List<Object[]> getTopMusicCollectionProductsInPastWeekByOrderDetailsQuantity(int i);
+//	
+//	List<Object[]> getTopMerchandiseProductsInPastWeekByOrderDetailsQuantity(int i);
+//	
+//	List<Object[]> getTopClothingProductsInPastWeekByOrderDetailsQuantity(int i);
+	
 }

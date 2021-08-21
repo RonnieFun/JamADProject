@@ -8,14 +8,42 @@ import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import sg.edu.iss.jam.model.Media;
+import sg.edu.iss.jam.model.MediaType;
+import sg.edu.iss.jam.repo.MediaRepository;
+
 @Service
 public class VideoServiceImplementation implements VideoServiceInterface {
+	
+	
+	//scy-part
+		@Autowired
+		MediaRepository mediarepo;
+		
+//		@Override
+//		public List<Object[]> getTopMediasByUserHistory(int i, MediaType mediaType){
+//			return mediarepo.getTopMediasByUserHistory(PageRequest.of(0, i), mediaType,LocalDate.now().minusYears(3));
+//		}
+		@Override
+		public List<Media> getMediaByTypeAndCount(MediaType mediaType){
+			return mediarepo.getMediaByTypeAndCount(mediaType);
+		}
+		
+		@Override
+		public List<Media> getMediaByUserHistory(MediaType mediaType,LocalDate lesscurrentdate){
+			return mediarepo.getMediaByUserHistory(mediaType,lesscurrentdate);
+		}
+
+	
 
 	public static final int BYTE_RANGE = 128;
 
