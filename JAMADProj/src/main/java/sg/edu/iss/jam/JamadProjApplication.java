@@ -89,12 +89,12 @@ public class JamadProjApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(JamadProjApplication.class, args);
 	}
+}
 
-	@Bean
-	CommandLineRunner runner() {
+//	@Bean
+//	CommandLineRunner runner() {
 
-		return args -> {
-<<<<<<< HEAD
+//		return args -> {
 //			Channel channel1 = new Channel();
 //			channel1.setMediaType(MediaType.Music);
 //			channel1.setChannelName("This is music");
@@ -103,10 +103,11 @@ public class JamadProjApplication {
 //			channel2.setChannelName("This is video");
 //			crepo.save(channel1);
 //			crepo.save(channel2);
-		};
-	}
-=======
->>>>>>> refs/remotes/origin/master
+//			
+//			Playlists playlist = new Playlist();
+//			playlist.setPlaylistsorder(null););
+//		};
+//	}
 //
 ////			Max signup1 = new Max(1L, "Brandon", "1 Day Ago", "How's everyone doing?");
 ////			Max signup2 = new Max(2L, "Chang Ying", "2 Days Ago", "This is so cool! I'm excited!");
@@ -201,19 +202,19 @@ public class JamadProjApplication {
 ////			media2.setMediaType(MediaType.Music);
 ////			mrepo.save(media1);
 ////			mrepo.save(media2);
-			Roles Artist = new Roles(Role.Artist);
-//			Roles Customer = new Roles(Role.Customer);
-//			Roles ServiceProvider = new Roles(Role.ServiceProvider);
-//
-//			rolesrepo.save(Artist);
-			
-			List<Roles> maxRoles = new ArrayList<>();
-			
-			maxRoles.add(Artist);
-			
-			User max = new User("Max", "Chen", "max@gmail.com", "abcdefg", "21 June 1987", "MaxChen87", "Best User Ever", "www.max.com", maxRoles);
-			
-			urepo.save(max);
+//			Roles Artist = new Roles(Role.Artist);
+////			Roles Customer = new Roles(Role.Customer);
+////			Roles ServiceProvider = new Roles(Role.ServiceProvider);
+////
+////			rolesrepo.save(Artist);
+//			
+//			List<Roles> maxRoles = new ArrayList<>();
+//			
+//			maxRoles.add(Artist);
+//			
+//			User max = new User("Max", "Chen", "max@gmail.com", "abcdefg", "21 June 1987", "MaxChen87", "Best User Ever", "www.max.com", maxRoles);
+//			
+//			urepo.save(max);
 //			
 //			List<Media> FirstPlayListMedia = new ArrayList<>();
 //			
@@ -459,7 +460,7 @@ public class JamadProjApplication {
 //		    maxComments.add(comment2);
 //		    
 //		    
-<<<<<<< HEAD
+
 //		    List<Product> productList = new ArrayList<>();
 //		    Product p1 = new Product("Nice Pink Hat","Top Selling product",1,Category.Clothing,13.0,"http://picture-cdn.wheretoget.it/0v3cfh-l-610x610.jpg",null,null,null,max);
 //		    Product p2 = new Product("Bickni","Top Selling product",1,Category.Clothing,13.0,"http://picture-cdn.wheretoget.it/0v3cfh-l-610x610.jpg",null,null,null,max);
@@ -467,25 +468,24 @@ public class JamadProjApplication {
 //		    prepo.save(p2);
 //		    productList.add(p1);
 //		    productList.add(p2);
-=======
-		    List<Product> productList = new ArrayList<>();
-		    Product p1 = new Product("Nice Pink Hat","Top Selling product",1,Category.Clothing,13.0,"http://picture-cdn.wheretoget.it/0v3cfh-l-610x610.jpg",null,null,null,max);
-		    Product p2 = new Product("Bickni","Top Selling product",1,Category.Clothing,13.0,"http://picture-cdn.wheretoget.it/0v3cfh-l-610x610.jpg",null,null,null,max);
-		    prepo.save(p1);
-		    prepo.save(p2);
-		    productList.add(p1);
-		    productList.add(p2);
-		    
-		    ShoppingCart shop =  new ShoppingCart(max, null);
-		    srepo.save(shop);
-		    
-		    List<ShoppingCartDetails> detailList = new ArrayList<>();
-		    ShoppingCartDetails detail = new ShoppingCartDetails(2, p1,shop);
-		    ShoppingCartDetails detail2 = new ShoppingCartDetails(3, p2,shop);
-		    detailList.add(detail);
-		    detailList.add(detail2);
-		    shdrepo.save(detail);
-		    shdrepo.save(detail2);
+//		    List<Product> productList = new ArrayList<>();
+//		    Product p1 = new Product("Nice Pink Hat","Top Selling product",1,Category.Clothing,13.0,"http://picture-cdn.wheretoget.it/0v3cfh-l-610x610.jpg",null,null,null,max);
+//		    Product p2 = new Product("Bickni","Top Selling product",1,Category.Clothing,13.0,"http://picture-cdn.wheretoget.it/0v3cfh-l-610x610.jpg",null,null,null,max);
+//		    prepo.save(p1);
+//		    prepo.save(p2);
+//		    productList.add(p1);
+//		    productList.add(p2);
+//		    
+//		    ShoppingCart shop =  new ShoppingCart(max, null);
+//		    srepo.save(shop);
+//		    
+//		    List<ShoppingCartDetails> detailList = new ArrayList<>();
+//		    ShoppingCartDetails detail = new ShoppingCartDetails(2, p1,shop);
+//		    ShoppingCartDetails detail2 = new ShoppingCartDetails(3, p2,shop);
+//		    detailList.add(detail);
+//		    detailList.add(detail2);
+//		    shdrepo.save(detail);
+//		    shdrepo.save(detail2);
 //		    
 ////		    UserHistory userHistory1 = new UserHistory(1, jayChou, FirstPlayListMedia);
 ////		    UserHistory userHistory2 = new UserHistory(2, zhaoQi, SecondPlayListMedia);
@@ -516,7 +516,6 @@ public class JamadProjApplication {
 ////		    userHistory.add(userHistory2);
 ////		    userHistory.add(userHistory3);
 ////		    userHistory.add(userHistory4);
->>>>>>> refs/remotes/origin/master
 //		    
 ////set order details for testing			
 ////			OrderDetails od1 = new OrderDetails();
@@ -548,8 +547,5 @@ public class JamadProjApplication {
 //			prepo.save(product1);
 //			prepo.save(product2);
 //			prepo.save(product3);
-
-		};
-	}
-
-}
+//
+//}

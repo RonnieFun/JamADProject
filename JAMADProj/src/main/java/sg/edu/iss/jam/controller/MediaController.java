@@ -83,7 +83,7 @@ public class MediaController {
 		
 		User loggedInUser = uservice.findUserByUserId(1L);
 		
-		Media selectedMedia = uservice.findMediaByMediaId(2L);
+		Media selectedMedia = uservice.findMediaByMediaId(1L);
 		
 		// Add new userhistory object based on logged in user's userid on each page reload
 		UserHistory userhistory = new UserHistory(LocalDateTime.now(), loggedInUser, selectedMedia);

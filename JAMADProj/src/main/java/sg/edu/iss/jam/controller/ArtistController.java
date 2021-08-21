@@ -161,7 +161,7 @@ public class ArtistController {
 			@RequestParam("file") Optional<MultipartFile> rawfile, BindingResult bindingResult, Model model) {
 
 		if (bindingResult.hasErrors()) {
-			return "admin/courseform";
+			return "artist/editproduct";
 		}
 
 		product.setProductUser(ArtistService.findById((long) 1));

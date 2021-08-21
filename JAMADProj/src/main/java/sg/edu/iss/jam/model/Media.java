@@ -152,6 +152,12 @@ public class Media {
 		PlaylistOrder = playlistOrder;
 		this.tagList = tagList;
 	}
+	
+	
+
+	public Media() {
+		super();
+	}
 
 	public String getPublishStatus() {
 		return publishStatus;
@@ -240,6 +246,15 @@ public class Media {
 	public void setPlaylistOrder(Collection<PlaylistOrder> playlistOrder) {
 		PlaylistOrder = playlistOrder;
 	}
+
+	public LocalDate getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(LocalDate createdOn) {
+		this.createdOn = createdOn;
+	}
+	
 	
 	
 	

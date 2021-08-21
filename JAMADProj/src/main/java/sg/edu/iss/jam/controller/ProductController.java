@@ -27,9 +27,6 @@ public class ProductController {
 	
 	@Autowired
 	UserInterface uservice;
-
-	@Autowired
-	UserInterface uservice;
 	
 	@GetMapping("/carthometab/{artistid}")
 	public String shoppingCartHome(Model model, @PathVariable long artistid) {

@@ -76,5 +76,10 @@ public class Album {
 		AlbumMedia = albumMedia;
 	}
 
+	public Album() {
+		super();
+	}
+
+	
 	
 }
