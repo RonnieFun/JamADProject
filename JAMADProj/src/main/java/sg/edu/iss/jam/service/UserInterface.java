@@ -65,6 +65,8 @@ public interface UserInterface {
 	void saveOrder(Orders neworder);
 	
 	void saveOrderDetailsList(List<OrderDetails> orderDetailList);
+	
+	void saveCartDetails(ShoppingCartDetails carddetail);
 
 
 }

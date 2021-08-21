@@ -212,5 +212,11 @@ public class UserImplementation implements UserInterface {
 		// TODO Auto-generated method stub
 		odrepo.saveAll(orderDetailList);
 	}
+
+	@Override
+	public void saveCartDetails(ShoppingCartDetails carddetail) {
+		// TODO Auto-generated method stub
+		shdrepo.save(carddetail);
+	}
 	
 }

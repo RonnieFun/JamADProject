@@ -46,6 +46,8 @@ public interface ArtistInterface {
 	String getTagsByMedia(Media Media);
 
 	List<Object[]> getTopAllProductsInPastWeekByOrderDetailsQuantity(int i);
+
+	List<Product> getPopularProductByCategory(long artistid, Category category);
 	
 //	List<Object[]> getTopMusicCollectionProductsInPastWeekByOrderDetailsQuantity(int i);
 //	
