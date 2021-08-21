@@ -24,7 +24,7 @@ public interface MediaRepository extends JpaRepository<Media, Long> {
 	
 	public Collection<Media> findBychannel(Channel channel);
 	
-	//scy
+	//videolandingpage
 //	@Query("Select m, count(distinct uh.id) from Media m join m.userHistory uh "
 //			+ "where m.mediaType=:mediatype "
 //			+ "and uh.datetime>=Date(:currentdatelessoneweek) "

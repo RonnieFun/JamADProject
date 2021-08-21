@@ -45,6 +45,7 @@ public class MediaController {
 			
 	@GetMapping("/video/videolandingpage")
 	public String showVideoLandingPage(Model model) {
+		
 //				List<Object[]> topVideosByUserHistory=vservice.getTopMediasByUserHistory(6,MediaType.Video);
 //				List<Media> videos=new ArrayList<Media>();
 //				for(Object[] object: topVideosByUserHistory) {

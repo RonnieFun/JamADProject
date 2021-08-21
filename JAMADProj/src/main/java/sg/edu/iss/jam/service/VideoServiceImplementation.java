@@ -29,15 +29,11 @@ public class VideoServiceImplementation implements VideoServiceInterface {
 		@Autowired
 		MediaRepository mediarepo;
 		
-		@Override
+	
 //		public List<Object[]> getTopMediasByUserHistory(int i, MediaType mediaType){
 //			return mediarepo.getTopMediasByUserHistory(PageRequest.of(0, i), mediaType,LocalDate.now().minusYears(3));
 //		}
-		
-		public List<Media> getAllMedia(){
-			return mediarepo.findAll();
-		}
-		
+	
 		@Override
 		public List<Media> getMediaByTypeAndCount(MediaType mediaType){
 			return mediarepo.getMediaByTypeAndCount(mediaType);
