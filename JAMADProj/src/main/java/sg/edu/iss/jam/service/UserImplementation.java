@@ -218,5 +218,11 @@ public class UserImplementation implements UserInterface {
 		// TODO Auto-generated method stub
 		shdrepo.save(carddetail);
 	}
-	
+
+	@Override
+	public ShoppingCartDetails getCartDetailByProductID(Long productId, Long shoppingCartID) {
+		// TODO Auto-generated method stub
+		return shdrepo.getByProductIdAndCartID(productId,shoppingCartID);
+	}
+
 }

@@ -67,6 +67,8 @@ public interface UserInterface {
 	void saveOrderDetailsList(List<OrderDetails> orderDetailList);
 	
 	void saveCartDetails(ShoppingCartDetails carddetail);
+	
+	ShoppingCartDetails getCartDetailByProductID(Long productId, Long shoppingCartID);
 
 
 }
