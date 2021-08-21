@@ -561,5 +561,46 @@ public class MediaController {
 		model.addAttribute("artist", artist);	
 		return "ArtistMusicChannel";
 	}
+	
+	// 
+	
+	@GetMapping("/video/subscribenoajax")
+	public String subscribeArtistNoAjax1(){
+		Long artistId = (long) 1;
+		
+		// currently assume the userID = 17,
+		Long customerId = (long) 17;
+		User customer = uservice.findUserByUserId(customerId);
+		User artist = aservice.findById(artistId);
+		
+		if (artist == null || customer == null || customerId == artistId) {
+			return "redirect:/viewartistvideochannel";
+		}
+			
+		// for artist, add the customer to the subscribed collection
+		Collection<Subscribed> customers_subscribed_me = new HashSet<Subscribed>();
+		Subscribed customer_subscribed_me = new Subscribed();
+		customer_subscribed_me.setTargetId(customerId);
+		customer_subscribed_me.setUser(artist);	
+		customers_subscribed_me.add(customer_subscribed_me);
+		artist.setSubscribers(customers_subscribed_me);
+		
+		// For customer, add the artist to the subscribed collection
+		Collection<Subscribed> artists_I_subscribed = new HashSet<Subscribed>();
+		Subscribed artist_I_subscribed = new Subscribed();
+		artist_I_subscribed.setTargetId(artistId);
+		artist_I_subscribed.setUser(customer);	
+		artists_I_subscribed.add(artist_I_subscribed);
+		customer.setSubscribers(artists_I_subscribed);
+		
+		
+		aservice.saveUser(artist);
+		aservice.saveSubscribed(customer_subscribed_me);
+		
+		uservice.saveUser(customer);
+		uservice.saveSubscribed(artist_I_subscribed);
+		
+		return "redirect:/video/viewartistvideochannel";
+	}
 
 }
