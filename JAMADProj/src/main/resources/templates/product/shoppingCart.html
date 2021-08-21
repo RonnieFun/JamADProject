@@ -22,8 +22,8 @@
          <h2>There is no items in Cart</h2>
          <a th:href="@{/productList}">Show Product List</a>
       </th:block>
-      <div class="container cart_bag">
-       <h2 style="font-weight: bold;">YOUR BAG</h2>
+      <div class="cartIntroSection">
+       <h2 style="font-weight: bold;" class = "col-12 text-center">YOUR BAG</h2>
       <div class="row">
         <div class="col-lg-8 col-sm-8 col-xs-12">
           <table class="table">
@@ -95,7 +95,9 @@
         </div>
       </div>
     </div>
-       
+   <div class="footer">
+  <p style="margin-top: 3px;">@2020-2021 Jam | Term 2</p>
+</div>
    </body>
    <script>
    function updateCartItemQuantity(sku, quantity)
