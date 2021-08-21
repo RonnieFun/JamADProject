@@ -20,13 +20,13 @@
  	 	
  	 	<span class="aboutArtistFeature3zq">
  	 		<!--  If the customer already subscribed the artist, it shows "UNSUBSCRIBE"	--> 	
- 	 		<span th:if = "${subscribeStatus}">
-				<Button class="userSubscribeBtn"><a th:href="@{/video/unsubscribenoajax}">UNSUBSCRIBE</a></Button>
+ 	 		<span th:if = "${subscribeStatus == true}">
+				<Button class="userSubscribeBtn"><a th:href="@{/video/unsubscribenoajax/{artistId}(artistId = ${artistId})}">UNSUBSCRIBE</a></Button>
 			</span>
 		
 			<!--  Else if the customer haven't subscribed the artist, it shows "SUBSCRIBE" -->
-			<span th:unless = "${subscribeStatus}" >
-				<Button class="userSubscribeBtn"> <a th:href="@{/video/subscribenoajax}">SUBSCRIBE</a></Button>
+			<span th:if = "${subscribeStatus == false}" >
+				<Button class="userSubscribeBtn"> <a th:href="@{/video/subscribenoajax/{artistId}(artistId = ${artistId})}">SUBSCRIBE</a></Button>
 			</span> 
  	 	</span>
  	 	
@@ -46,11 +46,11 @@
       	
       <div class="card mb-1 h-100"> 
       
-      <!--  Meida image -->
+      <!--  Media image -->
                          <!-- <a th:href="@{/watchvideo(id=${video.id})}"> -->
-       <a th:href="@{/watchvideo}">
+       <a th:href="@{/video/watchvideo/{mediaId}(mediaId = ${video.id})}">
         <img th:src="${video.thumbnailUrl}" class="card-img-top productPhotoSize" alt="...">
-        <span  class="sideVideoDuration" th:text="${video.duration}"></span> 
+        <span  class="sideVideoDurationVideoChannel" th:text="${video.duration}"></span> 
        </a>
        
        <!-- Collapse -->
@@ -83,7 +83,6 @@
      </div>
     </th:block>
    </div>
-	
 
 	
 </body>
