@@ -1070,10 +1070,11 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 55%;
+  height: 25rem;
   margin-left: 7.5%;
   margin-top: calc(8vh - 0.01%);
   padding: 0px;
+  object-fit: fill;
 }
 
 .userPageImage{
@@ -1286,7 +1287,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 170px;
-  margin-top: calc(2.5vh + 12%);
+  margin-top: calc(2.5vh + 3.5%);
 }
 
 .sideVideoLinkColor{
@@ -1397,10 +1398,11 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 55%;
+  height: 25rem;
   margin-left: 7.5%;
   margin-top: calc(8vh - 0.01%);
   padding: 0px;
+  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -1577,7 +1579,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 140px;
-  margin-top: calc(2.5vh + 12%);
+  margin-top: calc(2.5vh + 3.5%);
 }
 
 .sideVideoLinkColor{
@@ -1687,10 +1689,11 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 55%;
+  height: 25rem;
   margin-left: 7.5%;
   margin-top: calc(8vh - 0.01%);
   padding: 0px;
+  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -1882,7 +1885,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 10%);
+  margin-top: calc(2.5vh + 1.5%);
 }
 
 .smallVidDescription{
@@ -1973,10 +1976,11 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 55%;
+  height: 25rem;
   margin-left: 7.5%;
   margin-top: calc(8vh - 0.01%);
   padding: 0px;
+  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -2163,7 +2167,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 12%);
+  margin-top: calc(2.5vh + 3.5%);
 }
 
 .smallVidDescription{
@@ -2254,10 +2258,11 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 55%;
+  height: 25rem;
   margin-left: 7.5%;
   margin-top: calc(8vh - 0.01%);
   padding: 0px;
+  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -2444,7 +2449,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 12%);
+  margin-top: calc(2.5vh + 3.5%);
 }
 
 .smallVidDescription{
@@ -2535,10 +2540,11 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 55%;
+  height: 30rem;
   margin-left: 7.5%;
   margin-top: calc(8vh - 0.01%);
   padding: 0px;
+  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -2717,7 +2723,7 @@ body {
 
 .userPageSideVideosSection{
   margin-left: 63%;
-  margin-top: calc(3vh - 33%);
+  margin-top: calc(2.2vh - 30% - 5rem);
 }
 
 .userPageSideVideos{
@@ -2725,7 +2731,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 13%);
+  margin-top: calc(2.5vh + 5%);
 }
 
 .smallVidDescription{
@@ -2816,10 +2822,11 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 55%;
+  height: 35rem;
   margin-left: 7.5%;
   margin-top: calc(8vh - 0.01%);
   padding: 0px;
+  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -2998,7 +3005,7 @@ body {
 
 .userPageSideVideosSection{
   margin-left: 63%;
-  margin-top: calc(3vh - 33%);
+  margin-top: calc(3vh - 37%);
 }
 
 .userPageSideVideos{
@@ -3006,7 +3013,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 12%);
+  margin-top: calc(2.5vh + 3.5%);
 }
 
 .smallVidDescription{
@@ -3097,10 +3104,11 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 55%;
+  height: 35rem;
   margin-left: 7.5%;
   margin-top: calc(8vh - 0.01%);
   padding: 0px;
+  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -3279,7 +3287,7 @@ body {
 
 .userPageSideVideosSection{
   margin-left: 63%;
-  margin-top: calc(3vh - 32.5%);
+  margin-top: calc(3.5vh - 37.5%);
 }
 
 .userPageSideVideos{
@@ -3287,7 +3295,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 12%);
+  margin-top: calc(2.5vh + 3.5%);
 }
 
 .smallVidDescription{
@@ -3379,10 +3387,11 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 55%;
+  height: 35rem;
   margin-left: 7.5%;
   margin-top: calc(8vh - 0.01%);
   padding: 0px;
+  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -3561,7 +3570,7 @@ body {
 
 .userPageSideVideosSection{
   margin-left: 63%;
-  margin-top: calc(3vh - 32.5%);
+  margin-top: calc(3vh - 33.6%);
 }
 
 .userPageSideVideos{
@@ -3569,7 +3578,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 170px;
-  margin-top: calc(2.5vh + 11.5%);
+  margin-top: calc(2.5vh + 3%);
 }
 
 .smallVidDescription{
@@ -3661,10 +3670,11 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 55%;
+  height: 40rem;
   margin-left: 7.5%;
   margin-top: calc(8vh - 0.01%);
   padding: 0px;
+  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -3843,7 +3853,7 @@ body {
 
 .userPageSideVideosSection{
   margin-left: 63%;
-  margin-top: calc(3vh - 32.5%);
+  margin-top: calc(3vh - 30.8%);
 }
 
 .userPageSideVideos{
@@ -3851,7 +3861,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 200px;
-  margin-top: calc(2.5vh + 12%);
+  margin-top: calc(2.5vh + 3.5%);
 }
 
 .smallVidDescription{

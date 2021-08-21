@@ -6,10 +6,10 @@
  <nav th:replace="Fragments/layout.html :: navbar"></nav>
 
 <section>
-	<video width="400" height="200" class="col-md-4 col-lg-5 h-50 userPageMainVideo" controls>
+	<video width="400" height="200" class="col-md-4 col-lg-5 userPageMainVideo" controls>
  		<source th:src="${media.mediaUrl}" type="video/mp4">
  	</video>
- 	
+
  	<!-- Video Introduction Section -->
  	<div class="userPageVideoIntroSection">
  		<span th:text="'Title: ' + ${media.title}" class="userVideoTitleLabel"></span>
@@ -96,7 +96,7 @@
 <section>
 	<div class="userPageSideVideosSection flex-container">
 		<span th:each = "sideMedia: ${allMedia}"> <!-- th:each goes into this span to iterate and generate videos list -->
-			<a th:href="@{/home}" class="sideVideoLinkColor"><img th:src="${sideMedia.thumbnailUrl}" class="userPageSideVideos" alt="...">
+			<a th:href="@{/video/watchvideo/{id}(id = ${sideMedia.id})}" class="sideVideoLinkColor"><img th:src="${sideMedia.thumbnailUrl}" class="userPageSideVideos" alt="...">
 			<span class="col smallVidDescription">
 				<span th:text="${sideMedia.title}" class=""></span>
 				<span th:each = "tag: ${sideMedia.tagList}">

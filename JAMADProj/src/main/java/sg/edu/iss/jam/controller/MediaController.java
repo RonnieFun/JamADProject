@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -114,9 +115,8 @@ public class MediaController {
 		return "cartothertab";
 	}
 	
-	@GetMapping("/video/watchvideo")
-	public String watchVideo(Model model) {
-
+	@GetMapping("/video/watchvideo/{id}")
+	public String watchVideo(Model model, @PathVariable Long id) {
 		
 //		//Add new view count upon page load
 //		
@@ -132,15 +132,15 @@ public class MediaController {
 		//Currently, assume the userID = 1. This userID will be changed upon implementation
 		//of Spring Security to authenticate logged in user
 
-		int commentCount = uservice.findCommentsByMediaId(2L).size();
+		int commentCount = uservice.findCommentsByMediaId(id).size();
 		
 		User loggedInUser = uservice.findUserByUserId(2L);
 		
-		Media selectedMedia = uservice.findMediaByMediaId(2L);
+		Media selectedMedia = uservice.findMediaByMediaId(id);
 		
 		// Add new userhistory object based on logged in user's userid on each page reload
 		UserHistory userhistory = new UserHistory(LocalDateTime.now(), loggedInUser, selectedMedia);
-		List<UserHistory> userHistory = uservice.findUserHistoryByMediaId(2L);
+		List<UserHistory> userHistory = uservice.findUserHistoryByMediaId(id);
 		uservice.saveUserHistory(userhistory);
 		userHistory.add(userhistory);
 		
@@ -152,8 +152,8 @@ public class MediaController {
 		model.addAttribute("playlists", uservice.findPlaylistsByUserId(2L));
 		model.addAttribute("media", selectedMedia);
 		model.addAttribute("allMedia", uservice.findAllMedia());
-		model.addAttribute("comments", uservice.findCommentsByMediaId(2L));
-		model.addAttribute("tags", uservice.findTagsByMediaId(2L));
+		model.addAttribute("comments", uservice.findCommentsByMediaId(id));
+		model.addAttribute("tags", uservice.findTagsByMediaId(id));
 		model.addAttribute("viewCount", viewCount);
 	    
 		boolean liked = false;
@@ -178,6 +178,7 @@ public class MediaController {
 					
 		Long artistId = (long) 1;
 		User jayChou = aservice.findById(artistId);
+		
 		String artistName = jayChou.getFirstName() + " " + jayChou.getLastName();
 					
 		boolean subscribeStatus = false;				
@@ -195,8 +196,8 @@ public class MediaController {
 		return "userwatchvideo";
 	}
 	
-	@GetMapping("/video/aftersubmitcomment")
-	public String afterSubmitComment(Model model) {
+	@GetMapping("/video/aftersubmitcomment/{id}")
+	public String afterSubmitComment(Model model, @PathVariable Long id) {
 		
 //		Media loadedMedia = uservice.findMediaByMediaId(2L);
 //		int numberOfViews = loadedMedia.getViewCount();
@@ -204,15 +205,15 @@ public class MediaController {
 //		
 //		uservice.saveMedia(loadedMedia);
 	
-		int commentCount = uservice.findCommentsByMediaId(2L).size();
+		int commentCount = uservice.findCommentsByMediaId(id).size();
 		
 		//Currently, assume the userID = 1. This userID will be changed upon implementation
 		//of Spring Security to authenticate logged in user
 		
 		model.addAttribute("commentCount", commentCount);
 		model.addAttribute("user", uservice.findUserByUserId(2L));
-		model.addAttribute("media", uservice.findMediaByMediaId(2L));
-		model.addAttribute("comments", uservice.findCommentsByMediaId(2L));
+		model.addAttribute("media", uservice.findMediaByMediaId(id));
+		model.addAttribute("comments", uservice.findCommentsByMediaId(id));
 		
 		return "aftersubmitcomment";
 	}
