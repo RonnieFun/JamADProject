@@ -7,29 +7,118 @@
 	
 	<!-- Artist Introduction Section -->
 	
-<div class="cartIntroSection">
+<div class="artistIntroSectionzq">
 
- 	 <img class="smallBanner" th:src="@{artist.profileUrl}" alt=""></img>
- 	 
- 	 <div class="aboutShopSection">
-		<span  class="aboutShopHeader h6">  <i th:text="'Artist: ' + ${artistName}" ></i></span>
-		<span  class="aboutShopFeature1" th:text="'Channel Name: ' + ${artistMusicChannelName}" ></span>
- 	 	<span class="aboutShopFeature2" th:text="'Subscribers: ' + ${numberOfSubscribers}"></span> 
- 	 	<span class="aboutShopFeature3" th:text="'Musics: ' + ${numberOfArtistMusics}"></span>
- 	 	<span class="aboutShopFeature4">
+ 	 <img class="smallBannerzq" th:src="${artist.profileUrl}" alt=""></img>
+ 	 <div class="aboutArtistSectionzq">
+		<!--  <span  class="aboutShopHeader h6">  <i th:text="'Artist: ' + ${artistName}" ></i></span>-->
+		
+		<span  class="aboutArtistHeaderzq" th:text=" ${artistMusicChannelName}"  ></span>
+ 	 	<span class="aboutArtistFeature1zq" th:text="'Number of Subscribers: ' + ${numberOfSubscribers}"></span> 
+ 	 	<span class="aboutArtistFeature2zq" th:text="'Number of Musics: ' + ${numberOfArtistMusics}"></span>
+ 	 	
+ 	 	<span class="aboutArtistFeature3zq">
  	 		<!--  If the customer already subscribed the artist, it shows "UNSUBSCRIBE"	--> 	
-			<span th:if = "${subscribeStatus}" >
-				<Button class ="userSubscribeBtn"><a th:href="@{/music/unsubscribefrommusic}">UNSUBSCRIBE</a></Button>
+ 	 		<span th:if = "${subscribeStatus}">
+				<Button class="userSubscribeBtn"><a th:href="@{/music/unsubscribenoajax}">UNSUBSCRIBE</a></Button>
 			</span>
 		
 			<!--  Else if the customer haven't subscribed the artist, it shows "SUBSCRIBE" -->
 			<span th:unless = "${subscribeStatus}" >
-				<Button class ="userSubscribeBtn"> <a t th:href="@{/music/subscribefrommusic}">SUBSCRIBE</a></Button>
+				<Button class="userSubscribeBtn"> <a th:href="@{/music/subscribenoajax}">SUBSCRIBE</a></Button>
 			</span> 
- 	 	</span>
+ 	 	</span> 	
  	 </div>
 </div> 
- 
+
+	<!-- Artist Music Gallery Section -->
+
+  <!-- Album NAVBAR -->
+    <section class="productsOnSaleSection">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-12 col-md">
+            <!-- Product Categories -->
+            <nav class="navbar spaceEvenly">
+              <a class="nav-link active blackFontText ml-5 h6" data-toggle="tab" href="#">Album1</a>
+              <a class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/music/}+${artistId}+@{/Album2}">Album2</a>
+              <a class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/music/}+${artistId}+@{/Album2}">Album3</a>
+              <a class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/music/}+${artistId}+@{/Album2}">Album4</a>
+              <a class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/music/}+${artistId}+@{/Album2}">Album5</a>
+              
+            </nav>
+          	</div>
+          </div>
+        </div>
+  	</section>
+  	
+  	
+  	
+  	<!-- Music CONTENT in each Album-->
+    <section class="productsContentSection">
+      <div class="container">
+        <div class="row col-lg-11 mx-auto">
+	        <div style="margin-bottom: 18px;" th:if="${status =='home'}">
+				<span class="pt-0 mt-0 pb-2 trendingText">Trending</span>
+				<a th:onclick="myFunction();" class="seeAllProductsLink">See all ></a>
+			</div>
+			
+			
+          <div class="col-6 col-md-3 col-lg-3 mb-5" th:each="product: ${productList}">
+            <!-- Card -->
+            <div class="card mb-1 h-100">
+
+              <!-- Image -->
+              <!-- <a th:href="@{/product/details/}+${product.productID}">
+                <img th:src="${product.productUrl}" alt="..." class="card-img-top productPhotoSize">
+              </a> -->
+              
+              <a>
+                <img th:src="${product.productUrl}" alt="..." class="card-img-top productPhotoSize">
+              </a>
+              
+              <!-- <th:block th:replace="_modals :: modal('exampleModal')">modal</th:block> -->
+
+              <!-- Collapse -->
+              <div class="card-collapse-parent">
+
+                <!-- Body -->
+                <div class="card-body px-0 bg-white">
+
+                  <!-- Heading -->
+                  <div class="mb-1 productHeading h6">
+                    <a th:text="${product.productName}"></a>
+                  </div>
+                  
+                  <!-- Quantity Sold -->
+                  <div class="quantitySold" th:text="${product.productQty}">
+                  </div>
+
+				 <!-- Country Of Origin -->
+				 <div class="productCountryOrigin">
+				 	Singapore
+				 </div>
+
+                  <!-- Price -->
+                  <div class="mb-1 productPrice h6" th:text="${product.productPrice}">
+                  </div>
+                  
+                  <!-- Like Button Heart Shape -->
+				  <label for="heartLikeButton">
+				    <i class="far fa-heart likeIcon" aria-hidden="true"></i>
+				  </label>
+				  <input id="heartLikeButton" type="button" />
+				  
+                </div>
+              </div>
+            </div>
+
+          </div>
+          
+          </div>
+        </div>
+    </section>
+  	
 	
 </body>
 </html>
