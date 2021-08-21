@@ -13,7 +13,7 @@ $(document).ready(function(){
 		var mediaID = document.getElementById("mediaID").value;
 		$.ajax({
 			type: "POST",
-			url: "/addToPlaylist",
+			url: "/video/addToPlaylist",
 			contentType:'application/x-www-form-urlencoded; charset=UTF-8',
 			data: {
 				userID :userID,
@@ -34,7 +34,7 @@ $(document).ready(function(){
 			var mediaID = document.getElementById("mediaID").value;
 			$.ajax({
 				type: "POST",
-				url: "/removeFromPlaylist",
+				url: "/video/removeFromPlaylist",
 				contentType:'application/x-www-form-urlencoded; charset=UTF-8',
 				data: {
 					userID :userID,
@@ -53,7 +53,7 @@ $(document).ready(function(){
 			var artistId = document.getElementById("artistId").value;
 			$.ajax({
 				type: "POST",
-				url: "/subscribe",
+				url: "/video/subscribe",
 				contentType:'application/x-www-form-urlencoded; charset=UTF-8',
 				data: {
 					artistId :artistId
@@ -75,7 +75,7 @@ $(document).ready(function(){
 			var artistId = document.getElementById("artistId").value;
 			$.ajax({
 				type: "POST",
-				url: "/unsubscribe",
+				url: "/video/unsubscribe",
 				contentType:'application/x-www-form-urlencoded; charset=UTF-8',
 				data: {
 					artistId :artistId
@@ -104,7 +104,7 @@ $(document).ready(function(){
 		var commentDateTime = document.getElementById("commentDateTime").value;
 		$.ajax({
 			type: "POST",
-			url: "/submitComments",
+			url: "/video/submitComments",
 			contentType:'application/x-www-form-urlencoded; charset=UTF-8',
 			data: {
 				submittedComment :submittedComment,
@@ -114,7 +114,7 @@ $(document).ready(function(){
 				commentDateTime :commentDateTime,
 			},
 			success: function (response) {
-				$('#userCommentsSection').load("http://localhost:8080/aftersubmitcomment");
+				$('#userCommentsSection').load("http://localhost:8080/video/aftersubmitcomment");
 			}
 		})
 		

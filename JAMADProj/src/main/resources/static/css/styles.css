@@ -1286,7 +1286,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 170px;
-  margin-top: calc(2.5vh + 0.5%);
+  margin-top: calc(2.5vh + 12%);
 }
 
 .sideVideoLinkColor{
@@ -1577,7 +1577,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 140px;
-  margin-top: calc(2.5vh + 0.5%);
+  margin-top: calc(2.5vh + 12%);
 }
 
 .sideVideoLinkColor{
@@ -1882,7 +1882,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 2.6%);
+  margin-top: calc(2.5vh + 10%);
 }
 
 .smallVidDescription{
@@ -2163,7 +2163,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 3.4%);
+  margin-top: calc(2.5vh + 12%);
 }
 
 .smallVidDescription{
@@ -2444,7 +2444,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 3.4%);
+  margin-top: calc(2.5vh + 12%);
 }
 
 .smallVidDescription{
@@ -2725,7 +2725,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 5.4%);
+  margin-top: calc(2.5vh + 13%);
 }
 
 .smallVidDescription{
@@ -3006,7 +3006,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 3.4%);
+  margin-top: calc(2.5vh + 12%);
 }
 
 .smallVidDescription{
@@ -3287,7 +3287,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 3.4%);
+  margin-top: calc(2.5vh + 12%);
 }
 
 .smallVidDescription{
@@ -3569,7 +3569,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 170px;
-  margin-top: calc(2.5vh + 3.4%);
+  margin-top: calc(2.5vh + 11.5%);
 }
 
 .smallVidDescription{
@@ -3851,7 +3851,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 200px;
-  margin-top: calc(2.5vh + 3.4%);
+  margin-top: calc(2.5vh + 12%);
 }
 
 .smallVidDescription{
