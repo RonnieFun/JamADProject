@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,14 +24,14 @@ public interface MediaRepository extends JpaRepository<Media, Long> {
 	
 	public Collection<Media> findBychannel(Channel channel);
 	
-	//scy
+	//videolandingpage
 //	@Query("Select m, count(distinct uh.id) from Media m join m.userHistory uh "
 //			+ "where m.mediaType=:mediatype "
-//			+ "and m.createdOn>=Date(:currentdatelessoneweek) "
+//			+ "and uh.datetime>=Date(:currentdatelessoneweek) "
 //			+ "group by m order by count(distinct uh.id) desc") 
 //	public List<Object[]> getTopMediasByUserHistory(Pageable pageable, @Param("mediatype") MediaType mediaType,
 //													@Param("currentdatelessoneweek") LocalDate currentdatelessoneweek);
- //select by mediatype	
+
 	@Query("Select m from Media m join m.userHistory uh "
 			+ "where m.mediaType=:mediatype "
 			+ "group by m order by count(distinct uh.id) desc")
@@ -38,7 +39,6 @@ public interface MediaRepository extends JpaRepository<Media, Long> {
 	
 	@Query("Select m from Media m join m.userHistory uh "
 			+ "where m.mediaType=:mediatype "
-//			+"and m.createdOn>=Date(:lesscurrentdate) "
 			+"and uh.datetime>=Date(:lesscurrentdate)"
 			+ "group by m order by count(distinct uh.id) desc") 
 	public List<Media> getMediaByUserHistory(@Param("mediatype") MediaType mediaType,

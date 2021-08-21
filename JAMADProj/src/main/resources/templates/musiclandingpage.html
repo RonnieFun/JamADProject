@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="Fragments/layout.html :: headerfiles"> 
 	<meta charset="UTF-8" />
@@ -12,50 +12,55 @@
 	</div>
 
 <section class="productsContentSection2">
-
 		<div class="container">
 			<h3 class="col-md-auto">Trending Videos</h3>
 			<hr>
 				<div class="row col-lg-11 mx-auto">
-					<th:block th:each="music: ${topmusics}">
+					<th:block th:each="video: ${topmusics}">
 						<div class="col-6 col-md-3 col-lg-3 mb-5">
 						<div class="card mb-1 h-100"> 
 						
-						 Meida image with photo
-                        	<a th:href="@{/watchvideo(id=${video.id})}">
-							<a th:href="@{/watchvideo}">
-								<img th:src="${music.thumbnailUrl}" class="card-img-top productPhotoSize" alt="...">
-								<span  class="sideVideoDuration" th:text="${music.duration}"></span> 
+						<!--  Meida image  -->
+                        	<!-- <a th:href="@{/video/watchvideo(id=${video.id})}"> -->
+							<a th:href="@{/video/watchvideo}">
+								<img th:src="${video.thumbnailUrl}" class="card-img-top productPhotoSize" alt="...">
+								<span  class="sideVideoDuration" th:text="${video.duration}"></span> 
 							</a>
 							
-							Collapse
+							<!-- Collapse -->
 								<div class="card-collapse-parent"> 
-								artisit photo
+								
+								<!-- artisit photo -->
 								<div class="card-body px-0 bg-white">
+								<a th:href="@{/music/viewartistmusicchannel}">
 									<div class="row">
 										<div class="col-4">
 											<img class="rounded-circle" width="100%"
 												style="padding-left: 30%; padding-bottom: 10%"
-												th:src="${music.channel.channelUser.profileUrl}">
+												th:src="${video.channel.channelUser.profileUrl}">
 										</div>
-									</div>
+									</div> 
+									</a>
 									
-									author
-									  <div class="mb-1 productHeading h6"><strong>Artist:</strong>
-									  	 <a th:href="@{/watchvideo}">
-											<span th:text="${music.channel.channelUser.displayName}"> </span>
+									<!-- author -->
+									   <div class="mb-1 productHeading h6"><strong>Artist:</strong>
+									   
+									<!--   need add channel id
+									  <a th:href="@{/music/viewartistmusicchannel(id=${video.channel.channelID})}"> -->
+									  	 <a th:href="@{/music/viewartistmusicchannel}">
+											<span th:text="${video.channel.channelUser.displayName}"> </span>
 											</span>
 											</a> 
-									  </div>
+									  </div> 
 									  
-									Title
+									<!-- Title -->
 									<div class="mb-1 productHeading h6"><strong>Title:</strong>
-										<span th:text="${muisc.title}"></span>
+										<span th:text="${video.title}"></span>
 										</div>
 										
-									tag
+									<!-- tag -->
 										<div class=	"mb-1 productHeading h6"><strong>Tags:</strong>
-											<span  th:each="tag:${muisc.tagList}" >
+											<span  th:each="tag:${video.tagList}" >
 											<span  th:text="${tag.tagName}"></span>
 										</span>
 										</div>
@@ -64,7 +69,11 @@
 						</div>
 					</div>
 				</th:block>
-		</body>
+			</div>
+		</div>
+	</section>
+				
+</body>
 </html>
 
 
@@ -73,4 +82,4 @@
 </div> 
 
 </body>   
-</html>  -->
+</html>

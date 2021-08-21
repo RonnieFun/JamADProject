@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import sg.edu.iss.jam.model.Category;
+import sg.edu.iss.jam.model.Payment;
 import sg.edu.iss.jam.model.Product;
 import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.service.ArtistInterface;
@@ -84,6 +85,8 @@ public class ProductController {
 
 	@GetMapping("/cartothertab")
 	public String shoppingCartOther(Model model) {
+		Payment payment = new Payment();
+		model.addAttribute("newPayment", payment);
 		return "product/checkout";
 	}
 

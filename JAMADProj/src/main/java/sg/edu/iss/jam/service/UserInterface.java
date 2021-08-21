@@ -2,12 +2,15 @@ package sg.edu.iss.jam.service;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.data.jpa.repository.Query;
 
 import sg.edu.iss.jam.model.Comments;
 import sg.edu.iss.jam.model.Media;
 import sg.edu.iss.jam.model.OrderDetails;
 import sg.edu.iss.jam.model.Orders;
+import sg.edu.iss.jam.model.Payment;
 import sg.edu.iss.jam.model.Playlists;
 import sg.edu.iss.jam.model.Product;
 import sg.edu.iss.jam.model.Playlists;
@@ -69,6 +72,10 @@ public interface UserInterface {
 	void saveCartDetails(ShoppingCartDetails carddetail);
 	
 	ShoppingCartDetails getCartDetailByProductID(Long productId, Long shoppingCartID);
+	
+	void savePayement(@Valid Payment payment);
+	
+	void deleteCartDetails(ShoppingCartDetails cardetail);
 
 
 }

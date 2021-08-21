@@ -17,6 +17,12 @@ body {
 	border-bottom: 2px solid #B8C5D0;
 }
 
+.cartIntroSection1{
+	background-color: white;
+	padding-bottom: 0px;
+	margin-top: 40px;
+	border-bottom: 2px solid #B8C5D0;
+}
 .smallBanner{
 	position: relative;
 	height: 110px;
@@ -228,6 +234,10 @@ body {
 	height:210px;
 	margin-left: 43%;
 	top: 160px;
+}
+
+.container  {
+    margin: 5px 0px;
 }
 	
   .aboutShopHeader{
