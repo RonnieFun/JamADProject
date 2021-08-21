@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,53 +39,71 @@ public class MediaController {
 	@Autowired
 	ArtistInterface aservice;
 	
-	//scy-landingpage
-		@Autowired
-		VideoServiceInterface vservice;
-		
-		@GetMapping("/video/videolandingpage")
-		public String showVideoLandingPage(Model model) {
-//			List<Object[]> topVideosByUserHistory=vservice.getTopMediasByUserHistory(6,MediaType.Video);
-//			List<Media> videos=new ArrayList<Media>();
-//			for(Object[] object: topVideosByUserHistory) {
-//				videos.add((Media)object[0]);
-//			}
-//			model.addAttribute("videos",videos);
-		 
+	//scy-videolandingpage
+	@Autowired
+	VideoServiceInterface vservice;
 			
-			List<Media> allVideos=vservice.getMediaByUserHistory(MediaType.Video,LocalDate.now().minusMonths(36));
-			List<Media> topVideos=new ArrayList<Media>();
-			for(int i=0;i<=11;i++) {
-				topVideos.add(allVideos.get(i));}
-//			int number=11;
-//			if(topVideos.size()<number) {
-//				for(int i=0;i<=topVideos.size();i++) {
-//					topVideos.add(allVideos.get(i));}
-//			}
-//			else if(topVideos.size()>=number){
-//				for(int i=0;i<=number;i++) {
-//					topVideos.add(allVideos.get(i));}
+	@GetMapping("/video/videolandingpage")
+	public String showVideoLandingPage(Model model) {
+		
+//				List<Object[]> topVideosByUserHistory=vservice.getTopMediasByUserHistory(6,MediaType.Video);
+//				List<Media> videos=new ArrayList<Media>();
+//				for(Object[] object: topVideosByUserHistory) {
+//					videos.add((Media)object[0]);
 //				}
-//			else {
-//				topVideos=allVideos;
-//			}
+//				model.addAttribute("videos",videos);
+			 
+				
+				List<Media> allVideos=vservice.getMediaByUserHistory(MediaType.Video,LocalDate.now().minusMonths(36));
+				List<Media> topVideos=new ArrayList<Media>();
+				List<Media> toptwelveVideos=new ArrayList<Media>();
+				
+				for(Media m : allVideos) {
+					if (m.getCreatedOn().compareTo(LocalDate.now().minusDays(180)) > 0 )
+						topVideos.add(m);
+				}
+				
+				if(topVideos.size()>11) {
+					for(int i=0;i<=11;i++) {
+						toptwelveVideos.add(topVideos.get(i));
+					}
+						
+				}else {
+					toptwelveVideos=topVideos;
+				}
 
-			model.addAttribute("topvideos",topVideos);
-			return "videolandingpage";
+
+				model.addAttribute("topvideos",toptwelveVideos);
+				return "videolandingpage";
+			}
+
+	//musiclanding page 
+		
+	@GetMapping("/music/musiclandingpage")
+	public String showMusicLandingPage(Model model) {
+			
+		List<Media> allMusics=vservice.getMediaByUserHistory(MediaType.Music,LocalDate.now().minusMonths(36));
+		List<Media> topMusics=new ArrayList<Media>();
+		List<Media> toptwelveMusics=new ArrayList<Media>();
+		
+		for(Media m : allMusics) {
+			if (m.getCreatedOn().compareTo(LocalDate.now().minusDays(180)) > 0 )
+				topMusics.add(m);
 		}
 		
-//		@GetMapping("/music/musiclandingpage")
-//		public String showMusicLandingPage(Model model) {
-//			List<Media> allMusics=vservice.getMediaByTypeAndCount(MediaType.Music);
-//			List<Media> topMusics=new ArrayList<Media>();
-//			for(int i=0;i<=11;i++) {
-//				topMusics.add(allMusics.get(i));
-//			}
-	//
-//			model.addAttribute("topmusics",topMusics);
-//			return "musiclandingpage";
-//		}
+		if(topMusics.size()>11) {
+			for(int i=0;i<=11;i++) {
+				toptwelveMusics.add(topMusics.get(i));
+			}
+				
+		}else {
+			toptwelveMusics=topMusics;
+		}
 
+
+		model.addAttribute("topvideos",toptwelveMusics);
+		return "videolandingpage";
+	}
 	
 	
 	
