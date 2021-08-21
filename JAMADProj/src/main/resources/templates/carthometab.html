@@ -163,9 +163,6 @@
 <script>
 
 function myFunction(productID) {
-	  //var artistId = $('#divArtistId').text();
-	  alert(productID);
-	  //document.getElementById("demo").innerHTML = "You selected: " + x;
 	  $.ajax({
 	        type: 'POST',
 	        url: "/addToCart",
@@ -174,22 +171,8 @@ function myFunction(productID) {
 	        	productId :productID
 	        },
 	        success: function(response){
-	        	//console.log(response);
-	        	//$('#courseId').empty();
-	        	alert(response);
+	        	
 	        	$("#lblCartCount").text(response);
-	        	/* $.each(jason, function(key, value) {
-  					var $option = $("<option/>", {
-    					value: key,
-    					text: key + ' | '+value
-  						});
-  					$('#courseId').append($option);
-				}); */
-	        	/* for(var i in jason){
-	        		console.log(jason[i]);
-	        		//$('#courseId').append('<option th:value="'+jason[i] +'">'+ jason[i] +'</option>')
-	        		
-	        	} */
 	        	
 	        },
 	        error:function(xmlHttpRequest, textStatus, errorThrown){
