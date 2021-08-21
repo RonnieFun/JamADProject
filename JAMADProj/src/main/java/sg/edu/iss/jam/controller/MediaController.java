@@ -27,6 +27,7 @@ import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.model.UserHistory;
 import sg.edu.iss.jam.service.ArtistInterface;
 import sg.edu.iss.jam.service.UserInterface;
+import sg.edu.iss.jam.service.VideoServiceInterface;
 
 @Controller
 public class MediaController {
@@ -36,6 +37,57 @@ public class MediaController {
 	
 	@Autowired
 	ArtistInterface aservice;
+	
+	//scy-landingpage
+		@Autowired
+		VideoServiceInterface vservice;
+		
+		@GetMapping("/video/videolandingpage")
+		public String showVideoLandingPage(Model model) {
+//			List<Object[]> topVideosByUserHistory=vservice.getTopMediasByUserHistory(6,MediaType.Video);
+//			List<Media> videos=new ArrayList<Media>();
+//			for(Object[] object: topVideosByUserHistory) {
+//				videos.add((Media)object[0]);
+//			}
+//			model.addAttribute("videos",videos);
+		 
+			
+			List<Media> allVideos=vservice.getMediaByUserHistory(MediaType.Video,LocalDate.now().minusMonths(36));
+			List<Media> topVideos=new ArrayList<Media>();
+			for(int i=0;i<=11;i++) {
+				topVideos.add(allVideos.get(i));}
+//			int number=11;
+//			if(topVideos.size()<number) {
+//				for(int i=0;i<=topVideos.size();i++) {
+//					topVideos.add(allVideos.get(i));}
+//			}
+//			else if(topVideos.size()>=number){
+//				for(int i=0;i<=number;i++) {
+//					topVideos.add(allVideos.get(i));}
+//				}
+//			else {
+//				topVideos=allVideos;
+//			}
+
+			model.addAttribute("topvideos",topVideos);
+			return "videolandingpage";
+		}
+		
+//		@GetMapping("/music/musiclandingpage")
+//		public String showMusicLandingPage(Model model) {
+//			List<Media> allMusics=vservice.getMediaByTypeAndCount(MediaType.Music);
+//			List<Media> topMusics=new ArrayList<Media>();
+//			for(int i=0;i<=11;i++) {
+//				topMusics.add(allMusics.get(i));
+//			}
+	//
+//			model.addAttribute("topmusics",topMusics);
+//			return "musiclandingpage";
+//		}
+
+	
+	
+	
 	
 	@GetMapping("/home")
 	public String goToHomepage(Model model) {
