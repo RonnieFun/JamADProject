@@ -1,6 +1,7 @@
 package sg.edu.iss.jam.model;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -111,6 +112,15 @@ public class Channel {
 	public void setChannelUser(User channelUser) {
 		this.channelUser = channelUser;
 	}
+
+	public Collection<Album> getAlbumslist() {
+		return albumslist;
+	}
+
+	public void setAlbumslist(Collection<Album> albumslist) {
+		this.albumslist = albumslist;
+	}
+
 	
 	
 
