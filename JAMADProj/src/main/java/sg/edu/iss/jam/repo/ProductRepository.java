@@ -25,6 +25,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	List<Object[]> getTopProductsByOrderDetailsQuantity(Pageable pageable,
 			@Param("currentdatelessoneweek") LocalDate currentdatelessoneweek);
 
+	@Query("SELECT c FROM Product c WHERE c.productUser.userID = :artistid AND c.productCategory = :category")
+	List<Product> getPopularProductByCategory(@Param("artistid") long artistid, @Param("category") Category category);
+
 //	@Query("SELECT p, SUM(od.quantity) FROM Product p JOIN p.orderDetails od WHERE od.order.orderDate >= DATE(:currentdatelessoneweek) AND p.productCategory = :category GROUP BY p ORDER BY SUM(od.quantity) DESC")
 //	List<Object[]> getTopProductsByCategoryInPastWeekByOrderDetailsQuantity(Pageable pageable,
 //			@Param("currentdatelessoneweek") LocalDate currentdatelessoneweek, @Param("category") Category category);

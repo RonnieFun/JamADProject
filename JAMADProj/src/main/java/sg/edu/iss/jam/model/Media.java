@@ -9,6 +9,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 import java.util.Collection;
 @Entity
 public class Media {
@@ -28,7 +31,8 @@ public class Media {
 	
 	private String duration;
 	
-	private String createdOn;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate createdOn;
 	
 	private String publishStatus;
 	
@@ -67,97 +71,7 @@ public class Media {
 	
 
 
-	public Media(MediaType mediaType, String mediaUrl, String title, String description, String duration,
-			String createdOn, String publishStatus, String thumbnailUrl, int albumOrder,
-			Collection<UserHistory> userHistory, Collection<Comments> commentList, Channel channel, Album album,
-			Collection<Playlists> playLists, Collection<sg.edu.iss.jam.model.PlaylistOrder> playlistOrder,
-			Collection<Tag> tagList) {
-		super();
-		this.mediaType = mediaType;
-		this.mediaUrl = mediaUrl;
-		this.title = title;
-		this.description = description;
-		this.duration = duration;
-		this.createdOn = createdOn;
-		this.publishStatus = publishStatus;
-		this.thumbnailUrl = thumbnailUrl;
-		AlbumOrder = albumOrder;
-		this.userHistory = userHistory;
-		this.commentList = commentList;
-		this.channel = channel;
-		this.album = album;
-		this.playLists = playLists;
-		PlaylistOrder = playlistOrder;
-		this.tagList = tagList;
-	}
-
-	public Media(MediaType mediaType, String mediaUrl, String title, String description, String duration,
-			String createdOn, String publishStatus, String thumbnailUrl, int albumOrder,
-			Collection<UserHistory> userHistory, Collection<Comments> commentList, Channel channel, Album album,
-			Collection<Playlists> playLists, Collection<Tag> tagList) {
-		super();
-		this.mediaType = mediaType;
-		this.mediaUrl = mediaUrl;
-		this.title = title;
-		this.description = description;
-		this.duration = duration;
-		this.createdOn = createdOn;
-		this.publishStatus = publishStatus;
-		this.thumbnailUrl = thumbnailUrl;
-		AlbumOrder = albumOrder;
-		this.userHistory = userHistory;
-		this.commentList = commentList;
-		this.channel = channel;
-		this.album = album;
-		this.playLists = playLists;
-		this.tagList = tagList;
-	}
-
-	public Media() {
-		super();
-	}
 	
-	public Media(MediaType mediaType, String mediaUrl, String title, String duration, String createdOn,
-			String publishStatus, String thumbnailUrl, Collection<UserHistory> userHistory,
-			Collection<Comments> commentList, Channel channel, Collection<Playlists> playLists,
-			Collection<Tag> tagList) {
-		super();
-		this.mediaType = mediaType;
-		this.mediaUrl = mediaUrl;
-		this.title = title;
-		this.duration = duration;
-		this.createdOn = createdOn;
-		this.publishStatus = publishStatus;
-		this.thumbnailUrl = thumbnailUrl;
-		this.userHistory = userHistory;
-		this.commentList = commentList;
-		this.channel = channel;
-		this.playLists = playLists;
-		this.tagList = tagList;
-	}
-	
-	
-
-	public Media(MediaType mediaType, String mediaUrl, String title, String description, String duration, String createdOn,
-			String publishStatus, String thumbnailUrl, Collection<UserHistory> userHistory,
-			Collection<Comments> commentList, Channel channel, Collection<Playlists> playLists,
-			Collection<Tag> tagList) {
-		super();
-		this.mediaType = mediaType;
-		this.mediaUrl = mediaUrl;
-		this.title = title;
-		this.description = description;
-		this.duration = duration;
-		this.createdOn = createdOn;
-		this.publishStatus = publishStatus;
-		this.thumbnailUrl = thumbnailUrl;
-		this.userHistory = userHistory;
-		this.commentList = commentList;
-		this.channel = channel;
-		this.playLists = playLists;
-		this.tagList = tagList;
-	}
-
 
 
 	public Long getId() {
@@ -200,12 +114,45 @@ public class Media {
 		this.duration = duration;
 	}
 
-	public String getCreatedOn() {
-		return createdOn;
+	public Media() {
+		super();
 	}
 
-	public void setCreatedOn(String createdOn) {
+	public Media(MediaType mediaType, String mediaUrl, String title, String description, String duration,
+			LocalDate createdOn, String publishStatus, String thumbnailUrl) {
+		super();
+		this.mediaType = mediaType;
+		this.mediaUrl = mediaUrl;
+		this.title = title;
+		this.description = description;
+		this.duration = duration;
 		this.createdOn = createdOn;
+		this.publishStatus = publishStatus;
+		this.thumbnailUrl = thumbnailUrl;
+	}
+
+	public Media(MediaType mediaType, String mediaUrl, String title, String description, String duration,
+			LocalDate createdOn, String publishStatus, String thumbnailUrl, int albumOrder,
+			Collection<UserHistory> userHistory, Collection<Comments> commentList, Channel channel, Album album,
+			Collection<Playlists> playLists, Collection<sg.edu.iss.jam.model.PlaylistOrder> playlistOrder,
+			Collection<Tag> tagList) {
+		super();
+		this.mediaType = mediaType;
+		this.mediaUrl = mediaUrl;
+		this.title = title;
+		this.description = description;
+		this.duration = duration;
+		this.createdOn = createdOn;
+		this.publishStatus = publishStatus;
+		this.thumbnailUrl = thumbnailUrl;
+		AlbumOrder = albumOrder;
+		this.userHistory = userHistory;
+		this.commentList = commentList;
+		this.channel = channel;
+		this.album = album;
+		this.playLists = playLists;
+		PlaylistOrder = playlistOrder;
+		this.tagList = tagList;
 	}
 
 	public String getPublishStatus() {
@@ -294,6 +241,14 @@ public class Media {
 
 	public void setPlaylistOrder(Collection<PlaylistOrder> playlistOrder) {
 		PlaylistOrder = playlistOrder;
+	}
+
+	public LocalDate getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(LocalDate createdOn) {
+		this.createdOn = createdOn;
 	}
 	
 	

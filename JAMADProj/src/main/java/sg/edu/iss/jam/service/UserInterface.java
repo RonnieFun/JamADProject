@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 
 import sg.edu.iss.jam.model.Comments;
 import sg.edu.iss.jam.model.Media;
+import sg.edu.iss.jam.model.OrderDetails;
+import sg.edu.iss.jam.model.Orders;
 import sg.edu.iss.jam.model.Playlists;
 import sg.edu.iss.jam.model.Product;
 import sg.edu.iss.jam.model.Playlists;
@@ -56,6 +58,17 @@ public interface UserInterface {
 	Product findProduct(Long id);
 
 	void removeCartDetails(Long productID, Long cartID);
+	
+	Long getItemCountByUserID(long artistid);
+	
+	
+	void saveOrder(Orders neworder);
+	
+	void saveOrderDetailsList(List<OrderDetails> orderDetailList);
+	
+	void saveCartDetails(ShoppingCartDetails carddetail);
+	
+	ShoppingCartDetails getCartDetailByProductID(Long productId, Long shoppingCartID);
 
 
 }

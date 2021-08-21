@@ -9,7 +9,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -113,6 +112,7 @@ public class Channel {
 		this.channelUser = channelUser;
 	}
 
+
 	public Collection<Album> getAlbumslist() {
 		return albumslist;
 	}
@@ -120,8 +120,4 @@ public class Channel {
 	public void setAlbumslist(Collection<Album> albumslist) {
 		this.albumslist = albumslist;
 	}
-
-	
-	
-
 }
