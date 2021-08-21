@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import sg.edu.iss.jam.model.OrderDetails;
 import sg.edu.iss.jam.model.Orders;
@@ -70,8 +71,6 @@ public class ShoppingCartController {
 	public String checkOut(Model model) {
 		long userID = (long) 1;
 		model.addAttribute("cartForm", uservice.getShoppingCartByUserID(userID));
-		//model.addAttribute("cartForm", uservice.getShoppingCartByUserID(userID));
-		//System.out.println(uservice.getShoppingCartByUserID(userID));
 		return "product/checkout";
 	}
 	
@@ -93,5 +92,17 @@ public class ShoppingCartController {
 			uservice.saveOrderDetailsList(orderDetailList);
 		}
 		return "product/orderconfirm";
+	}
+	
+	// ajax call
+	@RequestMapping(value = "/addToCart", method = RequestMethod.POST)
+	@ResponseBody
+	public Long add(@RequestParam(value = "productId") Long productId) throws Exception {
+
+		long userID = (long) 1;
+		ShoppingCartDetails carddetail = new ShoppingCartDetails(1,uservice.findProduct(productId), uservice.getShoppingCartByUserID(userID));
+		uservice.saveCartDetails(carddetail);
+		Long count  = uservice.getItemCountByUserID(userID);
+		return count;
 	}
 }
