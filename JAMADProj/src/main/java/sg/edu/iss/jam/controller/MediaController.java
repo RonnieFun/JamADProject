@@ -45,20 +45,32 @@ public class MediaController {
 	MediaServiceInterface mservice;
 			
 	@GetMapping("/video/medianotfound/{mediaId}") 
-	public String mediaNotFound(Model model, @PathVariable Long mediaId) {
+	public String videoNotFound(Model model, @PathVariable Long mediaId) {
 		
-		Media requestedMedia = uservice.findMediaByMediaTypeAndMediaId(MediaType.Video, mediaId);
+		String errorMessage = "Your Requested Video Title is not found.";
+		String returnToVideoLandingMessage = "Please click here to return to Video Landing Page";
+		String returnLink = "/video/genericvideolandingpage";
 		
-		boolean isMusic = true;
-		
-		if(requestedMedia != null) {
-			isMusic = false;
-		}
-		
-		model.addAttribute("isMusic", isMusic);
+		model.addAttribute("returnLink", returnLink);
+		model.addAttribute("returnToMediaLandingMessage", returnToVideoLandingMessage);
+		model.addAttribute("errorMessage", errorMessage);
 		return "MediaNotFound";
 	}
 
+	@GetMapping("/music/medianotfound/{mediaId}") 
+	public String musicNotFound(Model model, @PathVariable Long mediaId) {
+		
+		String errorMessage = "Your Requested Music Title is not found.";
+		String returnToMusicLandingMessage = "Please click here to return to Music Landing Page";
+		String returnLink = "/music/genericmusiclandingpage";
+		
+		model.addAttribute("returnLink", returnLink);
+		model.addAttribute("returnToMediaLandingMessage", returnToMusicLandingMessage);
+		model.addAttribute("errorMessage", errorMessage);
+		return "MediaNotFound";
+	}
+	
+	
 	@GetMapping("/video/genericvideolandingpage")
 	public String genericVideoLandingPage(Model model) {
 		

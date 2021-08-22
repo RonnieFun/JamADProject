@@ -4,16 +4,11 @@
 
 <body>
 
-<div class="mediaNotFound" th:if = "${isMusic == false}">
-	<h3>Your requested Video Title is not found.</h3>
-	<a th:href = "@{/video/genericvideolandingpage}">
-	Please click here to return to Video Landing Page</a>
-</div>
-
-<div class="mediaNotFound" th:if = "${isMusic == true}">
-	<h3>Your requested Music Title is not found.</h3>
-	<a th:href = "@{/music/genericmusiclandingpage}">
-	Please click here to return to Music Landing Page</a>
+<div class="mediaNotFound">
+	<span th:text = "${errorMessage}"></span>
+	<br>
+	<a th:href = "@{${returnLink}}">
+	<span th:text = "${returnToMediaLandingMessage}"></span></a>
 </div>
 
 <div th:replace="Fragments/layout.html :: footer"></div>
