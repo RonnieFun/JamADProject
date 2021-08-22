@@ -5066,6 +5066,9 @@ body{
     margin-left: -10px; 
 }
 
+.ml-auto,
+.mx-auto {
+  margin-left: auto !important; }
 
-
-
+.d-flex {
+  display: flex !important; }
