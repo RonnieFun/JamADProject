@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import sg.edu.iss.jam.model.Album;
 import sg.edu.iss.jam.model.Category;
 import sg.edu.iss.jam.model.Channel;
 import sg.edu.iss.jam.model.Media;
@@ -18,6 +19,7 @@ import sg.edu.iss.jam.model.Product;
 import sg.edu.iss.jam.model.Subscribed;
 import sg.edu.iss.jam.model.Tag;
 import sg.edu.iss.jam.model.User;
+import sg.edu.iss.jam.repo.AlbumRepository;
 import sg.edu.iss.jam.repo.ChannelRepository;
 import sg.edu.iss.jam.repo.CommentsRepository;
 import sg.edu.iss.jam.repo.MediaRepository;
@@ -57,6 +59,9 @@ public class ArtistImplementation implements ArtistInterface {
 	
 	@Autowired
 	UserHistoryRepository historyrepo;
+	
+	@Autowired
+	AlbumRepository albumrepo;
 	
 	@Transactional
 	public User findById(Long userID) {
@@ -99,7 +104,11 @@ public class ArtistImplementation implements ArtistInterface {
 	public void saveProduct(Product product) {
 		prepo.save(product);
 	}
-
+	
+	@Transactional
+	public Album getAlbumByAlbumId(long AlbumId) {
+		return albumrepo.findById(AlbumId).get();
+	}
 
 	@Override
 	public long getQuantitySold(Long productID) {

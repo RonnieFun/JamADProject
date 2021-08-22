@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -529,7 +530,7 @@ public class MediaController {
 	
 //--------------------------User views Artist Music Channel Page by ZQ--------------------------------------------------
 	@GetMapping("music/viewartistmusicchannel")
-	public String viewArtistMusicChannel1(Model model) {
+	public String viewArtistMusicChannel1(Model model, Long AlbumID) {
 		
 		String artistMusicChannelName = "";
 		int numberOfArtistAlbums = 0;
@@ -577,6 +578,14 @@ public class MediaController {
 			}
 		}
 		
+		//code by Max: Get the Current Album's List of Music
+		
+		if (AlbumID != null) {
+			Album selectedAlbum = aservice.getAlbumByAlbumId(AlbumID);
+			
+			Collection<Media> listOfMusic = selectedAlbum.getAlbumMedia();
+			model.addAttribute("listOfMusic", listOfMusic);
+		}
 		
 		model.addAttribute("artistMusicChannelName", artistMusicChannelName);
 		model.addAttribute("numberOfArtistAlbums", numberOfArtistAlbums);
