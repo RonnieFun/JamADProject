@@ -77,11 +77,25 @@ public class ProductController {
 //		return "carthometab";
 //	}
 
-	@GetMapping("/product/details/{productid}")
-	public String productDetail(Model model, @PathVariable long productid) {
-		model.addAttribute("product", aservice.getProductByID(productid));
-		return "product/productdetail";
+	@RequestMapping(value = "/product/details", method = RequestMethod.POST)
+	@ResponseBody
+	public String productDetail(@RequestParam(value = "productId") Long productId) throws Exception {
+		String Result ="";
+		Product product =  aservice.getProductByID(productId);
+		System.out.println(product);
+		if (product!=null) {  
+            Result = "{\"Name\":";  
+            Result += "\"" + product.getProductName() + "\",";  
+            Result += "\"Description\":\"" + product.getProductDes() + "\",";  
+            Result += "\"Price\":\"" + product.getProductPrice() + "\",";  
+            Result += "\"Url\":\"" + product.getProductUrl() + "\"";
+            Result += "}";  
+        } else {  
+            Result = "Invalid";  
+        }  
+		return Result;
 	}
+
 
 	@GetMapping("/cartothertab")
 	public String shoppingCartOther(Model model) {
