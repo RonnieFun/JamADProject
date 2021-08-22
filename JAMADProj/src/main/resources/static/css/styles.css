@@ -236,9 +236,9 @@ body {
 	top: 160px;
 }
 
-.container  {
+/*.container {
     margin: 5px 0px;
-}
+}*/
 	
   .aboutShopHeader{
 	position:absolute;
@@ -1114,7 +1114,7 @@ body {
 	cursor: pointer;
 	margin-left: 92.5%;
 	margin-top: -6%;
-	color: LightPink;
+	color: lightgray;
 	position: absolute;
 	font-size: 2rem;
 }
@@ -1166,23 +1166,32 @@ body {
 	display: none;
 	background-color: rgba(242.24999696016312, 233.16562682390213, 233.16562682390213, 1);
 	position: absolute;
-	left: 45%;
-	margin-top: -5%;
+	left: 38%;
+	margin-top: -0.2rem;
 	z-index:9;
 	border: 1px solid black;
 	font-family: 'Roboto', sans-serif;
-	font-size: 0.8vw;
-	padding: 10px 15px;
-	border-radius: 56px;
+	font-size: 0.7vw;
+	padding: 3px 15px;
+	max-height: 5rem;
 }
 
 .saveToPlaylistButton{
 	font-family: 'Roboto', sans-serif;
-	font-size: 0.8vw;
+	font-size: 0.7vw;
 	background-color: rgba(239.0625, 104.58984375, 104.58984375, 0.7200000286102295);
-	padding: 3px 3%;
-	margin-left: 3%;
-	margin-top: 3%;
+	padding: 0px 3%;
+	
+	margin-top: 4.5%;
+}
+
+.cancelSavePlaylistButton{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.7vw;
+	background-color: rgba(239.0625, 104.58984375, 104.58984375, 0.7200000286102295);
+	padding: 0px 3%;
+	margin-left: 29%;
+	margin-top: 4.5%;
 }
 
 .userSubscribeBtn{
@@ -1335,13 +1344,41 @@ body {
 	padding: 0px 0.2%;
 }
 
-.sideVideoDurationVideoChannel{
+.sideDurationVideoChannelPage{
 	position: absolute;
 	display: block;
   	right: 0;
-  	margin-right: 3%;
+  	margin-right: 2%;
   	margin-bottom: 10px;
-  	margin-top: -7.6%;
+  	margin-top: -8%;
+  	font-size: 0.9vw;
+	font-family: 'Roboto', sans-serif;
+	color: white;
+	background-color: black;
+	padding: 0px 0.2%;
+}
+
+.sideDurationVideoLandingPage{
+	position: absolute;
+	display: block;
+  	right: 0;
+  	margin-right: 2%;
+  	margin-bottom: 10px;
+  	margin-top: -8.5%;
+  	font-size: 0.9vw;
+	font-family: 'Roboto', sans-serif;
+	color: white;
+	background-color: black;
+	padding: 0px 0.2%;
+}
+
+.sideDurationMusicLandingPage{
+	position: absolute;
+	display: block;
+  	right: 0;
+  	margin-right: 2%;
+  	margin-bottom: 10px;
+  	margin-top: -8.5%;
   	font-size: 0.9vw;
 	font-family: 'Roboto', sans-serif;
 	color: white;
@@ -1447,7 +1484,7 @@ body {
 	cursor: pointer;
 	margin-left: 92.5%;
 	margin-top: -6%;
-	color: LightPink;
+	color: lightgray;
 	position: absolute;
 	font-size: 2rem;
 }
@@ -1740,7 +1777,7 @@ body {
 }
 
 .userPageHeartIcon{
-	color: LightPink;
+	color: lightgray;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
@@ -2022,7 +2059,7 @@ body {
 }
 
 .userPageHeartIcon{
-	color: LightPink;
+	color: lightgray;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
@@ -2304,7 +2341,7 @@ body {
 }
 
 .userPageHeartIcon{
-	color: LightPink;
+	color: lightgray;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
@@ -2586,7 +2623,7 @@ body {
 }
 
 .userPageHeartIcon{
-	color: LightPink;
+	color: lightgray;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
@@ -2747,7 +2784,7 @@ body {
 
 .userPageSideVideosSection{
   margin-left: 63%;
-  margin-top: calc(2.2vh - 30.5% - 4.7rem);
+  margin-top: calc(1vh - 30.5% - 4.9rem);
 }
 
 .userPageSideVideos{
@@ -2868,7 +2905,7 @@ body {
 }
 
 .userPageHeartIcon{
-	color: LightPink;
+	color: lightgray;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
@@ -3150,7 +3187,7 @@ body {
 }
 
 .userPageHeartIcon{
-	color: LightPink;
+	color: lightgray;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
@@ -3433,7 +3470,7 @@ body {
 }
 
 .userPageHeartIcon{
-	color: LightPink;
+	color: lightgray;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
@@ -3716,7 +3753,7 @@ body {
 }
 
 .userPageHeartIcon{
-	color: LightPink;
+	color: lightgray;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;

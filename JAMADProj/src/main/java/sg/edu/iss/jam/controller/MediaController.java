@@ -28,7 +28,7 @@ import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.model.UserHistory;
 import sg.edu.iss.jam.service.ArtistInterface;
 import sg.edu.iss.jam.service.UserInterface;
-import sg.edu.iss.jam.service.VideoServiceInterface;
+import sg.edu.iss.jam.service.MediaServiceInterface;
 
 @Controller
 public class MediaController {
@@ -41,20 +41,19 @@ public class MediaController {
 	
 	//scy-videolandingpage
 	@Autowired
-	VideoServiceInterface vservice;
+	MediaServiceInterface mservice;
 			
 	@GetMapping("/video/videolandingpage")
 	public String showVideoLandingPage(Model model) {
 		
-//				List<Object[]> topVideosByUserHistory=vservice.getTopMediasByUserHistory(6,MediaType.Video);
+//				List<Object[]> topVideosByUserHistory=mservice.getTopMediasByUserHistory(6,MediaType.Video);
 //				List<Media> videos=new ArrayList<Media>();
 //				for(Object[] object: topVideosByUserHistory) {
 //					videos.add((Media)object[0]);
 //				}
 //				model.addAttribute("videos",videos);
-			 
 				
-				List<Media> allVideos=vservice.getMediaByUserHistory(MediaType.Video,LocalDate.now().minusMonths(36));
+				List<Media> allVideos=mservice.getMediaByUserHistory(MediaType.Video,LocalDate.now().minusMonths(36));
 				List<Media> topVideos=new ArrayList<Media>();
 				List<Media> toptwelveVideos=new ArrayList<Media>();
 				
@@ -82,7 +81,7 @@ public class MediaController {
 	@GetMapping("/music/musiclandingpage")
 	public String showMusicLandingPage(Model model) {
 			
-		List<Media> allMusics=vservice.getMediaByUserHistory(MediaType.Music,LocalDate.now().minusMonths(36));
+		List<Media> allMusics=mservice.getMediaByUserHistory(MediaType.Music,LocalDate.now().minusMonths(36));
 		List<Media> topMusics=new ArrayList<Media>();
 		List<Media> toptwelveMusics=new ArrayList<Media>();
 		
@@ -101,12 +100,9 @@ public class MediaController {
 		}
 
 
-		model.addAttribute("topvideos",toptwelveMusics);
-		return "videolandingpage";
+		model.addAttribute("topmusic",toptwelveMusics);
+		return "musiclandingpage";
 	}
-	
-	
-	
 	
 	@GetMapping("/home")
 	public String goToHomepage(Model model) {

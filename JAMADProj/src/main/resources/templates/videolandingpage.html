@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="Fragments/layout.html :: headerfiles"> 
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Home page</title>
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
-</head>
+<head th:replace="Fragments/layout.html :: headerfiles"></head>
 <body>
 	<div th:replace="Fragments/layout.html :: navbar">
 	</div>
@@ -16,16 +10,15 @@
 		<div class="container">
 			<h3 class="col-md-auto">Trending Videos</h3>
 			<hr>
-				<div class="row col-lg-11 mx-auto">
+				<div class="row col-md-11 col-lg-11 mx-auto">
 					<th:block th:each="video: ${topvideos}">
 						<div class="col-6 col-md-3 col-lg-3 mb-5">
 						<div class="card mb-1 h-100"> 
 						
-						<!--  Meida image  -->
-                        	<!-- <a th:href="@{/video/watchvideo/(id=${video.id})}"> -->
-							<a th:href="@{/video/watchvideo}">
+						<!--  Media image  -->
+							<a th:href="@{/video/watchvideo/{mediaId}(mediaId = ${video.id})}">
 								<img th:src="${video.thumbnailUrl}" class="card-img-top productPhotoSize" alt="...">
-								<span  class="sideVideoDuration" th:text="${video.duration}"></span> 
+								<span class="sideDurationVideoLandingPage" th:text="${video.duration}"></span> 
 							</a>
 							
 							<!-- Collapse -->

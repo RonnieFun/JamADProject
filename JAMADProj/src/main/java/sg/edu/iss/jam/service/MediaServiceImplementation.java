@@ -22,7 +22,7 @@ import sg.edu.iss.jam.model.MediaType;
 import sg.edu.iss.jam.repo.MediaRepository;
 
 @Service
-public class VideoServiceImplementation implements VideoServiceInterface {
+public class MediaServiceImplementation implements MediaServiceInterface {
 	
 	
 	//scy-part
