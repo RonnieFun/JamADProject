@@ -28,15 +28,15 @@ public class ProductController {
 
 	@Autowired
 	UserInterface uservice;
-
+	
 	@GetMapping("/carthometab/{artistid}")
 	public String shoppingCartHome(Model model, @PathVariable long artistid) {
 		// long userID = (long) 1;
 		User artist = null;
 		artist = aservice.getArtistByID(artistid);
-		// userId need to replace
-		Long count = uservice.getItemCountByUserID(artistid);
-		model.addAttribute("status", "home");
+		//userId need to replace
+		Long count  =  uservice.getItemCountByUserID(artistid);
+		model.addAttribute("status", "allProducts");
 		model.addAttribute("count", count);
 		model.addAttribute("artistId", artist.getUserID());
 		model.addAttribute("artistName", artist.getDisplayName());
@@ -50,15 +50,15 @@ public class ProductController {
 		// long userID = (long) 1;
 		User artist = null;
 		artist = aservice.getArtistByID(artistid);
-		// userId need to replace
+		//userId need to replace
 		Long count = uservice.getItemCountByUserID(artistid);
-
-		model.addAttribute("status", category);
+		
+		model.addAttribute("status", category.toString());
 		model.addAttribute("count", count);
 		model.addAttribute("artistId", artist.getUserID());
 		model.addAttribute("artistName", artist.getDisplayName());
 		model.addAttribute("profileUrl", artist.getProfileUrl());
-		model.addAttribute("productList", aservice.getPopularProductByCategory(artistid, category));
+		model.addAttribute("productList", aservice.getPopularProductByCategory(artistid,category));
 		return "carthometab";
 	}
 

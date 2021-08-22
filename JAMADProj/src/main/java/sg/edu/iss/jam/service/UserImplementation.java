@@ -285,4 +285,10 @@ public class UserImplementation implements UserInterface {
 		shdrepo.delete(cardetail);
 	}
 
+	@Override
+	public void updateProduct(Product product) {
+		// TODO Auto-generated method stub
+		prepo.save(product);
+	}
+
 }
