@@ -114,7 +114,7 @@ $(document).ready(function(){
 				commentDateTime :commentDateTime,
 			},
 			success: function (response) {
-				$('#userCommentsSection').load("http://localhost:8080/video/aftersubmitcomment");
+				$('#userCommentsSection').load("http://localhost:8080/video/aftersubmitcomment/" + commentMediaId);
 			}
 		})
 		

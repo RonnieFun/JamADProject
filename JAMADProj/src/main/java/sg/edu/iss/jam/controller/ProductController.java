@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import sg.edu.iss.jam.model.Category;
+import sg.edu.iss.jam.model.Payment;
 import sg.edu.iss.jam.model.Product;
 import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.service.ArtistInterface;
@@ -76,14 +77,30 @@ public class ProductController {
 //		return "carthometab";
 //	}
 
-	@GetMapping("/product/details/{productid}")
-	public String productDetail(Model model, @PathVariable long productid) {
-		model.addAttribute("product", aservice.getProductByID(productid));
-		return "product/productdetail";
+	@RequestMapping(value = "/product/details", method = RequestMethod.POST)
+	@ResponseBody
+	public String productDetail(@RequestParam(value = "productId") Long productId) throws Exception {
+		String Result ="";
+		Product product =  aservice.getProductByID(productId);
+		System.out.println(product);
+		if (product!=null) {  
+            Result = "{\"Name\":";  
+            Result += "\"" + product.getProductName() + "\",";  
+            Result += "\"Description\":\"" + product.getProductDes() + "\",";  
+            Result += "\"Price\":\"" + product.getProductPrice() + "\",";  
+            Result += "\"Url\":\"" + product.getProductUrl() + "\"";
+            Result += "}";  
+        } else {  
+            Result = "Invalid";  
+        }  
+		return Result;
 	}
+
 
 	@GetMapping("/cartothertab")
 	public String shoppingCartOther(Model model) {
+		Payment payment = new Payment();
+		model.addAttribute("newPayment", payment);
 		return "product/checkout";
 	}
 

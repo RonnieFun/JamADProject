@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,53 +39,71 @@ public class MediaController {
 	@Autowired
 	ArtistInterface aservice;
 	
-	//scy-landingpage
-		@Autowired
-		VideoServiceInterface vservice;
-		
-		@GetMapping("/video/videolandingpage")
-		public String showVideoLandingPage(Model model) {
-//			List<Object[]> topVideosByUserHistory=vservice.getTopMediasByUserHistory(6,MediaType.Video);
-//			List<Media> videos=new ArrayList<Media>();
-//			for(Object[] object: topVideosByUserHistory) {
-//				videos.add((Media)object[0]);
-//			}
-//			model.addAttribute("videos",videos);
-		 
+	//scy-videolandingpage
+	@Autowired
+	VideoServiceInterface vservice;
 			
-			List<Media> allVideos=vservice.getMediaByUserHistory(MediaType.Video,LocalDate.now().minusMonths(36));
-			List<Media> topVideos=new ArrayList<Media>();
-			for(int i=0;i<=11;i++) {
-				topVideos.add(allVideos.get(i));}
-//			int number=11;
-//			if(topVideos.size()<number) {
-//				for(int i=0;i<=topVideos.size();i++) {
-//					topVideos.add(allVideos.get(i));}
-//			}
-//			else if(topVideos.size()>=number){
-//				for(int i=0;i<=number;i++) {
-//					topVideos.add(allVideos.get(i));}
+	@GetMapping("/video/videolandingpage")
+	public String showVideoLandingPage(Model model) {
+		
+//				List<Object[]> topVideosByUserHistory=vservice.getTopMediasByUserHistory(6,MediaType.Video);
+//				List<Media> videos=new ArrayList<Media>();
+//				for(Object[] object: topVideosByUserHistory) {
+//					videos.add((Media)object[0]);
 //				}
-//			else {
-//				topVideos=allVideos;
-//			}
+//				model.addAttribute("videos",videos);
+			 
+				
+				List<Media> allVideos=vservice.getMediaByUserHistory(MediaType.Video,LocalDate.now().minusMonths(36));
+				List<Media> topVideos=new ArrayList<Media>();
+				List<Media> toptwelveVideos=new ArrayList<Media>();
+				
+				for(Media m : allVideos) {
+					if (m.getCreatedOn().compareTo(LocalDate.now().minusDays(180)) > 0 )
+						topVideos.add(m);
+				}
+				
+				if(topVideos.size()>11) {
+					for(int i=0;i<=11;i++) {
+						toptwelveVideos.add(topVideos.get(i));
+					}
+						
+				}else {
+					toptwelveVideos=topVideos;
+				}
 
-			model.addAttribute("topvideos",topVideos);
-			return "videolandingpage";
+
+				model.addAttribute("topvideos",toptwelveVideos);
+				return "videolandingpage";
+			}
+
+	//musiclanding page 
+		
+	@GetMapping("/music/musiclandingpage")
+	public String showMusicLandingPage(Model model) {
+			
+		List<Media> allMusics=vservice.getMediaByUserHistory(MediaType.Music,LocalDate.now().minusMonths(36));
+		List<Media> topMusics=new ArrayList<Media>();
+		List<Media> toptwelveMusics=new ArrayList<Media>();
+		
+		for(Media m : allMusics) {
+			if (m.getCreatedOn().compareTo(LocalDate.now().minusDays(180)) > 0 )
+				topMusics.add(m);
 		}
 		
-//		@GetMapping("/music/musiclandingpage")
-//		public String showMusicLandingPage(Model model) {
-//			List<Media> allMusics=vservice.getMediaByTypeAndCount(MediaType.Music);
-//			List<Media> topMusics=new ArrayList<Media>();
-//			for(int i=0;i<=11;i++) {
-//				topMusics.add(allMusics.get(i));
-//			}
-	//
-//			model.addAttribute("topmusics",topMusics);
-//			return "musiclandingpage";
-//		}
+		if(topMusics.size()>11) {
+			for(int i=0;i<=11;i++) {
+				toptwelveMusics.add(topMusics.get(i));
+			}
+				
+		}else {
+			toptwelveMusics=topMusics;
+		}
 
+
+		model.addAttribute("topvideos",toptwelveMusics);
+		return "videolandingpage";
+	}
 	
 	
 	
@@ -114,9 +133,8 @@ public class MediaController {
 		return "cartothertab";
 	}
 	
-	@GetMapping("/video/watchvideo")
-	public String watchVideo(Model model) {
-
+	@GetMapping("/video/watchvideo/{mediaId}")
+	public String watchVideo(Model model, @PathVariable Long mediaId) {
 		
 //		//Add new view count upon page load
 //		
@@ -132,15 +150,15 @@ public class MediaController {
 		//Currently, assume the userID = 1. This userID will be changed upon implementation
 		//of Spring Security to authenticate logged in user
 
-		int commentCount = uservice.findCommentsByMediaId(2L).size();
+		int commentCount = uservice.findCommentsByMediaId(mediaId).size();
 		
 		User loggedInUser = uservice.findUserByUserId(2L);
 		
-		Media selectedMedia = uservice.findMediaByMediaId(1L);
+		Media selectedMedia = uservice.findMediaByMediaId(mediaId);
 		
 		// Add new userhistory object based on logged in user's userid on each page reload
 		UserHistory userhistory = new UserHistory(LocalDateTime.now(), loggedInUser, selectedMedia);
-		List<UserHistory> userHistory = uservice.findUserHistoryByMediaId(2L);
+		List<UserHistory> userHistory = uservice.findUserHistoryByMediaId(mediaId);
 		uservice.saveUserHistory(userhistory);
 		userHistory.add(userhistory);
 		
@@ -152,8 +170,8 @@ public class MediaController {
 		model.addAttribute("playlists", uservice.findPlaylistsByUserId(2L));
 		model.addAttribute("media", selectedMedia);
 		model.addAttribute("allMedia", uservice.findAllMedia());
-		model.addAttribute("comments", uservice.findCommentsByMediaId(2L));
-		model.addAttribute("tags", uservice.findTagsByMediaId(2L));
+		model.addAttribute("comments", uservice.findCommentsByMediaId(mediaId));
+		model.addAttribute("tags", uservice.findTagsByMediaId(mediaId));
 		model.addAttribute("viewCount", viewCount);
 	    
 		boolean liked = false;
@@ -176,27 +194,29 @@ public class MediaController {
 		// this method aims to show how to subscribe an Artist,
 		// so we won't show media details
 					
-		Long artistId = (long) 1;
-		User jayChou = aservice.findById(artistId);
-		String artistName = jayChou.getFirstName() + " " + jayChou.getLastName();
+		Long artistId = selectedMedia.getChannel().getChannelUser().getUserID();
+		User artist = selectedMedia.getChannel().getChannelUser();
 					
-		boolean subscribeStatus = false;				
+		Boolean subscribeStatus = false;				
 					
-		for(Subscribed s: customer.getSubscribers()) {
+		for(Subscribed s: artist.getSubscribers()) {
 			// if the customer already subscribed the artist, it shows true
-			if (s.getTargetId() == artistId) {
+			if (s.getTargetId() == customerId) {
 				subscribeStatus = true;
 				}
 			}
-			model.addAttribute("subscribeStatus", subscribeStatus);
-			model.addAttribute("artistId", artistId);
-			model.addAttribute("artistName", artistName);
-
+		
+		if (artistId == customerId) {
+			subscribeStatus = null;
+		}
+		
+		model.addAttribute("subscribeStatus", subscribeStatus);
+			
 		return "userwatchvideo";
 	}
 	
-	@GetMapping("/video/aftersubmitcomment")
-	public String afterSubmitComment(Model model) {
+	@GetMapping("/video/aftersubmitcomment/{mediaId}")
+	public String afterSubmitComment(Model model, @PathVariable Long mediaId) {
 		
 //		Media loadedMedia = uservice.findMediaByMediaId(2L);
 //		int numberOfViews = loadedMedia.getViewCount();
@@ -204,15 +224,15 @@ public class MediaController {
 //		
 //		uservice.saveMedia(loadedMedia);
 	
-		int commentCount = uservice.findCommentsByMediaId(2L).size();
+		int commentCount = uservice.findCommentsByMediaId(mediaId).size();
 		
 		//Currently, assume the userID = 1. This userID will be changed upon implementation
 		//of Spring Security to authenticate logged in user
 		
 		model.addAttribute("commentCount", commentCount);
 		model.addAttribute("user", uservice.findUserByUserId(2L));
-		model.addAttribute("media", uservice.findMediaByMediaId(2L));
-		model.addAttribute("comments", uservice.findCommentsByMediaId(2L));
+		model.addAttribute("media", uservice.findMediaByMediaId(mediaId));
+		model.addAttribute("comments", uservice.findCommentsByMediaId(mediaId));
 		
 		return "aftersubmitcomment";
 	}
@@ -273,7 +293,7 @@ public class MediaController {
 		User customer = uservice.findUserByUserId(customerId);
 		User artist = aservice.findById(artistId);
 		
-		if (artist == null || customer == null || customerId == artistId) {
+		if (artist == null || customer == null) {
 			return "userwatchvideo";
 		}
 	
@@ -313,7 +333,7 @@ public class MediaController {
 		User customer = uservice.findUserByUserId(customerId);
 		User artist = aservice.findById(artistId);
 		
-		if (artist == null || customer == null || customerId == artistId) {
+		if (artist == null || customer == null) {
 			return "userwatchvideo";
 		}
 		
@@ -366,19 +386,18 @@ public class MediaController {
 	
 	
 //--------------------------User views Artist Video Channel Page by ZQ--------------------------------------------------
-	@GetMapping("/video/viewartistvideochannel")
-	public String viewArtistVideoChannel(Model model) {
+	@GetMapping("/video/viewartistvideochannel/{artistId}")
+	public String viewArtistVideoChannel(Model model, @PathVariable Long artistId) {
 		
 		String artistVideoChannelName = "";
 		int numberOfArtistVideos = 0;
 		List<Media> artistVideos = new ArrayList<Media>();
 		
-		// currently assume the userID = 17
-		Long customerId = (long) 17;
+		// currently assume the userID = 2
+		Long customerId = (long) 2;
 		User customer = uservice.findUserByUserId(customerId);
 				
 		// currently assume the artistID = 1		
-		Long artistId = (long) 1;
 		User artist = aservice.findById(artistId);
 		// get artist's name (will change to displayName while DB data is ready)
 		String artistName = artist.getFirstName() + " " + artist.getLastName();
@@ -403,15 +422,18 @@ public class MediaController {
 		NumberOfSubscribers = users_subscribed_jaychou.size();
 		
 		// check the subscribe status
-		boolean subscribeStatus = false;
-		for(Subscribed s: customer.getSubscribers()) {
+		Boolean subscribeStatus = false;
+		for(Subscribed s: artist.getSubscribers()) {
 			// if the customer already subscribed the artist, it shows true
-			if (s.getTargetId() == artistId) {
+			if (s.getTargetId() == customerId) {
 				subscribeStatus = true;
 			}
 		}
 		
-		
+		if (artistId == customerId) {
+			subscribeStatus = null;
+		}
+
 		model.addAttribute("artistVideoChannelName", artistVideoChannelName);
 		model.addAttribute("numberOfArtistVideos", numberOfArtistVideos);
 		model.addAttribute("artistVideos", artistVideos);
@@ -425,17 +447,16 @@ public class MediaController {
 	}
 	
 	
-	@GetMapping("/video/subscribenoajax")
-	public String subscribeArtistNoAjax(){
-		Long artistId = (long) 1;
+	@GetMapping("/video/subscribenoajax/{artistId}")
+	public String subscribeArtistNoAjax(@PathVariable Long artistId){
 		
-		// currently assume the userID = 17,
-		Long customerId = (long) 17;
+		// currently assume the userID = 2,
+		Long customerId = (long) 2;
 		User customer = uservice.findUserByUserId(customerId);
 		User artist = aservice.findById(artistId);
 		
-		if (artist == null || customer == null || customerId == artistId) {
-			return "redirect:/viewartistvideochannel";
+		if (artist == null || customer == null) {
+			return "redirect:/video/viewartistvideochannel/{artistId}";
 		}
 			
 		// for artist, add the customer to the subscribed collection
@@ -461,22 +482,21 @@ public class MediaController {
 		uservice.saveUser(customer);
 		uservice.saveSubscribed(artist_I_subscribed);
 		
-		return "redirect:/video/viewartistvideochannel";
+		return "redirect:/video/viewartistvideochannel/{artistId}";
 	}
 	
 	
-	@GetMapping("/video/unsubscribenoajax")	
-	public String unsubscribeArtistNoAjax() {
-		Long artistId = (long) 1;
+	@GetMapping("/video/unsubscribenoajax/{artistId}")	
+	public String unsubscribeArtistNoAjax(@PathVariable Long artistId) {
 		
-		// currently assume the userID = 17,
-		Long customerId = (long) 17;
+		// currently assume the userID = 2,
+		Long customerId = (long) 2;
 		User customer = uservice.findUserByUserId(customerId);
 		User artist = aservice.findById(artistId);
 		
 		
-		if (artist == null || customer == null || customerId == artistId) {
-			return "redirect:/video/viewartistvideochannel";
+		if (artist == null || customer == null) {
+			return "redirect:/video/viewartistvideochannel/{artistId}";
 		}
 		
 		// for artist, remove the customer from subscribed collection
@@ -494,7 +514,7 @@ public class MediaController {
 				uservice.deleteSubscribed(s);
 			}
 		}		
-		return "redirect:/video/viewartistvideochannel";
+		return "redirect:/video/viewartistvideochannel/{artistId}";
 				
 	}
 	
@@ -508,8 +528,8 @@ public class MediaController {
 		int numberOfArtistMusics = 0;
 		List<Album> artistAlbums = new ArrayList<Album>();
 		
-		// currently assume the userID = 17
-		Long customerId = (long) 17;
+		// currently assume the userID = 2
+		Long customerId = (long) 2;
 		User customer = uservice.findUserByUserId(customerId);
 				
 		// currently assume the artistID = 1		
