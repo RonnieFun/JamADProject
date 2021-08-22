@@ -76,6 +76,8 @@ public interface UserInterface {
 	void savePayement(@Valid Payment payment);
 	
 	void deleteCartDetails(ShoppingCartDetails cardetail);
+	
+	void updateProduct(Product product);
 
 
 }

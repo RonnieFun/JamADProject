@@ -100,6 +100,9 @@ public class ShoppingCartController {
 			for (ShoppingCartDetails cardetail : cart.getCartDetails()) {
 				OrderDetails newOrderDetail= new OrderDetails(cardetail.getQuantity(), cardetail.getProduct(), neworder);
 				orderDetailList.add(newOrderDetail);
+				Product product = cardetail.getProduct();
+				product.setProductQty(product.getProductQty()- cardetail.getQuantity());
+				uservice.updateProduct(product);
 				//delete cart detail
 				uservice.deleteCartDetails(cardetail);
 			}
