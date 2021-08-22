@@ -21,13 +21,16 @@
 		<a th:href="@{/home}" class="helpIcon btn"><i
 			class="fa fa-question-circle"></i><span class="smallHelpText">Help</span></a>
 
-		<button class="addShoppingCartIcon btn">
-			<i class="fa fa-cart-plus"></i>
+		<button class="addShoppingCartIcon btn"
+			onclick="location.href='/shoppingcart'">
+			<i class="fa fa-cart-plus" style="font-size: 24px"></i><span
+				class='badge badge-warning' id='lblCartCount' th:text="${count}"></span>
 		</button>
-		<span class='badge' id='cartQuantity'> 5 </span> <a th:href="@{/home}"
-			class="profileImageIconLink"><img class="profileImageIcon"
-			th:src="@{/images/estelle.PNG}" alt="Artist Small Profile Photo" />
-			<span class="smallProfileNameText">Estelle Chen</span> </a>
+		<a th:href="@{/home}" class="profileImageIconLink"><img
+			class="profileImageIcon" th:src="${user.profileUrl}"
+			alt="Artist Small Profile Photo" /> <span
+			class="smallProfileNameText"
+			th:text="${user.firstName} + ' ' + ${user.lastName}"></span> </a>
 	</nav>
 
 	<!-- PRODUCTS ON SALE NAVBAR -->
@@ -40,34 +43,34 @@
 					<nav class="navbar spaceEvenly">
 						<a th:if="${category} == 'allProducts'"
 							class="nav-link active blackFontText h6" data-toggle="tab"
-							href="/artist/manageshop"
+							href="/shop/allproducts"
 							style="color: #ff6f61; border-bottom: 1px solid #ff6f61">All
 							Products</a> <a th:unless="${category} == 'allProducts'"
 							class="nav-link active blackFontText h6" data-toggle="tab"
-							href="/artist/manageshop">All Products</a> <a
+							href="/shop/allproducts">All Products</a> <a
 							th:if="${category} == 'musicCollection'"
 							class="nav-link active blackFontText h6" data-toggle="tab"
-							href="/artist/manageshop/musiccollection"
+							href="/shop/musiccollections"
 							style="color: #ff6f61; border-bottom: 1px solid #ff6f61">Music
 							Collection</a> <a th:unless="${category} == 'musicCollection'"
 							class="nav-link active blackFontText h6" data-toggle="tab"
-							href="/artist/manageshop/musiccollection">Music Collection</a> <a
+							href="/shop/musiccollections">Music Collection</a> <a
 							th:if="${category} == 'merchandise'"
 							class="nav-link active blackFontText h6" data-toggle="tab"
-							href="/artist/manageshop/merchandise"
+							href="/shop/merchandise"
 							style="color: #ff6f61; border-bottom: 1px solid #ff6f61">Merchandise</a>
 
 						<a th:unless="${category} == 'merchandise'"
 							class="nav-link active blackFontText h6" data-toggle="tab"
-							href="/artist/manageshop/merchandise">Merchandise</a> <a
+							href="/shop/merchandise">Merchandise</a> <a
 							th:if="${category} == 'clothing'"
 							class="nav-link active blackFontText h6" data-toggle="tab"
-							href="/artist/manageshop/clothing"
+							href="/shop/clothing"
 							style="color: #ff6f61; border-bottom: 1px solid #ff6f61">Clothing</a>
 
 						<a th:unless="${category} == 'clothing'"
 							class="nav-link active blackFontText h6" data-toggle="tab"
-							href="/artist/manageshop/clothing">Clothing</a>
+							href="/shop/clothing">Clothing</a>
 					</nav>
 				</div>
 			</div>
@@ -102,9 +105,15 @@
 												th:src="${productAndCount.key.productUser.profileUrl}">
 										</div>
 										<div class="col">
-											<h5><strong
-												th:text="${productAndCount.key.productUser.firstName + ' ' +
-												productAndCount.key.productUser.lastName}"></strong></h5>
+											<h5>
+												<a
+													th:href="'/carthometab/' + ${productAndCount.key.productUser.userID}"
+													style="text-decoration: none; color: black"> <strong
+													th:text="${productAndCount.key.productUser.firstName + ' ' +
+												productAndCount.key.productUser.lastName}">
+												</strong>
+												</a>
+											</h5>
 										</div>
 									</div>
 
@@ -114,16 +123,20 @@
 										th:text="${productAndCount.key.productName}"></div>
 
 									<!-- Quantity Sold -->
-									<div class="quantitySold" style="padding-right:10%"
+									<div class="quantitySold" style="padding-right: 10%"
 										th:text="${productAndCount.value} + ' sold in the past week'"></div>
 
 									<!-- Price -->
 									<div class="mb-1 productPrice h6"
 										th:text="${#numbers.formatCurrency(productAndCount.key.productPrice)}"></div>
 
-									<label for="heartLikeButton"> <i
-										class="far fa-heart likeIcon" aria-hidden="true"></i>
-									</label> <input id="heartLikeButton" type="button" />
+									<label for="heartLikeButton" style="padding-left:5%">
+										<button type="button" style="background-color: #FFB6C1"
+											th:onclick="'javascript:myFunction(' + ${productAndCount.key.productID} + ')'">
+											Add To Cart</button>
+									</label>
+
+
 
 								</div>
 							</div>
@@ -132,14 +145,15 @@
 				</th:block>
 			</div>
 		</div>
-		
-				<div class="container">
+
+		<div class="container">
 			<h3 class="col-md-auto">Trending Merchandise</h3>
 			<hr>
 
 			<div class="row col-lg-11 mx-auto">
 
-				<th:block th:each="productAndCount: ${merchandiseProductsAndCountShop}">
+				<th:block
+					th:each="productAndCount: ${merchandiseProductsAndCountShop}">
 					<div class="col-6 col-md-3 col-lg-3 mb-5">
 						<div class="card mb-1 h-100">
 							<a
@@ -160,9 +174,11 @@
 												th:src="${productAndCount.key.productUser.profileUrl}">
 										</div>
 										<div class="col">
-											<h5><strong
-												th:text="${productAndCount.key.productUser.firstName + ' ' +
-												productAndCount.key.productUser.lastName}"></strong></h5>
+											<h5>
+												<strong
+													th:text="${productAndCount.key.productUser.firstName + ' ' +
+												productAndCount.key.productUser.lastName}"></strong>
+											</h5>
 										</div>
 									</div>
 
@@ -172,7 +188,7 @@
 										th:text="${productAndCount.key.productName}"></div>
 
 									<!-- Quantity Sold -->
-									<div class="quantitySold" style="padding-right:10%"
+									<div class="quantitySold" style="padding-right: 10%"
 										th:text="${productAndCount.value} + ' sold in the past week'"></div>
 
 									<!-- Price -->
@@ -190,8 +206,8 @@
 				</th:block>
 			</div>
 		</div>
-		
-				<div class="container">
+
+		<div class="container">
 			<h3 class="col-md-auto">Trending Clothing</h3>
 			<hr>
 
@@ -218,9 +234,11 @@
 												th:src="${productAndCount.key.productUser.profileUrl}">
 										</div>
 										<div class="col">
-											<h5><strong
-												th:text="${productAndCount.key.productUser.firstName + ' ' +
-												productAndCount.key.productUser.lastName}"></strong></h5>
+											<h5>
+												<strong
+													th:text="${productAndCount.key.productUser.firstName + ' ' +
+												productAndCount.key.productUser.lastName}"></strong>
+											</h5>
 										</div>
 									</div>
 
@@ -230,7 +248,7 @@
 										th:text="${productAndCount.key.productName}"></div>
 
 									<!-- Quantity Sold -->
-									<div class="quantitySold" style="padding-right:10%"
+									<div class="quantitySold" style="padding-right: 10%"
 										th:text="${productAndCount.value} + ' sold in the past week'"></div>
 
 									<!-- Price -->
@@ -248,14 +266,15 @@
 				</th:block>
 			</div>
 		</div>
-		
-				<div class="container">
+
+		<div class="container">
 			<h3 class="col-md-auto">Trending Music Collection</h3>
 			<hr>
 
 			<div class="row col-lg-11 mx-auto">
 
-				<th:block th:each="productAndCount: ${musicCollectionProductsAndCountShop}">
+				<th:block
+					th:each="productAndCount: ${musicCollectionProductsAndCountShop}">
 					<div class="col-6 col-md-3 col-lg-3 mb-5">
 						<div class="card mb-1 h-100">
 							<a
@@ -276,9 +295,11 @@
 												th:src="${productAndCount.key.productUser.profileUrl}">
 										</div>
 										<div class="col">
-											<h5><strong
-												th:text="${productAndCount.key.productUser.firstName + ' ' +
-												productAndCount.key.productUser.lastName}"></strong></h5>
+											<h5>
+												<strong
+													th:text="${productAndCount.key.productUser.firstName + ' ' +
+												productAndCount.key.productUser.lastName}"></strong>
+											</h5>
 										</div>
 									</div>
 
@@ -288,7 +309,7 @@
 										th:text="${productAndCount.key.productName}"></div>
 
 									<!-- Quantity Sold -->
-									<div class="quantitySold" style="padding-right:10%"
+									<div class="quantitySold" style="padding-right: 10%"
 										th:text="${productAndCount.value} + ' sold in the past week'"></div>
 
 									<!-- Price -->
@@ -313,4 +334,27 @@
 	</div>
 
 </body>
+
+<script>
+	function myFunction(productID) {
+		$.ajax({
+			type : 'POST',
+			url : "/addToCart",
+			contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+			data : {
+				productId : productID
+			},
+			success : function(response) {
+
+				$("#lblCartCount").text(response);
+
+			},
+			error : function(xmlHttpRequest, textStatus, errorThrown) {
+				console.log("error" + errorThrown);
+				alert("error");
+			}
+		});
+
+	}
+</script>
 </html>

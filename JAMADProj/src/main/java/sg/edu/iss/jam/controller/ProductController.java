@@ -24,17 +24,17 @@ import sg.edu.iss.jam.service.UserInterface;
 public class ProductController {
 	@Autowired
 	ArtistInterface aservice;
-	
+
 	@Autowired
 	UserInterface uservice;
-	
+
 	@GetMapping("/carthometab/{artistid}")
 	public String shoppingCartHome(Model model, @PathVariable long artistid) {
 		// long userID = (long) 1;
 		User artist = null;
 		artist = aservice.getArtistByID(artistid);
-		//userId need to replace
-		Long count  =  uservice.getItemCountByUserID(artistid);
+		// userId need to replace
+		Long count = uservice.getItemCountByUserID(artistid);
 		model.addAttribute("status", "home");
 		model.addAttribute("count", count);
 		model.addAttribute("artistId", artist.getUserID());
@@ -49,18 +49,18 @@ public class ProductController {
 		// long userID = (long) 1;
 		User artist = null;
 		artist = aservice.getArtistByID(artistid);
-		//userId need to replace
-		Long count  =  uservice.getItemCountByUserID(artistid);
-		
+		// userId need to replace
+		Long count = uservice.getItemCountByUserID(artistid);
+
 		model.addAttribute("status", category);
 		model.addAttribute("count", count);
 		model.addAttribute("artistId", artist.getUserID());
 		model.addAttribute("artistName", artist.getDisplayName());
 		model.addAttribute("profileUrl", artist.getProfileUrl());
-		model.addAttribute("productList", aservice.getPopularProductByCategory(artistid,category));
+		model.addAttribute("productList", aservice.getPopularProductByCategory(artistid, category));
 		return "carthometab";
 	}
-	
+
 //	@GetMapping("/carthometab/{artistid}/{category}")
 //	public String getPopularProductByCategory(Model model, @PathVariable long artistid, @PathVariable Category category) {
 //		// long userID = (long) 1;
@@ -106,13 +106,18 @@ public class ProductController {
 		return "carthometab";
 	}
 
+	// TODO awaiting sessions and userid
 	@GetMapping("/shop")
 	public String shopLandingPage(Model model) {
+		User user = uservice.findUserByUserId(2L);
+
 		List<Object[]> topAllProductsBySale = uservice.getTopAllProductsInPastWeekByOrderDetailsQuantity(8);
-		List<Object[]> topMusicCollectionProductsBySale = uservice.getTopMusicCollectionProductsInPastWeekByOrderDetailsQuantity(4);
-		List<Object[]> topMerchandiseProductsBySale = uservice.getTopMerchandiseProductsInPastWeekByOrderDetailsQuantity(4);
+		List<Object[]> topMusicCollectionProductsBySale = uservice
+				.getTopMusicCollectionProductsInPastWeekByOrderDetailsQuantity(4);
+		List<Object[]> topMerchandiseProductsBySale = uservice
+				.getTopMerchandiseProductsInPastWeekByOrderDetailsQuantity(4);
 		List<Object[]> topClothingProductsBySale = uservice.getTopClothingProductsInPastWeekByOrderDetailsQuantity(4);
-				
+
 		Map<Product, Long> allProductsAndCountShop = new HashMap<Product, Long>();
 		Map<Product, Long> musicCollectionProductsAndCountShop = new HashMap<Product, Long>();
 		Map<Product, Long> merchandiseProductsAndCountShop = new HashMap<Product, Long>();
@@ -129,68 +134,99 @@ public class ProductController {
 		for (Object[] object : topClothingProductsBySale) {
 			clothingProductsAndCountShop.put((Product) object[0], (Long) object[1]);
 		}
-	
+		Long count = uservice.getItemCountByUserID(2L);
+
 		model.addAttribute("allProductsAndCountShop", allProductsAndCountShop);
 		model.addAttribute("musicCollectionProductsAndCountShop", musicCollectionProductsAndCountShop);
 		model.addAttribute("merchandiseProductsAndCountShop", merchandiseProductsAndCountShop);
 		model.addAttribute("clothingProductsAndCountShop", clothingProductsAndCountShop);
+		model.addAttribute("count", count);
+		model.addAttribute("user", user);
 
 		return "shoplandingpage";
 	}
-	
+
+	// TODO awaiting sessions and userid
 	@GetMapping("/shop/allproducts")
 	public String allProductsLandingPage(Model model) {
+		User user = uservice.findUserByUserId(2L);
 		List<Object[]> topAllProductsBySale = uservice.getAllProducts();
-				
+
 		Map<Product, Long> allProductsAndCountShop = new HashMap<Product, Long>();
 		for (Object[] object : topAllProductsBySale) {
 			allProductsAndCountShop.put((Product) object[0], (Long) object[1]);
 		}
-	
-		model.addAttribute("allProductsAndCountShop", allProductsAndCountShop);
+		Long count = uservice.getItemCountByUserID(2L);
 
-		return "shoplandingpage";
+		model.addAttribute("allProductsAndCountShop", allProductsAndCountShop);
+		model.addAttribute("category", "allProducts");
+		model.addAttribute("count", count);
+
+		model.addAttribute("user", user);
+
+		return "shopcategorylandingpage";
 	}
-	
+
+	// TODO awaiting sessions and userid
 	@GetMapping("/shop/musiccollections")
 	public String musicCollectionsLandingPage(Model model) {
+		User user = uservice.findUserByUserId(2L);
 		List<Object[]> topAllProductsBySale = uservice.getAllMusicCollections();
-				
+
 		Map<Product, Long> allProductsAndCountShop = new HashMap<Product, Long>();
 		for (Object[] object : topAllProductsBySale) {
 			allProductsAndCountShop.put((Product) object[0], (Long) object[1]);
 		}
-	
-		model.addAttribute("allProductsAndCountShop", allProductsAndCountShop);
+		Long count = uservice.getItemCountByUserID(2L);
 
-		return "shoplandingpage";
+		model.addAttribute("allProductsAndCountShop", allProductsAndCountShop);
+		model.addAttribute("category", "musicCollection");
+		model.addAttribute("count", count);
+
+		model.addAttribute("user", user);
+
+		return "shopcategorylandingpage";
 	}
-	
+
+	// TODO awaiting sessions and userid
 	@GetMapping("/shop/merchandise")
 	public String merchandiseLandingPage(Model model) {
+		User user = uservice.findUserByUserId(2L);
 		List<Object[]> topAllProductsBySale = uservice.getAllMerchandise();
-				
+
 		Map<Product, Long> allProductsAndCountShop = new HashMap<Product, Long>();
 		for (Object[] object : topAllProductsBySale) {
 			allProductsAndCountShop.put((Product) object[0], (Long) object[1]);
 		}
-	
-		model.addAttribute("allProductsAndCountShop", allProductsAndCountShop);
+		Long count = uservice.getItemCountByUserID(2L);
 
-		return "shoplandingpage";
+		model.addAttribute("allProductsAndCountShop", allProductsAndCountShop);
+		model.addAttribute("category", "merchandise");
+		model.addAttribute("count", count);
+
+		model.addAttribute("user", user);
+
+		return "shopcategorylandingpage";
 	}
-	
+
+	// TODO awaiting sessions and userid
 	@GetMapping("/shop/clothing")
 	public String clothingLandingPage(Model model) {
+		User user = uservice.findUserByUserId(2L);
 		List<Object[]> topAllProductsBySale = uservice.getAllClothing();
-				
+
 		Map<Product, Long> allProductsAndCountShop = new HashMap<Product, Long>();
 		for (Object[] object : topAllProductsBySale) {
 			allProductsAndCountShop.put((Product) object[0], (Long) object[1]);
 		}
-	
-		model.addAttribute("allProductsAndCountShop", allProductsAndCountShop);
+		Long count = uservice.getItemCountByUserID(2L);
 
-		return "shoplandingpage";
+		model.addAttribute("allProductsAndCountShop", allProductsAndCountShop);
+		model.addAttribute("category", "clothing");
+		model.addAttribute("count", count);
+
+		model.addAttribute("user", user);
+
+		return "shopcategorylandingpage";
 	}
 }

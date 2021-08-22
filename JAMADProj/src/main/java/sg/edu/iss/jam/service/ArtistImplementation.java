@@ -171,4 +171,10 @@ public class ArtistImplementation implements ArtistInterface {
 		// TODO Auto-generated method stub
 		return prepo.getPopularProductByCategory(artistid,category);
 	}
+
+	@Override
+	public List<Object[]> getTopAllProductsInPastWeekByOrderDetailsQuantity(int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
