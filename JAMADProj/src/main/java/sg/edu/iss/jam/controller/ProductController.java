@@ -36,7 +36,7 @@ public class ProductController {
 		artist = aservice.getArtistByID(artistid);
 		//userId need to replace
 		Long count  =  uservice.getItemCountByUserID(artistid);
-		model.addAttribute("status", "home");
+		model.addAttribute("status", "allProducts");
 		model.addAttribute("count", count);
 		model.addAttribute("artistId", artist.getUserID());
 		model.addAttribute("artistName", artist.getDisplayName());
@@ -53,7 +53,7 @@ public class ProductController {
 		//userId need to replace
 		Long count  =  uservice.getItemCountByUserID(artistid);
 		
-		model.addAttribute("status", category);
+		model.addAttribute("status", category.toString());
 		model.addAttribute("count", count);
 		model.addAttribute("artistId", artist.getUserID());
 		model.addAttribute("artistName", artist.getDisplayName());

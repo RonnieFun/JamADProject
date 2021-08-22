@@ -46,10 +46,14 @@
             <!-- Product Categories -->
             <nav class="navbar spaceEvenly">
               <!-- <a class="nav-link active blackFontText ml-5 h6" data-toggle="tab" href="#">Home</a> -->
-              <a class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/carthometab/}+${artistId}">All Products</a>
-              <a class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/carthometab/}+${artistId}+@{/MusicCollection}">Music Collection</a>
-              <a class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/carthometab/}+${artistId}+@{/Merchandise}">Merchandise</a>
-              <a class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/carthometab/}+${artistId}+@{/Clothing}">Clothing</a>
+              <a th:if="${status} == 'allProducts'" class="nav-link active blackFontText h6" data-toggle="tab" style="color: #ff6f61; border-bottom: 1px solid #ff6f61" th:href="@{/carthometab/}+${artistId}">All Products</a>
+              <a th:unless="${status} == 'allProducts'" class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/carthometab/}+${artistId}">All Products</a>
+              <a th:if="${status} == 'MusicCollection'" class="nav-link active blackFontText h6" data-toggle="tab" style="color: #ff6f61; border-bottom: 1px solid #ff6f61" th:href="@{/carthometab/}+${artistId}+@{/MusicCollection}">Music Collection</a>
+              <a th:unless="${status} == 'MusicCollection'" class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/carthometab/}+${artistId}+@{/MusicCollection}">Music Collection</a>
+              <a th:if="${status} == 'Merchandise'" class="nav-link active blackFontText h6" data-toggle="tab" style="color: #ff6f61; border-bottom: 1px solid #ff6f61" th:href="@{/carthometab/}+${artistId}+@{/Merchandise}">Merchandise</a>
+              <a th:unless="${status} == 'Merchandise'" class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/carthometab/}+${artistId}+@{/Merchandise}">Merchandise</a>
+              <a th:if="${status} == 'Clothing'" class="nav-link active blackFontText h6" data-toggle="tab" style="color: #ff6f61; border-bottom: 1px solid #ff6f61" th:href="@{/carthometab/}+${artistId}+@{/Clothing}">Clothing</a>
+              <a th:unless="${status} == 'Clothing'" class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/carthometab/}+${artistId}+@{/Clothing}">Clothing</a>
               
             </nav>
           	</div>
@@ -60,12 +64,12 @@
     <section class="productsContentSection">
       <div class="container">
         <div class="row col-lg-11 mx-auto">
-	       <div style="margin-bottom: 18px;">
+	       <!-- <div style="margin-bottom: 18px;">
 					<section class="productsFilter">
 						<div class="container">
 							<div class="row align-items-center">
 								<div class="col-12 col-md">
-									<!-- Product Categories -->
+									Product Categories
 									<nav class="navbar spaceLeft py-0">
 										<a class="nav-link blackFontText ml-5 sortLabel"
 											data-toggle="tab" href="#">Sort by:</a> <a
@@ -92,7 +96,7 @@
 							</div>
 						</div>
 					</section>
-				</div>
+				</div> -->
 			
 			
           <div class="col-6 col-md-3 col-lg-3 mb-5" th:each="product: ${productList}">
@@ -250,7 +254,7 @@ function GetById(productID) {
 	        	var Description = jason.Description;
 	        	var Price = jason.Price;
 	        	var Url = jason.Url;
-                $('#lblName').html('Product Name' + Name);  
+                $('#lblName').html('Product Name: ' + Name);  
                 $('#lblDescription').html('Description : ' + Description);  
                 $('#lblPrice').html('Price : $' + Price); 
                 $('#divProductId').html(productID);
