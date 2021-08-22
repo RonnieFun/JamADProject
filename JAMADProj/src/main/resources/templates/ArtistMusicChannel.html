@@ -57,15 +57,15 @@
   	
   	
  	<!-- Code by Max: -->
+ 	
   	<!-- Music CONTENT in each Album-->
-	<div class="row col-lg-11 mx-auto">
+	<div class="row col-lg-10 mt-4 mx-auto">
      <th:block th:each="music: ${listOfMusic}">
       <div class="col-6 col-md-3 col-lg-3 mb-5">
       	
       <div class="card mb-1 h-100"> 
       
       <!--  Media image -->
-                         <!-- <a th:href="@{/watchvideo(id=${video.id})}"> -->
        <a th:href="@{/video/watchvideo/{mediaId}(mediaId = ${music.id})}">
         <img th:src="${music.thumbnailUrl}" class="card-img-top productPhotoSize" alt="...">
         <span class="sideDurationVideoChannelPage" th:text="${music.duration}"></span> 
@@ -73,7 +73,7 @@
        
        <!-- Collapse -->
         <div class="card-collapse-parent"> 
-        <!-- artisit photo -->
+        <!-- artist photo -->
         <div class="card-body px-0 bg-white">
          <div class="row">
           <div class="col-4">
