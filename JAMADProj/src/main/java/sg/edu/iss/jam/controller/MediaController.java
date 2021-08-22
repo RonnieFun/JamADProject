@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sg.edu.iss.jam.model.Album;
 import sg.edu.iss.jam.model.Channel;
@@ -43,6 +44,21 @@ public class MediaController {
 	@Autowired
 	MediaServiceInterface mservice;
 			
+	@GetMapping("/video/medianotfound/{mediaId}") 
+	public String mediaNotFound(Model model, @PathVariable Long mediaId) {
+		
+		Media requestedMedia = uservice.findMediaByMediaTypeAndMediaId(MediaType.Video, mediaId);
+		
+		boolean isMusic = true;
+		
+		if(requestedMedia != null) {
+			isMusic = false;
+		}
+		
+		model.addAttribute("isMusic", isMusic);
+		return "MediaNotFound";
+	}
+
 	@GetMapping("/video/genericvideolandingpage")
 	public String genericVideoLandingPage(Model model) {
 		
@@ -109,7 +125,7 @@ public class MediaController {
 	}
 	
 	@GetMapping("/video/watchvideo/{mediaId}")
-	public String watchVideo(Model model, @PathVariable Long mediaId) {
+	public String watchVideo(Model model, @PathVariable Long mediaId, RedirectAttributes redirectAttributes) {
 		
 //		//Add new view count upon page load
 //		
@@ -129,7 +145,12 @@ public class MediaController {
 		
 		User loggedInUser = uservice.findUserByUserId(2L);
 		
-		Media selectedMedia = uservice.findMediaByMediaId(mediaId);
+		Media selectedMedia = uservice.findMediaByMediaTypeAndMediaId(MediaType.Video, mediaId);
+
+		if(selectedMedia == null) {
+			redirectAttributes.addAttribute("mediaId", mediaId);
+			return "redirect:/video/medianotfound/{mediaId}";
+		}
 		
 		// Add new userhistory object based on logged in user's userid on each page reload
 		UserHistory userhistory = new UserHistory(LocalDateTime.now(), loggedInUser, selectedMedia);

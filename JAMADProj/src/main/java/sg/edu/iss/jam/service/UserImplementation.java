@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import sg.edu.iss.jam.controller.ShoppingCartController;
 import sg.edu.iss.jam.model.Comments;
 import sg.edu.iss.jam.model.Media;
+import sg.edu.iss.jam.model.MediaType;
 import sg.edu.iss.jam.model.OrderDetails;
 import sg.edu.iss.jam.model.Orders;
 import sg.edu.iss.jam.model.Payment;
@@ -136,6 +137,10 @@ public class UserImplementation implements UserInterface {
 		return mediarepo.save(media);
 	}
 	
+	@Transactional
+	public Media findMediaByMediaTypeAndMediaId(MediaType mediaType, Long id) {
+		return mediarepo.findMediaByMediaTypeAndMediaId(mediaType, id);
+	}
 
 	//SUBSCRIBED REPO
 	@Transactional

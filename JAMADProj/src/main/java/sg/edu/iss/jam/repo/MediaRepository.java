@@ -18,6 +18,9 @@ public interface MediaRepository extends JpaRepository<Media, Long> {
 	@Query("SELECT m FROM Media m JOIN m.playLists pl WHERE pl.playlistID = :playlistID")
 	List<Media> findMediaListByPlayListID(@Param("playlistID") Long playlistID);
 	
+	@Query("SELECT m FROM Media m WHERE m.mediaType = :mediaType AND m.id = :id")
+	Media findMediaByMediaTypeAndMediaId(@Param("mediaType") MediaType mediaType, @Param("id") Long id);
+	
 	//Find Media Count by channel 
 	@Query("Select count(distinct m) from Media m Join m.channel c where c.channelID =:channelid AND m.mediaType =:mediaType")
 	public int CountMediaByChannel(@Param("channelid") long channelid,@Param("mediaType") MediaType video);
