@@ -3,6 +3,7 @@ package sg.edu.iss.jam.service;
 import java.util.List;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import sg.edu.iss.jam.model.Comments;
 import sg.edu.iss.jam.model.Media;
 import sg.edu.iss.jam.model.OrderDetails;
 import sg.edu.iss.jam.model.Orders;
+import sg.edu.iss.jam.model.Payment;
 import sg.edu.iss.jam.model.Playlists;
 import sg.edu.iss.jam.model.Product;
 import sg.edu.iss.jam.model.User;
@@ -20,6 +22,7 @@ import sg.edu.iss.jam.repo.CommentsRepository;
 import sg.edu.iss.jam.repo.MediaRepository;
 import sg.edu.iss.jam.repo.OrderDetailsRepository;
 import sg.edu.iss.jam.repo.OrdersRepository;
+import sg.edu.iss.jam.repo.PaymentRepository;
 import sg.edu.iss.jam.repo.PlaylistsRepository;
 import sg.edu.iss.jam.repo.ProductRepository;
 import sg.edu.iss.jam.repo.ShoppingCartDetailsRepository;
@@ -73,6 +76,9 @@ public class UserImplementation implements UserInterface {
 	
 	@Autowired
 	OrderDetailsRepository odrepo;
+	
+	@Autowired
+	PaymentRepository payrepo;
 	
 	//USER REPO
 	@Transactional
@@ -223,6 +229,24 @@ public class UserImplementation implements UserInterface {
 	public ShoppingCartDetails getCartDetailByProductID(Long productId, Long shoppingCartID) {
 		// TODO Auto-generated method stub
 		return shdrepo.getByProductIdAndCartID(productId,shoppingCartID);
+	}
+
+	@Override
+	public void savePayement(@Valid Payment payment) {
+		// TODO Auto-generated method stub
+		payrepo.save(payment);
+	}
+
+	@Override
+	public void deleteCartDetails(ShoppingCartDetails cardetail) {
+		// TODO Auto-generated method stub
+		shdrepo.delete(cardetail);
+	}
+
+	@Override
+	public void updateProduct(Product product) {
+		// TODO Auto-generated method stub
+		prepo.save(product);
 	}
 
 }
