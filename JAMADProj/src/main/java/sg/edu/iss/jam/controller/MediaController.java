@@ -153,7 +153,7 @@ public class MediaController {
 		
 		//Currently, assume the userID = 1. This userID will be changed upon implementation
 		//of Spring Security to authenticate logged in user
-
+		
 		int commentCount = uservice.findCommentsByMediaId(mediaId).size();
 		
 		User loggedInUser = uservice.findUserByUserId(2L);
