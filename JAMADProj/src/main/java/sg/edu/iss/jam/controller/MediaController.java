@@ -497,10 +497,10 @@ public class MediaController {
 		return "redirect:/video/viewartistvideochannel";
 				
 	}
-	
+
 	
 //--------------------------User views Artist Music Channel Page by ZQ--------------------------------------------------
-	@GetMapping("music/viewartistmusicchannel")
+	@GetMapping("/music/viewartistmusicchannel")
 	public String viewArtistMusicChannel1(Model model) {
 		
 		String artistMusicChannelName = "";
