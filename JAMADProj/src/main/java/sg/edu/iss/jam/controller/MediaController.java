@@ -43,8 +43,8 @@ public class MediaController {
 	@Autowired
 	MediaServiceInterface mservice;
 			
-	@GetMapping("/video/videolandingpage")
-	public String showVideoLandingPage(Model model) {
+	@GetMapping("/video/genericvideolandingpage")
+	public String genericVideoLandingPage(Model model) {
 		
 //				List<Object[]> topVideosByUserHistory=mservice.getTopMediasByUserHistory(6,MediaType.Video);
 //				List<Media> videos=new ArrayList<Media>();
@@ -73,13 +73,13 @@ public class MediaController {
 
 
 				model.addAttribute("topvideos",toptwelveVideos);
-				return "videolandingpage";
+				return "genericvideolandingpage";
 			}
 
 	//musiclanding page 
-		
-	@GetMapping("/music/musiclandingpage")
-	public String showMusicLandingPage(Model model) {
+	
+	@GetMapping("/music/genericmusiclandingpage")
+	public String genericMusicLandingPage(Model model) {
 			
 		List<Media> allMusics=mservice.getMediaByUserHistory(MediaType.Music,LocalDate.now().minusMonths(36));
 		List<Media> topMusics=new ArrayList<Media>();
@@ -98,35 +98,14 @@ public class MediaController {
 		}else {
 			toptwelveMusics=topMusics;
 		}
-
-
+		
 		model.addAttribute("topmusic",toptwelveMusics);
-		return "musiclandingpage";
-	}
-	
-	@GetMapping("/home")
-	public String goToHomepage(Model model) {
-		return "home";
-	}
-	
-	@GetMapping("/signup")
-	public String signup(Model model) {
-		return "signup";
+		return "genericmusiclandingpage";
 	}
 	
 	@GetMapping("/signup2")
 	public String signup2(Model model) {
 		return "signup2";
-	}
-	
-	@GetMapping("/carthometab2")
-	public String shoppingCartHome(Model model) {
-		return "carthometab";
-	}
-	
-	@GetMapping("/cartothertab2")
-	public String shoppingCartOther(Model model) {
-		return "cartothertab";
 	}
 	
 	@GetMapping("/video/watchvideo/{mediaId}")
