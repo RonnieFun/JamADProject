@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="Fragments/layout.html :: headerfiles"> </head>
+
+<body>
+
+<div class="mediaNotFound" th:if = "${isMusic == false}">
+	<h3>Your requested Video Title is not found.</h3>
+	<a th:href = "@{/video/genericvideolandingpage}">
+	Please click here to return to Video Landing Page</a>
+</div>
+
+<div class="mediaNotFound" th:if = "${isMusic == true}">
+	<h3>Your requested Music Title is not found.</h3>
+	<a th:href = "@{/music/genericmusiclandingpage}">
+	Please click here to return to Music Landing Page</a>
+</div>
+
+<div th:replace="Fragments/layout.html :: footer"></div>
+</body>
+</html>
