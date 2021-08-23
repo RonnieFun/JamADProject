@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import sg.edu.iss.jam.model.Comments;
 import sg.edu.iss.jam.model.Media;
+import sg.edu.iss.jam.model.MediaType;
 import sg.edu.iss.jam.model.OrderDetails;
 import sg.edu.iss.jam.model.Orders;
 import sg.edu.iss.jam.model.Payment;
@@ -37,6 +38,7 @@ public interface UserInterface {
 	Media findMediaByMediaId(Long ID);
 	List<Media> findMediaListByPlayListID(Long playlistID);
 	List<Media> findAllMedia();
+	Media findMediaByMediaTypeAndMediaId(MediaType mediaType, Long id);
 	Media saveMedia(Media media);
 
 	//SUBSCRIBED

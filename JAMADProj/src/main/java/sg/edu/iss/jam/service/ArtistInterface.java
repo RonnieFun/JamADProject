@@ -2,6 +2,7 @@ package sg.edu.iss.jam.service;
 import java.util.Collection;
 import java.util.List;
 
+import sg.edu.iss.jam.model.Album;
 import sg.edu.iss.jam.model.Category;
 import sg.edu.iss.jam.model.Channel;
 import sg.edu.iss.jam.model.Media;
@@ -31,7 +32,7 @@ public interface ArtistInterface {
 
 	List<Product> getProductListByArtistIDAndCategory(long artistid, Category category);
 	
-
+	Album getAlbumByAlbumId(long AlbumID);
 	
 	Channel getChannel(Long channelID);
 	
