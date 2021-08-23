@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 <head th:replace="Fragments/layout.html :: headerfiles"> 
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,9 +17,10 @@
 	
 	<div class = "sidebar">
 	
-		<div class = "sidebarRow">
-		<img th:src="@{/images/brucelee.png}" class="profilePic" alt="profileIcon"/>
-			<h6>User</h6>
+		<div sec:authorize="isAuthenticated()" class = "sidebarRow">
+		<img src="https://www.aceshowbiz.com/images/photo/jay_chou.jpg" class="profilePic" alt="profileIcon"/>
+			<h6>Welcome <span sec:authentication="principal.firstName">first
+				name</span></h6>
 		</div>
 		
 		<div class="sidebarRow">
@@ -41,10 +43,10 @@
 			<h6>My Video Channel</h6>
 		</div>
 		
-		<div class="sidebarRow">
-			<span class="material-icons">expand_more</span>
-			<h6>More</h6>
-		</div>
+<!-- 		<div class="sidebarRow"> -->
+<!-- 			<span class="material-icons">expand_more</span> -->
+<!-- 			<h6>More</h6> -->
+<!-- 		</div> -->
 	</div>
 	
 <!-- 	sidebar ends -->
@@ -89,10 +91,10 @@
 <!-- 		Message sender starts  -->
 		<div class="messageSender">
 			<div class="messageSender_Top">
-				<img th:src="@{/images/brucelee.png}" class="profilePic" alt="profileIcon"/>
+				<img th:src="${profileUrl}" class="profilePic" alt="profileIcon"/>
 				
 				<form>
-					<input type="text" class ="messageSender_input" placeholder="Hello say something">
+					<input type="text" class ="messageSender_input" placeholder ="Hello say something">
 				</form>
 		
 			</div>
@@ -118,7 +120,7 @@
 
 		<div class="post">
 			<div class = "post_Top">
-				<img th:src="@{/images/brucelee.png}" class="profilePic" alt="profileIcon"/>
+				<img th:src="${profileUrl}" class="profilePic" alt="profileIcon"/>
 				
 				<div class="post_Top_Info">
 					<h5>User</h5>
