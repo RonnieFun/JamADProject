@@ -468,6 +468,7 @@ public class JamadProjApplication {
 //		    prepo.save(p2);
 //		    productList.add(p1);
 //		    productList.add(p2);
+
 //		    List<Product> productList = new ArrayList<>();
 //		    Product p1 = new Product("Nice Pink Hat","Top Selling product",1,Category.Clothing,13.0,"http://picture-cdn.wheretoget.it/0v3cfh-l-610x610.jpg",null,null,null,max);
 //		    Product p2 = new Product("Bickni","Top Selling product",1,Category.Clothing,13.0,"http://picture-cdn.wheretoget.it/0v3cfh-l-610x610.jpg",null,null,null,max);

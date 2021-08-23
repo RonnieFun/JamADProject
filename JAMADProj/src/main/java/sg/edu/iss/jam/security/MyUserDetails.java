@@ -23,10 +23,20 @@ public class MyUserDetails implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-		authorities.add(new SimpleGrantedAuthority("ROLE_"+user.getRoles().toString()));
 		
-		return authorities;
+		List<String> roles = new ArrayList<>();
+		for(Roles r : user.getRoles()) {
+			roles.add(r.getRole().toString());
+		}
+		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+		
+		for(int i = 0; i < roles.size(); i++) {
+		authorities.add(new SimpleGrantedAuthority(roles.get(i)));
+		}
+		return authorities;  
+		
+//		authorities.add(new SimpleGrantedAuthority("ROLE_"+user.getRole().toString()));
+//		return authorities;
 		
 	}
 
@@ -64,6 +74,23 @@ public class MyUserDetails implements UserDetails {
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return user.isEnabled();
+	}
+	
+	public String getFirstName() {
+		// TODO Auto-generated method stub
+		return user.getFirstName();
+	}
+	
+	public String getFullName() {
+		return user.getFullname();
+	}
+	
+	public String getProfileUrl() {
+		return user.getProfileUrl();
+	}
+	
+	public Long getUserId() {
+		return user.getUserID();
 	}
 
 }
