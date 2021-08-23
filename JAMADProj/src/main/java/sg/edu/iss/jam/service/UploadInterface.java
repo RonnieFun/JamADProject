@@ -1,23 +1,14 @@
 package sg.edu.iss.jam.service;
 
-import java.nio.file.Path;
-import java.util.stream.Stream;
+import java.io.IOException;
 
-import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface UploadInterface {
 	
-	void init();
+	String store(MultipartFile thumbFile, String savepath, String filename);
+	
+	Boolean delete(String filepath) throws IOException;
 
-	void store(MultipartFile file, String MediaType);
-
-	Stream<Path> loadAll();
-
-	Path load(String filename);
-
-	Resource loadAsResource(String filename);
-
-	void deleteAll();
 
 }

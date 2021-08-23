@@ -75,11 +75,15 @@ public interface UserInterface {
 	
 	ShoppingCartDetails getCartDetailByProductID(Long productId, Long shoppingCartID);
 	
+
+  void updateUser(User user);
+
 	void savePayement(@Valid Payment payment);
 	
 	void deleteCartDetails(ShoppingCartDetails cardetail);
 	
 	void updateProduct(Product product);
+
 
 	List<Object[]> getTopAllProductsInPastWeekByOrderDetailsQuantity(int i);
 

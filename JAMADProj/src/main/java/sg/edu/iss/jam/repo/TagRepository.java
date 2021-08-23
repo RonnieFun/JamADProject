@@ -16,4 +16,6 @@ public interface TagRepository extends JpaRepository<Tag, Long> {
 	List<Tag> findTagsByMediaId(@Param("id") Long id);
 	
 	public Collection<Tag> findByMediaTagList(Media media);
+	
+	Tag findByTagName(String tagName);
 }

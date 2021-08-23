@@ -4,6 +4,8 @@ import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -39,6 +41,9 @@ public class User {
 	private String shopDescription;
 	
 	private boolean enabled;
+	
+//	@Enumerated(EnumType.STRING)
+//	private Role role;
 	
 	//OneToMany relation with Roles
 	@OneToMany(mappedBy = "roleUser", fetch= FetchType.EAGER)
@@ -204,6 +209,12 @@ public class User {
 	public String getProfileUrl() {
 		return profileUrl;
 	}
+	
+	public String getFullname() {
+		String fullName = firstName + " " + lastName;
+		
+		return fullName;
+	}
 
 
 	public void setProfileUrl(String profileUrl) {
@@ -353,6 +364,14 @@ public class User {
 	public void setPaymentList(Collection<Payment> paymentList) {
 		this.paymentList = paymentList;
 	}
+
+//	public Role getRole() {
+//		return role;
+//	}
+//
+//	public void setRole(Role role) {
+//		this.role = role;
+//	}
 	
 	
 	
