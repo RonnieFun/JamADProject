@@ -16,7 +16,7 @@
 			<h3 class="col-md-auto">Trending Videos</h3>
 			<hr>
 				<div class="row col-lg-11 mx-auto">
-					<th:block th:each="video: ${topmusics}">
+					<th:block th:each="music: ${topmusic}">
 						<div class="col-6 col-md-3 col-lg-3 mb-5">
 						<div class="card mb-1 h-100"> 
 						
@@ -24,7 +24,7 @@
                         	<!-- <a th:href="@{/video/watchvideo(id=${video.id})}"> -->
 							<a th:href="@{/video/watchvideo}">
 								<img th:src="${video.thumbnailUrl}" class="card-img-top productPhotoSize" alt="...">
-								<span  class="sideVideoDuration" th:text="${video.duration}"></span> 
+								<span  class="sideVideoDuration" th:text="${music.duration}"></span> 
 							</a>
 							
 							<!-- Collapse -->
@@ -37,7 +37,7 @@
 										<div class="col-4">
 											<img class="rounded-circle" width="100%"
 												style="padding-left: 30%; padding-bottom: 10%"
-												th:src="${video.channel.channelUser.profileUrl}">
+												th:src="${music.channel.channelUser.profileUrl}">
 										</div>
 									</div> 
 									</a>
@@ -48,19 +48,19 @@
 									<!--   need add channel id
 									  <a th:href="@{/music/viewartistmusicchannel(id=${video.channel.channelID})}"> -->
 									  	 <a th:href="@{/music/viewartistmusicchannel}">
-											<span th:text="${video.channel.channelUser.displayName}"> </span>
+											<span th:text="${music.channel.channelUser.displayName}"> </span>
 											</span>
 											</a> 
 									  </div> 
 									  
 									<!-- Title -->
 									<div class="mb-1 productHeading h6"><strong>Title:</strong>
-										<span th:text="${video.title}"></span>
+										<span th:text="${music.title}"></span>
 										</div>
 										
 									<!-- tag -->
 										<div class=	"mb-1 productHeading h6"><strong>Tags:</strong>
-											<span  th:each="tag:${video.tagList}" >
+											<span  th:each="tag:${music.tagList}" >
 											<span  th:text="${tag.tagName}"></span>
 										</span>
 										</div>
