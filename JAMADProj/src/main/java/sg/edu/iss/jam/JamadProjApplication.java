@@ -185,19 +185,19 @@ public class JamadProjApplication {
 ////			media2.setMediaType(MediaType.Music);
 ////			mrepo.save(media1);
 ////			mrepo.save(media2);
-			Roles Artist = new Roles(Role.Artist);
+//			Roles Artist = new Roles(Role.Artist);
 //			Roles Customer = new Roles(Role.Customer);
 //			Roles ServiceProvider = new Roles(Role.ServiceProvider);
 //
 //			rolesrepo.save(Artist);
 			
-			List<Roles> maxRoles = new ArrayList<>();
-			
-			maxRoles.add(Artist);
-			
-			User max = new User("Max", "Chen", "max@gmail.com", "abcdefg", "21 June 1987", "MaxChen87", "Best User Ever", "www.max.com", maxRoles);
-			
-			urepo.save(max);
+//			List<Roles> maxRoles = new ArrayList<>();
+//			
+//			maxRoles.add(Artist);
+//			
+//			User max = new User("Max", "Chen", "max@gmail.com", "abcdefg", "21 June 1987", "MaxChen87", "Best User Ever", "www.max.com", maxRoles);
+//			
+//			urepo.save(max);
 //			
 //			List<Media> FirstPlayListMedia = new ArrayList<>();
 //			
@@ -303,24 +303,24 @@ public class JamadProjApplication {
 //		    maxComments.add(comment2);
 //		    
 //		    
-		    List<Product> productList = new ArrayList<>();
-		    Product p1 = new Product("Nice Pink Hat","Top Selling product",1,Category.Clothing,13.0,"http://picture-cdn.wheretoget.it/0v3cfh-l-610x610.jpg",null,null,null,max);
-		    Product p2 = new Product("Bickni","Top Selling product",1,Category.Clothing,13.0,"http://picture-cdn.wheretoget.it/0v3cfh-l-610x610.jpg",null,null,null,max);
-		    prepo.save(p1);
-		    prepo.save(p2);
-		    productList.add(p1);
-		    productList.add(p2);
-		    
-		    ShoppingCart shop =  new ShoppingCart(max, null);
-		    srepo.save(shop);
-		    
-		    List<ShoppingCartDetails> detailList = new ArrayList<>();
-		    ShoppingCartDetails detail = new ShoppingCartDetails(2, p1,shop);
-		    ShoppingCartDetails detail2 = new ShoppingCartDetails(3, p2,shop);
-		    detailList.add(detail);
-		    detailList.add(detail2);
-		    shdrepo.save(detail);
-		    shdrepo.save(detail2);
+//		    List<Product> productList = new ArrayList<>();
+//		    Product p1 = new Product("Nice Pink Hat","Top Selling product",1,Category.Clothing,13.0,"http://picture-cdn.wheretoget.it/0v3cfh-l-610x610.jpg",null,null,null,max);
+//		    Product p2 = new Product("Bickni","Top Selling product",1,Category.Clothing,13.0,"http://picture-cdn.wheretoget.it/0v3cfh-l-610x610.jpg",null,null,null,max);
+//		    prepo.save(p1);
+//		    prepo.save(p2);
+//		    productList.add(p1);
+//		    productList.add(p2);
+//		    
+//		    ShoppingCart shop =  new ShoppingCart(max, null);
+//		    srepo.save(shop);
+//		    
+//		    List<ShoppingCartDetails> detailList = new ArrayList<>();
+//		    ShoppingCartDetails detail = new ShoppingCartDetails(2, p1,shop);
+//		    ShoppingCartDetails detail2 = new ShoppingCartDetails(3, p2,shop);
+//		    detailList.add(detail);
+//		    detailList.add(detail2);
+//		    shdrepo.save(detail);
+//		    shdrepo.save(detail2);
 //		    
 ////		    UserHistory userHistory1 = new UserHistory(1, jayChou, FirstPlayListMedia);
 ////		    UserHistory userHistory2 = new UserHistory(2, zhaoQi, SecondPlayListMedia);

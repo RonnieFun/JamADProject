@@ -69,6 +69,8 @@ public interface UserInterface {
 	void saveCartDetails(ShoppingCartDetails carddetail);
 	
 	ShoppingCartDetails getCartDetailByProductID(Long productId, Long shoppingCartID);
+	
+	public void updateUser(User user);
 
 
 }

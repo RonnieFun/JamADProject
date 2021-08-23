@@ -224,5 +224,9 @@ public class UserImplementation implements UserInterface {
 		// TODO Auto-generated method stub
 		return shdrepo.getByProductIdAndCartID(productId,shoppingCartID);
 	}
+	@Override
+	public void updateUser(User user) {
+		urepo.save(user);
+	}
 
 }
