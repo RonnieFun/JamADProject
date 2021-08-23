@@ -5,14 +5,21 @@
 <body class="userPages">
  <nav th:replace="Fragments/layout.html :: navbar"></nav>
 
-<section>
-	<video width="400" height="200" class="col-md-4 col-lg-5 h-50 userPageMainVideo" controls>
+	<video width="400" height="200" class="col-md-4 col-lg-5 userPageMainVideo" controls>
  		<source th:src="${media.mediaUrl}" type="video/mp4">
  	</video>
- 	
+
  	<!-- Video Introduction Section -->
  	<div class="userPageVideoIntroSection">
- 		<span th:text="'Title: ' + ${media.title}" class="userVideoTitleLabel"></span>
+ 		<!-- <span th:text="'Title: ' + ${media.title}" class="userVideoTitleLabel"></span> -->
+ 		
+ 		<span class="userVideoTitleLabel">
+	     <span th:text="${media.title}" class=""></span>
+	      <span th:each = "tag: ${media.tagList}">
+	         <span class="smallVidAuthor" th:text="${' | ' + tag.tagName}"></span>
+	       </span>
+     	</span>
+     
 		<span th:text="${viewCount} + ' views, published on ' + ${media.createdOn}" class="numberOfReviews"></span> 
  		<!-- Like Button Heart Shape -->
 		<i th:if="${liked == false}" id="heartButton" class="fas fa-heart userPageHeartIcon" onclick="openForm()" aria-hidden="true"></i>
@@ -20,10 +27,10 @@
 		<hr>
  	</div>
  	
- 	<div class="playlistFormPopup" id="myForm">
+ 	<div class="playlistFormPopup" id="myHeartForm">
 	  <form name="heartForm" id="heartForm" method="post" class="form-container">
 	
-	    <label><b>&nbsp;Please select a Playlist to save to:&nbsp;</b></label>
+	    <label><b>Please select a Playlist to save to:</b></label>
 	    <br>
 	    <select id="playlistID" name = "playlistID">
 			<option disabled selected>Select an Option</option>
@@ -37,23 +44,28 @@
 		<input type="hidden" id="userID" th:value="${user.userID}">
 		<input type="hidden" id="mediaID" th:value="${media.id}">
 		
+		<span style="display: flex">
 	    <button id="savePlaylistButton" type="button" class="btn saveToPlaylistButton" onclick="closeForm()">Submit</button>
+  		
+  		<button id="cancelSavePlaylistButton" type="button" class="btn cancelSavePlaylistButton" onclick="closeForm()">Cancel</button>
+  		</span>
   		</form>
 	</div>
 
  	<!-- Artist Intro Section -->
  	<div class="userPageArtistIntroSection">
 		<form name="artistForm" id="artistForm" method="post">
-	 		<input type = "hidden" id="artistId"  th:value = "${artistId}">
-			<span id="ArtistName" th:text="'Artist: ' + ${artistName}" class="artistName"></span>
-			
+	 		<input type = "hidden" id="artistId"  th:value = "${media.channel.channelUser.userID}">
+	 		<a th:href="@{/video/viewartistvideochannel/{artistId}(artistId = ${media.channel.channelUser.userID})}">
+			<span id="ArtistName" th:text="'Artist: ' + ${media.channel.channelUser.displayName}" class="artistName"></span>
+			</a>
 			<!--  If the customer already subscribed the artist, it shows "UNSUBSCRIBE"	--> 	
-			<span th:if = "${subscribeStatus}" >
+			<span th:if = "${subscribeStatus == true}" >
 				<button class="sbutton userSubscribeBtn zqClass" type= "button" id="zqButton" >UNSUBSCRIBE</button>
 			</span>
 			
 			<!--  Else if the customer haven't subscribed the artist, it shows "SUBSCRIBE" -->
-			<span th:unless = "${subscribeStatus}" >
+			<span th:if = "${subscribeStatus == false}" >
 				<button class="sbutton userSubscribeBtn" type= "button" id="zqButton" >SUBSCRIBE</button>
 			</span> 
 		</form>	
@@ -90,13 +102,13 @@
 		</span>
 	</div>
 	</section>
-</section>	
+	
 
 <!-- Side Videos List -->
-<section>
+
 	<div class="userPageSideVideosSection flex-container">
 		<span th:each = "sideMedia: ${allMedia}"> <!-- th:each goes into this span to iterate and generate videos list -->
-			<a th:href="@{/home}" class="sideVideoLinkColor"><img th:src="${sideMedia.thumbnailUrl}" class="userPageSideVideos" alt="...">
+			<a th:href="@{/video/watchvideo/{mediaId}(mediaId = ${sideMedia.id})}" class="sideVideoLinkColor"><img th:src="${sideMedia.thumbnailUrl}" class="userPageSideVideos" alt="...">
 			<span class="col smallVidDescription">
 				<span th:text="${sideMedia.title}" class=""></span>
 				<span th:each = "tag: ${sideMedia.tagList}">
@@ -110,7 +122,7 @@
 	 		</a>
  		</span>
 	</div>
-</section>
+
 
 <div th:replace="Fragments/layout.html :: footer"></div>
 <script type="text/javascript" th:src="@{/js/watch_videos_ajax.js}"></script>

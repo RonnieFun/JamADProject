@@ -29,6 +29,10 @@ public class OrderDetails {
 		this.order = order;
 	}
 
+	public OrderDetails() {
+		super();
+	}
+
 	public Long getOrderDetailId() {
 		return orderDetailId;
 	}

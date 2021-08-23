@@ -3,7 +3,7 @@
 <head th:replace="Fragments/layout.html :: headerfiles"> 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
-<body>
+<body style="padding-bottom: 30px">
   <img th:src="@{/images/JAM_LOGO.png}" class="logo2" alt="JAM Logo">
  <nav class="navbar jamHeader3">
  
@@ -180,86 +180,8 @@
             </div>
           </div>
 
-<!-- <section th:object = ${product}>
-<img th:src="*{productUrl}" alt="..." class="col-md-3 col-lg-4 userPageImage" />
-</section>
-
-<section>
-<form name="productForm" id="productForm" method="post">
-	<div class="userPageSideImageSection flex-container" th:object = ${product}>
-		<label th:text="*{productName}" class="titleName"></label>
-		<br><br>
-		<label th:text="*{productDes}"></label>
-		<br><br>
-		<label th:text="*{productCategory}"></label>
-		<div>
-		<button id="addToCart" type="button">Add To Cart</button>
-		</div>
-		<label th:text="*{productName}"></label>
-		<label th:text="*{productDes}"></label>
-		<label th:text="*{productCategory}"></label>
-		<label th:text="*{productPrice}"></label>
-		<span th:each = "sideMedia: ${allMedia}"> th:each goes into this span to iterate and generate videos list
-			<a th:href="@{/home}" class="sideVideoLinkColor"><img th:src="${sideMedia.thumbnailUrl}" class="userPageSideVideos" alt="...">
-			<span class="col smallVidDescription">
-				<span th:text="${sideMedia.title}" class=""></span>
-				<span th:each = "tag: ${sideMedia.tagList}">
-	 				<span class="smallVidAuthor" th:text="${' | ' + tag.tagName}"></span>
-	 			</span>	
-				<br>
-				<br>
-	 			<span th:text="${'Author: ' + sideMedia.channel.channelUser.displayName}" class="smallVidAuthor"></span>
-	 		</span>
-	 		<span th:text="${sideMedia.duration}" class="sideVideoDuration"></span>
-	 		</a>
- 		</span>
-	</div>
-	</form>
-</section> -->
-
 <div class="footer">
   <p style="margin-top: 3px;">@2020-2021 Jam | Term 2</p>
 </div>
 </body>
-
-<!-- <script>
-function myFunction() {
-	  var artistId = $('#divArtistId').text();
-	  alert(artistId);
-	  //document.getElementById("demo").innerHTML = "You selected: " + x;
-	  $.ajax({
-	        type: 'POST',
-	        url: "/getAllProduct",
-	        contentType:'application/x-www-form-urlencoded; charset=UTF-8',
-	        data:{
-	        	artistId :artistId
-	        },
-	        success: function(response){
-	        	//console.log(response);
-	        	//$('#courseId').empty();
-	        	var jason =$.parseJSON(response);
-	        	console.log(jason)
-	        	/* $.each(jason, function(key, value) {
-  					var $option = $("<option/>", {
-    					value: key,
-    					text: key + ' | '+value
-  						});
-  					$('#courseId').append($option);
-				}); */
-	        	/* for(var i in jason){
-	        		console.log(jason[i]);
-	        		//$('#courseId').append('<option th:value="'+jason[i] +'">'+ jason[i] +'</option>')
-	        		
-	        	} */
-	        	
-	        },
-	        error:function(xmlHttpRequest, textStatus, errorThrown){
-	        	console.log("error"+ errorThrown);
-	            alert("error");
-	        } 
-	    });
-	  
-	  
-	}
-</script>  -->
 </html>

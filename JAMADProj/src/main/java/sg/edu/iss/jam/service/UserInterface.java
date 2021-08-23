@@ -2,12 +2,16 @@ package sg.edu.iss.jam.service;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.data.jpa.repository.Query;
 
 import sg.edu.iss.jam.model.Comments;
 import sg.edu.iss.jam.model.Media;
+import sg.edu.iss.jam.model.MediaType;
 import sg.edu.iss.jam.model.OrderDetails;
 import sg.edu.iss.jam.model.Orders;
+import sg.edu.iss.jam.model.Payment;
 import sg.edu.iss.jam.model.Playlists;
 import sg.edu.iss.jam.model.Product;
 import sg.edu.iss.jam.model.Playlists;
@@ -34,6 +38,7 @@ public interface UserInterface {
 	Media findMediaByMediaId(Long ID);
 	List<Media> findMediaListByPlayListID(Long playlistID);
 	List<Media> findAllMedia();
+	Media findMediaByMediaTypeAndMediaId(MediaType mediaType, Long id);
 	Media saveMedia(Media media);
 
 	//SUBSCRIBED
@@ -70,8 +75,32 @@ public interface UserInterface {
 	
 	ShoppingCartDetails getCartDetailByProductID(Long productId, Long shoppingCartID);
 	
-	public void updateUser(User user);
 
+  void updateUser(User user);
+
+	void savePayement(@Valid Payment payment);
+	
+	void deleteCartDetails(ShoppingCartDetails cardetail);
+	
+	void updateProduct(Product product);
+
+
+	List<Object[]> getTopAllProductsInPastWeekByOrderDetailsQuantity(int i);
+
+	List<Object[]> getTopMusicCollectionProductsInPastWeekByOrderDetailsQuantity(int i);
+
+	List<Object[]> getTopMerchandiseProductsInPastWeekByOrderDetailsQuantity(int i);
+
+	List<Object[]> getTopClothingProductsInPastWeekByOrderDetailsQuantity(int i);
+
+	List<Object[]> getAllProducts();
+
+	List<Object[]> getAllMusicCollections();
+
+	List<Object[]> getAllClothing();
+
+	List<Object[]> getAllMerchandise();
+
+	List<Orders> getPurchaseHistoryByUserId(Long userID);
 
 }
-

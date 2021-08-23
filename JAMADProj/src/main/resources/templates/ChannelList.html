@@ -7,7 +7,6 @@
 
 </head>
 <body>
-
 	<h1>Channel List</h1>
 
 	<div class="container">
@@ -28,7 +27,7 @@
 
 					<tbody>
 						<tr th:each="ChannelDTO:${ChannelDTOlist}">
-							<td th:text=${ChannelDTO.channel.channelName}></td>
+							<td> <a th:text=${ChannelDTO.channel.channelName} th:href="@{/artist/channel/{mediatype} (mediatype = ${ChannelDTO.channel.mediaType})}"></a></td>
 							<td th:text=${ChannelDTO.channel.channelDescription}></td>
 							<td th:text=${ChannelDTO.channel.mediaType}></td>
 							<td th:text=${ChannelDTO.channel.createdOn}></td>

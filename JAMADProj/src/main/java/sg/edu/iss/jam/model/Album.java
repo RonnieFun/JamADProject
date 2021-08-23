@@ -14,7 +14,7 @@ public class Album {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long AlbumID;
+	private Long AlbumID;
 	
 	private String AlbumDescription;
 	
@@ -29,8 +29,6 @@ public class Album {
 	private Collection<Media> AlbumMedia;
 
 	
-	
-	
 	public Album() {
 		super();
 	}
@@ -43,11 +41,11 @@ public class Album {
 		AlbumMedia = albumMedia;
 	}
 
-	public long getAlbumID() {
+	public Long getAlbumID() {
 		return AlbumID;
 	}
 
-	public void setAlbumID(long albumID) {
+	public void setAlbumID(Long albumID) {
 		AlbumID = albumID;
 	}
 
@@ -82,6 +80,5 @@ public class Album {
 	public void setAlbumMedia(Collection<Media> albumMedia) {
 		AlbumMedia = albumMedia;
 	}
-
 	
 }

@@ -6,6 +6,14 @@ body {
 	font-family: 'Roboto', sans-serif;
 }
 
+.mediaNotFound{
+	text-align: center;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.8rem;
+	margin: auto;
+	margin-top: 16%;
+}
+
 .cartHorizonalLine { 
 	margin-top: 220px; 
 }
@@ -17,6 +25,12 @@ body {
 	border-bottom: 2px solid #B8C5D0;
 }
 
+.cartIntroSection1{
+	background-color: white;
+	padding-bottom: 0px;
+	margin-top: 40px;
+	border-bottom: 2px solid #B8C5D0;
+}
 .smallBanner{
 	position: relative;
 	height: 110px;
@@ -99,8 +113,6 @@ body {
 	margin-left: 6.5%;
 	margin-top: 21.5%;
 }
-
-
 
 .aboutShopSection{
 	position:absolute;
@@ -229,6 +241,10 @@ body {
 	margin-left: 43%;
 	top: 160px;
 }
+
+/*.container {
+    margin: 5px 0px;
+}*/
 	
   .aboutShopHeader{
 	position:absolute;
@@ -1087,10 +1103,11 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 55%;
+  height: 25rem;
   margin-left: 7.5%;
   margin-top: calc(8vh - 0.01%);
   padding: 0px;
+  object-fit: fill;
 }
 
 .userPageImage{
@@ -1120,7 +1137,7 @@ body {
 	cursor: pointer;
 	margin-left: 92.5%;
 	margin-top: -6%;
-	color: LightPink;
+	color: lightgray;
 	position: absolute;
 	font-size: 2rem;
 }
@@ -1166,29 +1183,39 @@ body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 1.1vw;
 	margin-top: -5%;
+	text-decoration: underline;
 }
 
 .playlistFormPopup{
 	display: none;
 	background-color: rgba(242.24999696016312, 233.16562682390213, 233.16562682390213, 1);
 	position: absolute;
-	left: 45%;
-	margin-top: -5%;
+	left: 38%;
+	margin-top: -0.2rem;
 	z-index:9;
 	border: 1px solid black;
 	font-family: 'Roboto', sans-serif;
-	font-size: 0.8vw;
-	padding: 10px 15px;
-	border-radius: 56px;
+	font-size: 0.7vw;
+	padding: 3px 15px;
+	max-height: 5rem;
 }
 
 .saveToPlaylistButton{
 	font-family: 'Roboto', sans-serif;
-	font-size: 0.8vw;
+	font-size: 0.7vw;
 	background-color: rgba(239.0625, 104.58984375, 104.58984375, 0.7200000286102295);
-	padding: 3px 3%;
-	margin-left: 3%;
-	margin-top: 3%;
+	padding: 0px 3%;
+	
+	margin-top: 4.5%;
+}
+
+.cancelSavePlaylistButton{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.7vw;
+	background-color: rgba(239.0625, 104.58984375, 104.58984375, 0.7200000286102295);
+	padding: 0px 3%;
+	margin-left: 29%;
+	margin-top: 4.5%;
 }
 
 .userSubscribeBtn{
@@ -1303,7 +1330,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 170px;
-  margin-top: calc(2.5vh + 12%);
+  margin-top: calc(2.5vh + 3.5%);
 }
 
 .sideVideoLinkColor{
@@ -1335,6 +1362,48 @@ body {
   	margin-bottom: 10px;
   	margin-top: -1.6%;
   	font-size: 0.8vw;
+	font-family: 'Roboto', sans-serif;
+	color: white;
+	background-color: black;
+	padding: 0px 0.2%;
+}
+
+.sideDurationVideoChannelPage{
+	position: absolute;
+	display: block;
+  	right: 0;
+  	margin-right: 2%;
+  	margin-bottom: 10px;
+  	margin-top: -8%;
+  	font-size: 0.9vw;
+	font-family: 'Roboto', sans-serif;
+	color: white;
+	background-color: black;
+	padding: 0px 0.2%;
+}
+
+.sideDurationVideoLandingPage{
+	position: absolute;
+	display: block;
+  	right: 0;
+  	margin-right: 2%;
+  	margin-bottom: 10px;
+  	margin-top: -8.5%;
+  	font-size: 0.9vw;
+	font-family: 'Roboto', sans-serif;
+	color: white;
+	background-color: black;
+	padding: 0px 0.2%;
+}
+
+.sideDurationMusicLandingPage{
+	position: absolute;
+	display: block;
+  	right: 0;
+  	margin-right: 2%;
+  	margin-bottom: 10px;
+  	margin-top: -8.5%;
+  	font-size: 0.9vw;
 	font-family: 'Roboto', sans-serif;
 	color: white;
 	background-color: black;
@@ -1414,10 +1483,11 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 55%;
+  height: 25rem;
   margin-left: 7.5%;
   margin-top: calc(8vh - 0.01%);
   padding: 0px;
+  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -1438,7 +1508,7 @@ body {
 	cursor: pointer;
 	margin-left: 92.5%;
 	margin-top: -6%;
-	color: LightPink;
+	color: lightgray;
 	position: absolute;
 	font-size: 2rem;
 }
@@ -1484,6 +1554,7 @@ body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 1.1vw;
 	margin-top: -5%;
+	text-decoration: underline;
 }
 
 .userSubscribeBtn{
@@ -1594,7 +1665,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 140px;
-  margin-top: calc(2.5vh + 12%);
+  margin-top: calc(2.5vh + 3.5%);
 }
 
 .sideVideoLinkColor{
@@ -1704,10 +1775,11 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 55%;
+  height: 25rem;
   margin-left: 7.5%;
   margin-top: calc(8vh - 0.01%);
   padding: 0px;
+  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -1730,7 +1802,7 @@ body {
 }
 
 .userPageHeartIcon{
-	color: LightPink;
+	color: lightgray;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
@@ -1789,6 +1861,7 @@ body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 1.1vw;
 	margin-top: -5%;
+	text-decoration: underline;
 }
 
 .userSubscribeBtn{
@@ -1899,7 +1972,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 10%);
+  margin-top: calc(2.5vh + 1.5%);
 }
 
 .smallVidDescription{
@@ -1990,10 +2063,11 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 55%;
+  height: 25rem;
   margin-left: 7.5%;
   margin-top: calc(8vh - 0.01%);
   padding: 0px;
+  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -2011,7 +2085,7 @@ body {
 }
 
 .userPageHeartIcon{
-	color: LightPink;
+	color: lightgray;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
@@ -2070,6 +2144,7 @@ body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 1.1vw;
 	margin-top: -5%;
+	text-decoration: underline;
 }
 
 .userSubscribeBtn{
@@ -2180,7 +2255,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 12%);
+  margin-top: calc(2.5vh + 3.5%);
 }
 
 .smallVidDescription{
@@ -2271,10 +2346,11 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 55%;
+  height: 25rem;
   margin-left: 7.5%;
   margin-top: calc(8vh - 0.01%);
   padding: 0px;
+  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -2292,7 +2368,7 @@ body {
 }
 
 .userPageHeartIcon{
-	color: LightPink;
+	color: lightgray;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
@@ -2351,6 +2427,7 @@ body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 1.1vw;
 	margin-top: -5%;
+	text-decoration: underline;
 }
 
 .userSubscribeBtn{
@@ -2461,7 +2538,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 12%);
+  margin-top: calc(2.5vh + 3.5%);
 }
 
 .smallVidDescription{
@@ -2552,10 +2629,11 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 55%;
+  height: 30rem;
   margin-left: 7.5%;
   margin-top: calc(8vh - 0.01%);
   padding: 0px;
+  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -2573,7 +2651,7 @@ body {
 }
 
 .userPageHeartIcon{
-	color: LightPink;
+	color: lightgray;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
@@ -2632,6 +2710,7 @@ body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 1.1vw;
 	margin-top: -5%;
+	text-decoration: underline;
 }
 
 .userSubscribeBtn{
@@ -2734,7 +2813,7 @@ body {
 
 .userPageSideVideosSection{
   margin-left: 63%;
-  margin-top: calc(3vh - 33%);
+  margin-top: calc(1vh - 30.5% - 4.9rem);
 }
 
 .userPageSideVideos{
@@ -2742,7 +2821,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 13%);
+  margin-top: calc(2.5vh + 5%);
 }
 
 .smallVidDescription{
@@ -2833,10 +2912,11 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 55%;
+  height: 35rem;
   margin-left: 7.5%;
   margin-top: calc(8vh - 0.01%);
   padding: 0px;
+  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -2854,7 +2934,7 @@ body {
 }
 
 .userPageHeartIcon{
-	color: LightPink;
+	color: lightgray;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
@@ -2913,6 +2993,7 @@ body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 1.1vw;
 	margin-top: -5%;
+	text-decoration: underline;
 }
 
 .userSubscribeBtn{
@@ -3015,7 +3096,7 @@ body {
 
 .userPageSideVideosSection{
   margin-left: 63%;
-  margin-top: calc(3vh - 33%);
+  margin-top: calc(3vh - 37%);
 }
 
 .userPageSideVideos{
@@ -3023,7 +3104,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 12%);
+  margin-top: calc(2.5vh + 3.5%);
 }
 
 .smallVidDescription{
@@ -3114,10 +3195,11 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 55%;
+  height: 35rem;
   margin-left: 7.5%;
   margin-top: calc(8vh - 0.01%);
   padding: 0px;
+  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -3135,7 +3217,7 @@ body {
 }
 
 .userPageHeartIcon{
-	color: LightPink;
+	color: lightgray;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
@@ -3194,6 +3276,7 @@ body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 1.1vw;
 	margin-top: -5%;
+	text-decoration: underline;
 }
 
 .userSubscribeBtn{
@@ -3296,7 +3379,7 @@ body {
 
 .userPageSideVideosSection{
   margin-left: 63%;
-  margin-top: calc(3vh - 32.5%);
+  margin-top: calc(3.5vh - 37.5%);
 }
 
 .userPageSideVideos{
@@ -3304,7 +3387,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 12%);
+  margin-top: calc(2.5vh + 3.5%);
 }
 
 .smallVidDescription{
@@ -3396,10 +3479,11 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 55%;
+  height: 35rem;
   margin-left: 7.5%;
   margin-top: calc(8vh - 0.01%);
   padding: 0px;
+  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -3417,7 +3501,7 @@ body {
 }
 
 .userPageHeartIcon{
-	color: LightPink;
+	color: lightgray;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
@@ -3476,6 +3560,7 @@ body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 1.1vw;
 	margin-top: -5%;
+	text-decoration: underline;
 }
 
 .userSubscribeBtn{
@@ -3578,7 +3663,7 @@ body {
 
 .userPageSideVideosSection{
   margin-left: 63%;
-  margin-top: calc(3vh - 32.5%);
+  margin-top: calc(3vh - 33.6%);
 }
 
 .userPageSideVideos{
@@ -3586,7 +3671,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 170px;
-  margin-top: calc(2.5vh + 11.5%);
+  margin-top: calc(2.5vh + 3%);
 }
 
 .smallVidDescription{
@@ -3678,10 +3763,11 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 55%;
+  height: 40rem;
   margin-left: 7.5%;
   margin-top: calc(8vh - 0.01%);
   padding: 0px;
+  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -3699,7 +3785,7 @@ body {
 }
 
 .userPageHeartIcon{
-	color: LightPink;
+	color: lightgray;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
@@ -3758,6 +3844,7 @@ body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 1.1vw;
 	margin-top: -5%;
+	text-decoration: underline;
 }
 
 .userSubscribeBtn{
@@ -3860,7 +3947,7 @@ body {
 
 .userPageSideVideosSection{
   margin-left: 63%;
-  margin-top: calc(3vh - 32.5%);
+  margin-top: calc(3vh - 30.8%);
 }
 
 .userPageSideVideos{
@@ -3868,7 +3955,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 200px;
-  margin-top: calc(2.5vh + 12%);
+  margin-top: calc(2.5vh + 3.5%);
 }
 
 .smallVidDescription{
@@ -5080,6 +5167,16 @@ body{
 
 .dropdown:hover .dropdown-content {display: block;}
 
+
+.ml-auto,
+.mx-auto {
+  margin-left: auto !important; }
+
+.d-flex {
+  display: flex !important; }
+.modalclickable {
+	cursor:pointer
+}
 
 
 

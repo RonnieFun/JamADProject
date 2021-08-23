@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="Fragments/layout.html :: headerfiles"> 
 </head>
-<body>
+<body style="padding-bottom: 30px">
   <img th:src="@{/images/JAM_LOGO.png}" class="logo2" alt="JAM Logo">
  <nav class="navbar jamHeader3">
  
@@ -13,7 +13,7 @@
         </div>
     </form>	
  </nav>
-<section class="pt-7 pb-12">
+<section class="pt-5 pb-12">
       <div class="container">
         <div class="row">
           <div class="col-12 text-center">
@@ -21,18 +21,13 @@
             <!-- Heading -->
             <h3 class="mb-4">Checkout</h3>
 
-            <!-- Subheading -->
-            <p class="mb-10">
-              Already have an account? <a class="font-weight-bold text-reset" href="#!">Click here to login</a>
-            </p>
-
           </div>
         </div>
         <div class="row">
           <div class="col-12 col-md-7">
 
             <!-- Form -->
-            <form>
+            <form th:object="${newPayment}" enctype="multipart/form-data" th:action="@{/placeorder}" method="post">
 
               <!-- Heading -->
               <h6 class="mb-7">Billing Details</h6>
@@ -40,11 +35,14 @@
               <!-- Billing details -->
               <div class="row mb-9">
                 <div class="col-12 col-md-6">
-
+				<fieldset>
+					<input type="hidden" th:field="*{paymentID}">
+				</fieldset>
                   <!-- First Name -->
                   <div class="form-group">
                     <label for="checkoutBillingFirstName">First Name *</label>
-                    <input class="form-control form-control-sm" id="checkoutBillingFirstName" type="text" placeholder="First Name" required>
+                    <input class="form-control form-control-sm" id="checkoutBillingFirstName" type="text" required th:field="*{firstName}">
+                    <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" style="color: red"></p>
                   </div>
 
                 </div>
@@ -53,7 +51,8 @@
                   <!-- Last Name -->
                   <div class="form-group">
                     <label for="checkoutBillingLastName">Last Name *</label>
-                    <input class="form-control form-control-sm" id="checkoutBillingLastName" type="text" placeholder="Last Name" required>
+                    <input class="form-control form-control-sm" id="checkoutBillingLastName" type="text" required th:field="*{lastName}">
+                    <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" style="color: red"></p>
                   </div>
 
                 </div>
@@ -62,16 +61,8 @@
                   <!-- Email -->
                   <div class="form-group">
                     <label for="checkoutBillingEmail">Email *</label>
-                    <input class="form-control form-control-sm" id="checkoutBillingEmail" type="email" placeholder="Email" required>
-                  </div>
-
-                </div>
-                <div class="col-12">
-
-                  <!-- Company Name -->
-                  <div class="form-group">
-                    <label for="checkoutBillingCompany">Company name *</label>
-                    <input class="form-control form-control-sm" id="checkoutBillingCompany" type="text" placeholder="Company name (optional)">
+                    <input class="form-control form-control-sm" id="checkoutBillingEmail" type="email" required th:field="*{email}">
+                    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red"></p>
                   </div>
 
                 </div>
@@ -80,7 +71,8 @@
                   <!-- Country -->
                   <div class="form-group">
                     <label for="checkoutBillingCountry">Country *</label>
-                    <input class="form-control form-control-sm" id="checkoutBillingCountry" type="text" placeholder="Country" required>
+                    <input class="form-control form-control-sm" id="checkoutBillingCountry" type="text" required th:field="*{country}">
+                    <p th:if="${#fields.hasErrors('country')}" th:errors="*{country}" style="color: red"></p>
                   </div>
 
                 </div>
@@ -89,7 +81,8 @@
                   <!-- Address Line 1 -->
                   <div class="form-group">
                     <label for="checkoutBillingAddress">Address Line 1 *</label>
-                    <input class="form-control form-control-sm" id="checkoutBillingAddress" type="text" placeholder="Address Line 1" required>
+                    <input class="form-control form-control-sm" id="checkoutBillingAddress" type="text" required th:field="*{address}">
+                    <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" style="color: red"></p>
                   </div>
 
                 </div>
@@ -107,7 +100,8 @@
                   <!-- Town / City -->
                   <div class="form-group">
                     <label for="checkoutBillingTown">Town / City *</label>
-                    <input class="form-control form-control-sm" id="checkoutBillingTown" type="text" placeholder="Town / City" required>
+                    <input class="form-control form-control-sm" id="checkoutBillingTown" type="text" required th:field="*{city}">
+                    <p th:if="${#fields.hasErrors('city')}" th:errors="*{city}" style="color: red"></p>
                   </div>
 
                 </div>
@@ -116,7 +110,8 @@
                   <!-- ZIP / Postcode -->
                   <div class="form-group">
                     <label for="checkoutBillingZIP">ZIP / Postcode *</label>
-                    <input class="form-control form-control-sm" id="checkoutBillingZIP" type="text" placeholder="ZIP / Postcode" required>
+                    <input class="form-control form-control-sm" id="checkoutBillingZIP" type="text" required th:field="*{postalCode}">
+                    <p th:if="${#fields.hasErrors('postalCode')}" th:errors="*{postalCode}" style="color: red"></p>
                   </div>
 
                 </div>
@@ -125,102 +120,69 @@
                   <!-- Mobile Phone -->
                   <div class="form-group mb-0">
                     <label for="checkoutBillingPhone">Mobile Phone *</label>
-                    <input class="form-control form-control-sm" id="checkoutBillingPhone" type="tel" placeholder="Mobile Phone" required>
+                    <input class="form-control form-control-sm" id="checkoutBillingPhone" type="tel" required th:field="*{phoneNumber}">
+                    <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" style="color: red"></p>
                   </div>
 
                 </div>
               </div>
 
               <!-- Heading -->
-              <h6 class="mb-7">Payment</h6>
+              <h6 class="mb-7">Payment Details</h6>
+              <div class="my-3">
+            <div class="form-check">
+              <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
+              <label class="form-check-label" for="credit">Credit card</label>
+            </div>
+            <div class="form-check">
+              <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
+              <label class="form-check-label" for="debit">Debit card</label>
+            </div>
+          </div>
 
-              <!-- List group -->
-              <div class="list-group list-group-sm mb-7">
-                <div class="list-group-item">
+          <div class="row gy-3">
+            <div class="col-md-6">
+              <label for="cc-name" class="form-label">Name on card</label>
+              <input type="text" class="form-control form-control-sm" id="cc-name" required th:field="*{nameOnCard}">
+             <!--  <small class="text-muted">Full name as displayed on card</small>
+              <div class="invalid-feedback">
+                Name on card is required
+              </div> -->
+              <p th:if="${#fields.hasErrors('nameOnCard')}" th:errors="*{nameOnCard}" style="color: red"></p>
+            </div>
 
-                  <!-- Radio -->
-                  <div class="custom-control custom-radio">
+            <div class="col-md-6">
+              <label for="cc-number" class="form-label">Credit card number</label>
+              <input type="text" class="form-control form-control-sm" id="cc-number" required th:field="*{creditNumber}">
+              <!-- <div class="invalid-feedback">
+                Credit card number is required
+              </div> -->
+              <p th:if="${#fields.hasErrors('creditNumber')}" th:errors="*{creditNumber}" style="color: red"></p>
+            </div>
 
-                    <!-- Input -->
-                    <input class="custom-control-input" id="checkoutPaymentCard" name="payment" type="radio" data-toggle="collapse" data-action="show" data-target="#checkoutPaymentCardCollapse">
+            <div class="col-md-3">
+              <label for="cc-expiration" class="form-label">Expiration</label>
+              <input type="text" class="form-control form-control-sm" id="cc-expiration" required th:field="*{expiration}">
+             <!--  <div class="invalid-feedback">
+                Expiration date required
+              </div> -->
+              <p th:if="${#fields.hasErrors('expiration')}" th:errors="*{expiration}" style="color: red"></p>
+            </div>
 
-                    <!-- Label -->
-                    <label class="custom-control-label font-size-sm text-body text-nowrap" for="checkoutPaymentCard">
-                      Credit Card <img class="ml-2" src="assets/img/brands/color/cards.svg" alt="...">
-                    </label>
-
-                  </div>
-
-                </div>
-                <div class="list-group-item collapse py-0" id="checkoutPaymentCardCollapse">
-
-                  <!-- Form -->
-                  <div class="form-row py-5">
-                    <div class="col-12">
-                      <div class="form-group mb-4">
-                        <label class="sr-only" for="checkoutPaymentCardNumber">Card Number</label>
-                        <input class="form-control form-control-sm" id="checkoutPaymentCardNumber" type="text" placeholder="Card Number *" required>
-                      </div>
-                    </div>
-                    <div class="col-12">
-                      <div class="form-group mb-4">
-                        <label class="sr-only" for="checkoutPaymentCardName">Name on Card</label>
-                        <input class="form-control form-control-sm" id="checkoutPaymentCardName" type="text" placeholder="Name on Card *" required>
-                      </div>
-                    </div>
-                    <div class="col-12 col-md-4">
-                      <div class="form-group mb-md-0">
-                        <label class="sr-only" for="checkoutPaymentMonth">Month</label>
-                        <select class="custom-select custom-select-sm" id="checkoutPaymentMonth">
-                          <option>January</option>
-                          <option>February</option>
-                          <option>March</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-12 col-md-4">
-                      <div class="form-group mb-md-0">
-                        <label class="sr-only" for="checkoutPaymentCardYear">Year</label>
-                        <select class="custom-select custom-select-sm" id="checkoutPaymentCardYear">
-                          <option>2017</option>
-                          <option>2018</option>
-                          <option>2019</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-12 col-md-4">
-                      <div class="input-group input-group-merge">
-                        <input class="form-control form-control-sm" id="checkoutPaymentCardCVV" type="text" placeholder="CVV *" required>
-                        <div class="input-group-append">
-                          <span class="input-group-text" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="The CVV Number on your credit card or debit card is a 3 digit number on VISA, MasterCard and Discover branded credit and debit cards.">
-                            <i class="fe fe-help-circle"></i>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-                <div class="list-group-item">
-
-                  <!-- Radio -->
-                  <div class="custom-control custom-radio">
-
-                    <!-- Input -->
-                    <input class="custom-control-input" id="checkoutPaymentPaypal" name="payment" type="radio" data-toggle="collapse" data-action="hide" data-target="#checkoutPaymentCardCollapse">
-
-                    <!-- Label -->
-                    <label class="custom-control-label font-size-sm text-body text-nowrap" for="checkoutPaymentPaypal">
-                      <img src="assets/img/brands/color/paypal.svg" alt="...">
-                    </label>
-
-                  </div>
-
-                </div>
-              </div>
-
-              <!-- Notes -->
-              <textarea class="form-control form-control-sm mb-9 mb-md-0 font-size-xs" rows="5" placeholder="Order Notes (optional)"></textarea>
+            <div class="col-md-3">
+              <label for="cc-cvv" class="form-label">CVV</label>
+              <input type="text" class="form-control form-control-sm" id="cc-cvv" required th:field="*{cvv}">
+              <!-- <div class="invalid-feedback">
+                Security code required
+              </div> -->
+              <p th:if="${#fields.hasErrors('cvv')}" th:errors="*{cvv}" style="color: red"></p>
+            </div>
+          </div>
+          <hr class="my-4">
+          <!-- Button -->
+            <button class="btn btn-block btn-dark btn-lg">
+              Place Order
+            </button>
 
             </form>
 
@@ -290,10 +252,7 @@
               described in our privacy policy.
             </p>
 
-            <!-- Button -->
-            <button class="btn btn-block btn-dark" onclick="location.href='/placeorder'">
-              Place Order
-            </button>
+            
 
           </div>
         </div>

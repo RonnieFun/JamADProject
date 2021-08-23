@@ -79,8 +79,6 @@
 	<section class="productsContentSection2">
 
 		<div class="container">
-			<h3 class="col-md-auto">Trending Products</h3>
-			<hr>
 
 			<div class="row col-lg-11 mx-auto">
 
@@ -88,7 +86,7 @@
 					<div class="col-6 col-md-3 col-lg-3 mb-5">
 						<div class="card mb-1 h-100">
 							<a class="modalclickable"
-								th:onclick="'javascript:GetById(' + ${productAndCount.key.productID} + ')'" onmouseover="">
+								th:onclick="'javascript:GetById(' + ${productAndCount.key.productID} + ')'">
 								<img th:src="${productAndCount.key.productUrl}"
 								class="card-img-top productPhotoSize">
 							</a>
@@ -135,9 +133,6 @@
 											th:onclick="'javascript:myFunction(' + ${productAndCount.key.productID} + ')'">
 											Add To Cart</button>
 									</label>
-
-
-
 								</div>
 							</div>
 						</div>
@@ -147,8 +142,6 @@
 		</div>
 
 		<div class="container">
-			<h3 class="col-md-auto">Trending Merchandise</h3>
-			<hr>
 
 			<div class="row col-lg-11 mx-auto">
 
@@ -175,13 +168,9 @@
 										</div>
 										<div class="col">
 											<h5>
-												<a
-													th:href="'/carthometab/' + ${productAndCount.key.productUser.userID}"
-													style="text-decoration: none; color: black"> <strong
+												<strong
 													th:text="${productAndCount.key.productUser.firstName + ' ' +
-												productAndCount.key.productUser.lastName}">
-												</strong>
-												</a>
+												productAndCount.key.productUser.lastName}"></strong>
 											</h5>
 										</div>
 									</div>
@@ -199,11 +188,7 @@
 									<div class="mb-1 productPrice h6"
 										th:text="${#numbers.formatCurrency(productAndCount.key.productPrice)}"></div>
 
-									<label for="heartLikeButton" style="padding-left: 5%">
-										<button type="button" style="background-color: #FFB6C1"
-											th:onclick="'javascript:myFunction(' + ${productAndCount.key.productID} + ')'">
-											Add To Cart</button>
-									</label>
+									<input type="button" />
 
 								</div>
 							</div>
@@ -214,8 +199,6 @@
 		</div>
 
 		<div class="container">
-			<h3 class="col-md-auto">Trending Clothing</h3>
-			<hr>
 
 			<div class="row col-lg-11 mx-auto">
 
@@ -241,13 +224,9 @@
 										</div>
 										<div class="col">
 											<h5>
-												<a
-													th:href="'/carthometab/' + ${productAndCount.key.productUser.userID}"
-													style="text-decoration: none; color: black"> <strong
+												<strong
 													th:text="${productAndCount.key.productUser.firstName + ' ' +
-												productAndCount.key.productUser.lastName}">
-												</strong>
-												</a>
+												productAndCount.key.productUser.lastName}"></strong>
 											</h5>
 										</div>
 									</div>
@@ -280,8 +259,6 @@
 		</div>
 
 		<div class="container">
-			<h3 class="col-md-auto">Trending Music Collection</h3>
-			<hr>
 
 			<div class="row col-lg-11 mx-auto">
 
@@ -308,13 +285,9 @@
 										</div>
 										<div class="col">
 											<h5>
-												<a
-													th:href="'/carthometab/' + ${productAndCount.key.productUser.userID}"
-													style="text-decoration: none; color: black"> <strong
+												<strong
 													th:text="${productAndCount.key.productUser.firstName + ' ' +
-												productAndCount.key.productUser.lastName}">
-												</strong>
-												</a>
+												productAndCount.key.productUser.lastName}"></strong>
 											</h5>
 										</div>
 									</div>
