@@ -108,12 +108,12 @@
 						<td th:text=${MediaDTO.commentscount}></td>
 						<td><a
 							th:href="@{/artist/channel/deletemusic/{AlbumID}/{mediaid}(mediaid = ${MediaDTO.media.id},AlbumID = ${album.AlbumID})}"
-							class="btn btn-info btn-lg">Delete Video</a> <br>
+							class="btn btn-info btn-lg">Delete Song</a> <br>
 						<br>
 							<button type="button" class="btn btn-info btn-lg"
 								data-bs-toggle="modal" data-bs-target="#myModal"
-								th:attrappend="data-bs-target=${MediaDTO.media.id}">Edit
-								Video</button>
+								th:attrappend="data-bs-target=${MediaDTO.media.id}">Edit Video</button>
+								
 							<div class="modal fade" id="myModal" role="dialog"
 								th:attrappend="id=${MediaDTO.media.id}">
 								<div class="modal-dialog">
