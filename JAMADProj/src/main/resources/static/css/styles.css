@@ -5125,3 +5125,10 @@ body{
 
 .d-flex {
   display: flex !important; }
+.modalclickable {
+	cursor:pointer
+}
+
+
+
+

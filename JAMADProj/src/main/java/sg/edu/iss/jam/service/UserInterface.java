@@ -81,6 +81,22 @@ public interface UserInterface {
 	
 	void updateProduct(Product product);
 
+	List<Object[]> getTopAllProductsInPastWeekByOrderDetailsQuantity(int i);
+
+	List<Object[]> getTopMusicCollectionProductsInPastWeekByOrderDetailsQuantity(int i);
+
+	List<Object[]> getTopMerchandiseProductsInPastWeekByOrderDetailsQuantity(int i);
+
+	List<Object[]> getTopClothingProductsInPastWeekByOrderDetailsQuantity(int i);
+
+	List<Object[]> getAllProducts();
+
+	List<Object[]> getAllMusicCollections();
+
+	List<Object[]> getAllClothing();
+
+	List<Object[]> getAllMerchandise();
+
+	List<Orders> getPurchaseHistoryByUserId(Long userID);
 
 }
-

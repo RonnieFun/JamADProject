@@ -1,14 +1,16 @@
 package sg.edu.iss.jam.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import sg.edu.iss.jam.controller.ShoppingCartController;
+import sg.edu.iss.jam.model.Category;
 import sg.edu.iss.jam.model.Comments;
 import sg.edu.iss.jam.model.Media;
 import sg.edu.iss.jam.model.MediaType;
@@ -17,6 +19,10 @@ import sg.edu.iss.jam.model.Orders;
 import sg.edu.iss.jam.model.Payment;
 import sg.edu.iss.jam.model.Playlists;
 import sg.edu.iss.jam.model.Product;
+import sg.edu.iss.jam.model.ShoppingCart;
+import sg.edu.iss.jam.model.ShoppingCartDetails;
+import sg.edu.iss.jam.model.Subscribed;
+import sg.edu.iss.jam.model.Tag;
 import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.model.UserHistory;
 import sg.edu.iss.jam.repo.CommentsRepository;
@@ -27,18 +33,11 @@ import sg.edu.iss.jam.repo.PaymentRepository;
 import sg.edu.iss.jam.repo.PlaylistsRepository;
 import sg.edu.iss.jam.repo.ProductRepository;
 import sg.edu.iss.jam.repo.ShoppingCartDetailsRepository;
-import sg.edu.iss.jam.model.Playlists;
-import sg.edu.iss.jam.model.Subscribed;
-import sg.edu.iss.jam.model.Tag;
-import sg.edu.iss.jam.model.User;
-import sg.edu.iss.jam.repo.MediaRepository;
+import sg.edu.iss.jam.repo.ShoppingCartRepository;
 import sg.edu.iss.jam.repo.SubscribedRepository;
 import sg.edu.iss.jam.repo.TagRepository;
 import sg.edu.iss.jam.repo.UserHistoryRepository;
-import sg.edu.iss.jam.repo.ShoppingCartRepository;
 import sg.edu.iss.jam.repo.UserRepository;
-import sg.edu.iss.jam.model.ShoppingCart;
-import sg.edu.iss.jam.model.ShoppingCartDetails;
 @Service
 public class UserImplementation implements UserInterface {
 
@@ -203,7 +202,50 @@ public class UserImplementation implements UserInterface {
 	@Override
 	public void removeCartDetails(Long productID,Long cartID) {
 		// TODO Auto-generated method stub
-		shdrepo.deleteCartDetailsByID(productID,cartID);
+		shdrepo.deleteCartDetailsByID(productID, cartID);
+	}
+
+	@Override
+	public List<Object[]> getTopAllProductsInPastWeekByOrderDetailsQuantity(int i) {
+		return prepo.getTopProductsByOrderDetailsQuantity(PageRequest.of(0, i), LocalDate.now().minusWeeks(1));
+	}
+
+	@Override
+	public List<Object[]> getTopMusicCollectionProductsInPastWeekByOrderDetailsQuantity(int i) {
+		return prepo.getTopProductsByCategoryInPastWeekByOrderDetailsQuantity(PageRequest.of(0, i),
+				LocalDate.now().minusWeeks(1), Category.MusicCollection);
+	}
+
+	@Override
+	public List<Object[]> getTopMerchandiseProductsInPastWeekByOrderDetailsQuantity(int i) {
+		return prepo.getTopProductsByCategoryInPastWeekByOrderDetailsQuantity(PageRequest.of(0, i),
+				LocalDate.now().minusWeeks(1), Category.Merchandise);
+	}
+
+	@Override
+	public List<Object[]> getTopClothingProductsInPastWeekByOrderDetailsQuantity(int i) {
+		return prepo.getTopProductsByCategoryInPastWeekByOrderDetailsQuantity(PageRequest.of(0, i),
+				LocalDate.now().minusWeeks(1), Category.Clothing);
+	}
+
+	@Override
+	public List<Object[]> getAllProducts() {
+		return prepo.getAllProductsAndQuantity();
+	}
+
+	@Override
+	public List<Object[]> getAllMusicCollections() {
+		return prepo.getAllProductsAndQuantityByCategory(Category.MusicCollection);
+	}
+
+	@Override
+	public List<Object[]> getAllClothing() {
+		return prepo.getAllProductsAndQuantityByCategory(Category.Clothing);
+	}
+
+	@Override
+	public List<Object[]> getAllMerchandise() {
+		return prepo.getAllProductsAndQuantityByCategory(Category.Merchandise);
 	}
 
 	@Override
@@ -252,6 +294,11 @@ public class UserImplementation implements UserInterface {
 	public void updateProduct(Product product) {
 		// TODO Auto-generated method stub
 		prepo.save(product);
+	}
+
+	@Override
+	public List<Orders> getPurchaseHistoryByUserId(Long userID) {
+		return orepo.getPurchaseHistoryByUserId(userID);
 	}
 
 }

@@ -82,15 +82,32 @@ public class JamadProjApplication {
 	
 	@Autowired
 	ShoppingCartDetailsRepository shdrepo;
+	
+	@Autowired
+	ChannelRepository crepo;
 
 	public static void main(String[] args) {
 		SpringApplication.run(JamadProjApplication.class, args);
 	}
+}
 
-	@Bean
-	CommandLineRunner runner() {
+//	@Bean
+//	CommandLineRunner runner() {
 
-		return args -> {
+//		return args -> {
+//			Channel channel1 = new Channel();
+//			channel1.setMediaType(MediaType.Music);
+//			channel1.setChannelName("This is music");
+//			Channel channel2 = new Channel();
+//			channel2.setMediaType(MediaType.Video);
+//			channel2.setChannelName("This is video");
+//			crepo.save(channel1);
+//			crepo.save(channel2);
+//			
+//			Playlists playlist = new Playlist();
+//			playlist.setPlaylistsorder(null););
+//		};
+//	}
 //
 ////			Max signup1 = new Max(1L, "Brandon", "1 Day Ago", "How's everyone doing?");
 ////			Max signup2 = new Max(2L, "Chang Ying", "2 Days Ago", "This is so cool! I'm excited!");
@@ -185,19 +202,19 @@ public class JamadProjApplication {
 ////			media2.setMediaType(MediaType.Music);
 ////			mrepo.save(media1);
 ////			mrepo.save(media2);
-			Roles Artist = new Roles(Role.Artist);
-//			Roles Customer = new Roles(Role.Customer);
-//			Roles ServiceProvider = new Roles(Role.ServiceProvider);
-//
-//			rolesrepo.save(Artist);
-			
-			List<Roles> maxRoles = new ArrayList<>();
-			
-			maxRoles.add(Artist);
-			
-			User max = new User("Max", "Chen", "max@gmail.com", "abcdefg", "21 June 1987", "MaxChen87", "Best User Ever", "www.max.com", maxRoles);
-			
-			urepo.save(max);
+//			Roles Artist = new Roles(Role.Artist);
+////			Roles Customer = new Roles(Role.Customer);
+////			Roles ServiceProvider = new Roles(Role.ServiceProvider);
+////
+////			rolesrepo.save(Artist);
+//			
+//			List<Roles> maxRoles = new ArrayList<>();
+//			
+//			maxRoles.add(Artist);
+//			
+//			User max = new User("Max", "Chen", "max@gmail.com", "abcdefg", "21 June 1987", "MaxChen87", "Best User Ever", "www.max.com", maxRoles);
+//			
+//			urepo.save(max);
 //			
 //			List<Media> FirstPlayListMedia = new ArrayList<>();
 //			
@@ -285,6 +302,131 @@ public class JamadProjApplication {
 //
 //		    urepo.save(jayChou);
 //		    urepo.save(zhaoQi);
+//
+//			Max signup9 = new Max(9L, "Bruce Lee", "3 Years Ago",
+//					"Thank you everyone for supporting me! I will continue to work hard "
+//							+ "and make sure all your efforts to support me are worth it! Cheers! Thanks guys!!! :D Support Bruce Lee Too!"
+//							+ "Cheers! Thanks guys!!! :D Support Bruce Lee Too! Cheers! Thanks guys!!! :D Support Bruce Lee Too!");
+//
+//			testrepo.save(signup1);
+//			testrepo.save(signup2);
+//			testrepo.save(signup3);
+//			testrepo.save(signup4);
+//			testrepo.save(signup5);
+//			testrepo.save(signup6);
+//			testrepo.save(signup7);
+//			testrepo.save(signup8);
+//			testrepo.save(signup9);
+			
+//			Media media1 = new Media();
+//			Media media2 = new Media();
+//			media1.setTitle("This is video");
+//			media2.setTitle("This is music");
+//			media1.setMediaType(MediaType.Video);
+//			media2.setMediaType(MediaType.Music);
+//			mrepo.save(media1);
+//			mrepo.save(media2);
+//			Roles Artist = new Roles(Role.Artist);
+//			Roles Customer = new Roles(Role.Customer);
+//			Roles ServiceProvider = new Roles(Role.ServiceProvider);
+//
+//			rolesrepo.save(Artist);
+//			
+//			List<Roles> maxRoles = new ArrayList<>();
+//			
+//			maxRoles.add(Artist);
+//			
+//			User max = new User("Max", "Chen", "max@gmail.com", "abcdefg", "21 June 1987", "MaxChen87", "Best User Ever", "www.max.com", maxRoles);
+//			
+//			urepo.save(max);
+//			
+//			List<Media> FirstPlayListMedia = new ArrayList<>();
+//			
+//			List<Media> SecondPlayListMedia = new ArrayList<>();
+//			
+//			List<UserHistory> userHistory = new ArrayList<>();
+//			
+//			List<Comments> maxComments = new ArrayList<>();
+//			
+//			List<Playlists> maxPlaylists = new ArrayList<>();
+//			
+//			List<Tag> maxTags = new ArrayList<>();
+//
+//			Channel videoChannel = new Channel("Bruce Lee's Channel", "Nice Channel", MediaType.Video, 
+//					"21 July 2021", FirstPlayListMedia, max);
+//			
+//			channelrepo.save(videoChannel);
+//			
+//			Media jaychouvideo = new Media(MediaType.Video, "http://localhost:8080/videos/android_screens_.mkv", "You've Got a Very Good Friend. Be Happy and Stay Safe! :) Have Fun!", "10:00", "21 July, 2002", "published", 
+//					"http://localhost:8080/images/brucelee.PNG", userHistory, maxComments, videoChannel, maxPlaylists, maxTags);
+//			
+//			Media bruceleevideo = new Media(MediaType.Video, "http://localhost:8080/videos/bigbuckbunny.mp4", "Bruce Lee's Video - Best Kungfu", "12:00", "21 July, 2002", "published", 
+//					"http://localhost:8080/images/pinkhat.png", userHistory, maxComments, videoChannel, maxPlaylists, maxTags);
+//			
+//			Media jjlinvideo = new Media(MediaType.Video, "http://localhost:8080/videos/jazz_in_paris.mp3", "JJ Lin's best video in the world", "13:00", "21 July, 2002", "published", 
+//					"http://localhost:8080/images/pinksneaker.jpg", userHistory, maxComments, videoChannel, maxPlaylists, maxTags);
+//			
+//			Media monsterhuntervideo = new Media(MediaType.Video, "http://localhost:8080/videos/samplevideo.mp4", "Monsters in the wild! Hide fast and run fast!", "14:00", "21 July, 2002", "published", 
+//					"http://localhost:8080/images/kpopalbum.png", userHistory, maxComments, videoChannel, maxPlaylists, maxTags);
+//			
+//			Media wwevideo = new Media(MediaType.Video, "http://localhost:8080/videos/bigbuckbunny.mp4", "WWE Video", "15:00", "21 July, 2002", "published", 
+//					"http://localhost:8080/images/pinkdress.jpg", userHistory, maxComments, videoChannel, maxPlaylists, maxTags);
+//			
+//			Media maxvideo = new Media(MediaType.Video, "http://localhost:8080/videos/android_screens_.mkv", "Max's Personal Music Video - Come Support Me Bro", "16:00", "21 July, 2002", "published", 
+//					"http://localhost:8080/images/pinkhat.png", userHistory, maxComments, videoChannel, maxPlaylists, maxTags);
+//			
+//			Media dinovideo = new Media(MediaType.Video, "http://localhost:8080/videos/android_screens_.mkv", "Dino Video Dino Video Dino's Video! Woohoo! Dino Dino Dino Dino Dino :D Dino", "17:00", "21 July, 2002", "published", 
+//					"http://localhost:8080/images/estelle.PNG", userHistory, maxComments, videoChannel, maxPlaylists, maxTags);
+//			
+//			mediarepo.save(jaychouvideo);
+//			mediarepo.save(bruceleevideo);
+//			mediarepo.save(jjlinvideo);
+//			mediarepo.save(monsterhuntervideo);
+//			mediarepo.save(wwevideo);
+//			mediarepo.save(maxvideo);
+//			mediarepo.save(dinovideo);
+//			
+//			FirstPlayListMedia.add(jaychouvideo);
+//			FirstPlayListMedia.add(bruceleevideo);
+//			FirstPlayListMedia.add(jjlinvideo);
+//			FirstPlayListMedia.add(monsterhuntervideo);
+//			FirstPlayListMedia.add(wwevideo);
+//			FirstPlayListMedia.add(maxvideo);
+//			FirstPlayListMedia.add(dinovideo);
+//			
+//			Tag tag1 = new Tag("Classical Music", FirstPlayListMedia);
+//			
+//			Tag tag2 = new Tag("Romantic Songs", SecondPlayListMedia);
+//			
+//			tagrepo.save(tag1);
+//			
+//			tagrepo.save(tag2);
+//			
+//			maxTags.add(tag1);
+//			maxTags.add(tag2);
+//			
+//			Playlists FirstPlaylist = new Playlists("Max's First Playlist", "1", "Nice Playlist", MediaType.Video, 
+//					max, FirstPlayListMedia);
+//			
+//			Playlists SecondPlaylist = new Playlists("Max's Second Playlist", "2", "Second Playlist", MediaType.Video, 
+//					max, SecondPlayListMedia);
+//			
+//			plrepo.save(FirstPlaylist);
+//			plrepo.save(SecondPlaylist);
+//		
+//			maxPlaylists.add(FirstPlaylist);
+//			maxPlaylists.add(SecondPlaylist);			
+//
+//			List<Roles> jayChouRoles = new ArrayList<>();
+//			jayChouRoles.add(Artist);
+//			User jayChou = new User("Jay", "Chou", "jaychou@gmail.com", "abcdefg", "21 June 1990", "MaxChen87", "Hello I am JayChou, I am an Artist", "www.jaychou.com", jayChouRoles);
+//
+//			List<Roles> qiZhaoRoles = new ArrayList<>();
+//			qiZhaoRoles.add(Customer);
+//		    User zhaoQi = new User("Qi", "Zhao", "qizhao@gmail.com", "abcdefg", "20 August 1998", "QiZhao98", "Hello I am Qi Zhao, I am a customer", "www.qizhao.com", qiZhaoRoles);
+//
+//		    urepo.save(jayChou);
+//		    urepo.save(zhaoQi);
 //			
 //		    Comments comment1 = new Comments("27 July 2021, 11:59", 
 //		    		"Nice music, nice mv, Thanks! "
@@ -302,25 +444,48 @@ public class JamadProjApplication {
 //		    maxComments.add(comment1);
 //		    maxComments.add(comment2);
 //		    
+//		    UserHistory userHistory1 = new UserHistory(1, jayChou, FirstPlayListMedia);
+//		    UserHistory userHistory2 = new UserHistory(2, zhaoQi, SecondPlayListMedia);
+//		    UserHistory userHistory3 = new UserHistory(1, jayChou, SecondPlayListMedia);
+//		    UserHistory userHistory4 = new UserHistory(2, zhaoQi, FirstPlayListMedia);
 //		    
-		    List<Product> productList = new ArrayList<>();
-		    Product p1 = new Product("Nice Pink Hat","Top Selling product",1,Category.Clothing,13.0,"http://picture-cdn.wheretoget.it/0v3cfh-l-610x610.jpg",null,null,null,max);
-		    Product p2 = new Product("Bickni","Top Selling product",1,Category.Clothing,13.0,"http://picture-cdn.wheretoget.it/0v3cfh-l-610x610.jpg",null,null,null,max);
-		    prepo.save(p1);
-		    prepo.save(p2);
-		    productList.add(p1);
-		    productList.add(p2);
-		    
-		    ShoppingCart shop =  new ShoppingCart(max, null);
-		    srepo.save(shop);
-		    
-		    List<ShoppingCartDetails> detailList = new ArrayList<>();
-		    ShoppingCartDetails detail = new ShoppingCartDetails(2, p1,shop);
-		    ShoppingCartDetails detail2 = new ShoppingCartDetails(3, p2,shop);
-		    detailList.add(detail);
-		    detailList.add(detail2);
-		    shdrepo.save(detail);
-		    shdrepo.save(detail2);
+//		    Comments comment2 = new Comments("27 July 2021, 23:00", 
+//		    		"Nice music, nice mv, Thanks!",
+//		    		jaychouvideo, max);
+//		        
+//		    commentsrepo.save(comment1);
+//		    commentsrepo.save(comment2);
+//		    
+//		    maxComments.add(comment1);
+//		    maxComments.add(comment2);
+//		    
+//		    
+
+//		    List<Product> productList = new ArrayList<>();
+//		    Product p1 = new Product("Nice Pink Hat","Top Selling product",1,Category.Clothing,13.0,"http://picture-cdn.wheretoget.it/0v3cfh-l-610x610.jpg",null,null,null,max);
+//		    Product p2 = new Product("Bickni","Top Selling product",1,Category.Clothing,13.0,"http://picture-cdn.wheretoget.it/0v3cfh-l-610x610.jpg",null,null,null,max);
+//		    prepo.save(p1);
+//		    prepo.save(p2);
+//		    productList.add(p1);
+//		    productList.add(p2);
+//		    List<Product> productList = new ArrayList<>();
+//		    Product p1 = new Product("Nice Pink Hat","Top Selling product",1,Category.Clothing,13.0,"http://picture-cdn.wheretoget.it/0v3cfh-l-610x610.jpg",null,null,null,max);
+//		    Product p2 = new Product("Bickni","Top Selling product",1,Category.Clothing,13.0,"http://picture-cdn.wheretoget.it/0v3cfh-l-610x610.jpg",null,null,null,max);
+//		    prepo.save(p1);
+//		    prepo.save(p2);
+//		    productList.add(p1);
+//		    productList.add(p2);
+//		    
+//		    ShoppingCart shop =  new ShoppingCart(max, null);
+//		    srepo.save(shop);
+//		    
+//		    List<ShoppingCartDetails> detailList = new ArrayList<>();
+//		    ShoppingCartDetails detail = new ShoppingCartDetails(2, p1,shop);
+//		    ShoppingCartDetails detail2 = new ShoppingCartDetails(3, p2,shop);
+//		    detailList.add(detail);
+//		    detailList.add(detail2);
+//		    shdrepo.save(detail);
+//		    shdrepo.save(detail2);
 //		    
 ////		    UserHistory userHistory1 = new UserHistory(1, jayChou, FirstPlayListMedia);
 ////		    UserHistory userHistory2 = new UserHistory(2, zhaoQi, SecondPlayListMedia);
@@ -366,8 +531,21 @@ public class JamadProjApplication {
 ////			odrepo.save(od1);
 ////			odrepo.save(od2);
 ////			odrepo.save(od3);
-
-		};
-	}
-
-}
+			
+//			Product product1 = new Product();
+//			product1.setProductName("Clothing");
+//			product1.setProductCategory(Category.Clothing);
+//			
+//			Product product2 = new Product();
+//			product2.setProductName("Merchandise");
+//			product2.setProductCategory(Category.Merchandise);
+//			
+//			Product product3 = new Product();
+//			product3.setProductName("Music Collection");
+//			product3.setProductCategory(Category.MusicCollection);
+//			
+//			prepo.save(product1);
+//			prepo.save(product2);
+//			prepo.save(product3);
+//
+//}

@@ -3,7 +3,6 @@ package sg.edu.iss.jam.repo;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -28,7 +27,13 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	@Query("SELECT c FROM Product c WHERE c.productUser.userID = :artistid AND c.productCategory = :category")
 	List<Product> getPopularProductByCategory(@Param("artistid") long artistid, @Param("category") Category category);
 
-//	@Query("SELECT p, SUM(od.quantity) FROM Product p JOIN p.orderDetails od WHERE od.order.orderDate >= DATE(:currentdatelessoneweek) AND p.productCategory = :category GROUP BY p ORDER BY SUM(od.quantity) DESC")
-//	List<Object[]> getTopProductsByCategoryInPastWeekByOrderDetailsQuantity(Pageable pageable,
-//			@Param("currentdatelessoneweek") LocalDate currentdatelessoneweek, @Param("category") Category category);
+	@Query("SELECT p, SUM(od.quantity) FROM Product p JOIN p.orderDetails od WHERE od.order.orderDate >= DATE(:currentdatelessoneweek) AND p.productCategory = :category GROUP BY p ORDER BY SUM(od.quantity) DESC")
+	List<Object[]> getTopProductsByCategoryInPastWeekByOrderDetailsQuantity(Pageable pageable,
+			@Param("currentdatelessoneweek") LocalDate currentdatelessoneweek, @Param("category") Category category);
+
+	@Query("SELECT p, SUM(od.quantity) FROM Product p JOIN p.orderDetails od WHERE p.productCategory = :category GROUP BY p ORDER BY SUM(od.quantity) DESC")
+	List<Object[]> getAllProductsAndQuantityByCategory(@Param("category") Category category);
+
+	@Query("SELECT p, SUM(od.quantity) FROM Product p JOIN p.orderDetails od GROUP BY p ORDER BY SUM(od.quantity) DESC")
+	List<Object[]> getAllProductsAndQuantity();
 }
