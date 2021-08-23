@@ -54,6 +54,7 @@ import sg.edu.iss.jam.repo.TagRepository;
 import sg.edu.iss.jam.repo.UserRepository;
 import sg.edu.iss.jam.service.ArtistInterface;
 import sg.edu.iss.jam.service.UploadInterface;
+import sg.edu.iss.jam.service.UserInterface;
 
 @Controller
 @RequestMapping("/artist")
@@ -244,7 +245,6 @@ public class ArtistController {
 
 	}
 
-	}
 
 	// --------------------MEDIA PORTION-----------------//
 
