@@ -404,7 +404,7 @@ public class ArtistController {
 			ArtistService.saveMedia(media);
 		}
 
-		return "redirect:/artist/channel/video";
+		return "redirect:/artist/channel/Video";
 	}
 
 	// Get(delete) Video
@@ -433,7 +433,7 @@ public class ArtistController {
 		}
 		ArtistService.deleteMedia(media);
 
-		return "redirect:/artist/channel/video";
+		return "redirect:/artist/channel/Video";
 	}
 
 	// View Channel Contents for Album
@@ -512,7 +512,7 @@ public class ArtistController {
 
 		}
 
-		return "redirect:/artist/channel/albums";
+		return "redirect:/artist/channel/Music";
 	}
 
 	// View Album Contents for Music
