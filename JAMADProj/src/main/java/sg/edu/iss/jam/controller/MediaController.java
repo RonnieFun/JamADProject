@@ -12,10 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sg.edu.iss.jam.model.Album;
 import sg.edu.iss.jam.model.Channel;
@@ -28,7 +30,7 @@ import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.model.UserHistory;
 import sg.edu.iss.jam.service.ArtistInterface;
 import sg.edu.iss.jam.service.UserInterface;
-import sg.edu.iss.jam.service.VideoServiceInterface;
+import sg.edu.iss.jam.service.MediaServiceInterface;
 
 @Controller
 public class MediaController {
@@ -41,20 +43,46 @@ public class MediaController {
 	
 	//scy-videolandingpage
 	@Autowired
-	VideoServiceInterface vservice;
+	MediaServiceInterface mservice;
 			
-	@GetMapping("/video/videolandingpage")
-	public String showVideoLandingPage(Model model) {
+	@GetMapping("/video/medianotfound/{mediaId}") 
+	public String videoNotFound(Model model, @PathVariable Long mediaId) {
 		
-//				List<Object[]> topVideosByUserHistory=vservice.getTopMediasByUserHistory(6,MediaType.Video);
+		String errorMessage = "Your Requested Video Title is not found.";
+		String returnToVideoLandingMessage = "Please click here to return to Video Landing Page";
+		String returnLink = "/video/genericvideolandingpage";
+		
+		model.addAttribute("returnLink", returnLink);
+		model.addAttribute("returnToMediaLandingMessage", returnToVideoLandingMessage);
+		model.addAttribute("errorMessage", errorMessage);
+		return "MediaNotFound";
+	}
+
+	@GetMapping("/music/medianotfound/{mediaId}") 
+	public String musicNotFound(Model model, @PathVariable Long mediaId) {
+		
+		String errorMessage = "Your Requested Music Title is not found.";
+		String returnToMusicLandingMessage = "Please click here to return to Music Landing Page";
+		String returnLink = "/music/genericmusiclandingpage";
+		
+		model.addAttribute("returnLink", returnLink);
+		model.addAttribute("returnToMediaLandingMessage", returnToMusicLandingMessage);
+		model.addAttribute("errorMessage", errorMessage);
+		return "MediaNotFound";
+	}
+	
+	
+	@GetMapping("/video/genericvideolandingpage")
+	public String genericVideoLandingPage(Model model) {
+		
+//				List<Object[]> topVideosByUserHistory=mservice.getTopMediasByUserHistory(6,MediaType.Video);
 //				List<Media> videos=new ArrayList<Media>();
 //				for(Object[] object: topVideosByUserHistory) {
 //					videos.add((Media)object[0]);
 //				}
 //				model.addAttribute("videos",videos);
-			 
 				
-				List<Media> allVideos=vservice.getMediaByUserHistory(MediaType.Video,LocalDate.now().minusMonths(36));
+				List<Media> allVideos=mservice.getMediaByUserHistory(MediaType.Video,LocalDate.now().minusMonths(36));
 				List<Media> topVideos=new ArrayList<Media>();
 				List<Media> toptwelveVideos=new ArrayList<Media>();
 				
@@ -74,15 +102,15 @@ public class MediaController {
 
 
 				model.addAttribute("topvideos",toptwelveVideos);
-				return "videolandingpage";
+				return "genericvideolandingpage";
 			}
 
 	//musiclanding page 
-		
-	@GetMapping("/music/musiclandingpage")
-	public String showMusicLandingPage(Model model) {
+	
+	@GetMapping("/music/genericmusiclandingpage")
+	public String genericMusicLandingPage(Model model) {
 			
-		List<Media> allMusics=vservice.getMediaByUserHistory(MediaType.Music,LocalDate.now().minusMonths(36));
+		List<Media> allMusics=mservice.getMediaByUserHistory(MediaType.Music,LocalDate.now().minusMonths(36));
 		List<Media> topMusics=new ArrayList<Media>();
 		List<Media> toptwelveMusics=new ArrayList<Media>();
 		
@@ -99,23 +127,9 @@ public class MediaController {
 		}else {
 			toptwelveMusics=topMusics;
 		}
-
-
-		model.addAttribute("topvideos",toptwelveMusics);
-		return "videolandingpage";
-	}
-	
-	
-	
-	
-	@GetMapping("/home")
-	public String goToHomepage(Model model) {
-		return "home";
-	}
-	
-	@GetMapping("/signup")
-	public String signup(Model model) {
-		return "signup";
+		
+		model.addAttribute("topmusic",toptwelveMusics);
+		return "genericmusiclandingpage";
 	}
 	
 	@GetMapping("/signup2")
@@ -123,18 +137,8 @@ public class MediaController {
 		return "signup2";
 	}
 	
-	@GetMapping("/carthometab2")
-	public String shoppingCartHome(Model model) {
-		return "carthometab";
-	}
-	
-	@GetMapping("/cartothertab2")
-	public String shoppingCartOther(Model model) {
-		return "cartothertab";
-	}
-	
 	@GetMapping("/video/watchvideo/{mediaId}")
-	public String watchVideo(Model model, @PathVariable Long mediaId) {
+	public String watchVideo(Model model, @PathVariable Long mediaId, RedirectAttributes redirectAttributes) {
 		
 //		//Add new view count upon page load
 //		
@@ -149,12 +153,17 @@ public class MediaController {
 		
 		//Currently, assume the userID = 1. This userID will be changed upon implementation
 		//of Spring Security to authenticate logged in user
-
+		
 		int commentCount = uservice.findCommentsByMediaId(mediaId).size();
 		
 		User loggedInUser = uservice.findUserByUserId(2L);
 		
-		Media selectedMedia = uservice.findMediaByMediaId(mediaId);
+		Media selectedMedia = uservice.findMediaByMediaTypeAndMediaId(MediaType.Video, mediaId);
+
+		if(selectedMedia == null) {
+			redirectAttributes.addAttribute("mediaId", mediaId);
+			return "redirect:/video/medianotfound/{mediaId}";
+		}
 		
 		// Add new userhistory object based on logged in user's userid on each page reload
 		UserHistory userhistory = new UserHistory(LocalDateTime.now(), loggedInUser, selectedMedia);
@@ -521,7 +530,7 @@ public class MediaController {
 	
 //--------------------------User views Artist Music Channel Page by ZQ--------------------------------------------------
 	@GetMapping("music/viewartistmusicchannel")
-	public String viewArtistMusicChannel1(Model model) {
+	public String viewArtistMusicChannel1(Model model, Long AlbumID) {
 		
 		String artistMusicChannelName = "";
 		int numberOfArtistAlbums = 0;
@@ -569,6 +578,14 @@ public class MediaController {
 			}
 		}
 		
+		//code by Max: Get the Current Album's List of Music
+		
+		if (AlbumID != null) {
+			Album selectedAlbum = aservice.getAlbumByAlbumId(AlbumID);
+			
+			Collection<Media> listOfMusic = selectedAlbum.getAlbumMedia();
+			model.addAttribute("listOfMusic", listOfMusic);
+		}
 		
 		model.addAttribute("artistMusicChannelName", artistMusicChannelName);
 		model.addAttribute("numberOfArtistAlbums", numberOfArtistAlbums);

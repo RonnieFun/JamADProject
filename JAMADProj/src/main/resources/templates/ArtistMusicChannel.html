@@ -39,85 +39,68 @@
         <div class="row align-items-center">
           <div class="col-12 col-md">
             <!-- Product Categories -->
-            <nav class="navbar spaceEvenly">
-              <a class="nav-link active blackFontText ml-5 h6" data-toggle="tab" href="#">Album1</a>
-              <a class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/music/}+${artistId}+@{/Album2}">Album2</a>
-              <a class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/music/}+${artistId}+@{/Album2}">Album3</a>
-              <a class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/music/}+${artistId}+@{/Album2}">Album4</a>
-              <a class="nav-link active blackFontText h6" data-toggle="tab" th:href="@{/music/}+${artistId}+@{/Album2}">Album5</a>
-              
-            </nav>
+            	<nav class="navbar spaceEvenly">
+		            <span th:each = "album: ${artistalbums}">
+		            <form id ="albumMusicForm" th:action="@{viewartistmusicchannel}" method="GET">
+			              <a class="nav-link active blackFontText" data-toggle="tab" href="#"
+			              onclick="$(this).closest('form').submit(); return false;">
+			     			<span th:text = "${album.AlbumDescription}"></span>
+			              </a>
+		              		<input type="hidden" name="AlbumID" th:value = "${album.AlbumID}">
+		            </form>
+		            </span>
+		        </nav>
           	</div>
           </div>
         </div>
   	</section>
   	
   	
-  	
+ 	<!-- Code by Max: -->
+ 	
   	<!-- Music CONTENT in each Album-->
-    <section class="productsContentSection">
-      <div class="container">
-        <div class="row col-lg-11 mx-auto">
-	        <div style="margin-bottom: 18px;" th:if="${status =='home'}">
-				<span class="pt-0 mt-0 pb-2 trendingText">Trending</span>
-				<a th:onclick="myFunction();" class="seeAllProductsLink">See all ></a>
-			</div>
-			
-			
-          <div class="col-6 col-md-3 col-lg-3 mb-5" th:each="product: ${productList}">
-            <!-- Card -->
-            <div class="card mb-1 h-100">
-
-              <!-- Image -->
-              <!-- <a th:href="@{/product/details/}+${product.productID}">
-                <img th:src="${product.productUrl}" alt="..." class="card-img-top productPhotoSize">
-              </a> -->
-              
-              <a>
-                <img th:src="${product.productUrl}" alt="..." class="card-img-top productPhotoSize">
-              </a>
-              
-              <!-- <th:block th:replace="_modals :: modal('exampleModal')">modal</th:block> -->
-
-              <!-- Collapse -->
-              <div class="card-collapse-parent">
-
-                <!-- Body -->
-                <div class="card-body px-0 bg-white">
-
-                  <!-- Heading -->
-                  <div class="mb-1 productHeading h6">
-                    <a th:text="${product.productName}"></a>
-                  </div>
-                  
-                  <!-- Quantity Sold -->
-                  <div class="quantitySold" th:text="${product.productQty}">
-                  </div>
-
-				 <!-- Country Of Origin -->
-				 <div class="productCountryOrigin">
-				 	Singapore
-				 </div>
-
-                  <!-- Price -->
-                  <div class="mb-1 productPrice h6" th:text="${product.productPrice}">
-                  </div>
-                  
-                  <!-- Like Button Heart Shape -->
-				  <label for="heartLikeButton">
-				    <i class="far fa-heart likeIcon" aria-hidden="true"></i>
-				  </label>
-				  <input id="heartLikeButton" type="button" />
-				  
-                </div>
-              </div>
-            </div>
-
-          </div>
+	<div class="row col-lg-10 mt-4 mx-auto">
+     <th:block th:each="music: ${listOfMusic}">
+      <div class="col-6 col-md-3 col-lg-3 mb-5">
+      	
+      <div class="card mb-1 h-100"> 
+      
+      <!--  Media image -->
+       <a th:href="@{/video/watchvideo/{mediaId}(mediaId = ${music.id})}">
+        <img th:src="${music.thumbnailUrl}" class="card-img-top productPhotoSize" alt="...">
+        <span class="sideDurationVideoChannelPage" th:text="${music.duration}"></span> 
+       </a>
+       
+       <!-- Collapse -->
+        <div class="card-collapse-parent"> 
+        <!-- artist photo -->
+        <div class="card-body px-0 bg-white">
+         <div class="row">
+          <div class="col-4">
+           <img class="rounded-circle" width="100%" style="padding-left: 30%; padding-bottom: 10%" 
+           		th:src="${music.channel.channelUser.profileUrl}">
           
           </div>
+         </div>
+
+           
+         <!-- Title -->
+         <div class="mb-1 productHeading h6"><strong>Title:</strong>
+          <span th:text="${music.title}"></span>
+          </div>
+          
+         <!-- tag -->
+          <div class= "mb-1 productHeading h6"><strong>Tags:</strong>
+           <span  th:each="tag:${music.tagList}" >
+           <span  th:text="${tag.tagName}"></span>
+          </span>
+          </div>
         </div>
-    </section>
+       </div>
+      </div>
+     </div>
+    </th:block>
+   </div>
   	
 	
 </body>

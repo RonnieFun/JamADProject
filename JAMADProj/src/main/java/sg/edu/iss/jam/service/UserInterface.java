@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import sg.edu.iss.jam.model.Comments;
 import sg.edu.iss.jam.model.Media;
+import sg.edu.iss.jam.model.MediaType;
 import sg.edu.iss.jam.model.OrderDetails;
 import sg.edu.iss.jam.model.Orders;
 import sg.edu.iss.jam.model.Payment;
@@ -23,63 +24,55 @@ import sg.edu.iss.jam.model.ShoppingCartDetails;
 
 public interface UserInterface {
 
-	// USER
+	//USER
 	User findUserByUserId(Long userID);
-
 	User saveUser(User user);
 
-	// PLAYLISTS
+	//PLAYLISTS
 	List<Playlists> findPlaylistsByUserId(Long userID);
-
 	Playlists findPlaylistByPlaylistID(long playlistID);
-
 	Playlists savePlaylist(Playlists playlists);
-
 	List<Playlists> savePlaylists(List<Playlists> playlists);
-
-	// MEDIA
+	
+	//MEDIA
 	Media findMediaByMediaId(Long ID);
-
 	List<Media> findMediaListByPlayListID(Long playlistID);
-
 	List<Media> findAllMedia();
-
+	Media findMediaByMediaTypeAndMediaId(MediaType mediaType, Long id);
 	Media saveMedia(Media media);
 
-	// SUBSCRIBED
+	//SUBSCRIBED
 	Subscribed saveSubscribed(Subscribed subscribed);
-
 	void deleteSubscribed(Subscribed s);
-
-	// COMMENTS
+	
+	//COMMENTS
 	List<Comments> findCommentsByMediaId(Long id);
-
 	List<Comments> findCommentsByUserId(Long id);
-
 	Comments saveComment(Comments comment);
-
-	// TAGS
+	
+	//TAGS
 	List<Tag> findTagsByMediaId(Long id);
-
-	// USER HISTORY
+	
+	//USER HISTORY
 	List<UserHistory> findUserHistoryByMediaId(Long id);
-
+	
 	ShoppingCart getShoppingCartByUserID(long userID);
-
+	
 	UserHistory saveUserHistory(UserHistory userHistory);
 
 	Product findProduct(Long id);
 
 	void removeCartDetails(Long productID, Long cartID);
-
+	
 	Long getItemCountByUserID(long artistid);
-
+	
+	
 	void saveOrder(Orders neworder);
-
+	
 	void saveOrderDetailsList(List<OrderDetails> orderDetailList);
-
+	
 	void saveCartDetails(ShoppingCartDetails carddetail);
-
+	
 	ShoppingCartDetails getCartDetailByProductID(Long productId, Long shoppingCartID);
 	
 	void savePayement(@Valid Payment payment);
