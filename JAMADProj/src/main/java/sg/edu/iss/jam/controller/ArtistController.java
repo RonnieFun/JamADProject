@@ -245,7 +245,6 @@ public class ArtistController {
 
 	}
 
-
 	// --------------------MEDIA PORTION-----------------//
 
 	// Get Channels
