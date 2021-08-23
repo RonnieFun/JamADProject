@@ -104,4 +104,6 @@ public interface UserInterface {
 
 	List<Object[]> getAllMerchandise();
 
+	List<Orders> getPurchaseHistoryByUserId(Long userID);
+
 }

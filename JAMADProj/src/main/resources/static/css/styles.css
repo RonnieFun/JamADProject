@@ -17,12 +17,6 @@ body {
 	border-bottom: 2px solid #B8C5D0;
 }
 
-.cartIntroSection1{
-	background-color: white;
-	padding-bottom: 0px;
-	margin-top: 40px;
-	border-bottom: 2px solid #B8C5D0;
-}
 .smallBanner{
 	position: relative;
 	height: 110px;
@@ -234,10 +228,6 @@ body {
 	height:210px;
 	margin-left: 43%;
 	top: 160px;
-}
-
-.container  {
-    margin: 5px 0px;
 }
 	
   .aboutShopHeader{
@@ -1080,11 +1070,10 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 25rem;
+  height: 55%;
   margin-left: 7.5%;
   margin-top: calc(8vh - 0.01%);
   padding: 0px;
-  object-fit: fill;
 }
 
 .userPageImage{
@@ -1297,7 +1286,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 170px;
-  margin-top: calc(2.5vh + 3.5%);
+  margin-top: calc(2.5vh + 12%);
 }
 
 .sideVideoLinkColor{
@@ -1329,20 +1318,6 @@ body {
   	margin-bottom: 10px;
   	margin-top: -1.6%;
   	font-size: 0.8vw;
-	font-family: 'Roboto', sans-serif;
-	color: white;
-	background-color: black;
-	padding: 0px 0.2%;
-}
-
-.sideVideoDurationVideoChannel{
-	position: absolute;
-	display: block;
-  	right: 0;
-  	margin-right: 3%;
-  	margin-bottom: 10px;
-  	margin-top: -7.6%;
-  	font-size: 0.9vw;
 	font-family: 'Roboto', sans-serif;
 	color: white;
 	background-color: black;
@@ -1422,11 +1397,10 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 25rem;
+  height: 55%;
   margin-left: 7.5%;
   margin-top: calc(8vh - 0.01%);
   padding: 0px;
-  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -1603,7 +1577,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 140px;
-  margin-top: calc(2.5vh + 3.5%);
+  margin-top: calc(2.5vh + 12%);
 }
 
 .sideVideoLinkColor{
@@ -1713,11 +1687,10 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 25rem;
+  height: 55%;
   margin-left: 7.5%;
   margin-top: calc(8vh - 0.01%);
   padding: 0px;
-  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -1909,7 +1882,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 1.5%);
+  margin-top: calc(2.5vh + 10%);
 }
 
 .smallVidDescription{
@@ -2000,11 +1973,10 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 25rem;
+  height: 55%;
   margin-left: 7.5%;
   margin-top: calc(8vh - 0.01%);
   padding: 0px;
-  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -2191,7 +2163,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 3.5%);
+  margin-top: calc(2.5vh + 12%);
 }
 
 .smallVidDescription{
@@ -2282,11 +2254,10 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 25rem;
+  height: 55%;
   margin-left: 7.5%;
   margin-top: calc(8vh - 0.01%);
   padding: 0px;
-  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -2473,7 +2444,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 3.5%);
+  margin-top: calc(2.5vh + 12%);
 }
 
 .smallVidDescription{
@@ -2564,11 +2535,10 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 30rem;
+  height: 55%;
   margin-left: 7.5%;
   margin-top: calc(8vh - 0.01%);
   padding: 0px;
-  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -2747,7 +2717,7 @@ body {
 
 .userPageSideVideosSection{
   margin-left: 63%;
-  margin-top: calc(2.2vh - 30.5% - 4.7rem);
+  margin-top: calc(3vh - 33%);
 }
 
 .userPageSideVideos{
@@ -2755,7 +2725,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 5%);
+  margin-top: calc(2.5vh + 13%);
 }
 
 .smallVidDescription{
@@ -2846,11 +2816,10 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 35rem;
+  height: 55%;
   margin-left: 7.5%;
   margin-top: calc(8vh - 0.01%);
   padding: 0px;
-  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -3029,7 +2998,7 @@ body {
 
 .userPageSideVideosSection{
   margin-left: 63%;
-  margin-top: calc(3vh - 37%);
+  margin-top: calc(3vh - 33%);
 }
 
 .userPageSideVideos{
@@ -3037,7 +3006,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 3.5%);
+  margin-top: calc(2.5vh + 12%);
 }
 
 .smallVidDescription{
@@ -3128,11 +3097,10 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 35rem;
+  height: 55%;
   margin-left: 7.5%;
   margin-top: calc(8vh - 0.01%);
   padding: 0px;
-  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -3311,7 +3279,7 @@ body {
 
 .userPageSideVideosSection{
   margin-left: 63%;
-  margin-top: calc(3.5vh - 37.5%);
+  margin-top: calc(3vh - 32.5%);
 }
 
 .userPageSideVideos{
@@ -3319,7 +3287,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 3.5%);
+  margin-top: calc(2.5vh + 12%);
 }
 
 .smallVidDescription{
@@ -3411,11 +3379,10 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 35rem;
+  height: 55%;
   margin-left: 7.5%;
   margin-top: calc(8vh - 0.01%);
   padding: 0px;
-  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -3594,7 +3561,7 @@ body {
 
 .userPageSideVideosSection{
   margin-left: 63%;
-  margin-top: calc(3vh - 33.6%);
+  margin-top: calc(3vh - 32.5%);
 }
 
 .userPageSideVideos{
@@ -3602,7 +3569,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 170px;
-  margin-top: calc(2.5vh + 3%);
+  margin-top: calc(2.5vh + 11.5%);
 }
 
 .smallVidDescription{
@@ -3694,11 +3661,10 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 40rem;
+  height: 55%;
   margin-left: 7.5%;
   margin-top: calc(8vh - 0.01%);
   padding: 0px;
-  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -3877,7 +3843,7 @@ body {
 
 .userPageSideVideosSection{
   margin-left: 63%;
-  margin-top: calc(3vh - 30.8%);
+  margin-top: calc(3vh - 32.5%);
 }
 
 .userPageSideVideos{
@@ -3885,7 +3851,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 200px;
-  margin-top: calc(2.5vh + 3.5%);
+  margin-top: calc(2.5vh + 12%);
 }
 
 .smallVidDescription{
@@ -5065,10 +5031,10 @@ body{
     vertical-align: top;
     margin-left: -10px; 
 }
+.modalclickable {
+	cursor:pointer
+}
 
-.ml-auto,
-.mx-auto {
-  margin-left: auto !important; }
 
-.d-flex {
-  display: flex !important; }
+
+

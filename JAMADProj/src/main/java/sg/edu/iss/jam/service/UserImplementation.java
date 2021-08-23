@@ -291,4 +291,9 @@ public class UserImplementation implements UserInterface {
 		prepo.save(product);
 	}
 
+	@Override
+	public List<Orders> getPurchaseHistoryByUserId(Long userID) {
+		return orepo.getPurchaseHistoryByUserId(userID);
+	}
+
 }
