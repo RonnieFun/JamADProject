@@ -3,8 +3,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.core.metrics.StartupStep.Tags;
-
 import sg.edu.iss.jam.model.Album;
 import sg.edu.iss.jam.model.Category;
 import sg.edu.iss.jam.model.Channel;
@@ -37,6 +35,8 @@ public interface ArtistInterface {
 
 	List<Product> getProductListByArtistIDAndCategory(long artistid, Category category);
 	
+
+	Album getAlbumByAlbumId(long AlbumID);
 	
 	Channel getChannel(Long channelID);
 	

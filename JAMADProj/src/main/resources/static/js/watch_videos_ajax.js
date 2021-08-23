@@ -1,10 +1,19 @@
 function openForm() {
-	  document.getElementById("myForm").style.display = "block";
+	  document.getElementById("myHeartForm").style.display = "block";
 	}
 
-	function closeForm() {
-	  document.getElementById("myForm").style.display = "none";
+function closeForm() {
+	  document.getElementById("myHeartForm").style.display = "none";
 	}
+	
+//Close save to playlist heart button if click outside box
+$(document).mouseup(function(e) 
+{
+    if ($("#myHeartForm").has(e.target).length === 0 && !$("#myHeartForm").is(e.target)) 
+    {
+        closeForm();
+    }
+});	
 
 $(document).ready(function(){
 	$("#savePlaylistButton").on("click", function() {
@@ -114,13 +123,12 @@ $(document).ready(function(){
 				commentDateTime :commentDateTime,
 			},
 			success: function (response) {
-				$('#userCommentsSection').load("http://localhost:8080/video/aftersubmitcomment");
+				$('#userCommentsSection').load("http://localhost:8080/video/aftersubmitcomment/" + commentMediaId);
 			}
 		})
 		
 	}
 		
 	});
-	
-	
+
 });

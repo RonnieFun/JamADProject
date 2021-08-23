@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import reactor.core.publisher.Mono;
-import sg.edu.iss.jam.service.VideoServiceImplementation;
+import sg.edu.iss.jam.service.MediaServiceImplementation;
 
 @RestController
 @RequestMapping("/api/media")
@@ -27,7 +27,7 @@ public class MediaRestAPIController {
 	private static final String AUDIO_PATH = "src\\main\\resources\\static\\media\\audio";
 
 	@Autowired
-	VideoServiceImplementation vidservice;
+	MediaServiceImplementation vidservice;
 
 	@GetMapping("/video/{fileName}")
 	public Mono<ResponseEntity<byte[]>> streamVideo(

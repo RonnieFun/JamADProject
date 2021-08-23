@@ -80,6 +80,5 @@ public class Album {
 	public void setAlbumMedia(Collection<Media> albumMedia) {
 		AlbumMedia = albumMedia;
 	}
-
 	
 }

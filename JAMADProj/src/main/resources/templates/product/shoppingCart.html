@@ -22,8 +22,8 @@
          <h2>There is no items in Cart</h2>
          <a th:href="@{/productList}">Show Product List</a>
       </th:block>
-      <div class="container cart_bag">
-       <h2 style="font-weight: bold;">YOUR BAG</h2>
+      <div class="cartIntroSection">
+       <h2 style="font-weight: bold;" class = "col-12 text-center">YOUR BAG</h2>
       <div class="row">
         <div class="col-lg-8 col-sm-8 col-xs-12">
           <table class="table">
@@ -43,12 +43,10 @@
                 </p>
                 
                 
-                       <!--  <input type="hidden"      
-                           th:name="|cartLines[${varStatus.index}].productInfo.code|"                       
-                           th:value="${cartLineInfo.productInfo.code}" /> -->
+               
                 <a th:href="@{|/shoppingCartRemoveProduct?id=${cartLineInfo.product.productID}|}"  style="margin-right: 10px;"> Remove</a>
               </td>
-              <td> <input type="text" th:name="|cartDetails[${varStatus.index}].quantity|" th:value="${cartLineInfo.quantity}" class="form-control" style="width: 50px; height: 35px;">
+              <td> <input type="text" th:name="|cartDetails[${varStatus.index}].quantity|" th:value="${cartLineInfo.quantity}"  th:onchange="'javascript:updateCartItemQuantity( \''+${cartLineInfo.product.productID}+'\' , '+this.value+');'" class="form-control" style="width: 50px; height: 35px;">
               
               </td>
               <td>$<span th:utext="${cartLineInfo.product.productPrice}"></span></td>
@@ -57,7 +55,6 @@
 
             <tr>
               <td colspan="7" align="right">
-              <input class="btn btn-dark" type="submit" value="Update Quantity" />
               <a th:href="@{/carthometab/1}" style="margin-left: 20px;">Continue Shopping</a>
                
               </td>
@@ -91,24 +88,37 @@
               <td><b>TOTAL</b></td>
               <td><b>$<span th:utext="${cartForm.amountTotal}"></span></b></td> 
             </tr>
-
-
-
-            
           </table>
           
           <a th:href="@{/checkout}" class="btn btn-dark btn-lg btn-block">CHECKOUT <span class="fa fa-arrow-right" style="margin-left: 9px;"></span></a>
           
-          <!-- <a href="https://www.paypal.com/webapps/hermes?token=EC-7N9771196T667744L" class="btn btn-outline-light btn-lg btn-block"><img src="https://www.nike.com/assets/experience/pet/payment-icons/paypal@2x.png" ></a>
-
-          <br><br>
-          <h5 style="font-weight: bold;">ACCEPTED PAYMENT METHODS</h5><br>
-          <img src="https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/enUS/Images/visa-master-amex-disc-pp-apple-affirm_tcm221-444412.png"> -->
-          
-          
         </div>
       </div>
     </div>
-       
+   <div class="footer">
+  <p style="margin-top: 3px;">@2020-2021 Jam | Term 2</p>
+</div>
    </body>
+   <script>
+   function updateCartItemQuantity(sku, quantity)
+   {
+	   $.ajax({
+	        type: 'PUT',
+	        url: "/updatecartitemqty",
+	        contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+	        data:{
+	        	productId :sku,
+	        	quantity : quantity
+	        },
+	        success: function(response){
+	        	
+	        	location.href = '/shoppingcart' 
+	        },
+	        error:function(xmlHttpRequest, textStatus, errorThrown){
+	        	console.log("error"+ errorThrown);
+	            alert("error");
+	        } 
+	    });
+   }
+   </script>
 </html>

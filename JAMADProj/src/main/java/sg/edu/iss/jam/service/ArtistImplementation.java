@@ -63,6 +63,9 @@ public class ArtistImplementation implements ArtistInterface {
 
 	@Autowired
 	UserHistoryRepository historyrepo;
+	
+	@Autowired
+	AlbumRepository albumrepo;
 
 	@Autowired
 	AlbumRepository arepo;
@@ -105,6 +108,11 @@ public class ArtistImplementation implements ArtistInterface {
 	@Transactional
 	public void saveProduct(Product product) {
 		prepo.save(product);
+	}
+	
+	@Transactional
+	public Album getAlbumByAlbumId(long AlbumId) {
+		return albumrepo.findById(AlbumId).get();
 	}
 
 	@Override

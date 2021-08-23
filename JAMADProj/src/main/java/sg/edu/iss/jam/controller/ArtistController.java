@@ -32,7 +32,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -59,23 +61,28 @@ public class ArtistController {
 
 	@Autowired
 	ArtistInterface ArtistService;
-
+	@Autowired
+	UserInterface userService;
 	@Autowired
 	UploadInterface UploadService;
 
 	// TODO awaiting sessions and userid
 	@GetMapping("/manageshop")
 	public String manageShopAllProducts(Model model) {
-		User artist = ArtistService.getArtistByID(1);
-		List<Product> productsInShop = ArtistService.getProductListByArtistID((long) 1);
+		
+		User user = userService.findUserByUserId(9L);
+		
+		Long count = userService.getItemCountByUserID(user.getUserID());		
+		List<Product> productsInShop = ArtistService.getProductListByArtistID(user.getUserID());
 		Map<Product, Long> productsAndCountShop = new HashMap<Product, Long>();
 		for (Product product : productsInShop) {
 			Long quantity = ArtistService.getQuantitySold(product.getProductID());
 			productsAndCountShop.put(product, quantity);
-
 		}
+		
 		model.addAttribute("productsAndCountShop", productsAndCountShop);
-		model.addAttribute("artist", artist);
+		model.addAttribute("user", user);
+		model.addAttribute("count", count);
 		model.addAttribute("category", "allProducts");
 		return "artistmanageshop";
 	}
@@ -83,31 +90,39 @@ public class ArtistController {
 	// TODO awaiting sessions and userid
 	@GetMapping("/manageshop/musiccollection")
 	public String manageShopMusicCollection(Model model) {
-		User artist = ArtistService.getArtistByID(1);
-		List<Product> productsInShop = ArtistService.getProductListByArtistIDAndCategory(1, Category.MusicCollection);
+		User user = userService.findUserByUserId(9L);
+		
+		Long count = userService.getItemCountByUserID(user.getUserID());		
+		List<Product> productsInShop = ArtistService.getProductListByArtistIDAndCategory(user.getUserID(), Category.MusicCollection);
 		Map<Product, Long> productsAndCountShop = new HashMap<Product, Long>();
 		for (Product product : productsInShop) {
 			Long quantity = ArtistService.getQuantitySold(product.getProductID());
 			productsAndCountShop.put(product, quantity);
 		}
+		
 		model.addAttribute("productsAndCountShop", productsAndCountShop);
-		model.addAttribute("artist", artist);
+		model.addAttribute("user", user);
+		model.addAttribute("count", count);
 		model.addAttribute("category", "musicCollection");
 		return "artistmanageshop";
 	}
 
 	// TODO awaiting sessions and userid
 	@GetMapping("/manageshop/merchandise")
-	public String manageShopMerchandise(Model model) {
-		User artist = ArtistService.getArtistByID(1);
-		List<Product> productsInShop = ArtistService.getProductListByArtistIDAndCategory(1, Category.Merchandise);
+	public String manageShopMerchandise(Model model) {		
+		User user = userService.findUserByUserId(9L);
+	
+		Long count = userService.getItemCountByUserID(user.getUserID());		
+		List<Product> productsInShop = ArtistService.getProductListByArtistIDAndCategory(user.getUserID(), Category.Merchandise);
 		Map<Product, Long> productsAndCountShop = new HashMap<Product, Long>();
 		for (Product product : productsInShop) {
 			Long quantity = ArtistService.getQuantitySold(product.getProductID());
 			productsAndCountShop.put(product, quantity);
 		}
+		
 		model.addAttribute("productsAndCountShop", productsAndCountShop);
-		model.addAttribute("artist", artist);
+		model.addAttribute("user", user);
+		model.addAttribute("count", count);
 		model.addAttribute("category", "merchandise");
 		return "artistmanageshop";
 	}
@@ -115,21 +130,27 @@ public class ArtistController {
 	// TODO awaiting sessions and userid
 	@GetMapping("/manageshop/clothing")
 	public String manageShopClothing(Model model) {
-		User artist = ArtistService.getArtistByID(1);
-		List<Product> productsInShop = ArtistService.getProductListByArtistIDAndCategory(1, Category.Clothing);
+		User user = userService.findUserByUserId(9L);
+		
+		Long count = userService.getItemCountByUserID(user.getUserID());		
+		List<Product> productsInShop = ArtistService.getProductListByArtistIDAndCategory(user.getUserID(), Category.Clothing);
 		Map<Product, Long> productsAndCountShop = new HashMap<Product, Long>();
 		for (Product product : productsInShop) {
 			Long quantity = ArtistService.getQuantitySold(product.getProductID());
 			productsAndCountShop.put(product, quantity);
 		}
 		model.addAttribute("productsAndCountShop", productsAndCountShop);
-		model.addAttribute("artist", artist);
+		model.addAttribute("user", user);
+		model.addAttribute("count", count);
 		model.addAttribute("category", "clothing");
 		return "artistmanageshop";
 	}
 
 	@GetMapping("/addnewproduct")
 	public String addNewProduct(Model model) {
+		User user = userService.findUserByUserId(9L);
+		
+		Long count = userService.getItemCountByUserID(user.getUserID());	
 		Product newProduct = new Product();
 		model.addAttribute("newProduct", newProduct);
 		Map<Category, String> categories = new HashMap<Category, String>();
@@ -140,12 +161,18 @@ public class ArtistController {
 				categories.put(category, category.toString());
 			}
 		}
+		
+		model.addAttribute("user", user);
+		model.addAttribute("count", count);
 		model.addAttribute("categories", categories);
 		return "addnewproduct";
 	}
 
 	@GetMapping("/editproduct")
 	public String editProduct(@RequestParam("productID") Long productID, Model model) {
+		User user = userService.findUserByUserId(9L);
+		
+		Long count = userService.getItemCountByUserID(user.getUserID());	
 		Product product = ArtistService.getProductByID(productID);
 		model.addAttribute("product", product);
 		Map<Category, String> categories = new HashMap<Category, String>();
@@ -156,6 +183,9 @@ public class ArtistController {
 				categories.put(category, category.toString());
 			}
 		}
+		
+		model.addAttribute("user", user);
+		model.addAttribute("count", count);
 		model.addAttribute("categories", categories);
 		return "editproduct";
 	}
@@ -164,15 +194,19 @@ public class ArtistController {
 	@PostMapping("/saveproduct")
 	public String saveProduct(@Valid @ModelAttribute("product") Product product,
 			@RequestParam("file") Optional<MultipartFile> rawfile, BindingResult bindingResult, Model model) {
+		
+		User user = userService.findUserByUserId(9L);
+		
+		Long count = userService.getItemCountByUserID(user.getUserID());	
 
 		if (bindingResult.hasErrors()) {
-			return "admin/courseform";
+			return "artist/editproduct";
 		}
 
-		product.setProductUser(ArtistService.findById((long) 1));
+		product.setProductUser(ArtistService.findById(user.getUserID()));
 		ArtistService.saveProduct(product);
 
-		if (!rawfile.isEmpty()) {
+		if (!rawfile.get().isEmpty()) {
 
 			MultipartFile file = rawfile.get();
 			Long productidtemp = product.getProductID();
@@ -189,8 +223,27 @@ public class ArtistController {
 
 			product.setProductUrl("/productimages/" + filename);
 			ArtistService.saveProduct(product);
+			
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return "redirect:/artist/manageshop";
+	}
+	
+	// TODO awaiting sessions and userid
+	@RequestMapping(value = "/editShopDescription", method = RequestMethod.POST)
+	@ResponseBody
+	public void add(@RequestParam (value="newShopDescription") String newShopDescription) throws Exception {
+		User user = userService.findUserByUserId(9L);
+		user.setShopDescription(newShopDescription);
+		userService.saveUser(user);
+
+	}
+
 	}
 
 	// --------------------MEDIA PORTION-----------------//
