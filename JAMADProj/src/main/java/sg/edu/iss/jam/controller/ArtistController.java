@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -14,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.mail.Multipart;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +33,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
+import sg.edu.iss.jam.DTO.AlbumDTO;
+import sg.edu.iss.jam.DTO.ChannelDTO;
+import sg.edu.iss.jam.DTO.MediaDTO;
+import sg.edu.iss.jam.model.Album;
 import sg.edu.iss.jam.model.Category;
 import sg.edu.iss.jam.model.Channel;
 import sg.edu.iss.jam.model.Media;
@@ -40,23 +48,20 @@ import sg.edu.iss.jam.model.Product;
 import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.repo.ChannelRepository;
 import sg.edu.iss.jam.repo.MediaRepository;
+import sg.edu.iss.jam.repo.TagRepository;
 import sg.edu.iss.jam.repo.UserRepository;
 import sg.edu.iss.jam.service.ArtistInterface;
-import sg.edu.iss.jamDTO.ChannelDTO;
-import sg.edu.iss.jamDTO.MediaDTO;
+import sg.edu.iss.jam.service.UploadInterface;
 
 @Controller
 @RequestMapping("/artist")
 public class ArtistController {
 
 	@Autowired
-	ChannelRepository ChannelRepo;
-	@Autowired
-	MediaRepository MediaRepo;
-	@Autowired
-	UserRepository UserRepo;
-	@Autowired
 	ArtistInterface ArtistService;
+
+	@Autowired
+	UploadInterface UploadService;
 
 	// TODO awaiting sessions and userid
 	@GetMapping("/manageshop")
@@ -188,21 +193,26 @@ public class ArtistController {
 		return "redirect:/artist/manageshop";
 	}
 
+	// --------------------MEDIA PORTION-----------------//
+
+	// Get Channels
 	@GetMapping("/channel")
-	public String ViewChannel(Model model) {
+	public String ViewChannels(Model model) {
 
 		// get AristID(userID)
 		Long userid = (long) 1;
 
-		Channel ChannelVideo = ChannelRepo.findByChannelUserAndMediaType(UserRepo.findById(userid), MediaType.Video);
-		Channel ChannelMusic = ChannelRepo.findByChannelUserAndMediaType(UserRepo.findById(userid), MediaType.Music);
+		Channel ChannelVideo = ArtistService.getChannelbyUserandMediaType(ArtistService.findById(userid),
+				MediaType.Video);
+		Channel ChannelMusic = ArtistService.getChannelbyUserandMediaType(ArtistService.findById(userid),
+				MediaType.Music);
 
-		int VideoCount = MediaRepo.CountMediaByChannel(ChannelVideo.getChannelID(), MediaType.Video);
-		int MusicCount = MediaRepo.CountMediaByChannel(ChannelMusic.getChannelID(), MediaType.Music);
+		int VideoCount = ArtistService.getMediaCountbyChannel(ChannelVideo.getChannelID(), MediaType.Video);
+		int MusicCount = ArtistService.getMediaCountbyChannel(ChannelMusic.getChannelID(), MediaType.Music);
 
 		// Repo-Channel Details and Sum up Channel (Create DTO?)
 		ChannelDTO ChannelDTOVideo = new ChannelDTO(ChannelVideo, VideoCount, 0);
-		ChannelDTO ChannelDTOMusic = new ChannelDTO(ChannelMusic, 0, MusicCount);
+		ChannelDTO ChannelDTOMusic = new ChannelDTO(ChannelMusic, 0, MusicCount); // Do we want album count instead
 
 		Collection<ChannelDTO> ChannelDTOlist = new ArrayList<ChannelDTO>();
 		ChannelDTOlist.add(ChannelDTOVideo);
@@ -215,6 +225,7 @@ public class ArtistController {
 
 	}
 
+	// Post(edit) Channels
 	@PostMapping("/channel/editchannel")
 	public String EditChannel(@ModelAttribute("channel") @Validated Channel channeldto, BindingResult bindingResult) {
 
@@ -235,17 +246,18 @@ public class ArtistController {
 		return "redirect:/artist/channel";
 	}
 
-	@GetMapping("channel/{MediaType}")
-	public String ChannelContent(@PathVariable("MediaType") String MediaTypeString, Model model) {
+	// Get Channel Contents for Video Channel
+	@GetMapping("channel/Video")
+	public String ChannelContent(Model model) {
 
 		// get AristID(userID)
 		Long userid = (long) 1;
 
 		// get enum mediatype
-		MediaType mediaType = MediaType.valueOf(MediaTypeString);
+		MediaType mediaType = MediaType.valueOf("Video");
 
 		// get channelID
-		Channel Channel = ChannelRepo.findByChannelUserAndMediaType(UserRepo.findById(userid), mediaType);
+		Channel Channel = ArtistService.getChannelbyUserandMediaType(ArtistService.findById(userid), mediaType);
 
 		// Get all media where channel=channelID
 		Collection<Media> medias = ArtistService.getMedias(Channel.getChannelID());
@@ -262,36 +274,341 @@ public class ArtistController {
 
 		model.addAttribute("MediaDTOList", MediaDTOList);
 
-		return "ChannelContent.html";
+		return "ChannelContentVideo.html";
 	}
 
-	@PostMapping("/editmedia")
-	public ResponseEntity<?> EditMedia(@RequestBody @Validated Media media,
-			@RequestParam("thumbnail") MultipartFile multipartFileThumbnail,
-			@RequestParam("media") MultipartFile multipartFileMedia, BindingResult bindingResult) {
+	// Post(edit) Channels
+	@PostMapping("/channel/editvideo")
+	public String EditMedia(@ModelAttribute("media") @Validated Media mediaDTO,
+			@RequestPart("tags") Optional<String> tags,
+			@RequestPart("thumbnailfile") Optional<MultipartFile> multipartFileThumbnail,
+			@RequestPart("VideoFile") Optional<MultipartFile> multipartFileMedia, BindingResult bindingResult) {
 
 		if (bindingResult.hasErrors()) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+			return "error";
 		}
 
-		// String ThumbnailFileName = channel.getChannelID().toString() + "thumbnail";
-		// String uploadDir = "channel/ "channel.getChannelID() +"/media";
+		// get AristID(userID)
+		Long userid = (long) 1;
+		// define enum mediatype
+		MediaType mediaType = MediaType.valueOf("Video");
+		// get channel
+		Channel channel = ArtistService.getChannelbyUserandMediaType(ArtistService.findById(userid), mediaType);
 
-		if (media.getId() == null) {
+		Media media;
+		MultipartFile mediafile = multipartFileMedia.get();
+		MultipartFile thumbFile = multipartFileThumbnail.get();
+
+		String uploadDir = "src/main/resources/static/media/channel" + channel.getChannelID().toString() + "/video/";
+
+		// New File Adding
+		if (mediaDTO.getId() == null) {
+
+			media = mediaDTO;
+			media.setMediaType(MediaType.Video);
+			media.setCreatedOn(LocalDate.now());
+			media.setChannel(channel);
+			if (!tags.isEmpty()) {
+				media.setTagList(ArtistService.getTagsbytagName(tags.get())); // Cannot delete tags. Probably Cascade
+																				// Problem
+			}
+
+			media = ArtistService.saveMedia(media);
+
+			// When creating new video, file cannot be empty
+			if (mediafile.getSize() > 0 && thumbFile.getSize() > 0) {
+				media.setMediaUrl(
+						UploadService.store(thumbFile, uploadDir, "video" + media.getId().toString() + "_thumbnail."));
+				media.setThumbnailUrl(
+						UploadService.store(mediafile, uploadDir, "video" + media.getId().toString() + "_video."));
+				media = ArtistService.saveMedia(media);
+			} else {
+				return "error";
+			}
+
+			// Editing Existing File
+		} else {
+
+			media = ArtistService.getMediabyid(mediaDTO.getId());
+			media.setTitle(mediaDTO.getTitle());
+			media.setDescription(mediaDTO.getDescription());
+			media.setPublishStatus(mediaDTO.getPublishStatus());
+			if (!tags.isEmpty()) {
+				media.setTagList(ArtistService.getTagsbytagName(tags.get()));// Cannot delete tags. Probably Cascade
+																				// Problem
+			} else
+				media.setTagList(null);
+
+			if (mediafile.getSize() > 0) {
+				media.setMediaUrl(
+						UploadService.store(thumbFile, uploadDir, "video" + media.getId().toString() + "_thumbnail."));
+			}
+			if (thumbFile.getSize() > 0) {
+				media.setThumbnailUrl(
+						UploadService.store(mediafile, uploadDir, "video" + media.getId().toString() + "_video."));
+				// set duration using xuggler?
+			}
+
+			ArtistService.saveMedia(media);
+		}
+
+		return "redirect:/artist/channel/video";
+	}
+
+	// Get(delete) Video
+	@GetMapping("/channel/deletevideo/{mediaid}")
+	public String deleteVideo(@PathVariable("mediaid") Long mediaID) {
+
+		// get AristID(userID)
+		Long userid = (long) 1;
+		// get enum mediatype
+		MediaType mediaType = MediaType.valueOf("Video");
+		// get channel
+		Channel channel = ArtistService.getChannelbyUserandMediaType(ArtistService.findById(userid), mediaType);
+		// get Media
+		Media media = ArtistService.getMediabyid(mediaID);
+		// Check if Video belongs to Artist
+		if (ArtistService.checkifMediaAuthorised(channel, media) == false) {
+			return "error";
+		}
+
+		// Delete
+		try {
+			UploadService.delete(media.getMediaUrl().toString());
+			UploadService.delete(media.getThumbnailUrl().toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		ArtistService.deleteMedia(media);
+
+		return "redirect:/artist/channel/video";
+	}
+
+	// View Channel Contents for Album
+	@GetMapping("channel/Music")
+	public String viewAlbums(Model model) {
+
+		// get AristID(userID)
+		Long userid = (long) 1;
+
+		// get enum mediatype
+		MediaType mediaType = MediaType.valueOf("Music");
+
+		// get ChannelID
+		Channel Channel = ArtistService.getChannelbyUserandMediaType(ArtistService.findById(userid), mediaType);
+
+		// get List of albums (added to next line)
+		Collection<Album> albumlist = ArtistService.getAlbumsbyChannel(Channel.getChannelID());
+
+		Collection<AlbumDTO> albumDTOlist = new ArrayList<AlbumDTO>();
+
+		for (Album album : albumlist) {
+			albumDTOlist.add(new AlbumDTO(album, ArtistService.getMediaCountbyAlbum(album.getAlbumID()),
+					ArtistService.getViewcountByAlbum(album.getAlbumID())));
+		}
+
+		// Add list of albums to model
+		model.addAttribute("AlbumDTOList", albumDTOlist);
+
+		return "ChannelContentMusic";
+	}
+
+	// POST(Edit) Albums
+	@PostMapping("channel/albums/editalbum")
+	public String EditAlbums(@ModelAttribute("album") @Validated Album albumdto,
+			@RequestPart("AlbumCover") Optional<MultipartFile> multipartFileAlbumCover, BindingResult bindingResult) {
+
+		if (bindingResult.hasErrors()) {
+			return "error";
+		}
+		// get AristID(userID)
+		Long userid = (long) 1;
+		Album album;
+		MultipartFile Albumcoverfile = multipartFileAlbumCover.get();
+		// define enum mediatype
+		MediaType mediaType = MediaType.Music;
+		// get channel
+		Channel channel = ArtistService.getChannelbyUserandMediaType(ArtistService.findById(userid), mediaType);
+
+		if (albumdto.getAlbumID() == null) {
+
+			album = albumdto;
+			album.setChannel(channel);
+			album = ArtistService.saveAlbum(album);
+			String uploadDir = "src/main/resources/static/media/channel" + channel.getChannelID().toString()
+					+ "/Music/album" + album.getAlbumID().toString();
+			if (Albumcoverfile.getSize() > 0 && Albumcoverfile.getSize() > 0) {
+				album.setAlbumImgURL(
+						UploadService.store(Albumcoverfile, uploadDir, "albumcover" + album.getAlbumID().toString()+"."));
+				album = ArtistService.saveAlbum(album);
+			} else
+				return "error";
 
 		} else {
 
+			album = ArtistService.getAlbumbyID(albumdto.getAlbumID());
+			album.setAlbumDescription(albumdto.getAlbumDescription());
+			album = ArtistService.saveAlbum(album);
+
+			String uploadDir = "src/main/resources/static/media/channel" + channel.getChannelID().toString()
+					+ "/Music/album" + album.getAlbumID().toString();
+			if (Albumcoverfile.getSize() > 0 && Albumcoverfile.getSize() > 0) {
+				album.setAlbumImgURL(
+						UploadService.store(Albumcoverfile, uploadDir, "albumcover" + album.getAlbumID().toString()));
+				album = ArtistService.saveAlbum(album);
+			}
+
 		}
 
-		// Get Media Object from Form
-		// Get Thumbnail File, Rename, Upload
-		// Set Media.setthumbnailurl to new thumbnail
-		// Get Media File, Rename, Save
-		// Set Media.setMediaURL to new File
-		// Save Media Object
-
-		return ResponseEntity.ok("Channel Updated");
+		return "redirect:/artist/channel/albums";
 	}
+
+	// View Album Contents for Music
+	@GetMapping("channel/album/{albumid}")
+	public String Music(Model model, @PathVariable("albumid") Long albumid) {
+
+		// get AristID(userID) Should be from Sessions
+		Long userid = (long) 1;
+
+		// get enum mediatype
+		MediaType mediaType = MediaType.valueOf("Music");
+		// get ChannelID
+		Channel Channel = ArtistService.getChannelbyUserandMediaType(ArtistService.findById(userid), mediaType);
+		// get Album
+		Album album = ArtistService.getAlbumbyID(albumid);
+
+		// Check if AlbumID belongs to Artist, else return unauthorized
+		if (!ArtistService.CheckifAlbumAuthorised(album, Channel)) {
+			return "error";
+		}
+
+		// get List of Songs in order
+		List<Media> songs = ArtistService.getMusicbyAlbum(album.getAlbumID());
+
+		// Create Collection of MediaDTO
+		Collection<MediaDTO> MediaDTOList = new ArrayList<MediaDTO>();
+
+		// Add all media to MediaDTO, count view, count comments, concat all tags
+		for (Iterator<Media> iterator = songs.iterator(); iterator.hasNext();) {
+			Media Media = (Media) iterator.next();
+			MediaDTOList.add(new MediaDTO(Media, ArtistService.getViewcountByMedia(Media),
+					ArtistService.getCommentcountByMedia(Media), ArtistService.getTagsByMedia(Media)));
+		}
+
+		model.addAttribute("album", album);
+		model.addAttribute("MediaDTOList", MediaDTOList);
+
+		return "ChannelContentAlbum.html";
+	}
+
+	// POST(Edit/Add Music)
+	@PostMapping("channel/album/editmusic/{albumid}")
+	public String EditMusic(Model model,
+			@ModelAttribute("media") @Validated Media mediaDTO, 
+			@RequestPart("tags") Optional<String> tags,
+			@RequestPart("MediaFile") Optional<MultipartFile> multipartFileMedia, 
+			@PathVariable("albumid") Long albumid, BindingResult bindingResult) {
+		
+		if (bindingResult.hasErrors()) {
+			return "error";
+		}
+
+		// get AristID(userID)
+		Long userid = (long) 1;
+		// get enum mediatype
+		MediaType mediaType = MediaType.valueOf("Music");
+		// get ChannelID
+		Channel channel = ArtistService.getChannelbyUserandMediaType(ArtistService.findById(userid), mediaType);
+		//get Album
+		Album album = ArtistService.getAlbumbyID(albumid);
+		
+		String uploadDir = "src/main/resources/static/media/channel" + channel.getChannelID().toString()
+				+ "/music/album" + albumid;
+
+		Media media;
+		MultipartFile mediafile = multipartFileMedia.get();
+
+		// New File Adding
+		if (mediaDTO.getId() == null) {
+
+			media = mediaDTO;
+			media.setAlbum(album);
+			media.setMediaType(MediaType.Video);
+			media.setCreatedOn(LocalDate.now());
+			media.setChannel(channel);
+			media.setThumbnailUrl(album.getAlbumImgURL());
+			if (!tags.isEmpty()) {
+				media.setTagList(ArtistService.getTagsbytagName(tags.get()));
+
+			}
+
+			media = ArtistService.saveMedia(media);
+
+			// When creating new video, file cannot be empty
+			if (mediafile.getSize() > 0) {
+				media.setMediaUrl(UploadService.store(mediafile, uploadDir, "music" + media.getId().toString()+"."));
+				media = ArtistService.saveMedia(media);
+			} else {
+				return "error";
+			}
+
+			// Editing Existing File
+		} else {
+
+			media = ArtistService.getMediabyid(mediaDTO.getId());
+			media.setAlbum(album);
+			media.setTitle(mediaDTO.getTitle());
+			media.setDescription(mediaDTO.getDescription());
+			media.setPublishStatus(mediaDTO.getPublishStatus());
+			media.setAlbumOrder(mediaDTO.getAlbumOrder());
+			if (!tags.isEmpty()) {
+				media.setTagList(ArtistService.getTagsbytagName(tags.get()));// Cannot delete tags. Probably Cascade
+																				// Problem
+			} else
+				media.setTagList(null);
+
+			if (mediafile.getSize() > 0) {
+				media.setMediaUrl(UploadService.store(mediafile, uploadDir, "music" + media.getId().toString()+"."));
+			}
+
+			ArtistService.saveMedia(media);
+
+		}
+		return "redirect:/artist/channel/album/"+albumid;
+	}
+	
+	// Delete music
+	@GetMapping("/channel/deletemusic/{AlbumID}/{mediaid}")
+	public String deleteMusic(@PathVariable("mediaid") Long mediaID,@PathVariable("AlbumID") Long AlbumID) {
+
+		// get AristID(userID)
+		Long userid = (long) 1;
+		// get enum mediatype
+		MediaType mediaType = MediaType.valueOf("Music");
+		// get channel
+		Channel channel = ArtistService.getChannelbyUserandMediaType(ArtistService.findById(userid), mediaType);
+		// get Media
+		Media media = ArtistService.getMediabyid(mediaID);
+		// Check if Video belongs to Artist
+		if (ArtistService.checkifMediaAuthorised(channel, media) == false) {
+			return "error";
+		}
+
+		// Delete
+		if (media.getMediaUrl() != null) {
+			try {
+				UploadService.delete(media.getMediaUrl().toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		ArtistService.deleteMedia(media);
+
+		return "redirect:/artist/channel/album/"+AlbumID;
+	}
+	
+	
 }
 //		Courses course1 = new Courses();
 //		List<Users> lecturers = leservice.getAllUsersByRole(Roles.LECTURER);

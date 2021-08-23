@@ -1,10 +1,12 @@
 package sg.edu.iss.jam.model;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -65,7 +67,8 @@ public class Media {
 	private Collection<PlaylistOrder> PlaylistOrder;
 	
 	//relation with tag
-	@ManyToMany(mappedBy = "mediaTagList")
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name="tag_media_tag_list")
 	private Collection<Tag> tagList;
 	
 	

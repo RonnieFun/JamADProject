@@ -2,6 +2,7 @@ package sg.edu.iss.jam.model;
 
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +18,7 @@ public class Tag {
 	private String tagName;
 	
 	//relation with media
-	@ManyToMany
+	@ManyToMany(mappedBy = "tagList", cascade = CascadeType.ALL)
 	private Collection<Media> mediaTagList;
 
 	public Tag() {

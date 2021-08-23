@@ -4,34 +4,123 @@
 </head>
 <meta charset="ISO-8859-1">
 <title>Channel Content</title>
+<a th:href="@{/artist/channel}">Back to Channel List</a>
+<br>
 
-<h1>Video Channel Content</h1>
+<h1>Music Channel Content</h1>
 <div class="container">
 	<div class="row">
 		<div class="container">
+		
+								
+						<button type="button" class="btn btn-info btn-lg"
+								data-bs-toggle="modal" data-bs-target="#AddModal">Add
+								Album</button>
+								
+								<div class="modal fade" id="AddModal" role="dialog">
+								<div class="modal-dialog">
+
+									<!-- Modal content-->
+									<div class="modal-content">
+										<div class="modal-header">
+											<h1>Edit Album</h1>
+										</div>
+										<form action="#" th:action="@{/artist/channel/albums/editalbum}"
+											method="post" enctype="multipart/form-data">
+											<div class="modal-body">
+
+												<input id="AlbumID" name="AlbumID" type="hidden"
+													placeholder="AlbumID" class="form-control input-md"/> 
+													
+												<label>Description*:</label>
+												<input id="AlbumDescription" name="AlbumDescription" type="text" required
+													placeholder="Album Description" class="form-control input-md"/> 
+													
+													<br>
+													
+												<label>Album Cover:</label> <input type="file"
+													id="AlbumCover" name="AlbumCover" required> 
+												<br>
+												<br> 
+											</div>
+
+											<div class="modal-footer">
+												<button type="submit">Submit</button>
+												<button type="button" class="btn btn-default"
+													data-bs-dismiss="modal">Close</button>
+
+												<div th:if="${message}" th:text="${message}"
+													th:class="${'alert ' + alertClass}" /></div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+		
 			<table class="table">
 				<thead>
 					<tr>
-						<th>Album Title</th>
 						<th>Description</th>
-						<th>Visibility</th>
-						<th>Uploaded Date</th>
+						<th>Number of Songs</th>
+						<th>Total Album View Count</th>
 						<th>Manage</th>
 					</tr>
 				</thead>
 
 				<tbody>
-					<tr th:each="MediaDTO:${MediaDTOList}">
-						<td th:text=${MediaDTO.media.title}></td>
-						<td th:text=${MediaDTO.tags}></td>
-						<td th:text=${MediaDTO.media.description}></td>
-						<td th:text=${MediaDTO.media.publishStatus}></td>
-						<td th:text=${MediaDTO.media.createdOn}></td>
-						<td th:text=${MediaDTO.viewcount}></td>
-						<td th:text=${MediaDTO.commentscount}></td>
-						<td></td>
+					<tr th:each="AlbumDTO:${AlbumDTOList}">
+						<td><a th:text=${AlbumDTO.album.AlbumDescription} th:href="@{/artist/channel/album/{albumid}(albumid = ${AlbumDTO.album.AlbumID})}"></a></td>
+						<td th:text=${AlbumDTO.SongCount}></td>
+						<td th:text=${AlbumDTO.ViewCount}></td>
+						<td>
+						
+						<button type="button" class="btn btn-info btn-lg"
+								data-bs-toggle="modal" data-bs-target="#myModal"
+								th:attrappend="data-bs-target=${AlbumDTO.album.AlbumID}">Edit
+								Album</button>
+								
+								<div class="modal fade" id="myModal" role="dialog"
+								th:attrappend="id=${AlbumDTO.album.AlbumID}">
+								<div class="modal-dialog">
 
+									<!-- Modal content-->
+									<div class="modal-content">
+										<div class="modal-header">
+											<h1>Edit Album</h1>
+										</div>
+										<form action="#" th:action="@{/artist/channel/albums/editalbum}"
+											method="post" enctype="multipart/form-data">
+											<div class="modal-body">
 
+												<input id="AlbumID" name="AlbumID" type="hidden"
+													placeholder="AlbumID" class="form-control input-md"
+													th:value="${AlbumDTO.album.AlbumID}" /> 
+													
+												<label>Description*:</label>
+												<input id="AlbumDescription" name="AlbumDescription" type="text" required
+													placeholder="Album Description" class="form-control input-md"
+													th:value="${AlbumDTO.album.AlbumDescription}" /> 
+													
+													<br>
+													
+												<label>Album Cover:</label> <input type="file"
+													id="AlbumCover" name="AlbumCover"> <br>
+												<br> 
+											</div>
+
+											<div class="modal-footer">
+												<button type="submit">Submit</button>
+												<button type="button" class="btn btn-default"
+													data-bs-dismiss="modal">Close</button>
+
+												<div th:if="${message}" th:text="${message}"
+													th:class="${'alert ' + alertClass}" /></div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</td>
 					</tr>
 				</tbody>
 			</table>
