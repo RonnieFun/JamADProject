@@ -301,4 +301,9 @@ public class UserImplementation implements UserInterface {
 		return orepo.getPurchaseHistoryByUserId(userID);
 	}
 
+	@Override
+	public List<Product> getListOfAllProduts() {
+		return prepo.findAll();
+	}
+
 }
