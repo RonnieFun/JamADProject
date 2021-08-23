@@ -15,4 +15,7 @@ public interface UserHistoryRepository extends JpaRepository<UserHistory, Long> 
 	
 	@Query("Select count(distinct h) from UserHistory h Join h.mediaHistory m where m.id =:mediaID")
 	public int CountViewsByMedia(@Param("mediaID") long mediaID);
+	
+	@Query("Select count(distinct h) from UserHistory h Join h.mediaHistory m Join m.album a where a.AlbumID=:AlbumID")
+	public int CountViewsByAlbum(@Param("AlbumID") long AlbumID);
 }

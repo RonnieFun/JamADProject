@@ -1,4 +1,4 @@
-package sg.edu.iss.jamDTO;
+package sg.edu.iss.jam.DTO;
 
 
 
