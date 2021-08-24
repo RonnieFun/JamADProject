@@ -59,6 +59,8 @@ public interface UserInterface {
 	List<Tag> findTagsByMediaId(Long id);
 	
 	//USER HISTORY
+	List<UserHistory> findAllUserHistory();
+	
 	List<UserHistory> findUserHistoryByMediaId(Long id);
 	
 	ShoppingCart getShoppingCartByUserID(long userID);
