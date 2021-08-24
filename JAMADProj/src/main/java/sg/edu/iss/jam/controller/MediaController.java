@@ -325,7 +325,7 @@ public class MediaController {
 		
 		int commentCount = uservice.findCommentsByMediaId(mediaId).size();
 		
-		User loggedInUser = uservice.findUserByUserId(41L);
+		User loggedInUser = uservice.findUserByUserId(1L);
 		
 		Media selectedMedia = uservice.findMediaByMediaTypeAndMediaId(MediaType.Video, mediaId);
 
@@ -339,7 +339,7 @@ public class MediaController {
 		List<UserHistory> userHistory = uservice.findUserHistoryByMediaId(mediaId);
 		uservice.saveUserHistory(userhistory);
 		userHistory.add(userhistory);
-		 
+		
 		//Retrieve number of views based on userhistory size for the selected Media
 		int viewCount = userHistory.size();
 		
@@ -379,13 +379,20 @@ public class MediaController {
 		//Get list of all Subscribe objects in Database
 		List<Subscribed> listOfSubscribe = uservice.getAllSubscribed();
 		
+		// get artist's subscribers
+		List<Subscribed> users_Unsubscribed_jaychou = uservice.getArtistUnSubscribed(artistId);
+				
+		List<Subscribed> users_Subscribed_jaychou = uservice.getArtistSubscribed(artistId);
+		
 		for(Subscribed s: listOfSubscribe) {
 			// if the customer already subscribed the artist, it shows true
-			if (s.getSubscriber() == customer && s.getArtist() == artist && s.isSubscribed() == true) {
+			if (s.getSubscriber() == customer && s.getArtist() == artist && s.isSubscribed() == true
+					&& users_Unsubscribed_jaychou.size() < users_Subscribed_jaychou.size()) {
 				subscribeStatus = true;
 				}
 			
-			if (s.getSubscriber() == customer && s.getArtist() == artist && s.isSubscribed() == false) {
+			if (s.getSubscriber() == customer && s.getArtist() == artist && s.isSubscribed() == false
+					&& users_Unsubscribed_jaychou.size() > users_Subscribed_jaychou.size()) {
 				subscribeStatus = false;
 				}
 			}
@@ -611,18 +618,20 @@ public class MediaController {
 		int NumberOfSubscribers = 0;
 
 		// check the subscribe status
-		Boolean subscribeStatus = false;
+		Boolean subscribeStatus = false;				
+		
 		//Get list of all Subscribe objects in Database
 		List<Subscribed> listOfSubscribe = uservice.getAllSubscribed();
-						
+		
 		for(Subscribed s: listOfSubscribe) {
 			// if the customer already subscribed the artist, it shows true
-			if (s.getSubscriber() == customer && s.getArtist() == artist && s.isSubscribed() == true) {
+			if (s.getSubscriber() == customer && s.getArtist() == artist && s.isSubscribed() == true
+					&& users_Unsubscribed_jaychou.size() < users_Subscribed_jaychou.size()) {
 				subscribeStatus = true;
-				
 				}
 			
-			if (s.getSubscriber() == customer && s.getArtist() == artist && s.isSubscribed() == false) {
+			if (s.getSubscriber() == customer && s.getArtist() == artist && s.isSubscribed() == false
+					&& users_Unsubscribed_jaychou.size() > users_Subscribed_jaychou.size()) {
 				subscribeStatus = false;
 				}
 			}
