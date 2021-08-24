@@ -1,22 +1,22 @@
 function openForm() {
-	  document.getElementById("myHeartForm").style.display = "block";
+	  document.getElementById("myHeartFormVideo").style.display = "block";
 	}
 
 function closeForm() {
-	  document.getElementById("myHeartForm").style.display = "none";
+	  document.getElementById("myHeartFormVideo").style.display = "none";
 	}
 	
 //Close save to playlist heart button if click outside box
 $(document).mouseup(function(e) 
 {
-    if ($("#myHeartForm").has(e.target).length === 0 && !$("#myHeartForm").is(e.target)) 
+    if ($("#myHeartFormVideo").has(e.target).length === 0 && !$("#myHeartFormVideo").is(e.target)) 
     {
         closeForm();
     }
 });	
 
 $(document).ready(function(){
-	$("#savePlaylistButton").on("click", function() {
+	$("#savePlaylistButtonVideo").on("click", function() {
 		var userID = document.getElementById("userID").value;
 		var playlistID = document.getElementById("playlistID").value;
 		var mediaID = document.getElementById("mediaID").value;

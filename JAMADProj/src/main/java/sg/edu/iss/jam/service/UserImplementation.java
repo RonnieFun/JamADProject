@@ -133,6 +133,11 @@ public class UserImplementation implements UserInterface {
 	}
 	
 	@Transactional
+	public List<Media> findAllMediaByMediaType(MediaType mediaType) {
+		return mediarepo.findAllMediaByMediaType(mediaType);
+	}
+	
+	@Transactional
 	public Media saveMedia(Media media) {
 		return mediarepo.save(media);
 	}

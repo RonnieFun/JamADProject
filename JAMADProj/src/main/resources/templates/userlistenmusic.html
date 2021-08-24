@@ -9,8 +9,8 @@
  		<source th:src="${media.mediaUrl}" type="video/mp4">
  	</video>
 
- 	<!-- Video Introduction Section -->
- 	<div class="userPageVideoIntroSection">> -->
+ 	<!-- Music Introduction Section -->
+ 	<div class="userPageVideoIntroSection">
  		
  		<span class="userVideoTitleLabel">
 	     <span th:text="${media.title}" class=""></span>
@@ -102,11 +102,11 @@
 	</div>
 	</section>
 
-<!-- Side Videos List -->
+<!-- Side Music List -->
 
 	<div class="userPageSideVideosSection flex-container">
-		<span th:each = "sideMedia: ${recommend_medialist}"> 	
-			<a th:href="@{/video/watchvideo/{mediaId}(mediaId = ${sideMedia.id})}" class="sideVideoLinkColor"><img th:src="${sideMedia.thumbnailUrl}" class="userPageSideVideos" alt="...">
+		<span th:each = "sideMedia: ${allMedia}"> 	
+			<a th:href="@{/music/listenmusic/{mediaId}(mediaId = ${sideMedia.id})}" class="sideVideoLinkColor"><img th:src="${sideMedia.thumbnailUrl}" class="userPageSideVideos" alt="...">
 			<span class="col smallVidDescription">
 				<span th:text="${sideMedia.title}" class=""></span>
 				<span th:each = "tag: ${sideMedia.tagList}">

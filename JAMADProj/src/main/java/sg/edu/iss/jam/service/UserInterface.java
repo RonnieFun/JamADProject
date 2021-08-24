@@ -39,7 +39,8 @@ public interface UserInterface {
 	Media findMediaByMediaId(Long ID);
 	List<Media> findMediaListByPlayListID(Long playlistID);
 	List<Media> findAllMedia();
-	Media findMediaByMediaTypeAndMediaId(MediaType mediaType, Long id);
+	List<Media> findAllMediaByMediaType(MediaType mediaType);
+ 	Media findMediaByMediaTypeAndMediaId(MediaType mediaType, Long id);
 	Media saveMedia(Media media);
 
 	//SUBSCRIBED
