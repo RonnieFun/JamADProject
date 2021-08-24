@@ -15,13 +15,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.mail.Multipart;
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,12 +28,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import sg.edu.iss.jam.DTO.AlbumDTO;
@@ -48,10 +44,7 @@ import sg.edu.iss.jam.model.Media;
 import sg.edu.iss.jam.model.MediaType;
 import sg.edu.iss.jam.model.Product;
 import sg.edu.iss.jam.model.User;
-import sg.edu.iss.jam.repo.ChannelRepository;
-import sg.edu.iss.jam.repo.MediaRepository;
-import sg.edu.iss.jam.repo.TagRepository;
-import sg.edu.iss.jam.repo.UserRepository;
+import sg.edu.iss.jam.security.MyUserDetails;
 import sg.edu.iss.jam.service.ArtistInterface;
 import sg.edu.iss.jam.service.UploadInterface;
 import sg.edu.iss.jam.service.UserInterface;
@@ -67,94 +60,106 @@ public class ArtistController {
 	@Autowired
 	UploadInterface UploadService;
 
-	// TODO awaiting sessions and userid
-	@GetMapping("/manageshop")
-	public String manageShopAllProducts(Model model) {
-		
-		User user = userService.findUserByUserId(9L);
-		
-		Long count = userService.getItemCountByUserID(user.getUserID());		
-		List<Product> productsInShop = ArtistService.getProductListByArtistID(user.getUserID());
+	@RequestMapping("/manageshop")
+	public String manageShopAllProducts(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
+
+		User user = userService.findUserByUserId(userDetails.getUserId());
 		Map<Product, Long> productsAndCountShop = new HashMap<Product, Long>();
+
+		Long count = userService.getItemCountByUserID(user.getUserID());
+		List<Product> productsInShop = ArtistService.getProductListByArtistID(user.getUserID());
+
 		for (Product product : productsInShop) {
 			Long quantity = ArtistService.getQuantitySold(product.getProductID());
 			productsAndCountShop.put(product, quantity);
 		}
-		
+
 		model.addAttribute("productsAndCountShop", productsAndCountShop);
 		model.addAttribute("user", user);
 		model.addAttribute("count", count);
 		model.addAttribute("category", "allProducts");
+
 		return "artistmanageshop";
 	}
 
-	// TODO awaiting sessions and userid
 	@GetMapping("/manageshop/musiccollection")
-	public String manageShopMusicCollection(Model model) {
-		User user = userService.findUserByUserId(9L);
-		
-		Long count = userService.getItemCountByUserID(user.getUserID());		
-		List<Product> productsInShop = ArtistService.getProductListByArtistIDAndCategory(user.getUserID(), Category.MusicCollection);
+	public String manageShopMusicCollection(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
+
+		User user = userService.findUserByUserId(userDetails.getUserId());
 		Map<Product, Long> productsAndCountShop = new HashMap<Product, Long>();
+
+		Long count = userService.getItemCountByUserID(user.getUserID());
+		List<Product> productsInShop = ArtistService.getProductListByArtistIDAndCategory(user.getUserID(),
+				Category.MusicCollection);
+
 		for (Product product : productsInShop) {
 			Long quantity = ArtistService.getQuantitySold(product.getProductID());
 			productsAndCountShop.put(product, quantity);
 		}
-		
+
 		model.addAttribute("productsAndCountShop", productsAndCountShop);
 		model.addAttribute("user", user);
 		model.addAttribute("count", count);
 		model.addAttribute("category", "musicCollection");
+
 		return "artistmanageshop";
 	}
 
-	// TODO awaiting sessions and userid
 	@GetMapping("/manageshop/merchandise")
-	public String manageShopMerchandise(Model model) {		
-		User user = userService.findUserByUserId(9L);
-	
-		Long count = userService.getItemCountByUserID(user.getUserID());		
-		List<Product> productsInShop = ArtistService.getProductListByArtistIDAndCategory(user.getUserID(), Category.Merchandise);
+	public String manageShopMerchandise(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
+
+		User user = userService.findUserByUserId(userDetails.getUserId());
 		Map<Product, Long> productsAndCountShop = new HashMap<Product, Long>();
+
+		Long count = userService.getItemCountByUserID(user.getUserID());
+		List<Product> productsInShop = ArtistService.getProductListByArtistIDAndCategory(user.getUserID(),
+				Category.Merchandise);
+
 		for (Product product : productsInShop) {
 			Long quantity = ArtistService.getQuantitySold(product.getProductID());
 			productsAndCountShop.put(product, quantity);
 		}
-		
+
 		model.addAttribute("productsAndCountShop", productsAndCountShop);
 		model.addAttribute("user", user);
 		model.addAttribute("count", count);
 		model.addAttribute("category", "merchandise");
+
 		return "artistmanageshop";
 	}
 
-	// TODO awaiting sessions and userid
 	@GetMapping("/manageshop/clothing")
-	public String manageShopClothing(Model model) {
-		User user = userService.findUserByUserId(9L);
-		
-		Long count = userService.getItemCountByUserID(user.getUserID());		
-		List<Product> productsInShop = ArtistService.getProductListByArtistIDAndCategory(user.getUserID(), Category.Clothing);
+	public String manageShopClothing(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
+
+		User user = userService.findUserByUserId(userDetails.getUserId());
 		Map<Product, Long> productsAndCountShop = new HashMap<Product, Long>();
+
+		Long count = userService.getItemCountByUserID(user.getUserID());
+		List<Product> productsInShop = ArtistService.getProductListByArtistIDAndCategory(user.getUserID(),
+				Category.Clothing);
+
 		for (Product product : productsInShop) {
 			Long quantity = ArtistService.getQuantitySold(product.getProductID());
 			productsAndCountShop.put(product, quantity);
 		}
+
 		model.addAttribute("productsAndCountShop", productsAndCountShop);
 		model.addAttribute("user", user);
 		model.addAttribute("count", count);
 		model.addAttribute("category", "clothing");
+
 		return "artistmanageshop";
 	}
 
 	@GetMapping("/addnewproduct")
-	public String addNewProduct(Model model) {
-		User user = userService.findUserByUserId(9L);
-		
-		Long count = userService.getItemCountByUserID(user.getUserID());	
-		Product newProduct = new Product();
-		model.addAttribute("newProduct", newProduct);
+	public String addNewProduct(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
+
+		User user = userService.findUserByUserId(userDetails.getUserId());
 		Map<Category, String> categories = new HashMap<Category, String>();
+		Product newProduct = new Product();
+
+		Long count = userService.getItemCountByUserID(user.getUserID());
+
 		for (Category category : Category.values()) {
 			if (category == Category.MusicCollection) {
 				categories.put(category, "Music Collection");
@@ -162,21 +167,25 @@ public class ArtistController {
 				categories.put(category, category.toString());
 			}
 		}
-		
+
+		model.addAttribute("newProduct", newProduct);
 		model.addAttribute("user", user);
 		model.addAttribute("count", count);
 		model.addAttribute("categories", categories);
+
 		return "addnewproduct";
 	}
 
 	@GetMapping("/editproduct")
-	public String editProduct(@RequestParam("productID") Long productID, Model model) {
-		User user = userService.findUserByUserId(9L);
-		
-		Long count = userService.getItemCountByUserID(user.getUserID());	
-		Product product = ArtistService.getProductByID(productID);
-		model.addAttribute("product", product);
+	public String editProduct(@RequestParam("productID") Long productID, Model model,
+			@AuthenticationPrincipal MyUserDetails userDetails) {
+
+		User user = userService.findUserByUserId(userDetails.getUserId());
 		Map<Category, String> categories = new HashMap<Category, String>();
+
+		Long count = userService.getItemCountByUserID(user.getUserID());
+		Product product = ArtistService.getProductByID(productID);
+
 		for (Category category : Category.values()) {
 			if (category == Category.MusicCollection) {
 				categories.put(category, "Music Collection");
@@ -184,21 +193,23 @@ public class ArtistController {
 				categories.put(category, category.toString());
 			}
 		}
-		
+
+		model.addAttribute("product", product);
 		model.addAttribute("user", user);
 		model.addAttribute("count", count);
 		model.addAttribute("categories", categories);
+
 		return "editproduct";
 	}
 
-	// TODO awaiting sessions and userid
 	@PostMapping("/saveproduct")
 	public String saveProduct(@Valid @ModelAttribute("product") Product product,
-			@RequestParam("file") Optional<MultipartFile> rawfile, BindingResult bindingResult, Model model) {
+			@RequestParam("file") Optional<MultipartFile> rawfile, BindingResult bindingResult, Model model,
+			@AuthenticationPrincipal MyUserDetails userDetails) {
 		
-		User user = userService.findUserByUserId(9L);
-		
-		Long count = userService.getItemCountByUserID(user.getUserID());	
+		Boolean uploaded = false;
+
+		User user = userService.findUserByUserId(userDetails.getUserId());
 
 		if (bindingResult.hasErrors()) {
 			return "artist/editproduct";
@@ -216,33 +227,66 @@ public class ArtistController {
 			String filename = productidtemp.toString() + "_productimg."
 					+ file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
 			Path destinationFile = fileStorageLocation.resolve(Paths.get(filename)).toAbsolutePath();
-			try (InputStream inputStream = file.getInputStream()) {
-				Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
-			} catch (IOException e) {
-				e.printStackTrace();
+			
+			uploaded = uploadFile(file, destinationFile);
+			
+			while(uploaded != true) {
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
-
+			
 			product.setProductUrl("/productimages/" + filename);
 			ArtistService.saveProduct(product);
-			
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+
+//			try {
+//				URL url = new URL("http://127.0.0.1:8080" + product.getProductUrl());
+//
+//				HttpURLConnection huc = (HttpURLConnection) url.openConnection();
+//
+//				while (huc.getResponseCode() != HttpURLConnection.HTTP_OK) {
+//					Thread.sleep(500);
+//				}
+//			} catch (MalformedURLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (ProtocolException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 		}
+		
 		return "redirect:/artist/manageshop";
 	}
 	
-	// TODO awaiting sessions and userid
-	@RequestMapping(value = "/editShopDescription", method = RequestMethod.POST)
+	public boolean uploadFile(MultipartFile file, Path destinationFile) {
+		try (InputStream inputStream = file.getInputStream()) {
+			Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
+			IOUtils.closeQuietly(inputStream);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+
+	@PostMapping(value = "/editShopDescription")
 	@ResponseBody
-	public void add(@RequestParam (value="newShopDescription") String newShopDescription) throws Exception {
-		User user = userService.findUserByUserId(9L);
+	public void add(@RequestParam(value = "newShopDescription") String newShopDescription,
+			@AuthenticationPrincipal MyUserDetails userDetails) throws Exception {
+
+		User user = userService.findUserByUserId(userDetails.getUserId());
+
 		user.setShopDescription(newShopDescription);
 		userService.saveUser(user);
-
 	}
 
 	// --------------------MEDIA PORTION-----------------//
@@ -490,8 +534,8 @@ public class ArtistController {
 			String uploadDir = "src/main/resources/static/media/channel" + channel.getChannelID().toString()
 					+ "/Music/album" + album.getAlbumID().toString();
 			if (Albumcoverfile.getSize() > 0 && Albumcoverfile.getSize() > 0) {
-				album.setAlbumImgURL(
-						UploadService.store(Albumcoverfile, uploadDir, "albumcover" + album.getAlbumID().toString()+"."));
+				album.setAlbumImgURL(UploadService.store(Albumcoverfile, uploadDir,
+						"albumcover" + album.getAlbumID().toString() + "."));
 				album = ArtistService.saveAlbum(album);
 			} else
 				return "error";
@@ -555,12 +599,11 @@ public class ArtistController {
 
 	// POST(Edit/Add Music)
 	@PostMapping("channel/album/editmusic/{albumid}")
-	public String EditMusic(Model model,
-			@ModelAttribute("media") @Validated Media mediaDTO, 
+	public String EditMusic(Model model, @ModelAttribute("media") @Validated Media mediaDTO,
 			@RequestPart("tags") Optional<String> tags,
-			@RequestPart("MediaFile") Optional<MultipartFile> multipartFileMedia, 
-			@PathVariable("albumid") Long albumid, BindingResult bindingResult) {
-		
+			@RequestPart("MediaFile") Optional<MultipartFile> multipartFileMedia, @PathVariable("albumid") Long albumid,
+			BindingResult bindingResult) {
+
 		if (bindingResult.hasErrors()) {
 			return "error";
 		}
@@ -571,9 +614,9 @@ public class ArtistController {
 		MediaType mediaType = MediaType.valueOf("Music");
 		// get ChannelID
 		Channel channel = ArtistService.getChannelbyUserandMediaType(ArtistService.findById(userid), mediaType);
-		//get Album
+		// get Album
 		Album album = ArtistService.getAlbumbyID(albumid);
-		
+
 		String uploadDir = "src/main/resources/static/media/channel" + channel.getChannelID().toString()
 				+ "/music/album" + albumid;
 
@@ -598,7 +641,7 @@ public class ArtistController {
 
 			// When creating new video, file cannot be empty
 			if (mediafile.getSize() > 0) {
-				media.setMediaUrl(UploadService.store(mediafile, uploadDir, "music" + media.getId().toString()+"."));
+				media.setMediaUrl(UploadService.store(mediafile, uploadDir, "music" + media.getId().toString() + "."));
 				media = ArtistService.saveMedia(media);
 			} else {
 				return "error";
@@ -620,18 +663,18 @@ public class ArtistController {
 				media.setTagList(null);
 
 			if (mediafile.getSize() > 0) {
-				media.setMediaUrl(UploadService.store(mediafile, uploadDir, "music" + media.getId().toString()+"."));
+				media.setMediaUrl(UploadService.store(mediafile, uploadDir, "music" + media.getId().toString() + "."));
 			}
 
 			ArtistService.saveMedia(media);
 
 		}
-		return "redirect:/artist/channel/album/"+albumid;
+		return "redirect:/artist/channel/album/" + albumid;
 	}
-	
+
 	// Delete music
 	@GetMapping("/channel/deletemusic/{AlbumID}/{mediaid}")
-	public String deleteMusic(@PathVariable("mediaid") Long mediaID,@PathVariable("AlbumID") Long AlbumID) {
+	public String deleteMusic(@PathVariable("mediaid") Long mediaID, @PathVariable("AlbumID") Long AlbumID) {
 
 		// get AristID(userID)
 		Long userid = (long) 1;
@@ -657,10 +700,9 @@ public class ArtistController {
 
 		ArtistService.deleteMedia(media);
 
-		return "redirect:/artist/channel/album/"+AlbumID;
+		return "redirect:/artist/channel/album/" + AlbumID;
 	}
-	
-	
+
 }
 //		Courses course1 = new Courses();
 //		List<Users> lecturers = leservice.getAllUsersByRole(Roles.LECTURER);

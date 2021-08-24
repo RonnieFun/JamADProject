@@ -142,10 +142,10 @@ public class ProductControllerAPI {
 				.getTopMerchandiseProductsInPastWeekByOrderDetailsQuantity(4);
 		List<Object[]> topClothingProductsBySale = uservice.getTopClothingProductsInPastWeekByOrderDetailsQuantity(4);
 
-		Map<Product, Long> allProductsAndCountShop = new LinkedHashMap<Product, Long>(16,0.75F,true);
-		Map<Product, Long> musicCollectionProductsAndCountShop = new LinkedHashMap<Product, Long>(16,0.75F,true);
-		Map<Product, Long> merchandiseProductsAndCountShop = new LinkedHashMap<Product, Long>(16,0.75F,true);
-		Map<Product, Long> clothingProductsAndCountShop = new LinkedHashMap<Product, Long>(16,0.75F,true);
+		Map<Product, Long> allProductsAndCountShop = new LinkedHashMap<Product, Long>(16, 0.75F, true);
+		Map<Product, Long> musicCollectionProductsAndCountShop = new LinkedHashMap<Product, Long>(16, 0.75F, true);
+		Map<Product, Long> merchandiseProductsAndCountShop = new LinkedHashMap<Product, Long>(16, 0.75F, true);
+		Map<Product, Long> clothingProductsAndCountShop = new LinkedHashMap<Product, Long>(16, 0.75F, true);
 		for (Object[] object : topAllProductsBySale) {
 			allProductsAndCountShop.put((Product) object[0], (Long) object[1]);
 		}
@@ -166,16 +166,15 @@ public class ProductControllerAPI {
 		model.addAttribute("clothingProductsAndCountShop", clothingProductsAndCountShop);
 		model.addAttribute("count", count);
 		model.addAttribute("user", user);
-		
+
 		return new ResponseEntity<>(allProductsAndCountShop, HttpStatus.OK);
-		}
-	
+	}
+
 	@GetMapping("/shop1")
 	public ResponseEntity<?> shopLandingPage1() {
 		List<Product> topAllProductsBySale = uservice.getListOfAllProduts();
-		
 		return new ResponseEntity<>(topAllProductsBySale, HttpStatus.OK);
-		}
+	}
 
 	// TODO awaiting sessions and userid
 	@GetMapping("/shop/allproducts")
@@ -197,7 +196,6 @@ public class ProductControllerAPI {
 		});
 		model.addAttribute("category", "allProducts");
 		model.addAttribute("count", count);
-
 		model.addAttribute("user", user);
 
 		return "shopcategorylandingpage";
