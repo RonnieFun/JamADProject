@@ -18,6 +18,8 @@ public interface MediaServiceInterface {
 
 	public List<Media> getMediaByUserHistory(MediaType mediaType,LocalDate lesscurrentdate);
 
+	public Media getMediaById(Long id);
+
 //	public List<Object[]> getTopMediasByUserHistory(int i, MediaType mediaType);
 
 

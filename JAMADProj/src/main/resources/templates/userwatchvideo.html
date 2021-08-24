@@ -102,12 +102,12 @@
 		</span>
 	</div>
 	</section>
-	
 
 <!-- Side Videos List -->
 
 	<div class="userPageSideVideosSection flex-container">
-		<span th:each = "sideMedia: ${allMedia}"> <!-- th:each goes into this span to iterate and generate videos list -->
+		<!--  <span th:each = "sideMedia: ${allMedia}"> --> <!-- th:each goes into this span to iterate and generate videos list -->
+		<span th:each = "sideMedia: ${recommend_medialist}"> 	
 			<a th:href="@{/video/watchvideo/{mediaId}(mediaId = ${sideMedia.id})}" class="sideVideoLinkColor"><img th:src="${sideMedia.thumbnailUrl}" class="userPageSideVideos" alt="...">
 			<span class="col smallVidDescription">
 				<span th:text="${sideMedia.title}" class=""></span>

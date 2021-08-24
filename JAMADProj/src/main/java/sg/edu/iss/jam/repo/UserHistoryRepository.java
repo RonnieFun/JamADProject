@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import sg.edu.iss.jam.model.MediaType;
 import sg.edu.iss.jam.model.UserHistory;
 
 public interface UserHistoryRepository extends JpaRepository<UserHistory, Long> {
@@ -18,4 +19,14 @@ public interface UserHistoryRepository extends JpaRepository<UserHistory, Long> 
 	
 	@Query("Select count(distinct h) from UserHistory h Join h.mediaHistory m Join m.album a where a.AlbumID=:AlbumID")
 	public int CountViewsByAlbum(@Param("AlbumID") long AlbumID);
+	
+	@Query("SELECT uh FROM UserHistory uh WHERE uh.historyUser.userID = :userID")
+	public List<UserHistory> findUserHistoryByUserId(@Param("userID") Long userID);
+	
+	@Query("SELECT uh FROM UserHistory uh WHERE uh.historyUser.userID = :userId "
+			+ "AND uh.mediaHistory.mediaType = :mediaType")
+	public List<UserHistory> findUserHistoryByUserIdAndMediaType(@Param("userId") Long userId, @Param("mediaType") MediaType mediaType);
+
+
+
 }

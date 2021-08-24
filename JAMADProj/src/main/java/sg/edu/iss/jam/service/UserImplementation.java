@@ -305,4 +305,16 @@ public class UserImplementation implements UserInterface {
 		return orepo.getPurchaseHistoryByUserId(userID);
 	}
 
+	@Override
+	public List<UserHistory> findUserHistoryByUserId(Long userId) {
+		
+		return uhrepo.findUserHistoryByUserId(userId);
+	}
+
+	@Override
+	public List<UserHistory> findUserHistoryByUserIdAndMediaType(Long userId, MediaType  mediaType) {
+		
+		return uhrepo.findUserHistoryByUserIdAndMediaType(userId, mediaType);
+	}
+
 }
