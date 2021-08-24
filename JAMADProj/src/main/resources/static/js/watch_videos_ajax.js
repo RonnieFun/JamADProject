@@ -97,6 +97,49 @@ $(document).ready(function(){
 		
 	});
 	
+	$("#zqButtonMusic").on("click", function() {
+		if ($("#zqButtonMusic").hasClass("zqClassMusic") == false) {
+			var artistIdMusic = document.getElementById("artistId").value;
+			$.ajax({
+				type: "POST",
+				url: "/music/subscribe",
+				contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+				data: {
+					artistIdMusic :artistIdMusic
+				},
+				success: function (response) {
+					
+					$(".sbutton").text("UNSUBSCRIBE");
+					$("#zqButtonMusic").addClass('zqClassMusic');
+				}
+				
+			}) 
+		}
+		
+	});
+	
+	$("#zqButtonMusic").on("click", function() {
+		if ($("#zqButtonMusic").hasClass("zqClassMusic")) {
+			var artistIdMusic = document.getElementById("artistId").value;
+			$.ajax({
+				type: "POST",
+				url: "/music/unsubscribe",
+				contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+				data: {
+					artistIdMusic :artistIdMusic
+				},
+				success: function (response) {
+					$(".sbutton").text("SUBSCRIBE");
+					$("#zqButtonMusic").removeClass('zqClassMusic');
+				}
+			}) 
+		}
+		
+	});
+	
+	
+	
+	
 	$("#userCommentsSubmitBtnVideo").on("click", function() {
 		
 		if($('#commentsTxtArea').val().trim() == "") {

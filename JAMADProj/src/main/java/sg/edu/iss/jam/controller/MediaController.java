@@ -771,10 +771,10 @@ public class MediaController {
 		return "userwatchvideo";
 	}
 	
-	//ajax call for Subscribe button
+	//ajax call for Video Subscribe button
 	@PostMapping("/video/subscribe")
 	@ResponseBody
-	public String subscribeArtist(@RequestParam(value = "artistId") Long artistId, @AuthenticationPrincipal MyUserDetails userDetails) throws Exception{
+	public String subscribeArtistVideo(@RequestParam(value = "artistId") Long artistId, @AuthenticationPrincipal MyUserDetails userDetails) throws Exception{
 		
 		if(userDetails == null) {
 			return "/login";	
@@ -803,10 +803,10 @@ public class MediaController {
 	
 	}
 	
-	//ajax call for unsubscribe button
+	//ajax call for Video unsubscribe button
 	@PostMapping("/video/unsubscribe")	
 	@ResponseBody
-	public String unsubscribeArtist(@RequestParam(value = "artistId") Long artistId, @AuthenticationPrincipal MyUserDetails userDetails) throws Exception {
+	public String unsubscribeArtistVideo(@RequestParam(value = "artistId") Long artistId, @AuthenticationPrincipal MyUserDetails userDetails) throws Exception {
 		
 		if(userDetails == null) {
 			return "/login";	
@@ -833,6 +833,72 @@ public class MediaController {
 		
 		return "userwatchvideo";				
 	}
+	
+	
+	//ajax call for Music Subscribe button
+		@PostMapping("/music/subscribe")
+		@ResponseBody
+		public String subscribeArtistMusic(@RequestParam(value = "artistIdMusic") Long artistIdMusic, @AuthenticationPrincipal MyUserDetails userDetails) throws Exception{
+			
+			if(userDetails == null) {
+				return "/login";	
+			}
+			
+			long loggedInUserId = userDetails.getUserId();
+			
+			Long customerId = loggedInUserId;
+			User customer = uservice.findUserByUserId(customerId);
+			User artist = aservice.findById(artistIdMusic);
+			
+			if (artist == null || customer == null) {
+				return "userlistenmusic";
+			}
+		
+			// add new subscriber object for new subscription
+			Subscribed newSubscription = new Subscribed();
+			newSubscription.setSubscribed(true);
+			newSubscription.setArtist(artist);
+			newSubscription.setSubscriber(customer);
+			newSubscription.setTimeSubscribed(LocalDateTime.now());
+			
+			uservice.saveSubscribed(newSubscription);
+			
+			return "userlistenmusic";
+		
+		}
+		
+		//ajax call for Music unsubscribe button
+		@PostMapping("/music/unsubscribe")	
+		@ResponseBody
+		public String unsubscribeArtistMusic(@RequestParam(value = "artistIdMusic") Long artistIdMusic, @AuthenticationPrincipal MyUserDetails userDetails) throws Exception {
+			
+			if(userDetails == null) {
+				return "/login";	
+			}
+			
+			long loggedInUserId = userDetails.getUserId();
+			
+			Long customerId = loggedInUserId;
+			User customer = uservice.findUserByUserId(customerId);
+			User artist = aservice.findById(artistIdMusic);
+			
+			if (artist == null || customer == null) {
+				return "userlistenmusic";
+			}
+			
+			// add new subscriber object for new unsubscription
+			Subscribed newUnsubscription = new Subscribed();
+			newUnsubscription.setSubscribed(false);
+			newUnsubscription.setArtist(artist);
+			newUnsubscription.setSubscriber(customer);
+			newUnsubscription.setTimeSubscribed(LocalDateTime.now());
+					
+			uservice.saveSubscribed(newUnsubscription);			
+			
+			return "userlistenmusic";				
+		}
+	
+	
 	
 	//ajax call for submit video comments
 	@PostMapping("/video/submitComments")
