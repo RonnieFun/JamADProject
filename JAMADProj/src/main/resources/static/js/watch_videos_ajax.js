@@ -109,6 +109,8 @@ $(document).ready(function(){
 		var commentDisplayName = document.getElementById("commentDisplayName").value;
 		var commentMediaId = document.getElementById("commentMediaId").value;
 		var commentDateTime = document.getElementById("commentDateTime").value;
+		var ajaxChecker = 543501872;
+		var ajaxChecker2 = 32163231;
 		$.ajax({
 			type: "POST",
 			url: "/video/submitComments",
@@ -118,10 +120,10 @@ $(document).ready(function(){
 				commentUserId :commentUserId,
 				commentDisplayName :commentDisplayName,
 				commentMediaId :commentMediaId,
-				commentDateTime :commentDateTime,
+				commentDateTime :commentDateTime
 			},
 			success: function (response) {
-				$('#userCommentsSection').load("http://localhost:8080/video/aftersubmitcomment/" + commentMediaId);
+				$('#userCommentsSection').load("http://localhost:8080/video/aftersubmitcomment/" + commentMediaId + "/" + ajaxChecker + "/" + ajaxChecker2);
 			}
 		})
 		

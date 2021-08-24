@@ -105,7 +105,7 @@
 <!-- Side Videos List -->
 
 	<div class="userPageSideVideosSection flex-container">
-		<span th:each = "sideMedia: ${recommend_medialist}"> 	
+		<span th:each = "sideMedia: ${allMedia}"> 	
 			<a th:href="@{/video/watchvideo/{mediaId}(mediaId = ${sideMedia.id})}" class="sideVideoLinkColor"><img th:src="${sideMedia.thumbnailUrl}" class="userPageSideVideos" alt="...">
 			<span class="col smallVidDescription">
 				<span th:text="${sideMedia.title}" class=""></span>
