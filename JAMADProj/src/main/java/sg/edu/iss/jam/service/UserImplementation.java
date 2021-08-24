@@ -307,6 +307,11 @@ public class UserImplementation implements UserInterface {
 	}
 
 	@Override
+	public List<Product> getListOfAllProduts() {
+		return prepo.findAll();
+	}
+
+	@Override
 	public List<UserHistory> findUserHistoryByUserId(Long userId) {
 		
 		return uhrepo.findUserHistoryByUserId(userId);

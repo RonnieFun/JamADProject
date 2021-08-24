@@ -35,7 +35,7 @@
 	<div align="center">
 		&nbsp;
 		<h1>Add Product</h1>
-		<form action="#" th:object="${newProduct}" enctype="multipart/form-data"
+		<form action="#" th:object="${newProduct}" enctype="multipart/form-data" id="addProductForm"
 			th:action="@{/artist/saveproduct}" method="post">
 			<fieldset>
 				<input type="hidden" th:field="*{productID}">
@@ -109,5 +109,15 @@
 		var image = document.getElementById('output');
 		image.src = URL.createObjectURL(event.target.files[0]);
 	};
+	
+	addProductForm.addEventListener('submit', (e) => {
+		// Prevent if already submitting
+		if (addProductForm.classList.contains('is-submitting')) {
+			e.preventDefault();
+		}
+		
+		// Add class to hook our visual indicator on
+		addProductForm.classList.add('is-submitting');
+	});
 </script>
 </html>

@@ -103,6 +103,8 @@ public interface UserInterface {
 	List<Object[]> getAllMerchandise();
 
 	List<Orders> getPurchaseHistoryByUserId(Long userID);
+	
+	List<Product> getListOfAllProduts();
 	List<UserHistory> findUserHistoryByUserId(Long userId);
 	List<UserHistory> findUserHistoryByUserIdAndMediaType(Long userId, MediaType mediaType);
 

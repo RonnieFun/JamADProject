@@ -1,6 +1,5 @@
 package sg.edu.iss.jam.controller;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -262,8 +261,8 @@ public class ProductController {
 	// TODO awaiting sessions and userid
 	@GetMapping("/purchasehistory")
 	public String purchaseHistory(Model model) {
-		User user = uservice.findUserByUserId(18L);
-		Long count = uservice.getItemCountByUserID(18L);
+		User user = uservice.findUserByUserId(1L);
+		Long count = uservice.getItemCountByUserID(1L);
 		double totalPrice=0;
 		List<Orders> purchaseHistoriesraw = uservice.getPurchaseHistoryByUserId(user.getUserID());
 		Map<Orders, Double> purchaseHistories = new LinkedHashMap<Orders, Double>();
