@@ -18,9 +18,7 @@ public class Subscribed {
 	private LocalDateTime TimeSubscribed;
 	
 	private boolean subscribed;
-	
-	// for artist, targetId is customer's Id
-	// for customer, targetId is artist's Id
+
 	@ManyToOne
 	private User artist;
 	

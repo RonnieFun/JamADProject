@@ -1,11 +1,11 @@
 package sg.edu.iss.jam.controller;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +22,7 @@ import sg.edu.iss.jam.model.Orders;
 import sg.edu.iss.jam.model.Payment;
 import sg.edu.iss.jam.model.Product;
 import sg.edu.iss.jam.model.User;
+import sg.edu.iss.jam.security.MyUserDetails;
 import sg.edu.iss.jam.service.ArtistInterface;
 import sg.edu.iss.jam.service.UserInterface;
 
@@ -34,12 +35,12 @@ public class ProductController {
 	UserInterface uservice;
 
 	@GetMapping("/carthometab/{artistid}")
-	public String shoppingCartHome(Model model, @PathVariable long artistid) {
+	public String shoppingCartHome(Model model, @PathVariable long artistid,@AuthenticationPrincipal MyUserDetails userDetails) {
 		// long userID = (long) 1;
 		User artist = null;
 		artist = aservice.getArtistByID(artistid);
 		// userId need to replace
-		Long count = uservice.getItemCountByUserID(artistid);
+		Long count = uservice.getItemCountByUserID(userDetails.getUserId());
 		model.addAttribute("status", "allProducts");
 		model.addAttribute("count", count);
 		model.addAttribute("artistId", artist.getUserID());
@@ -50,12 +51,12 @@ public class ProductController {
 	}
 
 	@GetMapping("/carthometab/{artistid}/{category}")
-	public String getProductByCategory(Model model, @PathVariable long artistid, @PathVariable Category category) {
+	public String getProductByCategory(Model model, @PathVariable long artistid, @PathVariable Category category,@AuthenticationPrincipal MyUserDetails userDetails) {
 		// long userID = (long) 1;
 		User artist = null;
 		artist = aservice.getArtistByID(artistid);
 		// userId need to replace
-		Long count = uservice.getItemCountByUserID(artistid);
+		Long count = uservice.getItemCountByUserID(userDetails.getUserId());
 
 		model.addAttribute("status", category.toString());
 		model.addAttribute("count", count);
@@ -260,8 +261,8 @@ public class ProductController {
 	// TODO awaiting sessions and userid
 	@GetMapping("/purchasehistory")
 	public String purchaseHistory(Model model) {
-		User user = uservice.findUserByUserId(18L);
-		Long count = uservice.getItemCountByUserID(18L);
+		User user = uservice.findUserByUserId(1L);
+		Long count = uservice.getItemCountByUserID(1L);
 		double totalPrice=0;
 		List<Orders> purchaseHistoriesraw = uservice.getPurchaseHistoryByUserId(user.getUserID());
 		Map<Orders, Double> purchaseHistories = new LinkedHashMap<Orders, Double>();

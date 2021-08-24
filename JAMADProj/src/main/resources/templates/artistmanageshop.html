@@ -9,7 +9,9 @@
 
 		<div class="navbar-form form-inline">
 			<div class="input-group searchBox" style="padding-left: 5%">
-				<h1><Strong>Manage Shop</Strong></h1>
+				<h1>
+					<Strong>Manage Shop</Strong>
+				</h1>
 			</div>
 		</div>
 
@@ -41,12 +43,15 @@
 			<h4 style="padding-left: 1%; padding-top: 1%">About Shop</h4>
 			<div class="container" style="padding-left: 10%; padding-right: 10%">
 				<div class="box row">
-					<textarea name="shopDescriptionNew" cols="50" id="shopDescriptionNew" data-options="multiline:true"
-						style="background: transparent; white-space: pre-wrap" placeholder="Enter Shop Description Here"
-						th:utext="${user.shopDescription}" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
-					
+					<textarea name="shopDescriptionNew" cols="50" rows="5"
+						id="shopDescriptionNew" data-options="multiline:true"
+						style="background: transparent; white-space: pre-wrap; resize: none"
+						placeholder="Enter Shop Description Here"
+						th:utext="${user.shopDescription}"></textarea>
+
 				</div>
-				<input name="Edit" type="button" style="background-color:#FFB6C1" value="Save" onclick="javascript:saveShopDescription()">
+				<input name="Edit" type="button" style="background-color: #FFB6C1"
+					value="Save" onclick="javascript:saveShopDescription()">
 			</div>
 		</div>
 	</div>
@@ -165,8 +170,10 @@
 </body>
 
 <script>
+	var shopDescriptionNew = document.getElementById('shopDescriptionNew');
 
 	function saveShopDescription() {
+
 		var shopDescription = document.getElementById('shopDescriptionNew').value;
 		$.ajax({
 			type : 'POST',
@@ -175,17 +182,16 @@
 			data : {
 				newShopDescription : shopDescription
 			}
-// 			success : function(response) {
-
-// 				$("#lblCartCount").text(response);
-
-// 			},
-// 			error : function(xmlHttpRequest, textStatus, errorThrown) {
-// 				console.log("error" + errorThrown);
-// 				alert("error");
-// 			}
-		});
-
+		})
 	}
+
+	shopDescriptionNew.oninput = function resizeShopDescriptionSize() {
+
+		this.style.height = "";
+		this.style.height = Math.min(shopDescriptionNew.scrollHeight, 120)
+				+ "px"
+	}
+	
+	
 </script>
 </html>

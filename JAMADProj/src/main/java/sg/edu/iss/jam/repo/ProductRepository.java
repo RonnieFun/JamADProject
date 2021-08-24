@@ -17,7 +17,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	List<Product> getProductListByArtistIDAndCategory(@Param("artistid") long artistid,
 			@Param("category") Category category);
 
-	@Query("SELECT c FROM Product c WHERE c.productUser.userID = :artistid")
+	@Query("SELECT c FROM Product c WHERE c.productUser.userID = :artistid and c.productQty >0")
 	List<Product> getProductListByArtistID(long artistid);
 
 	@Query("SELECT p, SUM(od.quantity) FROM Product p JOIN p.orderDetails od WHERE od.order.orderDate >= DATE(:currentdatelessoneweek) GROUP BY p ORDER BY SUM(od.quantity) DESC")
