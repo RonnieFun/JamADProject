@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,6 +29,7 @@ import sg.edu.iss.jam.model.Product;
 import sg.edu.iss.jam.model.ShoppingCart;
 import sg.edu.iss.jam.model.ShoppingCartDetails;
 import sg.edu.iss.jam.model.User;
+import sg.edu.iss.jam.security.MyUserDetails;
 import sg.edu.iss.jam.service.UserInterface;
 @Controller
 public class ShoppingCartController {
@@ -36,19 +38,19 @@ public class ShoppingCartController {
 	UserInterface uservice;
 	
 	@GetMapping("/shoppingcart")
-	public String shoppingCart(Model model) {
-		long userID = (long) 1;
-		model.addAttribute("cartForm", uservice.getShoppingCartByUserID(userID));
-		System.out.println(uservice.getShoppingCartByUserID(userID));
+	public String shoppingCart(Model model,@AuthenticationPrincipal MyUserDetails userDetails) {
+		//long userID = (long) 2;
+		model.addAttribute("cartForm", uservice.getShoppingCartByUserID(userDetails.getUserId()));
+		System.out.println(uservice.getShoppingCartByUserID(userDetails.getUserId()));
 		return "product/shoppingCart";
 	}
 	
 	// POST: Update quantity for product in cart
 	@RequestMapping(value = { "/shoppingcart" }, method = RequestMethod.POST)
 	public String shoppingCartUpdateQty(HttpServletRequest request, Model model, //
-	         @ModelAttribute("cartForm") ShoppingCart cartForm) {
-		long userID = (long) 1;
-		ShoppingCart cartInfo = uservice.getShoppingCartByUserID(userID);
+	         @ModelAttribute("cartForm") ShoppingCart cartForm,@AuthenticationPrincipal MyUserDetails userDetails) {
+		//long userID = (long) 2;
+		ShoppingCart cartInfo = uservice.getShoppingCartByUserID(userDetails.getUserId());
 	    cartInfo.updateQuantity(cartForm);
 	 
 	    return "redirect:shoppingcart";
@@ -56,16 +58,16 @@ public class ShoppingCartController {
 	
 	@RequestMapping({ "/shoppingCartRemoveProduct" })
 	   public String removeProductHandler(HttpServletRequest request, Model model, //
-	         @RequestParam(value = "id", defaultValue = "") Long id) {
+	         @RequestParam(value = "id", defaultValue = "") Long id,@AuthenticationPrincipal MyUserDetails userDetails) {
 	      Product product = null;
 	      if (id != null) {
 	         product = uservice.findProduct(id);
 	      }
 	      if (product != null) {
 	    	  
-	    	 long userID = (long) 1;
+	    	 //long userID = (long) 2;
 	 
-	         ShoppingCart cartInfo = uservice.getShoppingCartByUserID(userID);
+	         ShoppingCart cartInfo = uservice.getShoppingCartByUserID(userDetails.getUserId());
 	         uservice.removeCartDetails(product.getProductID(),cartInfo.getShoppingCartID());
 	 
 	      }
@@ -75,7 +77,7 @@ public class ShoppingCartController {
 	
 	@GetMapping("/checkout")
 	public String checkOut(Model model) {
-		long userID = (long) 1;
+		long userID = (long) 2;
 		Payment payment = new Payment();
 		model.addAttribute("newPayment", payment);
 		model.addAttribute("cartForm", uservice.getShoppingCartByUserID(userID));
@@ -83,15 +85,15 @@ public class ShoppingCartController {
 	}
 	
 	@PostMapping("/placeorder")
-	public String placeOrder(Model model,@Valid @ModelAttribute("payment") Payment payment , BindingResult bindingResult) {
+	public String placeOrder(Model model,@Valid @ModelAttribute("payment") Payment payment , BindingResult bindingResult,@AuthenticationPrincipal MyUserDetails userDetails) {
 		if (bindingResult.hasErrors()) {
 			return "product/checkout";
 		}
-		long userID = (long) 1;
+		//long userID = (long) 2;
 		User user = null;
-		user = uservice.findUserByUserId(1L);
+		user = uservice.findUserByUserId(userDetails.getUserId());
 		//insert order depending on shoppingcart
-		ShoppingCart cart = uservice.getShoppingCartByUserID(userID);
+		ShoppingCart cart = uservice.getShoppingCartByUserID(userDetails.getUserId());
 		if(cart.getCartDetails()!=null) {
 			Orders neworder = new Orders(LocalDate.now(), payment.getAddress(), user,null);
 			uservice.saveOrder(neworder);
@@ -101,7 +103,9 @@ public class ShoppingCartController {
 				OrderDetails newOrderDetail= new OrderDetails(cardetail.getQuantity(), cardetail.getProduct(), neworder);
 				orderDetailList.add(newOrderDetail);
 				Product product = cardetail.getProduct();
-				product.setProductQty(product.getProductQty()- cardetail.getQuantity());
+				if(product.getProductQty()> 0 && product.getProductQty()>=cardetail.getQuantity()) {
+					product.setProductQty(product.getProductQty()- cardetail.getQuantity());
+				}
 				uservice.updateProduct(product);
 				//delete cart detail
 				uservice.deleteCartDetails(cardetail);
@@ -117,31 +121,46 @@ public class ShoppingCartController {
 	// ajax call
 	@RequestMapping(value = "/addToCart", method = RequestMethod.POST)
 	@ResponseBody
-	public Long add(@RequestParam(value = "productId") Long productId) throws Exception {
+	public String add(@RequestParam(value = "productId") Long productId,@AuthenticationPrincipal MyUserDetails userDetails) throws Exception {
 
-		long userID = (long) 1;
+		//long userID = (long) 2;
+		String result = "";
+		String status ="";
 		ShoppingCartDetails carddetail = null;
 	      if (productId != null) {
-	    	 ShoppingCart cart = uservice.getShoppingCartByUserID(userID);
+	    	 ShoppingCart cart = uservice.getShoppingCartByUserID(userDetails.getUserId());
+	    	 Product product =  uservice.findProduct(productId);
 	    	 carddetail = uservice.getCartDetailByProductID(productId, cart.getShoppingCartID());
 	    	 if(carddetail!=null) {
-	    		 carddetail.setQuantity(carddetail.getQuantity()+1);
-	    		 uservice.saveCartDetails(carddetail);
+	    		 if(carddetail.getQuantity()+1 <= product.getProductQty()) {
+	    			 carddetail.setQuantity(carddetail.getQuantity()+1);
+		    		 uservice.saveCartDetails(carddetail);
+		    		 status ="ok";
+	    		 }
+	    		 else {
+	    			 status ="error";
+	    		 }
 	    	 }
 	    	 else {
-	    		 carddetail = new ShoppingCartDetails(1,uservice.findProduct(productId), uservice.getShoppingCartByUserID(userID));
+	    		 carddetail = new ShoppingCartDetails(1,uservice.findProduct(productId), uservice.getShoppingCartByUserID(userDetails.getUserId()));
 	    		 uservice.saveCartDetails(carddetail);
+	    		 status ="ok";
 			}
 	      }
-		Long count  = uservice.getItemCountByUserID(userID);
-		return count;
+		Long count  = uservice.getItemCountByUserID(userDetails.getUserId());
+		result = "{\"status\":";
+		result += "\"" + status + "\",";
+		result += "\"count\":\"" + count + "\"";
+		result += "}";
+		System.out.println(result);
+		return result;
 	}
 	
 	@RequestMapping(value="/updatecartitemqty", method=RequestMethod.PUT)
 	@ResponseBody
-	public void updateItem(@RequestParam(value = "productId") Long productId ,@RequestParam(value = "quantity") Integer quantity) throws Exception {
-		long userID = (long) 1;
-		ShoppingCart cart = uservice.getShoppingCartByUserID(userID);
+	public void updateItem(@RequestParam(value = "productId") Long productId ,@RequestParam(value = "quantity") Integer quantity, @AuthenticationPrincipal MyUserDetails userDetails) throws Exception {
+		//long userID = (long) 2;
+		ShoppingCart cart = uservice.getShoppingCartByUserID(userDetails.getUserId());
 		if(quantity<=0) {
 			uservice.removeCartDetails(productId, cart.getShoppingCartID());
 		}
