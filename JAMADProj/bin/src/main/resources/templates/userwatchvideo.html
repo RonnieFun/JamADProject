@@ -1,112 +1,130 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="Fragments/layout.html :: headerfiles"> </head>
-<body class="userPages">
- <nav class="navbar jamHeaderUser">
- 	<img th:src="@{/images/JAM_LOGO.png}" class="logo3">
- 	<form class="navbar-form form-inline" th:action="@{/home/searchresults}" method="post">
-        <div class="input-group userPageSearchBox">
-             <input type="text" id="search" name ="searchTerm" class="form-control" placeholder="Search">   
-        </div>
-        <button type="submit" value="Search" class="userPageSearchButton"><i class="material-icons">&#xE8B6;</i></button>
-    </form>	
-   
-    <img th:src="@{/images/brucelee.PNG}" class="userPageProfilePhoto" alt="User's Profile Photo">
- </nav>
 
-<section>
-	<video width="400" height="200" class="col-md-4 col-lg-5 h-50 userPageMainVideo" controls>
- 		<source th:src="@{/videos/samplevideo.mp4}" type="video/mp4">
+<body class="userPages">
+ <nav th:replace="Fragments/layout.html :: navbar"></nav>
+
+	<video width="400" height="200" class="col-md-4 col-lg-5 userPageMainVideo" controls>
+ 		<source th:src="${media.mediaUrl}" type="video/mp4">
  	</video>
- 	
+
  	<!-- Video Introduction Section -->
  	<div class="userPageVideoIntroSection">
- 		<span th:text="'Title: ' + ${title}" class="userVideoTitleLabel"></span>
-		<span th:text="${reviews} + ' views, published on ' + ${dateOfPublish}" class="numberOfReviews"></span> 
+ 		<!-- <span th:text="'Title: ' + ${media.title}" class="userVideoTitleLabel"></span> -->
+ 		
+ 		<span class="userVideoTitleLabel">
+	     <span th:text="${media.title}" class=""></span>
+	      <span th:each = "tag: ${media.tagList}">
+	         <span class="smallVidAuthor" th:text="${' | ' + tag.tagName}"></span>
+	       </span>
+     	</span>
+     
+		<span th:text="${viewCount} + ' views, published on ' + ${media.createdOn}" class="numberOfReviews"></span> 
  		<!-- Like Button Heart Shape -->
-		<i class="fas fa-heart userPageHeartIcon" aria-hidden="true"></i>
+		<i th:if="${liked == false}" id="heartButton" class="fas fa-heart userPageHeartIcon" onclick="openForm()" aria-hidden="true"></i>
+		<i th:if="${liked == true}" id="heartButton" class="fas fa-heart userPageHeartIconLiked" onclick="" aria-hidden="true"></i>
 		<hr>
  	</div>
  	
+ 	<div class="playlistFormPopup" id="myHeartForm">
+	  <form name="heartForm" id="heartForm" method="post" class="form-container">
+	
+	    <label><b>Please select a Playlist to save to:</b></label>
+	    <br>
+	    <select id="playlistID" name = "playlistID">
+			<option disabled selected>Select an Option</option>
+				<option
+				th:each = "playlist: ${playlists}"
+				th:value = "${playlist.playlistID}"
+				th:text = "${playlist.playlistName}">
+				</option>
+		</select>	
+	
+		<input type="hidden" id="userID" th:value="${user.userID}">
+		<input type="hidden" id="mediaID" th:value="${media.id}">
+		
+		<span style="display: flex">
+	    <button id="savePlaylistButton" type="button" class="btn saveToPlaylistButton" onclick="closeForm()">Submit</button>
+  		
+  		<button id="cancelSavePlaylistButton" type="button" class="btn cancelSavePlaylistButton" onclick="closeForm()">Cancel</button>
+  		</span>
+  		</form>
+	</div>
+
  	<!-- Artist Intro Section -->
  	<div class="userPageArtistIntroSection">
-		<span th:text="'Artist: ' + ${artistname}" class="artistName"></span>
-		<input class="userSubscribeBtn" type="submit" value="SUBSCRIBE">
+		<form name="artistForm" id="artistForm" method="post">
+	 		<input type = "hidden" id="artistId"  th:value = "${media.channel.channelUser.userID}">
+	 		<a th:href="@{/video/viewartistvideochannel/{artistId}(artistId = ${media.channel.channelUser.userID})}">
+			<span id="ArtistName" th:text="'Artist: ' + ${media.channel.channelUser.displayName}" class="artistName"></span>
+			</a>
+			<!--  If the customer already subscribed the artist, it shows "UNSUBSCRIBE"	--> 	
+			<span th:if = "${subscribeStatus == true}" >
+				<button class="sbutton userSubscribeBtn zqClass" type= "button" id="zqButton" >UNSUBSCRIBE</button>
+			</span>
+			
+			<!--  Else if the customer haven't subscribed the artist, it shows "SUBSCRIBE" -->
+			<span th:if = "${subscribeStatus == false}" >
+				<button class="sbutton userSubscribeBtn" type= "button" id="zqButton" >SUBSCRIBE</button>
+			</span> 
+		</form>	
 		<hr>
 	</div>
 	
 	<!-- Write Comments & Number of Comments Section -->
-	<div class="userCommentsSection">
-		<span th:text="${commentCount} + ' Comments'" class="numberOfComments"></span>
-		<textarea class="commentsTextArea" placeholder="Write your comments here" rows="2" cols="112"></textarea>
-	</div>
-	
-	<!-- Comments Submit Button -->
-	<div>
-		<input class="userCommentsBtn" type="submit" value="Submit">
-	</div>
+	<section id="userCommentsSection">
+	<form name="userCommentsForm" id="userCommentsForm" method="post">
+		<div class="userCommentsSection">
+			<span th:text="${commentCount} + ' Comments'" class="numberOfComments"></span>
+			<textarea id="commentsTxtArea" class="commentsTextArea" placeholder="Write your comments here" rows="2" cols="112"></textarea>
+		</div>
+		
+		<!-- Comments Submit Button -->
+		<div>
+			<input type="hidden" id="commentUserId" th:value = "${user.userID}">
+			<input type="hidden" id="commentDisplayName" th:value = "${user.displayName}">
+			<input type="hidden" id="commentMediaId" th:value = "${media.id}">
+			<input type="hidden" id="commentDateTime" th:value = "${#dates.format(#dates.createNow(),'dd MMMM YYYY, HH:mm')}">
+			<input type="hidden" id="commentedNumberOfComments" th:value = "${commentCount}">
+			<button id="userCommentsSubmitBtn" class="userCommentsBtn" type="button">Submit</button>
+		</div>
+	</form>
 
 	<!-- Users' Comments List -->
 	<div class="listOfComments">
-		<span th:each="d: ${demo}"> <!-- th:each goes into this span to iterate and generate comments list -->
+		<span th:each="c: ${comments}"> <!-- th:each goes into this span to iterate and generate comments list -->
 			<span class="flex-container">
-				<span th:text="${d.commentName}" class="commentName"></span>
-				<span th:text="${' | ' + d.commentDate}" class="commentDate"></span>
-				<span th:text="${d.comment}" class="commentDetails"></span>
+				<span th:text="${c.commentUser.displayName}" class="commentName"></span>
+				<span th:text="${' | ' + c.dateTime}" class="commentDate"></span>
+				<span th:text="${c.userComment}" class="commentDetails"></span>
 			</span>
 		</span>
 	</div>
-</section>
+	</section>
+	
 
 <!-- Side Videos List -->
-<section>
+
 	<div class="userPageSideVideosSection flex-container">
-		<span> <!-- th:each goes into this span to iterate and generate videos list -->
-			
-			<a th:href="@{/home}" class="sideVideoLinkColor"><img th:src="@{/images/bruceleethumbnail.jpg}" class="userPageSideVideos" alt="...">
-			<span th:text="${videoTitle + ' | ' + viddescription}" class="smallVidDescription"></span>
-	 		<span th:text="${'Author: ' + vidauthor}" class="smallVidAuthor"></span>
-	 		<span th:text="${videoDuration1}" class="sideVideoDuration"></span>
+		<span th:each = "sideMedia: ${allMedia}"> <!-- th:each goes into this span to iterate and generate videos list -->
+			<a th:href="@{/video/watchvideo/{mediaId}(mediaId = ${sideMedia.id})}" class="sideVideoLinkColor"><img th:src="${sideMedia.thumbnailUrl}" class="userPageSideVideos" alt="...">
+			<span class="col smallVidDescription">
+				<span th:text="${sideMedia.title}" class=""></span>
+				<span th:each = "tag: ${sideMedia.tagList}">
+	 				<span class="smallVidAuthor" th:text="${' | ' + tag.tagName}"></span>
+	 			</span>	
+				<br>
+				<br>
+	 			<span th:text="${'Author: ' + sideMedia.channel.channelUser.displayName}" class="smallVidAuthor"></span>
+	 		</span>
+	 		<span th:text="${sideMedia.duration}" class="sideVideoDuration"></span>
 	 		</a>
-	 		
-			<a th:href="@{/home}" class="sideVideoLinkColor"><img th:src="@{/images/cutepokemon.jpg}" class="userPageSideVideos" alt="...">
-			<span th:text="${videoTitle + ' | ' + viddescription}" class="smallVidDescription"></span>
-	 		<span th:text="${'Author: ' + vidauthor}" class="smallVidAuthor"></span>
-	 		<span th:text="${videoDuration2}" class="sideVideoDuration"></span>
-	 		</a>
-	 		
-	 		<a th:href="@{/home}" class="sideVideoLinkColor"><img th:src="@{/images/kpopalbum.png}" class="userPageSideVideos" alt="...">
-	 		<span th:text="${videoTitle + ' | ' + viddescription}" class="smallVidDescription"></span>
-	 		<span th:text="${'Author: ' + vidauthor}" class="smallVidAuthor"></span>
-	 		<span th:text="${videoDuration3}" class="sideVideoDuration"></span>
-	 		</a>
-
-			<a th:href="@{/home}" class="sideVideoLinkColor"><img th:src="@{/images/pinkdress.jpg}" class="userPageSideVideos" alt="...">
-	 		<span th:text="${videoTitle + ' | ' + viddescription}" class="smallVidDescription"></span>
-	 		<span th:text="${'Author: ' + vidauthor}" class="smallVidAuthor"></span>
-	 		<span th:text="${videoDuration3}" class="sideVideoDuration"></span>
-	 		</a>
-
-			<a th:href="@{/home}" class="sideVideoLinkColor"><img th:src="@{/images/pinkhat.png}" class="userPageSideVideos" alt="...">
-	 		<span th:text="${videoTitle + ' | ' + viddescription}" class="smallVidDescription"></span>
-	 		<span th:text="${'Author: ' + vidauthor}" class="smallVidAuthor"></span>
-	 		<span th:text="${videoDuration2}" class="sideVideoDuration"></span>
-	 		</a>
-	 		
-	 		<a th:href="@{/home}" class="sideVideoLinkColor"><img th:src="@{/images/samplebanner.jpg}" class="userPageSideVideos" alt="...">
-	 		<span th:text="${videoTitle + ' | ' + viddescription}" class="smallVidDescription"></span>
-	 		<span th:text="${'Author: ' + vidauthor}" class="smallVidAuthor"></span>
-	 		<span th:text="${videoDuration1}" class="sideVideoDuration"></span>
-	 		</a>
-	 		
  		</span>
 	</div>
-</section>
 
 
-<div class="footer">
-  <p style="margin-top: 3px;">@2020-2021 Jam | Term 2</p>
-</div>
-
+<div th:replace="Fragments/layout.html :: footer"></div>
+<script type="text/javascript" th:src="@{/js/watch_videos_ajax.js}"></script>
 </body>
 </html>
