@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import sg.edu.iss.jam.model.Album;
 import sg.edu.iss.jam.model.Category;
 import sg.edu.iss.jam.model.Channel;
 import sg.edu.iss.jam.model.Comments;
@@ -149,8 +150,8 @@ public class UserImplementation implements UserInterface {
 	}
 
 	@Transactional
-	public List<Media> findMediaByChannelAndMediaType(Channel channel, MediaType mediaType) {
-		return mediarepo.findMediaByChannelAndMediaType(channel, mediaType);
+	public List<Media> findMediaByAlbumAndMediaType(Album album, MediaType mediaType) {
+		return mediarepo.findMediaByAlbumAndMediaType(album, mediaType);
 	}
 	
 	//SUBSCRIBED REPO

@@ -453,19 +453,19 @@ public class MediaController {
 			return "redirect:/music/medianotfound/{mediaId}";
 		}
 		
-		Channel selectedMediaChannel = selectedMedia.getChannel();
+		Album selectedMediaAlbum = selectedMedia.getAlbum();
 		
-		List<Media> channelMediaList = uservice.findMediaByChannelAndMediaType(selectedMediaChannel, MediaType.Music);
+		List<Media> albumMediaList = uservice.findMediaByAlbumAndMediaType(selectedMediaAlbum, MediaType.Music);
 		
-		int selectedMediaCurrentPositionInMediaList = 0;
+		int selectedMediaCurrentPositionInAlbum = 0;
 		
-		for (int i = 0; i < channelMediaList.size(); i++) {
-			if (channelMediaList.get(i) == selectedMedia) {
-				selectedMediaCurrentPositionInMediaList = i;
+		for (int i = 0; i < albumMediaList.size(); i++) {
+			if (albumMediaList.get(i) == selectedMedia) {
+				selectedMediaCurrentPositionInAlbum = i;
 			}
 		}
 		
-		Media nextMediaToPlay = channelMediaList.get(selectedMediaCurrentPositionInMediaList + 1);
+		Media nextMediaToPlay = albumMediaList.get(selectedMediaCurrentPositionInAlbum + 1);
 		
 		redirectAttributes.addAttribute("mediaId", nextMediaToPlay.getId());
 		return "redirect:/music/listenmusic/{mediaId}";
@@ -492,19 +492,19 @@ public class MediaController {
 				return "redirect:/music/medianotfound/{mediaId}";
 			}
 			
-			Channel selectedMediaChannel = selectedMedia.getChannel();
+			Album selectedMediaAlbum = selectedMedia.getAlbum();
 			
-			List<Media> channelMediaList = uservice.findMediaByChannelAndMediaType(selectedMediaChannel, MediaType.Music);
+			List<Media> albumMediaList = uservice.findMediaByAlbumAndMediaType(selectedMediaAlbum, MediaType.Music);
 			
-			int selectedMediaCurrentPositionInMediaList = 0;
+			int selectedMediaCurrentPositionInAlbum = 0;
 			
-			for (int i = 0; i < channelMediaList.size(); i++) {
-				if (channelMediaList.get(i) == selectedMedia) {
-					selectedMediaCurrentPositionInMediaList = i;
+			for (int i = 0; i < albumMediaList.size(); i++) {
+				if (albumMediaList.get(i) == selectedMedia) {
+					selectedMediaCurrentPositionInAlbum = i;
 				}
 			}
 			
-			Media nextMediaToPlay = channelMediaList.get(selectedMediaCurrentPositionInMediaList - 1);
+			Media nextMediaToPlay = albumMediaList.get(selectedMediaCurrentPositionInAlbum - 1);
 			
 			redirectAttributes.addAttribute("mediaId", nextMediaToPlay.getId());
 			return "redirect:/music/listenmusic/{mediaId}";

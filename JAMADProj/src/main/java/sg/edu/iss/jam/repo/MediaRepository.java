@@ -34,8 +34,8 @@ public interface MediaRepository extends JpaRepository<Media, Long> {
 	
 	public Collection<Media> findBychannel(Channel channel);
 	
-	@Query("SELECT DISTINCT m FROM Media m WHERE m.channel = :channel AND m.channel.mediaType = :mediaType")
-	List<Media> findMediaByChannelAndMediaType(@Param("channel") Channel channel, @Param("mediaType") MediaType mediaType);
+	@Query("SELECT DISTINCT m FROM Media m WHERE m.album = :album AND m.channel.mediaType = :mediaType")
+	List<Media> findMediaByAlbumAndMediaType(@Param("album") Album album, @Param("mediaType") MediaType mediaType);
 	
 	@Query("Select m FROM Media m JOIN m.album al WHERE al.AlbumID =:AlbumID ORDER BY m.AlbumOrder ")
 	public List<Media> findByalbum(Long AlbumID);

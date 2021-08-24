@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.data.jpa.repository.Query;
 
+import sg.edu.iss.jam.model.Album;
 import sg.edu.iss.jam.model.Channel;
 import sg.edu.iss.jam.model.Comments;
 import sg.edu.iss.jam.model.Media;
@@ -41,7 +42,7 @@ public interface UserInterface {
 	List<Media> findMediaListByPlayListID(Long playlistID);
 	List<Media> findAllMedia();
 	List<Media> findAllMediaByMediaType(MediaType mediaType);
-	List<Media> findMediaByChannelAndMediaType(Channel channel, MediaType mediaType);
+	List<Media> findMediaByAlbumAndMediaType(Album album, MediaType mediaType);
  	Media findMediaByMediaTypeAndMediaId(MediaType mediaType, Long id);
 	Media saveMedia(Media media);
 
