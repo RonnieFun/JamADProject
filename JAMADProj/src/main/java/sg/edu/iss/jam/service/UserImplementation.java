@@ -41,6 +41,7 @@ import sg.edu.iss.jam.repo.UserRepository;
 @Service
 public class UserImplementation implements UserInterface {
 
+	
 	@Autowired
 	UserRepository urepo;
 
@@ -303,6 +304,18 @@ public class UserImplementation implements UserInterface {
 	@Override
 	public List<Orders> getPurchaseHistoryByUserId(Long userID) {
 		return orepo.getPurchaseHistoryByUserId(userID);
+	}
+
+	@Override
+	public List<UserHistory> findUserHistoryByUserId(Long userId) {
+		
+		return uhrepo.findUserHistoryByUserId(userId);
+	}
+
+	@Override
+	public List<UserHistory> findUserHistoryByUserIdAndMediaType(Long userId, MediaType  mediaType) {
+		
+		return uhrepo.findUserHistoryByUserIdAndMediaType(userId, mediaType);
 	}
 
 }

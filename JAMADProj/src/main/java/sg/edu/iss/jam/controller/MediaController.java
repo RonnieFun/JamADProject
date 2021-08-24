@@ -3,12 +3,14 @@ package sg.edu.iss.jam.controller;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sg.edu.iss.jam.model.Album;
@@ -44,6 +47,18 @@ public class MediaController {
 	//scy-videolandingpage
 	@Autowired
 	MediaServiceInterface mservice;
+	
+	
+	// for recommendation
+	@Autowired
+	private RestTemplate restTemplate;
+	
+	String response_model1 = ""; 
+	String response_model2 = "";
+	List<String> recommendMediaNames_model1 = new ArrayList<String>();
+	List<String> recommendMediaNames_model2 = new ArrayList<String>();
+
+	
 			
 	@GetMapping("/video/medianotfound/{mediaId}") 
 	public String videoNotFound(Model model, @PathVariable Long mediaId) {
@@ -131,11 +146,173 @@ public class MediaController {
 		model.addAttribute("topmusic",toptwelveMusics);
 		return "genericmusiclandingpage";
 	}
+
+
+//----------------------------------Login Video Landing Page(Recommendation Model 1) ------------------------------------	
+		
+	@GetMapping("/video/loginvideolandingpage/{userId}")
+	public String loginVideoLandingPage(@PathVariable("userId") Long userId, Model model) {
+		
+		User user = uservice.findUserByUserId(userId);
+		if (user == null) {
+			// will change to "UserNotFound"
+			return "error";
+		}
+		
+		// if the code comes here, it means the user exists in database,
+		// then check whether it's new user or not	
+		boolean hasUserHistoryVideo = true;
+		List<UserHistory> userHistoryVideo = uservice.findUserHistoryByUserIdAndMediaType(userId, MediaType.Video);
+		
+		if (userHistoryVideo == null || userHistoryVideo.size() == 0) {
+			hasUserHistoryVideo = false;
+		}
+		
+		// If the user has no video UserHistory data  (new user),
+		// recommend items the same as genericvideolandingpage		
+		if (hasUserHistoryVideo == false) {
+			
+			List<Media> allVideos=mservice.getMediaByUserHistory(MediaType.Video,LocalDate.now().minusMonths(36));
+			List<Media> topVideos=new ArrayList<Media>();
+			List<Media> toptwelveVideos=new ArrayList<Media>();
+			
+			for(Media m : allVideos) {
+				if (m.getCreatedOn().compareTo(LocalDate.now().minusDays(180)) > 0 )
+					topVideos.add(m);
+			}
+			
+			if(topVideos.size()>11) {
+				for(int i=0;i<=11;i++) {
+					toptwelveVideos.add(topVideos.get(i));
+				}
+					
+			}else {
+				toptwelveVideos=topVideos;
+			}
+			
+			model.addAttribute("topvideos",toptwelveVideos);
+		}
+		
+		// Else if the user has  UserHistory data, 
+		// recommend items based on ML model
+		
+		else {
+			
+			List<Long> recommend_mediaid_list = new ArrayList<Long>();
+			List<Media> recommend_medialist = new ArrayList<Media>();
+				
+			String url = "http://127.0.0.1:5000/model1?user_id={1}";
+			ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class, userId);
+			response_model1 = responseEntity.getBody();
+				
+			if (! response_model1.isEmpty()) {
+					
+				List<String> strList = new ArrayList<String>();
+				strList = Arrays.asList(response_model1.split(","));
+				for (String s: strList) {
+					recommend_mediaid_list.add(Long.parseLong(s));
+				}
+			}
+						
+			for(Long id: recommend_mediaid_list) {
+				Media recommendMedia = mservice.getMediaById(id);
+				if (recommendMedia != null) {
+					recommend_medialist.add(recommendMedia);
+				}
+			}		
+			
+			model.addAttribute("recommend_medialist", recommend_medialist);
+		}
+		
+		
+		model.addAttribute("hasUserHistoryVideo", hasUserHistoryVideo);
+		return "loginvideolandingpage";
+	}	
+
+//----------------------------------Login Music Landing Page(Recommendation Model 2)------------------------------------
 	
-	@GetMapping("/signup2")
-	public String signup2(Model model) {
-		return "signup2";
-	}
+	@GetMapping("/music/loginmusiclandingpage/{userId}")
+	public String loginMusicLandingPage(@PathVariable("userId") Long userId, Model model) {
+		
+		
+		User user = uservice.findUserByUserId(userId);
+		if (user == null) {
+			// will change to "UserNotFound"
+			return "error";
+		}
+		
+		// if the code comes here, it means the user exists in database,
+		// then check whether it's new user or not	
+		boolean hasUserHistoryMusic = true;
+		List<UserHistory> userHistoryMusic = uservice.findUserHistoryByUserIdAndMediaType(userId, MediaType.Music);
+		if (userHistoryMusic == null || userHistoryMusic.size() == 0) {
+			hasUserHistoryMusic = false;
+		}
+		
+		// If the user has no music UserHistory data (new user),
+		// recommend items the same as genericmusiclandingpage		
+		if (hasUserHistoryMusic == false) {
+			
+			List<Media> allMusics=mservice.getMediaByUserHistory(MediaType.Music,LocalDate.now().minusMonths(36));
+			List<Media> topMusics=new ArrayList<Media>();
+			List<Media> toptwelveMusics=new ArrayList<Media>();
+			
+			for(Media m : allMusics) {
+				if (m.getCreatedOn().compareTo(LocalDate.now().minusDays(180)) > 0 )
+					topMusics.add(m);
+			}
+			
+			if(topMusics.size()>11) {
+				for(int i=0;i<=11;i++) {
+					toptwelveMusics.add(topMusics.get(i));
+				}
+					
+			}else {
+				toptwelveMusics=topMusics;
+			}
+			
+			model.addAttribute("topmusic",toptwelveMusics);
+		}
+		
+		
+		// Else if the user has  UserHistory data, 
+		// recommend items based on ML model
+		else 
+		{
+			List<Long> recommend_mediaid_list = new ArrayList<Long>();
+			List<Media> recommend_medialist = new ArrayList<Media>();
+				
+			String url = "http://127.0.0.1:5000/model2?user_id={1}";
+			ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class, userId);
+			response_model1 = responseEntity.getBody();
+				
+			if (! response_model1.isEmpty()) {
+					
+				List<String> strList = new ArrayList<String>();
+				strList = Arrays.asList(response_model1.split(","));
+				for (String s: strList) {
+					recommend_mediaid_list.add(Long.parseLong(s));
+				}
+			}
+						
+			for(Long id: recommend_mediaid_list) {
+				Media recommendMedia = mservice.getMediaById(id);
+				if (recommendMedia != null) {
+					recommend_medialist.add(recommendMedia);
+				}
+			}
+						
+			model.addAttribute("recommend_medialist", recommend_medialist);
+			
+		}
+				
+				
+		model.addAttribute("hasUserHistoryMusic", hasUserHistoryMusic);
+		return "loginmusiclandingpage";
+	}	
+
+
+	
 	
 	@GetMapping("/video/watchvideo/{mediaId}")
 	public String watchVideo(Model model, @PathVariable Long mediaId, RedirectAttributes redirectAttributes) {
@@ -156,7 +333,7 @@ public class MediaController {
 		
 		int commentCount = uservice.findCommentsByMediaId(mediaId).size();
 		
-		User loggedInUser = uservice.findUserByUserId(2L);
+		User loggedInUser = uservice.findUserByUserId(41L);
 		
 		Media selectedMedia = uservice.findMediaByMediaTypeAndMediaId(MediaType.Video, mediaId);
 
@@ -218,8 +395,37 @@ public class MediaController {
 		if (artistId == customerId) {
 			subscribeStatus = null;
 		}
+	
+		
+		// side bar recommendations 
+		// Recommendation Model 3  
+		List<Long> recommend_mediaid_list = new ArrayList<Long>();
+		List<Media> recommend_medialist = new ArrayList<Media>();
+		
+		String url = "http://127.0.0.1:5000/model3?item_id={1}";
+		ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class, mediaId);
+		response_model2 = responseEntity.getBody();
+		
+		if (! response_model2.isEmpty()) {
+			
+			List<String> strList = new ArrayList<String>();
+			strList = Arrays.asList(response_model2.split(","));
+			for (String s: strList) {
+				recommend_mediaid_list.add(Long.parseLong(s));
+			}
+		}
+		
+		for(Long id: recommend_mediaid_list) {
+			Media recommendMedia = mservice.getMediaById(id);
+			if (recommendMedia != null) {
+				recommend_medialist.add(recommendMedia);
+			}
+		}
+		
+	
 		
 		model.addAttribute("subscribeStatus", subscribeStatus);
+		model.addAttribute("recommend_medialist", recommend_medialist);
 			
 		return "userwatchvideo";
 	}
