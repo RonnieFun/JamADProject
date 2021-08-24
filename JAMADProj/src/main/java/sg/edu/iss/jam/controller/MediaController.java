@@ -37,6 +37,8 @@ import sg.edu.iss.jam.service.ArtistInterface;
 import sg.edu.iss.jam.service.UserInterface;
 import sg.edu.iss.jam.service.MediaServiceInterface;
 
+import sg.edu.iss.jam.security.MyUserDetails;
+
 @Controller
 public class MediaController {
 
@@ -56,8 +58,12 @@ public class MediaController {
 	
 	String response_model1 = ""; 
 	String response_model2 = "";
+	String response_model3 = "";
+	String response_model4 = "";
 	List<String> recommendMediaNames_model1 = new ArrayList<String>();
 	List<String> recommendMediaNames_model2 = new ArrayList<String>();
+	List<String> recommendMediaNames_model3 = new ArrayList<String>();
+	List<String> recommendMediaNames_model4 = new ArrayList<String>();
 	
 	@GetMapping("/video/medianotfound/{mediaId}") 
 	public String videoNotFound(Model model, @PathVariable Long mediaId, @AuthenticationPrincipal MyUserDetails userDetails) {
@@ -155,19 +161,17 @@ public class MediaController {
 
 	//----------------------------------Login Video Landing Page(Recommendation Model 1) ------------------------------------	
 	
-		@GetMapping("/video/loginvideolandingpage/{userId}")
-		public String loginVideoLandingPage(@PathVariable("userId") Long userId, Model model) {
+		@GetMapping("/video/loginvideolandingpage")
+		public String loginVideoLandingPage(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
 			
-			User user = uservice.findUserByUserId(userId);
-			if (user == null) {
-				// will change to "UserNotFound"
-				return "error";
+			if(userDetails == null) {
+				return "redirect:/login";	
 			}
 			
 			// if the code comes here, it means the user exists in database,
 			// then check whether it's new user or not	
 			boolean hasUserHistoryVideo = true;
-			List<UserHistory> userHistoryVideo = uservice.findUserHistoryByUserIdAndMediaType(userId, MediaType.Video);
+			List<UserHistory> userHistoryVideo = uservice.findUserHistoryByUserIdAndMediaType(userDetails.getUserId(), MediaType.Video);
 			
 			if (userHistoryVideo == null || userHistoryVideo.size() == 0) {
 				hasUserHistoryVideo = false;
@@ -207,7 +211,7 @@ public class MediaController {
 				List<Media> recommend_medialist = new ArrayList<Media>();
 					
 				String url = "http://127.0.0.1:5000/model1?user_id={1}";
-				ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class, userId);
+				ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class, userDetails.getUserId());
 				response_model1 = responseEntity.getBody();
 					
 				if (! response_model1.isEmpty()) {
@@ -236,20 +240,17 @@ public class MediaController {
 
 	//----------------------------------Login Music Landing Page(Recommendation Model 2)------------------------------------
 		
-		@GetMapping("/music/loginmusiclandingpage/{userId}")
-		public String loginMusicLandingPage(@PathVariable("userId") Long userId, Model model) {
+		@GetMapping("/music/loginmusiclandingpage")
+		public String loginMusicLandingPage(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
 			
-			
-			User user = uservice.findUserByUserId(userId);
-			if (user == null) {
-				// will change to "UserNotFound"
-				return "error";
+			if(userDetails == null) {
+				return "redirect:/login";	
 			}
 			
 			// if the code comes here, it means the user exists in database,
 			// then check whether it's new user or not	
 			boolean hasUserHistoryMusic = true;
-			List<UserHistory> userHistoryMusic = uservice.findUserHistoryByUserIdAndMediaType(userId, MediaType.Music);
+			List<UserHistory> userHistoryMusic = uservice.findUserHistoryByUserIdAndMediaType(userDetails.getUserId(), MediaType.Music);
 			if (userHistoryMusic == null || userHistoryMusic.size() == 0) {
 				hasUserHistoryMusic = false;
 			}
@@ -288,13 +289,13 @@ public class MediaController {
 				List<Media> recommend_medialist = new ArrayList<Media>();
 					
 				String url = "http://127.0.0.1:5000/model2?user_id={1}";
-				ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class, userId);
-				response_model1 = responseEntity.getBody();
+				ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class, userDetails.getUserId());
+				response_model2 = responseEntity.getBody();
 					
-				if (! response_model1.isEmpty()) {
+				if (! response_model2.isEmpty()) {
 						
 					List<String> strList = new ArrayList<String>();
-					strList = Arrays.asList(response_model1.split(","));
+					strList = Arrays.asList(response_model2.split(","));
 					for (String s: strList) {
 						recommend_mediaid_list.add(Long.parseLong(s));
 					}
@@ -408,9 +409,9 @@ public class MediaController {
 		
 		String url = "http://127.0.0.1:5000/model3?item_id={1}";
 		ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class, mediaId);
-		response_model2 = responseEntity.getBody();
+		response_model3 = responseEntity.getBody();
 		
-		if (! response_model2.isEmpty()) {
+		if (! response_model3.isEmpty()) {
 			
 			List<String> strList = new ArrayList<String>();
 			strList = Arrays.asList(response_model2.split(","));
@@ -723,20 +724,20 @@ public class MediaController {
 	
 //--------------------------User views Artist Video Channel Page by ZQ--------------------------------------------------
 	@GetMapping("/video/viewartistvideochannel/{artistId}")
-	public String viewArtistVideoChannel(Model model, @PathVariable Long artistId) {
+	public String viewArtistVideoChannel(@PathVariable("artistId") Long artistId, Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
+		
+		if(userDetails == null) {
+			return "redirect:/login";	
+		}
 		
 		String artistVideoChannelName = "";
 		int numberOfArtistVideos = 0;
 		List<Media> artistVideos = new ArrayList<Media>();
 		
-		// currently assume the userID = 2
-		Long customerId = (long) 2;
-		User customer = uservice.findUserByUserId(customerId);
-				
-		// currently assume the artistID = 1		
+		User customer = uservice.findUserByUserId(userDetails.getUserId());	
 		User artist = aservice.findById(artistId);
-		// get artist's name (will change to displayName while DB data is ready)
-		String artistName = artist.getFirstName() + " " + artist.getLastName();
+		String artistName = artist.getDisplayName();
+		
 		// get artist's video channel and videos
 		List<Channel> artistChannels = (List<Channel>) artist.getChannels();
 		
@@ -749,9 +750,8 @@ public class MediaController {
 			}
 		}
 		// get artist's subscribers
-		List<Subscribed> users_Unsubscribed_jaychou = uservice.getArtistUnSubscribed(artistId);
-		
-		List<Subscribed> users_Subscribed_jaychou = uservice.getArtistSubscribed(artistId);
+		List<Subscribed> users_Unsubscribed = uservice.getArtistUnSubscribed(artistId);
+		List<Subscribed> users_Subscribed = uservice.getArtistSubscribed(artistId);
 		
 		int NumberOfSubscribers = 0;
 
@@ -763,22 +763,22 @@ public class MediaController {
 		
 		for(Subscribed s: listOfSubscribe) {
 			// if the customer already subscribed the artist, it shows true
-			if (s.getSubscriber() == customer && s.getArtist() == artist && s.isSubscribed() == true
-					&& users_Unsubscribed_jaychou.size() < users_Subscribed_jaychou.size()) {
+			if (s.getSubscriber() == customer  && s.getArtist() == artist && s.isSubscribed() == true
+					&& users_Unsubscribed.size() < users_Subscribed.size()) {
 				subscribeStatus = true;
 				}
 			
 			if (s.getSubscriber() == customer && s.getArtist() == artist && s.isSubscribed() == false
-					&& users_Unsubscribed_jaychou.size() > users_Subscribed_jaychou.size()) {
+					&& users_Unsubscribed.size() > users_Subscribed.size()) {
 				subscribeStatus = false;
 				}
 			}
 		
-		if (artistId == customerId) {
+		if (artistId == userDetails.getUserId()) {
 			subscribeStatus = null;
 		}
 		
-		NumberOfSubscribers =  users_Subscribed_jaychou.size() - users_Unsubscribed_jaychou.size();
+		NumberOfSubscribers =  users_Subscribed.size() - users_Unsubscribed.size();
 
 		model.addAttribute("artistVideoChannelName", artistVideoChannelName);
 		model.addAttribute("numberOfArtistVideos", numberOfArtistVideos);
@@ -794,11 +794,13 @@ public class MediaController {
 	
 	
 	@GetMapping("/video/subscribenoajax/{artistId}")
-	public String subscribeArtistNoAjax(@PathVariable Long artistId){
+	public String subscribeArtistNoAjaxVideo(@PathVariable("artistId") Long artistId, @AuthenticationPrincipal MyUserDetails userDetails){
 		
-		// currently assume the userID = 2,
-		Long customerId = (long) 2;
-		User customer = uservice.findUserByUserId(customerId);
+		if(userDetails == null) {
+			return "redirect:/login";	
+		}
+		
+		User customer = uservice.findUserByUserId(userDetails.getUserId());	
 		User artist = aservice.findById(artistId);
 		
 		if (artist == null || customer == null) {
@@ -819,11 +821,12 @@ public class MediaController {
 	
 	
 	@GetMapping("/video/unsubscribenoajax/{artistId}")	
-	public String unsubscribeArtistNoAjax(@PathVariable Long artistId) {
+	public String unsubscribeArtistNoAjaxVideo(@PathVariable("artistId") Long artistId, @AuthenticationPrincipal MyUserDetails userDetails) {
+		if(userDetails == null) {
+			return "redirect:/login";	
+		}
 		
-		// currently assume the userID = 2,
-		Long customerId = (long) 2;
-		User customer = uservice.findUserByUserId(customerId);
+		User customer = uservice.findUserByUserId(userDetails.getUserId());	
 		User artist = aservice.findById(artistId);
 		
 		
@@ -846,82 +849,144 @@ public class MediaController {
 	
 	
 //--------------------------User views Artist Music Channel Page by ZQ--------------------------------------------------
-	@GetMapping("music/viewartistmusicchannel")
-	public String viewArtistMusicChannel1(Model model, Long AlbumID) {
+	@GetMapping("music/viewartistmusicchannel/{artistId}")
+	public String viewArtistMusicChannel1(@PathVariable("artistId") Long artistId, Long AlbumID, Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
+		if(userDetails == null) {
+			return "redirect:/login";	
+		}
 		
 		String artistMusicChannelName = "";
 		int numberOfArtistAlbums = 0;
 		int numberOfArtistMusics = 0;
 		List<Album> artistAlbums = new ArrayList<Album>();
-		
-		// currently assume the userID = 2
-		Long customerId = (long) 2;
-		User customer = uservice.findUserByUserId(customerId);
-				
-		// currently assume the artistID = 1		
-		Long artistId = (long) 1;
+
+		User customer = uservice.findUserByUserId(userDetails.getUserId());		
 		User artist = aservice.findById(artistId);
-		// get artist's name (will change to displayName while DB data is ready)
-		String artistName = artist.getFirstName() + " " + artist.getLastName();
-		// get artist's video channel and videos
-		List<Channel> artistChannels = (List<Channel>) artist.getChannels();
+		String artistName = artist.getDisplayName();
 		
+		// get artist's video channel and albums
+		List<Channel> artistChannels = (List<Channel>) artist.getChannels();
 		for(Channel c: artistChannels) {
 			if(c.getMediaType() == MediaType.Music) {	
 				artistMusicChannelName =  c.getChannelName();
 				artistAlbums = (List<Album>) c.getAlbumslist();
-				numberOfArtistAlbums =  c.getAlbumslist().size();
-				
-				for(Album a: artistAlbums) {
-					numberOfArtistMusics += a.getAlbumMedia().size();
+				if (artistAlbums != null) {
+					numberOfArtistAlbums =  artistAlbums.size();
+					for(Album a: artistAlbums) {
+						numberOfArtistMusics += a.getAlbumMedia().size();
+						
+					}
 				}
 			}
 		}
+		
 		// get artist's subscribers
-		List<Subscribed> users_subscribed_jaychou = (List<Subscribed>) artist.getSubscribers();
+		List<Subscribed> users_Unsubscribed = uservice.getArtistUnSubscribed(artistId);
+		List<Subscribed> users_Subscribed = uservice.getArtistSubscribed(artistId);
+				
 		int NumberOfSubscribers = 0;
-		
-		if (users_subscribed_jaychou == null) {
-			NumberOfSubscribers = 0;
-		}	
-		NumberOfSubscribers = users_subscribed_jaychou.size();
-		
+
 		// check the subscribe status
 		Boolean subscribeStatus = false;				
-		
+				
 		//Get list of all Subscribe objects in Database
 		List<Subscribed> listOfSubscribe = uservice.getAllSubscribed();
-						 
+				
 		for(Subscribed s: listOfSubscribe) {
 			// if the customer already subscribed the artist, it shows true
-			if (s.getSubscriber() == customer && s.getArtist() == artist && s.isSubscribed() == true) {
+			if (s.getSubscriber() == customer  && s.getArtist() == artist && s.isSubscribed() == true
+					&& users_Unsubscribed.size() < users_Subscribed.size()) {
 				subscribeStatus = true;
 				}
 			
-			if (s.getSubscriber() == customer && s.getArtist() == artist && s.isSubscribed() == false) {
+			if (s.getSubscriber() == customer && s.getArtist() == artist && s.isSubscribed() == false
+					&& users_Unsubscribed.size() > users_Subscribed.size()) {
 				subscribeStatus = false;
-				}
+					}
 			}
-		
-		//code by Max: Get the Current Album's List of Music
-		
-		if (AlbumID != null) {
-			Album selectedAlbum = aservice.getAlbumByAlbumId(AlbumID);
+				
+			if (artistId == userDetails.getUserId()) {
+				subscribeStatus = null;
+			}
 			
-			Collection<Media> listOfMusic = selectedAlbum.getAlbumMedia();
-			model.addAttribute("listOfMusic", listOfMusic);
-		}
+			
+			
+			//code by Max: Get the Current Album's List of Music
+			
+			if (AlbumID != null) {
+				Album selectedAlbum = aservice.getAlbumByAlbumId(AlbumID);
+				
+				Collection<Media> listOfMusic = selectedAlbum.getAlbumMedia();
+				model.addAttribute("listOfMusic", listOfMusic);
+			}
+				
+		NumberOfSubscribers =  users_Subscribed.size() - users_Unsubscribed.size();
 		
 		model.addAttribute("artistMusicChannelName", artistMusicChannelName);
 		model.addAttribute("numberOfArtistAlbums", numberOfArtistAlbums);
 		model.addAttribute("numberOfArtistMusics", numberOfArtistMusics);
-		model.addAttribute("artistalbums", artistAlbums);
+		model.addAttribute("artistAlbums", artistAlbums);
 		model.addAttribute("numberOfSubscribers", NumberOfSubscribers);
 		model.addAttribute("subscribeStatus", subscribeStatus);
 		model.addAttribute("artistName", artistName);
 		model.addAttribute("artistId", artistId);
 		model.addAttribute("artist", artist);	
 		return "ArtistMusicChannel";
+	}
+	
+	
+	@GetMapping("/music/subscribenoajax/{artistId}")
+	public String subscribeArtistNoAjaxMusic(@PathVariable("artistId") Long artistId, @AuthenticationPrincipal MyUserDetails userDetails){
+		
+		if(userDetails == null) {
+			return "redirect:/login";	
+		}
+		
+		User customer = uservice.findUserByUserId(userDetails.getUserId());	
+		User artist = aservice.findById(artistId);
+		
+		if (artist == null || customer == null) {
+			return "redirect:/video/viewartistmusicchannel/{artistId}";
+		}
+			
+		// add new subscriber object for new subscription
+		Subscribed newSubscription = new Subscribed();
+		newSubscription.setSubscribed(true);
+		newSubscription.setArtist(artist);
+		newSubscription.setSubscriber(customer);
+		newSubscription.setTimeSubscribed(LocalDateTime.now());
+				
+		uservice.saveSubscribed(newSubscription);		
+		
+		return "redirect:/music/viewartistmusicchannel/{artistId}";
+	}
+	
+	
+	@GetMapping("/music/unsubscribenoajax/{artistId}")	
+	public String unsubscribeArtistNoAjaxMusic(@PathVariable("artistId") Long artistId, @AuthenticationPrincipal MyUserDetails userDetails) {
+		if(userDetails == null) {
+			return "redirect:/login";	
+		}
+		
+		User customer = uservice.findUserByUserId(userDetails.getUserId());	
+		User artist = aservice.findById(artistId);
+		
+		
+		if (artist == null || customer == null) {
+			return "redirect:/video/viewartistmusicchannel/{artistId}";
+		}
+		
+		// add new subscriber object for new unsubscription
+		Subscribed newUnsubscription = new Subscribed();
+		newUnsubscription.setSubscribed(false);
+		newUnsubscription.setArtist(artist);
+		newUnsubscription.setSubscriber(customer);
+		newUnsubscription.setTimeSubscribed(LocalDateTime.now());
+						
+		uservice.saveSubscribed(newUnsubscription);	
+		
+		return "redirect:/music/viewartistmusicchannel/{artistId}";
+				
 	}
 
 }

@@ -202,6 +202,9 @@ public class UserImplementation implements UserInterface {
 
 	
 	//USERHISTORY REPO
+	
+	
+
 	@Transactional
 	public List<UserHistory> findUserHistoryByMediaId(Long id) {
 		
@@ -346,6 +349,10 @@ public class UserImplementation implements UserInterface {
 	public List<UserHistory> findUserHistoryByUserIdAndMediaType(Long userId, MediaType  mediaType) {
 		
 		return uhrepo.findUserHistoryByUserIdAndMediaType(userId, mediaType);
+	}
+	
+	public List<UserHistory> findAllUserHistory(){
+		return uhrepo.findAll();
 	}
 
 }

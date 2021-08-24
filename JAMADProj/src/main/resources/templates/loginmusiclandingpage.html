@@ -34,7 +34,7 @@
 								
 								<!-- artisit photo -->
 								<div class="card-body px-0 bg-white">
-									<a th:href="@{/music/viewartistmusicchannel}">
+									<a th:href="@{/music/viewartistmusicchannel/}+${music.channel.channelUser.userID}">
 									<div class="row">
 										<div class="col-4">
 											<img class="rounded-circle" width="100%"
@@ -47,7 +47,7 @@
 									<!-- author -->
 									   <div class="mb-1 productHeading h6"><strong>Artist:</strong>
 								<!-- 	   <a th:href="@{/music/viewartistmusicchannel(id=${music.channel.channelID})}"> -->
-									  	 <a th:href="@{/music/viewartistmusicchannel}">
+									  	 <a th:href="@{/music/viewartistmusicchannel/}+${music.channel.channelUser.userID}">
 											<span th:text="${music.channel.channelUser.displayName}"> </span>
 											</span>
 											</a> 
@@ -79,7 +79,7 @@
 	<section th:unless = "${hasUserHistoryMusic}" class="productsContentSection2" >
 
 		<div class="container">
-			<h3 class="col-md-auto">You haven't listened to any music yet, see the following trending music</h3>
+			<h3 class="col-md-auto">See the following trending music</h3>
 			<hr>
 				<div class="row col-lg-11 mx-auto">
 					<th:block th:each="music: ${topmusic}">
@@ -98,7 +98,7 @@
 								
 								<!-- artisit photo -->
 								<div class="card-body px-0 bg-white">
-									<a th:href="@{/music/viewartistmusicchannel}">
+									<a th:href="@{/music/viewartistmusicchannel/}+${music.channel.channelUser.userID}">
 									<div class="row">
 										<div class="col-4">
 											<img class="rounded-circle" width="100%"
@@ -111,7 +111,7 @@
 									<!-- author -->
 									   <div class="mb-1 productHeading h6"><strong>Artist:</strong>
 								<!-- 	   <a th:href="@{/music/viewartistmusicchannel(id=${music.channel.channelID})}"> -->
-									  	 <a th:href="@{/music/viewartistmusicchannel}">
+									  	 <a th:href="@{/music/viewartistmusicchannel/}+${music.channel.channelUser.userID}">
 											<span th:text="${music.channel.channelUser.displayName}"> </span>
 											</span>
 											</a> 
