@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import sg.edu.iss.jam.model.Category;
+import sg.edu.iss.jam.model.Channel;
 import sg.edu.iss.jam.model.Comments;
 import sg.edu.iss.jam.model.Media;
 import sg.edu.iss.jam.model.MediaType;
@@ -147,6 +148,11 @@ public class UserImplementation implements UserInterface {
 		return mediarepo.findMediaByMediaTypeAndMediaId(mediaType, id);
 	}
 
+	@Transactional
+	public List<Media> findMediaByChannelAndMediaType(Channel channel, MediaType mediaType) {
+		return mediarepo.findMediaByChannelAndMediaType(channel, mediaType);
+	}
+	
 	//SUBSCRIBED REPO
 	@Transactional
 	public Subscribed saveSubscribed(Subscribed subscribed) {

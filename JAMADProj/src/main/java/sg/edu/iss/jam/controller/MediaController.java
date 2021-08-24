@@ -433,6 +433,84 @@ public class MediaController {
 		return "userwatchvideo";
 	}
 	
+	// Load the next music in the same Music Channel from Listen Music page
+	@GetMapping("/music/loadnextmusic/{mediaId}")
+	public String listenNextMusic(Model model, @PathVariable Long mediaId, RedirectAttributes redirectAttributes,
+			@AuthenticationPrincipal MyUserDetails userDetails) {
+		
+		if(userDetails == null) {
+			return "/login";	
+		}
+		
+		long loggedInUserId = userDetails.getUserId(); 
+		
+		User loggedInUser = uservice.findUserByUserId(loggedInUserId);
+		
+		Media selectedMedia = uservice.findMediaByMediaTypeAndMediaId(MediaType.Music, mediaId);
+		
+		if(selectedMedia == null) {
+			redirectAttributes.addAttribute("mediaId", mediaId);
+			return "redirect:/music/medianotfound/{mediaId}";
+		}
+		
+		Channel selectedMediaChannel = selectedMedia.getChannel();
+		
+		List<Media> channelMediaList = uservice.findMediaByChannelAndMediaType(selectedMediaChannel, MediaType.Music);
+		
+		int selectedMediaCurrentPositionInMediaList = 0;
+		
+		for (int i = 0; i < channelMediaList.size(); i++) {
+			if (channelMediaList.get(i) == selectedMedia) {
+				selectedMediaCurrentPositionInMediaList = i;
+			}
+		}
+		
+		Media nextMediaToPlay = channelMediaList.get(selectedMediaCurrentPositionInMediaList + 1);
+		
+		redirectAttributes.addAttribute("mediaId", nextMediaToPlay.getId());
+		return "redirect:/music/listenmusic/{mediaId}";
+		
+	}
+	
+	// Load the previous music in the same Music Channel from Listen Music page
+		@GetMapping("/music/loadpreviousmusic/{mediaId}")
+		public String listenPreviousMusic(Model model, @PathVariable Long mediaId, RedirectAttributes redirectAttributes,
+				@AuthenticationPrincipal MyUserDetails userDetails) {
+			
+			if(userDetails == null) {
+				return "/login";	
+			}
+			
+			long loggedInUserId = userDetails.getUserId(); 
+			
+			User loggedInUser = uservice.findUserByUserId(loggedInUserId);
+			
+			Media selectedMedia = uservice.findMediaByMediaTypeAndMediaId(MediaType.Music, mediaId);
+			
+			if(selectedMedia == null) {
+				redirectAttributes.addAttribute("mediaId", mediaId);
+				return "redirect:/music/medianotfound/{mediaId}";
+			}
+			
+			Channel selectedMediaChannel = selectedMedia.getChannel();
+			
+			List<Media> channelMediaList = uservice.findMediaByChannelAndMediaType(selectedMediaChannel, MediaType.Music);
+			
+			int selectedMediaCurrentPositionInMediaList = 0;
+			
+			for (int i = 0; i < channelMediaList.size(); i++) {
+				if (channelMediaList.get(i) == selectedMedia) {
+					selectedMediaCurrentPositionInMediaList = i;
+				}
+			}
+			
+			Media nextMediaToPlay = channelMediaList.get(selectedMediaCurrentPositionInMediaList - 1);
+			
+			redirectAttributes.addAttribute("mediaId", nextMediaToPlay.getId());
+			return "redirect:/music/listenmusic/{mediaId}";
+			
+		}
+	
 	@GetMapping("/music/listenmusic/{mediaId}")
 	public String listenMusic(Model model, @PathVariable Long mediaId, RedirectAttributes redirectAttributes, 
 			@AuthenticationPrincipal MyUserDetails userDetails) {
@@ -519,6 +597,8 @@ public class MediaController {
 			subscribeStatus = null;
 		}
 
+		
+		
 		// side bar recommendations 
 		// Recommendation Model 3  
 //		List<Long> recommend_mediaid_list = new ArrayList<Long>();
