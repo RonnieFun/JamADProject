@@ -10,6 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
 import sg.edu.iss.jam.model.Category;
 import sg.edu.iss.jam.model.Channel;
@@ -85,6 +86,12 @@ public class JamadProjApplication {
 	
 	@Autowired
 	ChannelRepository crepo;
+	
+	@Bean
+	public RestTemplate getRestTemplage() {
+		return new RestTemplate();
+	}
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(JamadProjApplication.class, args);
