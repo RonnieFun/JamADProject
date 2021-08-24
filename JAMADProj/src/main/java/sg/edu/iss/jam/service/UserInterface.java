@@ -44,6 +44,10 @@ public interface UserInterface {
 	//SUBSCRIBED
 	Subscribed saveSubscribed(Subscribed subscribed);
 	void deleteSubscribed(Subscribed s);
+	List<Subscribed> getAllSubscribed();
+	List<Subscribed> getArtistUnSubscribed(Long userID);
+	List<Subscribed> getArtistSubscribed(Long userID);
+	List<Subscribed> getArtistSubscribedUnsubscribed(Long userID);
 	
 	//COMMENTS
 	List<Comments> findCommentsByMediaId(Long id);

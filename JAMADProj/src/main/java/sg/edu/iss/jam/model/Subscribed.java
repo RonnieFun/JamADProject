@@ -1,4 +1,5 @@
 package sg.edu.iss.jam.model;
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 import javax.persistence.Entity;
@@ -14,50 +15,56 @@ public class Subscribed {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long subscribedID;
 	
+	private LocalDateTime TimeSubscribed;
+	
+	private boolean subscribed;
+	
 	// for artist, targetId is customer's Id
 	// for customer, targetId is artist's Id
-	private Long targetId;
-	
-	// ManyToOne relationship with User
-	// For artist, it links to artist
-	// For customer, it links to customer
 	@ManyToOne
-	private User user;
+	private User artist;
 	
-	
-	public Subscribed() {
-		super();
-	}
+	@ManyToOne
+	private User subscriber;
 
 	public Long getSubscribedID() {
 		return subscribedID;
 	}
 
-
 	public void setSubscribedID(Long subscribedID) {
 		this.subscribedID = subscribedID;
 	}
-	
 
-	public Long getTargetId() {
-		return targetId;
+	public LocalDateTime getTimeSubscribed() {
+		return TimeSubscribed;
 	}
 
-
-	public void setTargetId(Long targetId) {
-		this.targetId = targetId;
+	public void setTimeSubscribed(LocalDateTime timeSubscribed) {
+		TimeSubscribed = timeSubscribed;
 	}
 
-
-	public User getUser() {
-		return user;
+	public boolean isSubscribed() {
+		return subscribed;
 	}
 
-
-	public void setUser(User user) {
-		this.user = user;
+	public void setSubscribed(boolean subscribed) {
+		this.subscribed = subscribed;
 	}
-	
 
+	public User getArtist() {
+		return artist;
+	}
+
+	public void setArtist(User artist) {
+		this.artist = artist;
+	}
+
+	public User getSubscriber() {
+		return subscriber;
+	}
+
+	public void setSubscriber(User subscriber) {
+		this.subscriber = subscriber;
+	}
 }
 

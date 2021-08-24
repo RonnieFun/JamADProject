@@ -146,10 +146,30 @@ public class UserImplementation implements UserInterface {
 	public Subscribed saveSubscribed(Subscribed subscribed) {
 		return subrepo.save(subscribed);
 	}
-
+	
 	@Transactional
 	public void deleteSubscribed(Subscribed s) {
 		subrepo.delete(s);
+	}
+	
+	@Transactional
+	public List<Subscribed> getAllSubscribed() {
+		return subrepo.findAll();
+	}
+	
+	@Transactional
+	public List<Subscribed> getArtistSubscribed(Long userID) {
+		return subrepo.getArtistSubscribed(userID);
+	}
+	
+	@Transactional
+	public List<Subscribed> getArtistUnSubscribed(Long userID) {
+		return subrepo.getArtistUnSubscribed(userID);
+	}
+	
+	@Transactional
+	public List<Subscribed> getArtistSubscribedUnsubscribed(Long userID) {
+		return subrepo.getArtistSubscribedUnsubscribed(userID);
 	}
 
 	//TAG REPO
