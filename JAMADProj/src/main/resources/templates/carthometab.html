@@ -262,8 +262,15 @@ function myFunction(productID) {
 	        	productId :productID
 	        },
 	        success: function(response){
+	        	//alert(response);
+	        	var jason =jQuery.parseJSON(response);
+	        	var status = jason.status; 
+	        	var count = jason.count;
+	        	$("#lblCartCount").text(count);
+	        	if(status=="error"){
+	        		alert("The product you added is reach to maximum amount");
+	        	}
 	        	
-	        	$("#lblCartCount").text(response);
 	        	$('#cartModal').modal('hide');
 	        	
 	        },
