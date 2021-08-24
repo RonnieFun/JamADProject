@@ -5170,11 +5170,33 @@ body{
 
 /* USER LISTEN TO MUSIC PAGE */
 
+.listenMusicControls{
+	display: flex;
+}
+
 .userPageMainMusic{
-  margin-left: 10%;
-  margin-top: calc(2vh - 0.01%);
-  padding: 0px;
-  object-fit: fill;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  max-width: 37.2%;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.musicNext{
+	padding: 0px;
+	background: white;
+	border: none;
+	margin-top: 13px;
+	margin-left: 1.3vw;
+}
+
+.musicBack{
+	padding: 0px;
+	background: white;
+	border: none;
+	margin-top: 13px;
+	margin-left: 10vw;
+    margin-right: 1vw;
 }
 
 .userPageMainMusicThumbnail{

@@ -458,6 +458,7 @@ public class MediaController {
 		List<Media> albumMediaList = uservice.findMediaByAlbumAndMediaType(selectedMediaAlbum, MediaType.Music);
 		
 		int selectedMediaCurrentPositionInAlbum = 0;
+		Boolean isLastMusic = false;
 		
 		for (int i = 0; i < albumMediaList.size(); i++) {
 			if (albumMediaList.get(i) == selectedMedia) {
@@ -465,9 +466,19 @@ public class MediaController {
 			}
 		}
 		
-		Media nextMediaToPlay = albumMediaList.get(selectedMediaCurrentPositionInAlbum + 1);
+		if ((selectedMediaCurrentPositionInAlbum + 1) != albumMediaList.size()) {
+			Media nextMediaToPlay = albumMediaList.get(selectedMediaCurrentPositionInAlbum + 1);
+			redirectAttributes.addAttribute(isLastMusic);
+			redirectAttributes.addAttribute("mediaId", nextMediaToPlay.getId());
+		}
 		
-		redirectAttributes.addAttribute("mediaId", nextMediaToPlay.getId());
+		if (selectedMediaCurrentPositionInAlbum == albumMediaList.size() - 1) {
+			Media nextMediaToPlay = albumMediaList.get(selectedMediaCurrentPositionInAlbum);
+			isLastMusic = true;
+			redirectAttributes.addAttribute(isLastMusic);
+			redirectAttributes.addAttribute("mediaId", nextMediaToPlay.getId());
+		}
+		
 		return "redirect:/music/listenmusic/{mediaId}";
 		
 	}
@@ -497,6 +508,8 @@ public class MediaController {
 			List<Media> albumMediaList = uservice.findMediaByAlbumAndMediaType(selectedMediaAlbum, MediaType.Music);
 			
 			int selectedMediaCurrentPositionInAlbum = 0;
+			Boolean isLastMusic = false;
+			
 			
 			for (int i = 0; i < albumMediaList.size(); i++) {
 				if (albumMediaList.get(i) == selectedMedia) {
@@ -504,15 +517,25 @@ public class MediaController {
 				}
 			}
 			
-			Media nextMediaToPlay = albumMediaList.get(selectedMediaCurrentPositionInAlbum - 1);
+			if (selectedMediaCurrentPositionInAlbum > 0) {
+				Media nextMediaToPlay = albumMediaList.get(selectedMediaCurrentPositionInAlbum - 1);
+				redirectAttributes.addAttribute(isLastMusic);
+				redirectAttributes.addAttribute("mediaId", nextMediaToPlay.getId());
+			}
 			
-			redirectAttributes.addAttribute("mediaId", nextMediaToPlay.getId());
+			if (selectedMediaCurrentPositionInAlbum == 0) {
+				Media nextMediaToPlay = albumMediaList.get(0);
+				isLastMusic = true;
+				redirectAttributes.addAttribute(isLastMusic);
+				redirectAttributes.addAttribute("mediaId", nextMediaToPlay.getId());
+			}
+			
 			return "redirect:/music/listenmusic/{mediaId}";
 			
 		}
 	
 	@GetMapping("/music/listenmusic/{mediaId}")
-	public String listenMusic(Model model, @PathVariable Long mediaId, RedirectAttributes redirectAttributes, 
+	public String listenMusic(Model model, @PathVariable Long mediaId, Boolean isLastMusic, RedirectAttributes redirectAttributes, 
 			@AuthenticationPrincipal MyUserDetails userDetails) {
 		
 		if(userDetails == null) {
@@ -541,6 +564,13 @@ public class MediaController {
 		//Retrieve number of views based on userhistory size for the selected Media
 		int viewCount = userHistory.size();
 		
+		Boolean isLastMusicSelection = false;
+		
+		if (isLastMusic != null) {
+			isLastMusicSelection = isLastMusic;
+		}
+		
+		model.addAttribute("isLastMusicSelection", isLastMusicSelection);
 		model.addAttribute("commentCount", commentCount);
 		model.addAttribute("user", loggedInUser);
 		model.addAttribute("playlists", uservice.findPlaylistsByUserId(loggedInUserId));

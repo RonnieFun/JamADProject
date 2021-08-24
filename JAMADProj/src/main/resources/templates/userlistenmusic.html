@@ -5,18 +5,21 @@
 <body class="userPages">
  <nav th:replace="Fragments/layout.html :: navbar"></nav>
 
-<form th:action="@{/music/loadnextmusic/{mediaId}(mediaId = ${media.id})}" action="GET">
-	<button type="submit">Get Next Music</button>
-</form>
-
-<form th:action="@{/music/loadpreviousmusic/{mediaId}(mediaId = ${media.id})}" action="GET">
-	<button type="submit">Get Previous Music</button>
-</form>
-
 	<img class="col-md-4 col-lg-5 mt-5 userPageMainMusicThumbnail" th:src="${media.thumbnailUrl}" alt="music thumbnail">
-	<audio class="col-md-4 col-lg-5 userPageMainMusic" controls>
- 		<source th:src="${media.mediaUrl}" type="audio/mp3">
- 	</audio>
+	
+	<div class = "listenMusicControls">
+		<form th:action="@{/music/loadpreviousmusic/{mediaId}(mediaId = ${media.id})}" action="GET">
+			<button class="musicBack" type="submit"><i class="fas fa-backward"></i></button>
+		</form>
+	
+		<audio class="col-md-4 col-lg-5 userPageMainMusic" controls>
+	 		<source th:src="${media.mediaUrl}" type="audio/mp3">
+	 	</audio>
+
+		<form th:action="@{/music/loadnextmusic/{mediaId}(mediaId = ${media.id})}" action="GET">
+			<button class="musicNext" type="submit"><i class="fas fa-forward"></i></button>
+		</form>
+	</div>
 
  	<!-- Music Introduction Section -->
  	<div class="userPageMusicIntroSection">
@@ -64,7 +67,7 @@
  	<div class="userPageArtistIntroSectionMusic">
 		<form name="artistForm" id="artistForm" method="post">
 	 		<input type = "hidden" id="artistId"  th:value = "${media.channel.channelUser.userID}">
-	 		<a th:href="@{/video/viewartistvideochannel/{artistId}(artistId = ${media.channel.channelUser.userID})}">
+	 		<a th:href="@{/music/viewartistmusicchannel/{artistId}(artistId = ${media.channel.channelUser.userID})}">
 			<span id="ArtistName" th:text="'Artist: ' + ${media.channel.channelUser.displayName}" class="artistNameMusic"></span>
 			</a>
 			<!--  If the customer already subscribed the artist, it shows "UNSUBSCRIBE"	--> 	
