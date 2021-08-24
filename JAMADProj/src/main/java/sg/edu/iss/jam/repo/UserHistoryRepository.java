@@ -28,5 +28,6 @@ public interface UserHistoryRepository extends JpaRepository<UserHistory, Long> 
 	public List<UserHistory> findUserHistoryByUserIdAndMediaType(@Param("userId") Long userId, @Param("mediaType") MediaType mediaType);
 
 
+	
 
 }

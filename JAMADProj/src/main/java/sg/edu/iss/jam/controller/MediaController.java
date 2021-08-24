@@ -397,8 +397,8 @@ public class MediaController {
 		}
 	
 		
-		// side bar recommendation 
-		// Recommendation Model 3
+		// side bar recommendations 
+		// Recommendation Model 3  
 		List<Long> recommend_mediaid_list = new ArrayList<Long>();
 		List<Media> recommend_medialist = new ArrayList<Media>();
 		

@@ -24,6 +24,7 @@ import sg.edu.iss.jam.model.ShoppingCartDetails;
 
 public interface UserInterface {
 
+	
 	//USER
 	User findUserByUserId(Long userID);
 	User saveUser(User user);

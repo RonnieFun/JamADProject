@@ -41,6 +41,7 @@ import sg.edu.iss.jam.repo.UserRepository;
 @Service
 public class UserImplementation implements UserInterface {
 
+	
 	@Autowired
 	UserRepository urepo;
 
