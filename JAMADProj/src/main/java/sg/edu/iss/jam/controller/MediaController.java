@@ -48,7 +48,6 @@ public class MediaController {
 	@Autowired
 	MediaServiceInterface mservice;
 	
-	
 	// for recommendation
 	@Autowired
 	private RestTemplate restTemplate;
@@ -57,9 +56,7 @@ public class MediaController {
 	String response_model2 = "";
 	List<String> recommendMediaNames_model1 = new ArrayList<String>();
 	List<String> recommendMediaNames_model2 = new ArrayList<String>();
-
 	
-			
 	@GetMapping("/video/medianotfound/{mediaId}") 
 	public String videoNotFound(Model model, @PathVariable Long mediaId) {
 		
@@ -85,7 +82,6 @@ public class MediaController {
 		model.addAttribute("errorMessage", errorMessage);
 		return "MediaNotFound";
 	}
-	
 	
 	@GetMapping("/video/genericvideolandingpage")
 	public String genericVideoLandingPage(Model model) {
@@ -147,172 +143,168 @@ public class MediaController {
 		return "genericmusiclandingpage";
 	}
 
-
-//----------------------------------Login Video Landing Page(Recommendation Model 1) ------------------------------------	
-		
-	@GetMapping("/video/loginvideolandingpage/{userId}")
-	public String loginVideoLandingPage(@PathVariable("userId") Long userId, Model model) {
-		
-		User user = uservice.findUserByUserId(userId);
-		if (user == null) {
-			// will change to "UserNotFound"
-			return "error";
-		}
-		
-		// if the code comes here, it means the user exists in database,
-		// then check whether it's new user or not	
-		boolean hasUserHistoryVideo = true;
-		List<UserHistory> userHistoryVideo = uservice.findUserHistoryByUserIdAndMediaType(userId, MediaType.Video);
-		
-		if (userHistoryVideo == null || userHistoryVideo.size() == 0) {
-			hasUserHistoryVideo = false;
-		}
-		
-		// If the user has no video UserHistory data  (new user),
-		// recommend items the same as genericvideolandingpage		
-		if (hasUserHistoryVideo == false) {
-			
-			List<Media> allVideos=mservice.getMediaByUserHistory(MediaType.Video,LocalDate.now().minusMonths(36));
-			List<Media> topVideos=new ArrayList<Media>();
-			List<Media> toptwelveVideos=new ArrayList<Media>();
-			
-			for(Media m : allVideos) {
-				if (m.getCreatedOn().compareTo(LocalDate.now().minusDays(180)) > 0 )
-					topVideos.add(m);
-			}
-			
-			if(topVideos.size()>11) {
-				for(int i=0;i<=11;i++) {
-					toptwelveVideos.add(topVideos.get(i));
-				}
-					
-			}else {
-				toptwelveVideos=topVideos;
-			}
-			
-			model.addAttribute("topvideos",toptwelveVideos);
-		}
-		
-		// Else if the user has  UserHistory data, 
-		// recommend items based on ML model
-		
-		else {
-			
-			List<Long> recommend_mediaid_list = new ArrayList<Long>();
-			List<Media> recommend_medialist = new ArrayList<Media>();
-				
-			String url = "http://127.0.0.1:5000/model1?user_id={1}";
-			ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class, userId);
-			response_model1 = responseEntity.getBody();
-				
-			if (! response_model1.isEmpty()) {
-					
-				List<String> strList = new ArrayList<String>();
-				strList = Arrays.asList(response_model1.split(","));
-				for (String s: strList) {
-					recommend_mediaid_list.add(Long.parseLong(s));
-				}
-			}
-						
-			for(Long id: recommend_mediaid_list) {
-				Media recommendMedia = mservice.getMediaById(id);
-				if (recommendMedia != null) {
-					recommend_medialist.add(recommendMedia);
-				}
-			}		
-			
-			model.addAttribute("recommend_medialist", recommend_medialist);
-		}
-		
-		
-		model.addAttribute("hasUserHistoryVideo", hasUserHistoryVideo);
-		return "loginvideolandingpage";
-	}	
-
-//----------------------------------Login Music Landing Page(Recommendation Model 2)------------------------------------
+	//----------------------------------Login Video Landing Page(Recommendation Model 1) ------------------------------------	
 	
-	@GetMapping("/music/loginmusiclandingpage/{userId}")
-	public String loginMusicLandingPage(@PathVariable("userId") Long userId, Model model) {
-		
-		
-		User user = uservice.findUserByUserId(userId);
-		if (user == null) {
-			// will change to "UserNotFound"
-			return "error";
-		}
-		
-		// if the code comes here, it means the user exists in database,
-		// then check whether it's new user or not	
-		boolean hasUserHistoryMusic = true;
-		List<UserHistory> userHistoryMusic = uservice.findUserHistoryByUserIdAndMediaType(userId, MediaType.Music);
-		if (userHistoryMusic == null || userHistoryMusic.size() == 0) {
-			hasUserHistoryMusic = false;
-		}
-		
-		// If the user has no music UserHistory data (new user),
-		// recommend items the same as genericmusiclandingpage		
-		if (hasUserHistoryMusic == false) {
+		@GetMapping("/video/loginvideolandingpage/{userId}")
+		public String loginVideoLandingPage(@PathVariable("userId") Long userId, Model model) {
 			
-			List<Media> allMusics=mservice.getMediaByUserHistory(MediaType.Music,LocalDate.now().minusMonths(36));
-			List<Media> topMusics=new ArrayList<Media>();
-			List<Media> toptwelveMusics=new ArrayList<Media>();
-			
-			for(Media m : allMusics) {
-				if (m.getCreatedOn().compareTo(LocalDate.now().minusDays(180)) > 0 )
-					topMusics.add(m);
+			User user = uservice.findUserByUserId(userId);
+			if (user == null) {
+				// will change to "UserNotFound"
+				return "error";
 			}
 			
-			if(topMusics.size()>11) {
-				for(int i=0;i<=11;i++) {
-					toptwelveMusics.add(topMusics.get(i));
-				}
-					
-			}else {
-				toptwelveMusics=topMusics;
+			// if the code comes here, it means the user exists in database,
+			// then check whether it's new user or not	
+			boolean hasUserHistoryVideo = true;
+			List<UserHistory> userHistoryVideo = uservice.findUserHistoryByUserIdAndMediaType(userId, MediaType.Video);
+			
+			if (userHistoryVideo == null || userHistoryVideo.size() == 0) {
+				hasUserHistoryVideo = false;
 			}
 			
-			model.addAttribute("topmusic",toptwelveMusics);
-		}
-		
-		
-		// Else if the user has  UserHistory data, 
-		// recommend items based on ML model
-		else 
-		{
-			List<Long> recommend_mediaid_list = new ArrayList<Long>();
-			List<Media> recommend_medialist = new ArrayList<Media>();
+			// If the user has no video UserHistory data  (new user),
+			// recommend items the same as genericvideolandingpage		
+			if (hasUserHistoryVideo == false) {
 				
-			String url = "http://127.0.0.1:5000/model2?user_id={1}";
-			ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class, userId);
-			response_model1 = responseEntity.getBody();
+				List<Media> allVideos=mservice.getMediaByUserHistory(MediaType.Video,LocalDate.now().minusMonths(36));
+				List<Media> topVideos=new ArrayList<Media>();
+				List<Media> toptwelveVideos=new ArrayList<Media>();
 				
-			if (! response_model1.isEmpty()) {
-					
-				List<String> strList = new ArrayList<String>();
-				strList = Arrays.asList(response_model1.split(","));
-				for (String s: strList) {
-					recommend_mediaid_list.add(Long.parseLong(s));
+				for(Media m : allVideos) {
+					if (m.getCreatedOn().compareTo(LocalDate.now().minusDays(180)) > 0 )
+						topVideos.add(m);
 				}
-			}
+				
+				if(topVideos.size()>11) {
+					for(int i=0;i<=11;i++) {
+						toptwelveVideos.add(topVideos.get(i));
+					}
 						
-			for(Long id: recommend_mediaid_list) {
-				Media recommendMedia = mservice.getMediaById(id);
-				if (recommendMedia != null) {
-					recommend_medialist.add(recommendMedia);
+				}else {
+					toptwelveVideos=topVideos;
 				}
+				
+				model.addAttribute("topvideos",toptwelveVideos);
 			}
-						
-			model.addAttribute("recommend_medialist", recommend_medialist);
 			
-		}
+			// Else if the user has  UserHistory data, 
+			// recommend items based on ML model
+			
+			else {
 				
+				List<Long> recommend_mediaid_list = new ArrayList<Long>();
+				List<Media> recommend_medialist = new ArrayList<Media>();
+					
+				String url = "http://127.0.0.1:5000/model1?user_id={1}";
+				ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class, userId);
+				response_model1 = responseEntity.getBody();
+					
+				if (! response_model1.isEmpty()) {
+						
+					List<String> strList = new ArrayList<String>();
+					strList = Arrays.asList(response_model1.split(","));
+					for (String s: strList) {
+						recommend_mediaid_list.add(Long.parseLong(s));
+					}
+				}
+							
+				for(Long id: recommend_mediaid_list) {
+					Media recommendMedia = mservice.getMediaById(id);
+					if (recommendMedia != null) {
+						recommend_medialist.add(recommendMedia);
+					}
+				}		
 				
-		model.addAttribute("hasUserHistoryMusic", hasUserHistoryMusic);
-		return "loginmusiclandingpage";
-	}	
+				model.addAttribute("recommend_medialist", recommend_medialist);
+			}
+			
+			
+			model.addAttribute("hasUserHistoryVideo", hasUserHistoryVideo);
+			return "loginvideolandingpage";
+		}	
 
-
-	
+	//----------------------------------Login Music Landing Page(Recommendation Model 2)------------------------------------
+		
+		@GetMapping("/music/loginmusiclandingpage/{userId}")
+		public String loginMusicLandingPage(@PathVariable("userId") Long userId, Model model) {
+			
+			
+			User user = uservice.findUserByUserId(userId);
+			if (user == null) {
+				// will change to "UserNotFound"
+				return "error";
+			}
+			
+			// if the code comes here, it means the user exists in database,
+			// then check whether it's new user or not	
+			boolean hasUserHistoryMusic = true;
+			List<UserHistory> userHistoryMusic = uservice.findUserHistoryByUserIdAndMediaType(userId, MediaType.Music);
+			if (userHistoryMusic == null || userHistoryMusic.size() == 0) {
+				hasUserHistoryMusic = false;
+			}
+			
+			// If the user has no music UserHistory data (new user),
+			// recommend items the same as genericmusiclandingpage		
+			if (hasUserHistoryMusic == false) {
+				
+				List<Media> allMusics=mservice.getMediaByUserHistory(MediaType.Music,LocalDate.now().minusMonths(36));
+				List<Media> topMusics=new ArrayList<Media>();
+				List<Media> toptwelveMusics=new ArrayList<Media>();
+				
+				for(Media m : allMusics) {
+					if (m.getCreatedOn().compareTo(LocalDate.now().minusDays(180)) > 0 )
+						topMusics.add(m);
+				}
+				
+				if(topMusics.size()>11) {
+					for(int i=0;i<=11;i++) {
+						toptwelveMusics.add(topMusics.get(i));
+					}
+						
+				}else {
+					toptwelveMusics=topMusics;
+				}
+				
+				model.addAttribute("topmusic",toptwelveMusics);
+			}
+			
+			
+			// Else if the user has  UserHistory data, 
+			// recommend items based on ML model
+			else 
+			{
+				List<Long> recommend_mediaid_list = new ArrayList<Long>();
+				List<Media> recommend_medialist = new ArrayList<Media>();
+					
+				String url = "http://127.0.0.1:5000/model2?user_id={1}";
+				ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class, userId);
+				response_model1 = responseEntity.getBody();
+					
+				if (! response_model1.isEmpty()) {
+						
+					List<String> strList = new ArrayList<String>();
+					strList = Arrays.asList(response_model1.split(","));
+					for (String s: strList) {
+						recommend_mediaid_list.add(Long.parseLong(s));
+					}
+				}
+							
+				for(Long id: recommend_mediaid_list) {
+					Media recommendMedia = mservice.getMediaById(id);
+					if (recommendMedia != null) {
+						recommend_medialist.add(recommendMedia);
+					}
+				}
+							
+				model.addAttribute("recommend_medialist", recommend_medialist);
+				
+			}
+					
+					
+			model.addAttribute("hasUserHistoryMusic", hasUserHistoryMusic);
+			return "loginmusiclandingpage";
+		}	
 	
 	@GetMapping("/video/watchvideo/{mediaId}")
 	public String watchVideo(Model model, @PathVariable Long mediaId, RedirectAttributes redirectAttributes) {
@@ -333,7 +325,7 @@ public class MediaController {
 		
 		int commentCount = uservice.findCommentsByMediaId(mediaId).size();
 		
-		User loggedInUser = uservice.findUserByUserId(41L);
+		User loggedInUser = uservice.findUserByUserId(1L);
 		
 		Media selectedMedia = uservice.findMediaByMediaTypeAndMediaId(MediaType.Video, mediaId);
 
@@ -372,8 +364,7 @@ public class MediaController {
 		
 		model.addAttribute("liked", liked);
 
-		//BY ZHAO QI
-		// currently assume the userID = 3, 
+		// currently assume the userID = 2, 
 		Long customerId = (long) 2;
 		User customer = uservice.findUserByUserId(customerId);
 					
@@ -384,19 +375,32 @@ public class MediaController {
 		User artist = selectedMedia.getChannel().getChannelUser();
 					
 		Boolean subscribeStatus = false;				
-					
-		for(Subscribed s: artist.getSubscribers()) {
+		
+		//Get list of all Subscribe objects in Database
+		List<Subscribed> listOfSubscribe = uservice.getAllSubscribed();
+		
+		// get artist's subscribers
+		List<Subscribed> users_Unsubscribed_jaychou = uservice.getArtistUnSubscribed(artistId);
+				
+		List<Subscribed> users_Subscribed_jaychou = uservice.getArtistSubscribed(artistId);
+		
+		for(Subscribed s: listOfSubscribe) {
 			// if the customer already subscribed the artist, it shows true
-			if (s.getTargetId() == customerId) {
+			if (s.getSubscriber() == customer && s.getArtist() == artist && s.isSubscribed() == true
+					&& users_Unsubscribed_jaychou.size() < users_Subscribed_jaychou.size()) {
 				subscribeStatus = true;
+				}
+			
+			if (s.getSubscriber() == customer && s.getArtist() == artist && s.isSubscribed() == false
+					&& users_Unsubscribed_jaychou.size() > users_Subscribed_jaychou.size()) {
+				subscribeStatus = false;
 				}
 			}
 		
 		if (artistId == customerId) {
 			subscribeStatus = null;
 		}
-	
-		
+
 		// side bar recommendations 
 		// Recommendation Model 3  
 		List<Long> recommend_mediaid_list = new ArrayList<Long>();
@@ -421,9 +425,7 @@ public class MediaController {
 				recommend_medialist.add(recommendMedia);
 			}
 		}
-		
-	
-		
+
 		model.addAttribute("subscribeStatus", subscribeStatus);
 		model.addAttribute("recommend_medialist", recommend_medialist);
 			
@@ -512,27 +514,14 @@ public class MediaController {
 			return "userwatchvideo";
 		}
 	
-		// for artist, add the customer to the subscribed collection
-		Collection<Subscribed> customers_subscribed_me_list = new HashSet<Subscribed>();
-		Subscribed customer_subscribed_me = new Subscribed();
-		customer_subscribed_me.setTargetId(customerId);
-		customer_subscribed_me.setUser(artist);	
-		customers_subscribed_me_list.add(customer_subscribed_me);
-		artist.setSubscribers(customers_subscribed_me_list);
+		// add new subscriber object for new subscription
+		Subscribed newSubscription = new Subscribed();
+		newSubscription.setSubscribed(true);
+		newSubscription.setArtist(artist);
+		newSubscription.setSubscriber(customer);
+		newSubscription.setTimeSubscribed(LocalDateTime.now());
 		
-		// For customer, add the artist to the subscribed collection
-		Collection<Subscribed> artists_I_subscribed_list = new HashSet<Subscribed>();
-		Subscribed artist_I_subscribed = new Subscribed();
-		artist_I_subscribed.setTargetId(artistId);
-		artist_I_subscribed.setUser(customer);	
-		artists_I_subscribed_list.add(artist_I_subscribed);
-		customer.setSubscribers(artists_I_subscribed_list);
-		
-		aservice.saveUser(artist);
-		aservice.saveSubscribed(customer_subscribed_me);
-		
-		uservice.saveUser(customer);
-		uservice.saveSubscribed(artist_I_subscribed);
+		uservice.saveSubscribed(newSubscription);
 		
 		return "userwatchvideo";
 	
@@ -552,21 +541,15 @@ public class MediaController {
 			return "userwatchvideo";
 		}
 		
-		// for artist, remove the customer from subscribed collection
-		Collection<Subscribed> customers_subscribed_me = artist.getSubscribers();
-		for (Subscribed s: customers_subscribed_me) {
-			if (s.getTargetId() == customerId) {
-				aservice.deleteSubscribed(s);
-			}
-		}
+		// add new subscriber object for new unsubscription
+		Subscribed newUnsubscription = new Subscribed();
+		newUnsubscription.setSubscribed(false);
+		newUnsubscription.setArtist(artist);
+		newUnsubscription.setSubscriber(customer);
+		newUnsubscription.setTimeSubscribed(LocalDateTime.now());
+				
+		uservice.saveSubscribed(newUnsubscription);			
 		
-		// for customer, remove the artist from subscribed collection
-		Collection<Subscribed> artists_I_subscribed = customer.getSubscribers();
-		for (Subscribed s: artists_I_subscribed) {
-			if (s.getTargetId() == artistId) {
-				uservice.deleteSubscribed(s);
-			}
-		}		
 		return "userwatchvideo";				
 	}
 	
@@ -628,26 +611,36 @@ public class MediaController {
 			}
 		}
 		// get artist's subscribers
-		List<Subscribed> users_subscribed_jaychou = (List<Subscribed>) artist.getSubscribers();
+		List<Subscribed> users_Unsubscribed_jaychou = uservice.getArtistUnSubscribed(artistId);
+		
+		List<Subscribed> users_Subscribed_jaychou = uservice.getArtistSubscribed(artistId);
+		
 		int NumberOfSubscribers = 0;
-		
-		if (users_subscribed_jaychou == null) {
-			NumberOfSubscribers = 0;
-		}	
-		NumberOfSubscribers = users_subscribed_jaychou.size();
-		
+
 		// check the subscribe status
-		Boolean subscribeStatus = false;
-		for(Subscribed s: artist.getSubscribers()) {
+		Boolean subscribeStatus = false;				
+		
+		//Get list of all Subscribe objects in Database
+		List<Subscribed> listOfSubscribe = uservice.getAllSubscribed();
+		
+		for(Subscribed s: listOfSubscribe) {
 			// if the customer already subscribed the artist, it shows true
-			if (s.getTargetId() == customerId) {
+			if (s.getSubscriber() == customer && s.getArtist() == artist && s.isSubscribed() == true
+					&& users_Unsubscribed_jaychou.size() < users_Subscribed_jaychou.size()) {
 				subscribeStatus = true;
+				}
+			
+			if (s.getSubscriber() == customer && s.getArtist() == artist && s.isSubscribed() == false
+					&& users_Unsubscribed_jaychou.size() > users_Subscribed_jaychou.size()) {
+				subscribeStatus = false;
+				}
 			}
-		}
 		
 		if (artistId == customerId) {
 			subscribeStatus = null;
 		}
+		
+		NumberOfSubscribers =  users_Subscribed_jaychou.size() - users_Unsubscribed_jaychou.size();
 
 		model.addAttribute("artistVideoChannelName", artistVideoChannelName);
 		model.addAttribute("numberOfArtistVideos", numberOfArtistVideos);
@@ -674,28 +667,14 @@ public class MediaController {
 			return "redirect:/video/viewartistvideochannel/{artistId}";
 		}
 			
-		// for artist, add the customer to the subscribed collection
-		Collection<Subscribed> customers_subscribed_me = new HashSet<Subscribed>();
-		Subscribed customer_subscribed_me = new Subscribed();
-		customer_subscribed_me.setTargetId(customerId);
-		customer_subscribed_me.setUser(artist);	
-		customers_subscribed_me.add(customer_subscribed_me);
-		artist.setSubscribers(customers_subscribed_me);
-		
-		// For customer, add the artist to the subscribed collection
-		Collection<Subscribed> artists_I_subscribed = new HashSet<Subscribed>();
-		Subscribed artist_I_subscribed = new Subscribed();
-		artist_I_subscribed.setTargetId(artistId);
-		artist_I_subscribed.setUser(customer);	
-		artists_I_subscribed.add(artist_I_subscribed);
-		customer.setSubscribers(artists_I_subscribed);
-		
-		
-		aservice.saveUser(artist);
-		aservice.saveSubscribed(customer_subscribed_me);
-		
-		uservice.saveUser(customer);
-		uservice.saveSubscribed(artist_I_subscribed);
+		// add new subscriber object for new subscription
+		Subscribed newSubscription = new Subscribed();
+		newSubscription.setSubscribed(true);
+		newSubscription.setArtist(artist);
+		newSubscription.setSubscriber(customer);
+		newSubscription.setTimeSubscribed(LocalDateTime.now());
+				
+		uservice.saveSubscribed(newSubscription);		
 		
 		return "redirect:/video/viewartistvideochannel/{artistId}";
 	}
@@ -714,21 +693,15 @@ public class MediaController {
 			return "redirect:/video/viewartistvideochannel/{artistId}";
 		}
 		
-		// for artist, remove the customer from subscribed collection
-		Collection<Subscribed> customers_subscribed_me = artist.getSubscribers();
-		for (Subscribed s: customers_subscribed_me) {
-			if (s.getTargetId() == customerId) {
-				aservice.deleteSubscribed(s);
-			}
-		}
+		// add new subscriber object for new unsubscription
+		Subscribed newUnsubscription = new Subscribed();
+		newUnsubscription.setSubscribed(false);
+		newUnsubscription.setArtist(artist);
+		newUnsubscription.setSubscriber(customer);
+		newUnsubscription.setTimeSubscribed(LocalDateTime.now());
+						
+		uservice.saveSubscribed(newUnsubscription);	
 		
-		// for customer, remove the artist from subscribed collection
-		Collection<Subscribed> artists_I_subscribed = customer.getSubscribers();
-		for (Subscribed s: artists_I_subscribed) {
-			if (s.getTargetId() == artistId) {
-				uservice.deleteSubscribed(s);
-			}
-		}		
 		return "redirect:/video/viewartistvideochannel/{artistId}";
 				
 	}
@@ -776,13 +749,21 @@ public class MediaController {
 		NumberOfSubscribers = users_subscribed_jaychou.size();
 		
 		// check the subscribe status
-		boolean subscribeStatus = false;
-		for(Subscribed s: customer.getSubscribers()) {
+		Boolean subscribeStatus = false;				
+		
+		//Get list of all Subscribe objects in Database
+		List<Subscribed> listOfSubscribe = uservice.getAllSubscribed();
+						 
+		for(Subscribed s: listOfSubscribe) {
 			// if the customer already subscribed the artist, it shows true
-			if (s.getTargetId() == artistId) {
+			if (s.getSubscriber() == customer && s.getArtist() == artist && s.isSubscribed() == true) {
 				subscribeStatus = true;
+				}
+			
+			if (s.getSubscriber() == customer && s.getArtist() == artist && s.isSubscribed() == false) {
+				subscribeStatus = false;
+				}
 			}
-		}
 		
 		//code by Max: Get the Current Album's List of Music
 		

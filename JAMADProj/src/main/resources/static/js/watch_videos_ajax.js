@@ -71,7 +71,6 @@ $(document).ready(function(){
 					
 					$(".sbutton").text("UNSUBSCRIBE");
 					$("#zqButton").addClass('zqClass');
-					
 				}
 				
 			}) 
@@ -92,7 +91,6 @@ $(document).ready(function(){
 				success: function (response) {
 					$(".sbutton").text("SUBSCRIBE");
 					$("#zqButton").removeClass('zqClass');
-					
 				}
 			}) 
 		}

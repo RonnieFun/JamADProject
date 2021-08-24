@@ -87,10 +87,13 @@ public class User {
 	private Collection<Playlists> playlists;
 	
 	//OneToMany relation with subscribed
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "artist")
+	@JsonBackReference
+	private Collection<Subscribed> targetArtists;
+
+	@OneToMany(mappedBy = "subscriber")
 	@JsonBackReference
 	private Collection<Subscribed> subscribers;
-
 	
 	//OneToMany relation with channel
 	@OneToMany(mappedBy = "channelUser")
@@ -301,16 +304,21 @@ public class User {
 		this.playlists = playlists;
 	}
 
+	public Collection<Subscribed> getTargetArtists() {
+		return targetArtists;
+	}
+
+	public void setTargetArtists(Collection<Subscribed> targetArtists) {
+		this.targetArtists = targetArtists;
+	}
 
 	public Collection<Subscribed> getSubscribers() {
 		return subscribers;
 	}
 
-
 	public void setSubscribers(Collection<Subscribed> subscribers) {
 		this.subscribers = subscribers;
 	}
-
 
 	public Collection<Channel> getChannels() {
 		return channels;
