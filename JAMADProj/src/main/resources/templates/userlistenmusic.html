@@ -5,14 +5,15 @@
 <body class="userPages">
  <nav th:replace="Fragments/layout.html :: navbar"></nav>
 
-	<video width="400" height="200" class="col-md-4 col-lg-5 userPageMainVideo" controls>
- 		<source th:src="${media.mediaUrl}" type="video/mp4">
- 	</video>
+	<img class="col-md-4 col-lg-5 mt-5 userPageMainMusicThumbnail" th:src="${media.thumbnailUrl}" alt="music thumbnail">
+	<audio class="col-md-4 col-lg-5 userPageMainMusic" controls>
+ 		<source th:src="${media.mediaUrl}" type="audio/mp3">
+ 	</audio>
 
  	<!-- Music Introduction Section -->
- 	<div class="userPageVideoIntroSection">
+ 	<div class="userPageMusicIntroSection">
  		
- 		<span class="userVideoTitleLabel">
+ 		<span class="userMusicTitleLabel">
 	     <span th:text="${media.title}" class=""></span>
 	      <span th:each = "tag: ${media.tagList}">
 	         <span class="smallVidAuthor" th:text="${' | ' + tag.tagName}"></span>
@@ -52,11 +53,11 @@
 	</div>
 
  	<!-- Artist Intro Section -->
- 	<div class="userPageArtistIntroSection">
+ 	<div class="userPageArtistIntroSectionMusic">
 		<form name="artistForm" id="artistForm" method="post">
 	 		<input type = "hidden" id="artistId"  th:value = "${media.channel.channelUser.userID}">
 	 		<a th:href="@{/video/viewartistvideochannel/{artistId}(artistId = ${media.channel.channelUser.userID})}">
-			<span id="ArtistName" th:text="'Artist: ' + ${media.channel.channelUser.displayName}" class="artistName"></span>
+			<span id="ArtistName" th:text="'Artist: ' + ${media.channel.channelUser.displayName}" class="artistNameMusic"></span>
 			</a>
 			<!--  If the customer already subscribed the artist, it shows "UNSUBSCRIBE"	--> 	
 			<span th:if = "${subscribeStatus == true}" >
@@ -72,11 +73,11 @@
 	</div>
 	
 	<!-- Write Comments & Number of Comments Section -->
-	<section id="userCommentsSection">
+	<section id="userCommentsSectionMusic">
 	<form name="userCommentsForm" id="userCommentsForm" method="post">
-		<div class="userCommentsSection">
-			<span th:text="${commentCount} + ' Comments'" class="numberOfComments"></span>
-			<textarea id="commentsTxtArea" class="commentsTextArea" placeholder="Write your comments here" rows="2" cols="112"></textarea>
+		<div class="userCommentsSectionMusic">
+			<span th:text="${commentCount} + ' Comments'" class="numberOfCommentsMusic"></span>
+			<textarea id="commentsTxtArea" class="commentsTextAreaMusic" placeholder="Write your comments here" rows="2" cols="112"></textarea>
 		</div>
 		
 		<!-- Comments Submit Button -->
@@ -86,17 +87,17 @@
 			<input type="hidden" id="commentMediaId" th:value = "${media.id}">
 			<input type="hidden" id="commentDateTime" th:value = "${#dates.format(#dates.createNow(),'dd MMMM YYYY, HH:mm')}">
 			<input type="hidden" id="commentedNumberOfComments" th:value = "${commentCount}">
-			<button id="userCommentsSubmitBtn" class="userCommentsBtn" type="button">Submit</button>
+			<button id="userCommentsSubmitBtn" class="userCommentsBtnMusic" type="button">Submit</button>
 		</div>
 	</form>
 
 	<!-- Users' Comments List -->
-	<div class="listOfComments">
+	<div class="listOfCommentsMusic">
 		<span th:each="c: ${comments}"> <!-- th:each goes into this span to iterate and generate comments list -->
 			<span class="flex-container">
-				<span th:text="${c.commentUser.displayName}" class="commentName"></span>
-				<span th:text="${' | ' + c.dateTime}" class="commentDate"></span>
-				<span th:text="${c.userComment}" class="commentDetails"></span>
+				<span th:text="${c.commentUser.displayName}" class="commentNameMusic"></span>
+				<span th:text="${' | ' + c.dateTime}" class="commentDateMusic"></span>
+				<span th:text="${c.userComment}" class="commentDetailsMusic"></span>
 			</span>
 		</span>
 	</div>
@@ -104,19 +105,19 @@
 
 <!-- Side Music List -->
 
-	<div class="userPageSideVideosSection flex-container">
+	<div class="userPageSideMusicSection flex-container">
 		<span th:each = "sideMedia: ${allMedia}"> 	
-			<a th:href="@{/music/listenmusic/{mediaId}(mediaId = ${sideMedia.id})}" class="sideVideoLinkColor"><img th:src="${sideMedia.thumbnailUrl}" class="userPageSideVideos" alt="...">
-			<span class="col smallVidDescription">
+			<a th:href="@{/music/listenmusic/{mediaId}(mediaId = ${sideMedia.id})}" class="sideMusicLinkColor"><img th:src="${sideMedia.thumbnailUrl}" class="userPageSideMusic" alt="...">
+			<span class="col smallMusicDescription">
 				<span th:text="${sideMedia.title}" class=""></span>
 				<span th:each = "tag: ${sideMedia.tagList}">
-	 				<span class="smallVidAuthor" th:text="${' | ' + tag.tagName}"></span>
+	 				<span class="smallMusicAuthor" th:text="${' | ' + tag.tagName}"></span>
 	 			</span>	
 				<br>
 				<br>
-	 			<span th:text="${'Author: ' + sideMedia.channel.channelUser.displayName}" class="smallVidAuthor"></span>
+	 			<span th:text="${'Author: ' + sideMedia.channel.channelUser.displayName}" class="smallMusicAuthor"></span>
 	 		</span>
-	 		<span th:text="${sideMedia.duration}" class="sideVideoDuration"></span>
+	 		<span th:text="${sideMedia.duration}" class="sideMusicDuration"></span>
 	 		</a>
  		</span>
 	</div>

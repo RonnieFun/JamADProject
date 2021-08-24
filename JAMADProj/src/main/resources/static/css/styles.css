@@ -1245,16 +1245,6 @@ body {
     padding: 0;
 }
 
-.userCommentsSection hr{
-	display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid black;
-    margin: 0.2em 0;
-    padding: 0;
-}
-
-
 .numberOfComments{
 	position: absolute;
 	font-family: 'Roboto', sans-serif;
@@ -5178,6 +5168,210 @@ body{
 	cursor:pointer
 }
 
+/* USER LISTEN TO MUSIC PAGE */
 
+.userPageMainMusic{
+  margin-left: 10%;
+  margin-top: calc(2vh - 0.01%);
+  padding: 0px;
+  object-fit: fill;
+}
 
+.userPageMainMusicThumbnail{
+  height: 25rem;
+  margin-left: 10%;
+  padding: 0px;
+  object-fit: fill;
+}
 
+.userPageMusicIntroSection{
+	position: absolute;
+	margin-left: 10%;
+	width: 42%;
+	max-width: 42%;
+	margin-top: 4.1%;
+	height: 100vh;
+}
+
+.userPageMusicIntroSection hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.userMusicTitleLabel{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.1vw;
+	margin-top: -7%;
+}
+
+.userPageSideMusicSection{
+  margin-left: 58%;
+  margin-top: calc(3.5vh - 36.2%);
+}
+
+.userPageSideMusic{
+  display: flex;
+  flex-direction: column;
+  width: 37%;
+  height: 170px;
+  margin-top: calc(2.5vh + 3.5%);
+}
+
+.smallMusicDescription{
+	width: 15%;
+	position: absolute;
+	margin-left: 17%;
+	margin-top: -11%;
+	display: block;
+    flex-direction: row;
+    font-size: 1vw;
+	font-family: 'Roboto', sans-serif;
+}
+
+.smallMusicAuthor{
+  	font-size: 0.9vw;
+	font-family: 'Roboto', sans-serif;
+	color: Gray;
+}
+
+.sideMusicDuration{
+	position: absolute;
+	display: block;
+  	right: 0;
+  	margin-right: 27%;
+  	margin-bottom: 10px;
+  	margin-top: -1.6%;
+  	font-size: 0.8vw;
+	font-family: 'Roboto', sans-serif;
+	color: white;
+	background-color: black;
+	padding: 0px 0.2%;
+}
+
+.userPagelikeBtnMusic{
+	background-color: white;
+	border: none;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	font-size: 1.2vw;
+	font-family: 'Roboto', sans-serif;
+	position: absolute;
+}
+
+.userPageArtistIntroSectionMusic{
+	position: absolute;
+	margin-left: 10%;
+	width: 42%;
+	max-width: 42%;
+	margin-top: 7.5%;
+}
+
+.userPageArtistIntroSectionMusic hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.artistNameMusic{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.1vw;
+	margin-top: -5%;
+	text-decoration: underline;
+}
+
+.userSubscribeBtnMusic{
+	font-family: 'Roboto', sans-serif;
+    font-size: 0.95vw;
+	color: white;
+	background-color: crimson;
+	position: absolute;
+	margin-left: 88%;
+	margin-top: -5%;
+}
+
+.userCommentsSectionMusic{
+	position: absolute;
+	margin-left: 10%;
+	width: 42%;
+	max-width: 42%;
+	margin-top: 10.9%;
+}
+
+.userCommentsSectionMusic hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.numberOfCommentsMusic{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	margin-top: -4.5%;
+}
+
+.commentsTextAreaMusic{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.85vw;
+	padding-left: 1%;
+	resize:none;
+	border-width: 1px;
+	border-style:solid;
+	border-color: black;
+	width: 99.8%;
+	height: 30%;
+	resize:none;
+}
+
+.userCommentsBtnMusic{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.95vw;
+	color: white;
+	background-color: #279A0A;
+	position: absolute;
+	margin-top: 14.4%;
+	margin-left: 47.8%;
+}
+
+.listOfCommentsMusic{
+	position: absolute;
+	margin-left: 10%;
+	width: 49%;
+	max-width: 49%;
+	margin-top: 17.5%;
+}
+
+.commentNameMusic{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 900;
+	font-size: 1vw;
+}
+
+.commentDateMusic{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	font-size: 1vw;
+}
+
+.commentDetailsMusic{
+  font-family: 'Roboto', sans-serif;
+  font-size: 1vw;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  width: 97%;
+  max-width: 97%;
+}
