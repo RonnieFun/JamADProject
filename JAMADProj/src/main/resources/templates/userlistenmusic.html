@@ -72,12 +72,12 @@
 			</a>
 			<!--  If the customer already subscribed the artist, it shows "UNSUBSCRIBE"	--> 	
 			<span th:if = "${subscribeStatus == true}" >
-				<button class="sbutton userSubscribeBtn zqClass" type= "button" id="zqButton" >UNSUBSCRIBE</button>
+				<button class="sbutton userSubscribeBtnMusic zqClass" type= "button" id="zqButtonMusic" >UNSUBSCRIBE</button>
 			</span>
 			
 			<!--  Else if the customer haven't subscribed the artist, it shows "SUBSCRIBE" -->
 			<span th:if = "${subscribeStatus == false}" >
-				<button class="sbutton userSubscribeBtn" type= "button" id="zqButton" >SUBSCRIBE</button>
+				<button class="sbutton userSubscribeBtnMusic" type= "button" id="zqButtonMusic" >SUBSCRIBE</button>
 			</span> 
 		</form>	
 		<hr>
@@ -85,20 +85,20 @@
 	
 	<!-- Write Comments & Number of Comments Section -->
 	<section id="userCommentsSectionMusic">
-	<form name="userCommentsForm" id="userCommentsForm" method="post">
+	<form name="userCommentsFormMusic" id="userCommentsFormMusic" method="post">
 		<div class="userCommentsSectionMusic">
 			<span th:text="${commentCount} + ' Comments'" class="numberOfCommentsMusic"></span>
-			<textarea id="commentsTxtArea" class="commentsTextAreaMusic" placeholder="Write your comments here" rows="2" cols="112"></textarea>
+			<textarea id="commentsTxtAreaMusic" class="commentsTextAreaMusic" placeholder="Write your comments here" rows="2" cols="112"></textarea>
 		</div>
 		
 		<!-- Comments Submit Button -->
 		<div>
-			<input type="hidden" id="commentUserId" th:value = "${user.userID}">
-			<input type="hidden" id="commentDisplayName" th:value = "${user.displayName}">
-			<input type="hidden" id="commentMediaId" th:value = "${media.id}">
-			<input type="hidden" id="commentDateTime" th:value = "${#dates.format(#dates.createNow(),'dd MMMM YYYY, HH:mm')}">
-			<input type="hidden" id="commentedNumberOfComments" th:value = "${commentCount}">
-			<button id="userCommentsSubmitBtn" class="userCommentsBtnMusic" type="button">Submit</button>
+			<input type="hidden" id="commentUserIdMusic" th:value = "${user.userID}">
+			<input type="hidden" id="commentDisplayNameMusic" th:value = "${user.displayName}">
+			<input type="hidden" id="commentMediaIdMusic" th:value = "${media.id}">
+			<input type="hidden" id="commentDateTimeMusic" th:value = "${#dates.format(#dates.createNow(),'dd MMMM YYYY, HH:mm')}">
+			<input type="hidden" id="commentedNumberOfCommentsMusic" th:value = "${commentCount}">
+			<button id="userCommentsSubmitBtnMusic" class="userCommentsBtnMusic" type="button">Submit</button>
 		</div>
 	</form>
 

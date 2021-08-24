@@ -97,7 +97,7 @@ $(document).ready(function(){
 		
 	});
 	
-	$("#userCommentsSubmitBtn").on("click", function() {
+	$("#userCommentsSubmitBtnVideo").on("click", function() {
 		
 		if($('#commentsTxtArea').val().trim() == "") {
 			alert("Please enter your comments");
@@ -124,6 +124,40 @@ $(document).ready(function(){
 			},
 			success: function (response) {
 				$('#userCommentsSection').load("http://localhost:8080/video/aftersubmitcomment/" + commentMediaId + "/" + ajaxChecker + "/" + ajaxChecker2);
+			}
+		})
+		
+	}
+		
+	});
+	
+	$("#userCommentsSubmitBtnMusic").on("click", function() {
+		
+		if($('#commentsTxtAreaMusic').val().trim() == "") {
+			alert("Please enter your comments");
+		} 
+		
+		if($('#commentsTxtAreaMusic').val().trim() != "") {
+		var submittedCommentMusic = $("#commentsTxtAreaMusic").val();
+		var commentUserIdMusic = document.getElementById("commentUserIdMusic").value;
+		var commentDisplayNameMusic = document.getElementById("commentDisplayNameMusic").value;
+		var commentMediaIdMusic = document.getElementById("commentMediaIdMusic").value;
+		var commentDateTimeMusic = document.getElementById("commentDateTimeMusic").value;
+		var ajaxCheckerMusic = 723472837;
+		var ajaxChecker2Music = 340982904;
+		$.ajax({
+			type: "POST",
+			url: "/music/submitComments",
+			contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+			data: {
+				submittedCommentMusic :submittedCommentMusic,
+				commentUserIdMusic :commentUserIdMusic,
+				commentDisplayNameMusic :commentDisplayNameMusic,
+				commentMediaIdMusic :commentMediaIdMusic,
+				commentDateTimeMusic :commentDateTimeMusic
+			},
+			success: function (response) {
+				$('#userCommentsSectionMusic').load("http://localhost:8080/music/aftersubmitcomment/" + commentMediaIdMusic + "/" + ajaxCheckerMusic + "/" + ajaxChecker2Music);
 			}
 		})
 		

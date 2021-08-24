@@ -660,11 +660,11 @@ public class MediaController {
 		return "userlistenmusic";
 	}
 	
-	//Get Mapping to reload Comments Section in Watch Videos and Listen Music page. Added Ajax Checkers
+	//Get Mapping to reload Comments Section in Watch Videos page. Added Ajax Checkers
 	// to ensure logged-in user does not accidentally go to this url if he enters a random URL in browser. Ajaxcheckers are passed to
 	// controller through the Submit Comments button ajax.
 	@GetMapping("/video/aftersubmitcomment/{mediaId}/{ajaxChecker}/{ajaxChecker2}")
-	public String afterSubmitComment(Model model, @PathVariable Long mediaId, @PathVariable Long ajaxChecker, 
+	public String afterSubmitCommentVideo(Model model, @PathVariable Long mediaId, @PathVariable Long ajaxChecker, 
 			@PathVariable Long ajaxChecker2,
 			@AuthenticationPrincipal MyUserDetails userDetails) {
 	
@@ -685,8 +685,37 @@ public class MediaController {
 		model.addAttribute("media", uservice.findMediaByMediaId(mediaId));
 		model.addAttribute("comments", uservice.findCommentsByMediaId(mediaId));
 
-		return "aftersubmitcomment";
+		return "aftersubmitcommentvideo";
 	}
+	
+	
+	//Get Mapping to reload Comments Section in Listen Music page. Added Ajax Checkers
+		// to ensure logged-in user does not accidentally go to this url if he enters a random URL in browser. Ajaxcheckers are passed to
+		// controller through the Submit Comments button ajax.
+		@GetMapping("/music/aftersubmitcomment/{mediaId}/{ajaxCheckerMusic}/{ajaxChecker2Music}")
+		public String afterSubmitCommentMusic(Model model, @PathVariable Long mediaId, @PathVariable Long ajaxCheckerMusic, 
+				@PathVariable Long ajaxChecker2Music,
+				@AuthenticationPrincipal MyUserDetails userDetails) {
+		
+			if(userDetails == null) {
+				return "/login";	
+			}
+			
+			if (ajaxCheckerMusic != 723472837 || ajaxChecker2Music != 340982904) {
+				return "error";
+			}
+			
+			long loggedInUserId = userDetails.getUserId(); 
+			
+			int commentCountMusic = uservice.findCommentsByMediaId(mediaId).size();
+
+			model.addAttribute("commentCount", commentCountMusic);
+			model.addAttribute("user", uservice.findUserByUserId(loggedInUserId));
+			model.addAttribute("media", uservice.findMediaByMediaId(mediaId));
+			model.addAttribute("comments", uservice.findCommentsByMediaId(mediaId));
+
+			return "aftersubmitcommentmusic";
+		}	
 	
 	//ajax call for Like Button Add to play list
 	@PostMapping("/video/addToPlaylist")
@@ -753,7 +782,6 @@ public class MediaController {
 		
 		long loggedInUserId = userDetails.getUserId();
 		
-		// currently assume the userID = 2,
 		Long customerId = loggedInUserId;
 		User customer = uservice.findUserByUserId(customerId);
 		User artist = aservice.findById(artistId);
@@ -806,10 +834,10 @@ public class MediaController {
 		return "userwatchvideo";				
 	}
 	
-	//ajax call for submit comments
+	//ajax call for submit video comments
 	@PostMapping("/video/submitComments")
 	@ResponseBody
-	public String submitComments(Model model, @AuthenticationPrincipal MyUserDetails userDetails,
+	public String submitVideoComments(Model model, @AuthenticationPrincipal MyUserDetails userDetails,
 			@RequestParam(value = "submittedComment") String submittedComment,
 			@RequestParam(value = "commentUserId") Long commentUserId,
 			@RequestParam(value = "commentDisplayName") String commentDisplayName,
@@ -838,6 +866,38 @@ public class MediaController {
 		return "userwatchvideo";
 	}
 	
+	
+	//ajax call for submit video comments
+		@PostMapping("/music/submitComments")
+		@ResponseBody
+		public String submitMusicComments(Model model, @AuthenticationPrincipal MyUserDetails userDetails,
+				@RequestParam(value = "submittedCommentMusic") String submittedCommentMusic,
+				@RequestParam(value = "commentUserIdMusic") Long commentUserIdMusic,
+				@RequestParam(value = "commentDisplayNameMusic") String commentDisplayNameMusic,
+				@RequestParam(value = "commentDateTimeMusic") String commentDateTimeMusic, 
+				@RequestParam(value = "commentMediaIdMusic") Long commentMediaIdMusic)
+						throws Exception {
+			
+			if(userDetails == null) {
+				return "/login";	
+			}
+			
+			User commentUserMusic = uservice.findUserByUserId(commentUserIdMusic);
+			Media commentedMediaMusic = uservice.findMediaByMediaId(commentMediaIdMusic);
+			List<Comments> existingUserCommentsMusic = uservice.findCommentsByMediaId(commentMediaIdMusic);
+			 
+			//Add new Comment to existing user's comments
+			
+			Comments newComment = new Comments(commentDateTimeMusic, submittedCommentMusic, commentedMediaMusic, commentUserMusic);
+			
+			existingUserCommentsMusic.add(newComment);
+			commentedMediaMusic.setCommentList(existingUserCommentsMusic);
+			uservice.saveComment(newComment);
+			uservice.saveUser(commentUserMusic);
+			uservice.saveMedia(commentedMediaMusic);
+
+			return "userlistenmusic";
+		}
 	
 	
 //--------------------------User views Artist Video Channel Page by ZQ--------------------------------------------------
