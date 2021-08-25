@@ -26,7 +26,7 @@ Optional theme
 		<div id="container3" style="width: 550px; height: 400px; margin-top: 100px;  margin-bottom: 150px;  margin-right: 250px;  margin-left: 80px;"></div>
 		<div id="container4" style="width: 550px; height: 400px; margin-bottom: 150px;  margin-right: 250px;  margin-left: 80px;"></div>
 		<div id="container5" style="width: 550px; height: 400px; margin-bottom: 150px;  margin-right: 250px;  margin-left: 80px;" ></div>
-		<div id="container6" style="width: 550px; height: 500px; margin: 10px" ></div>
+		<div id="container6" style="width: 550px; height: 400px; margin: 10px" ></div>
 	</div>
 	
 	
@@ -54,7 +54,7 @@ Optional theme
             }
         },
         title: {
-            text: 'Count of Watching Times to Different Video Chart'
+            text: 'View Counts of Different Videos'
         },
         subtitle: {
             text: 'Details'
@@ -104,7 +104,7 @@ Optional theme
             type: 'column'
         },
         title: {
-            text: 'Count of Listening Times to Different Muisc Chart'
+            text: 'View Counts of Different Musics'
         },
         subtitle: {
             text: 'Details'
@@ -159,7 +159,7 @@ Optional theme
           },
     	
         title: {
-            text: 'Counts of Viewing Video and Listening Music'
+            text: 'View Counts of Media  VS  Time '
         },
 
         subtitle: {
@@ -218,9 +218,78 @@ Optional theme
     });
     });
 
+   
+    $(function(){
+    	var date=[[${datetime}]];
+    	var changes=[[${changes}]];
+    	var total=[[${total}]]
+      Highcharts.chart('container4', {
+    	  chart: {
+              type: 'spline'
+          },
+    	
+        title: {
+            text: 'Subscribers Chart'
+        },
+
+        subtitle: {
+            text: 'Change with time series'
+        },
+        
+        yAxis: {
+            title: {
+                text: 'Number of Subscribers '
+            }
+        },
+
+        xAxis: {
+          categories:date,
+        	       
+          title: {
+                    text: 'Date'
+                }
+        }, 
+        
+        series: [{
+            name:'Total of Subscribers' ,
+            data: total
+            
+        }, 
+         {
+            name: 'Changes of Subscribers',
+            data:changes,
+            dashStyle: 'Dash'
+            
+        } 
+      
+        ],
+        
+        credits: {
+            enabled: false
+        },
+
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 500
+                },
+                chartOptions: {
+                    legend: {
+                        layout: 'horizontal',
+                        align: 'center',
+                        verticalAlign: 'bottom'
+                    }
+                }
+            }]
+        }
+    });
+    });
+
+    
+    
     
     $(function(){
-    Highcharts.chart('container4', {
+    Highcharts.chart('container5', {
 		chart : {
 			type : 'pie',
 			options3d : {
@@ -233,7 +302,7 @@ Optional theme
 			text : 'Percentage of Artist Product, Video, Music '
 		},
 		tooltip : {
-			pointFormat : '{series.name}: <b>{point.percentage:.1f}%</b>'
+			pointFormat : '<b>number:{point.y} </b><br>totalnumber: {point.total}'
 		},
 		plotOptions : {
 			pie : {
@@ -242,7 +311,7 @@ Optional theme
 				depth : 35,
 				dataLabels : {
 					enabled : true,
-					format : '{point.name}'
+					format : '{point.name}: <br>{point.percentage:.1f} %'
 				}
 			}
 		},
@@ -258,7 +327,7 @@ Optional theme
     }); 
     
     $(function(){
-        Highcharts.chart('container5', {
+        Highcharts.chart('container6', {
     		chart : {
     			type : 'pie',
     			options3d : {
@@ -271,7 +340,7 @@ Optional theme
     			text : 'Percentage Total Counts of Different Media'
     		},
     		tooltip : {
-    			pointFormat : '{series.name}: <b>{point.percentage:.1f}%</b>'
+    			pointFormat : '<b>number:{point.y} </b><br>totalMeida: {point.total}'
     		},
     		plotOptions : {
     			pie : {
@@ -280,7 +349,7 @@ Optional theme
     				depth : 35,
     				dataLabels : {
     					enabled : true,
-    					format : '{point.name}'
+    					format : '{point.name}: <br>{point.percentage:.1f} %'
     				}
     			}
     		},
@@ -289,92 +358,16 @@ Optional theme
     	        },
     		series : [ {
     			type : 'pie',
-    			name : 'Ratio of Media',
+    			name : 'Ratio ',
     			data : [ [ 'Video', [[${totalvideoscount}]] ], [ 'Music', [[${totalmusicscount}]] ]  ]
     		} ]
     	});
         });
 
-    
- /*    $(function () {
-    	Highcharts.chart('container6', {
-            xAxis: {
-                type:"spline"
-            },
+   
 
-            series: [{
-                data: [{x:[${}],y:[${}]}],
-                pointStart:6,
-                pointEnd:30
-            }]
-        });
-    });
-     */
-    
-    
-    
-    
-    
-    
-    
     
    
-    
-   /*  $(function () {
-        var s = {name: 'serial name', data: []}, 
-            serialData = [], categories = [];
-        var flatData = [23,23,45,67,23,67,46], startDate = Date.UTC(2000, 1, 1);
-        // Set the xaxis value as first day of month
-        for (var i = 0; i < flatData.length; i++) {
-            var d = new Date();
-            d.setTime(startDate);
-            d.setMonth(d.getMonth() + i);
-            categories.push(d.getTime());
-        }
-        for (var i = 0; i < flatData.length; i++) {
-            s.data.push([categories[i], flatData[i]]);
-        }
-        serialData.push(s);  
-         var serialDate=[[${flatdata}]];  
-         $('#container4').highcharts({
-            chart: {
-                type: 'spline'
-            },
-            title: {
-                text: 'Time series'
-            },
-            subtitle: {
-                text: 'Irregular time data in Highcharts JS'
-            },
-            xAxis: {
-            	categories:[[${date}]],
-                type: 'datetime',
-                dateTimeLabelFormats: { // don't display the dummy year
-                    month: '%e. %b',
-                    year: '%b'
-                },
-                title: {
-                    text: 'Date'
-                }
-            },
-            yAxis: {
-                title: {
-                    text: 'Snow depth (m)'
-                },
-                min: 0
-            },
-            tooltip: {
-                headerFormat: '<b>{series.name}</b><br>',
-                pointFormat: '{point.x:%e. %b}: {point.y:.2f} m'
-            },
-
-            series: [{
-                name: 'Times of User Listening',
-                data: [2,3,5,2,5,8,3,2,6]
-            }]
-            	
-        });
-    });  */
 </script>
 
 </body>
