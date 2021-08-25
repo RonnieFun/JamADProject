@@ -2,33 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head th:replace="Fragments/layout.html :: headerfiles"> 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-</head>
+</head>   
    <body style="padding-bottom: 30px">
-   <img th:src="@{/images/JAM_LOGO.png}" class="logo2" alt="JAM Logo">
- <nav class="navbar jamHeader3">
- 
- 	<form class="navbar-form form-inline" th:action="@{/home/searchresults}" method="post">
-        <div class="input-group searchBox">
-             <input type="text" id="search" name ="searchTerm" class="form-control" placeholder="Search in this shop">
-             <button type="submit" value="Search" class="input-group-addon"><i class="material-icons">&#xE8B6;</i></button>
-        </div>
-    </form>
- </nav>
-      
-     <!--  <th:block th:include="/_menu"></th:block> -->
-       
-            
-     <th:block th:if="${cartForm == null}">
+   <div th:replace="Fragments/layout.html :: navbar"></div>  
+     <th:block th:if="${cartForm == null || cartForm.cartDetails == null || cartForm.cartDetails.empty}">
+     <div class="cartIntroSection1">
          <h2>There is no items in Cart</h2>
          <a th:href="@{/productList}">Show Product List</a>
+      </div>
       </th:block>
-      <div class="cartIntroSection">
+      
+      <th:block th:if="${cartForm != null && cartForm.cartDetails != null && !cartForm.cartDetails.empty}">
+      <div class="cartIntroSection1">
        <h2 style="font-weight: bold;" class = "col-12 text-center">YOUR BAG</h2>
       <div class="row">
         <div class="col-lg-8 col-sm-8 col-xs-12">
           <table class="table">
-          
-          <th:block th:if="${cartForm != null}">
          <form method="POST" th:object="${cartForm}" th:action="@{/shoppingcart}">
           
                <div class="product-preview-container"
@@ -37,8 +26,8 @@
               <td><img th:src="${cartLineInfo.product.productUrl}" width="190px"></td>
               <td>
                 <b style="color: #000;font-size:16px; font-weight: 600" th:utext="${cartLineInfo.product.productName}"></b>
-                <p style="font-size: 14px;">CORE BLACK / CORE BLACK / CORE BLACK<br>
-                SIZE: M 7.5 / W 8.5<br>
+                <p style="font-size: 14px;"><!-- CORE BLACK / CORE BLACK / CORE BLACK<br>
+                SIZE: M 7.5 / W 8.5<br> -->
                 PRICE: <span th:utext="${cartLineInfo.product.productPrice}"></span>
                 </p>
                 
@@ -54,17 +43,16 @@
               </div>
 
             <tr>
-              <td colspan="7" align="right">
+             <!--  <td colspan="7" align="right">
               <a th:href="@{/carthometab/1}" style="margin-left: 20px;">Continue Shopping</a>
                
-              </td>
+              </td> -->
               <td></td>
-              <td></td>      
+            <!--   <td></td>    -->   
             </tr>
             
             
          </form>
-      </th:block>
           </table>
         </div> <!-- -----col-lg-8 col-sm-8 col-xs-12 end --- -->
         <div class="col-lg-4 col-sm-4 col-xs-12">
@@ -95,6 +83,7 @@
         </div>
       </div>
     </div>
+    </th:block>
    <div class="footer">
   <p style="margin-top: 3px;">@2020-2021 Jam | Term 2</p>
 </div>

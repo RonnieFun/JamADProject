@@ -18,7 +18,7 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 	<div class = "sidebar">
 	
 		<div sec:authorize="isAuthenticated()" class = "sidebarRow">
-		<img src="https://www.aceshowbiz.com/images/photo/jay_chou.jpg" class="profilePic" alt="profileIcon"/>
+		<img th:src="${profileUrl}" class="profilePic" alt="profileIcon"/>
 			<h6>Welcome <span sec:authentication="principal.firstName">first
 				name</span></h6>
 		</div>
@@ -30,17 +30,37 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 		
 		<div class="sidebarRow">
 			<span class="material-icons">people</span>
-			<h6>Followers</h6>
+			<h6>Subscribers</h6>
 		</div>
 		
 		<div class="sidebarRow">
-			<span class="material-icons">play_arrow</span>
-			<h6>My Music Channel</h6>
+			<span class="material-icons">volunteer_activism</span>
+			<h6>Following</h6>
 		</div>
 		
 		<div class="sidebarRow">
-			<span class="material-icons">smart_display</span>
-			<h6>My Video Channel</h6>
+			<a href = "/artist/channel">
+			<span class="material-icons">music_video</span>
+			</a>
+			<a href = "/artist/channel" style="text-decoration: none; color:black">
+			<h6>My Channel</h6>
+			</a>
+		</div>
+		
+		<div class="sidebarRow">
+			<a href = "/artist/manageshop">
+			<span class="material-icons">store</span>
+			</a>
+			<a href = "/artist/manageshop" style="text-decoration: none; color:black">
+			<h6>My Store</h6>
+			</a>
+			
+			
+		</div>
+			
+		<div class="sidebarRow">
+			<span class="material-icons">dashboard</span>
+			<h6>My Dashboard</h6>
 		</div>
 		
 <!-- 		<div class="sidebarRow"> -->
@@ -54,37 +74,49 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 	<div class="feed">
 	
 <!-- 	story starts  -->
-		<div class="storyReel">
-			<div style="background-image: url(https://later.com/blog/wp-content/uploads/2019/01/How-Often-to-Post-to-Facebook-Stories.png) " class="story">
-				<img th:src="@{/images/estelle.PNG}" class="profilePic" alt="profileIcon"/>
-				<h5>User</h5>
+		<div class="bannerProfile">
+			<div class="cover">
+				<img th:src="@{/images/samplebanner.jpg}" class="homeBanner" alt="postPicture"/>
+			</div>
+			<div class = "profile">
+				<img th:src="@{/images/default_user.jpg}" class="homeBanner" alt="postPicture"/>
+				<input id="artistProfilePic" type="file" style="color:transparent; display:none;"/>
+					<label for="artistProfilePic">
+					    <i class="fa fa-camera cameraIcon" aria-hidden="true"></i>
+					</label>
+				
 			</div>
 			
-			<div style="background-image: url(https://www.wishpond.com/wp-content/uploads/sites/3/2020/06/facebook-stories-to-Instagram.jpg) " class="story">
-				<img th:src="@{/images/estelle.PNG}" class="profilePic" alt="profileIcon"/>
-				<h5>User</h5>
-			</div>
+<!-- 			<div style="background-image: url(https://later.com/blog/wp-content/uploads/2019/01/How-Often-to-Post-to-Facebook-Stories.png) " class="story"> -->
+<!-- 				<img th:src="@{/images/estelle.PNG}" class="profilePic" alt="profileIcon"/> -->
+<!-- 				<h5>User</h5> -->
+<!-- 			</div> -->
+			
+<!-- 			<div style="background-image: url(https://www.wishpond.com/wp-content/uploads/sites/3/2020/06/facebook-stories-to-Instagram.jpg) " class="story"> -->
+<!-- 				<img th:src="@{/images/estelle.PNG}" class="profilePic" alt="profileIcon"/> -->
+<!-- 				<h5>User</h5> -->
+<!-- 			</div> -->
 			
 	
-			<div style="background-image: url(https://later.com/blog/wp-content/uploads/2019/01/How-Often-to-Post-to-Facebook-Stories.png) " class="story">
-				<img th:src="@{/images/estelle.PNG}" class="profilePic" alt="profileIcon"/>
-				<h5>User</h5>
-			</div>
+<!-- 			<div style="background-image: url(https://later.com/blog/wp-content/uploads/2019/01/How-Often-to-Post-to-Facebook-Stories.png) " class="story"> -->
+<!-- 				<img th:src="@{/images/estelle.PNG}" class="profilePic" alt="profileIcon"/> -->
+<!-- 				<h5>User</h5> -->
+<!-- 			</div> -->
 			
-			<div style="background-image: url(https://www.wishpond.com/wp-content/uploads/sites/3/2020/06/facebook-stories-to-Instagram.jpg) " class="story">
-				<img th:src="@{/images/estelle.PNG}" class="profilePic" alt="profileIcon"/>
-				<h5>User</h5>
-			</div>
+<!-- 			<div style="background-image: url(https://www.wishpond.com/wp-content/uploads/sites/3/2020/06/facebook-stories-to-Instagram.jpg) " class="story"> -->
+<!-- 				<img th:src="@{/images/estelle.PNG}" class="profilePic" alt="profileIcon"/> -->
+<!-- 				<h5>User</h5> -->
+<!-- 			</div> -->
 			
-			<div style="background-image: url(https://later.com/blog/wp-content/uploads/2019/01/How-Often-to-Post-to-Facebook-Stories.png) " class="story">
-				<img th:src="@{/images/estelle.PNG}" class="profilePic" alt="profileIcon"/>
-				<h5>User</h5>
-			</div>
+<!-- 			<div style="background-image: url(https://later.com/blog/wp-content/uploads/2019/01/How-Often-to-Post-to-Facebook-Stories.png) " class="story"> -->
+<!-- 				<img th:src="@{/images/estelle.PNG}" class="profilePic" alt="profileIcon"/> -->
+<!-- 				<h5>User</h5> -->
+<!-- 			</div> -->
 			
-			<div style="background-image: url(https://www.wishpond.com/wp-content/uploads/sites/3/2020/06/facebook-stories-to-Instagram.jpg) " class="story">
-				<img th:src="@{/images/estelle.PNG}" class="profilePic" alt="profileIcon"/>
-				<h5>User</h5>
-			</div>
+<!-- 			<div style="background-image: url(https://www.wishpond.com/wp-content/uploads/sites/3/2020/06/facebook-stories-to-Instagram.jpg) " class="story"> -->
+<!-- 				<img th:src="@{/images/estelle.PNG}" class="profilePic" alt="profileIcon"/> -->
+<!-- 				<h5>User</h5> -->
+<!-- 			</div> -->
 		</div>
 <!-- 		story ends -->
 		
