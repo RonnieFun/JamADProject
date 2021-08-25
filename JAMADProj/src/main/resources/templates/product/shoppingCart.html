@@ -5,14 +5,14 @@
 </head>   
    <body style="padding-bottom: 30px">
    <div th:replace="Fragments/layout.html :: navbar"></div>  
-     <th:block th:if="${cartForm == null || cartForm.cartDetails == null || cartForm.cartDetails.empty}">
+     <th:block th:if="${cartForm == null}">
      <div class="cartIntroSection1">
          <h2>There is no items in Cart</h2>
          <a th:href="@{/productList}">Show Product List</a>
       </div>
       </th:block>
       
-      <th:block th:if="${cartForm != null && cartForm.cartDetails != null && !cartForm.cartDetails.empty}">
+      <th:block th:if="${cartForm != null}">
       <div class="cartIntroSection1">
        <h2 style="font-weight: bold;" class = "col-12 text-center">YOUR BAG</h2>
       <div class="row">
@@ -21,24 +21,31 @@
          <form method="POST" th:object="${cartForm}" th:action="@{/shoppingcart}">
           
                <div class="product-preview-container"
-                        th:each="cartLineInfo, varStatus : ${cartForm.cartDetails}">
+                        th:each="cartLineInfo, varStatus : ${cartForm}">
             <tr>
-              <td><img th:src="${cartLineInfo.product.productUrl}" width="190px"></td>
+              <td><img th:src="${cartLineInfo.key.product.productUrl}" width="190px"></td>
               <td>
-                <b style="color: #000;font-size:16px; font-weight: 600" th:utext="${cartLineInfo.product.productName}"></b>
+                <b style="color: #000;font-size:16px; font-weight: 600" th:utext="${cartLineInfo.key.product.productName}"></b>
                 <p style="font-size: 14px;"><!-- CORE BLACK / CORE BLACK / CORE BLACK<br>
                 SIZE: M 7.5 / W 8.5<br> -->
-                PRICE: <span th:utext="${cartLineInfo.product.productPrice}"></span>
+                PRICE: <span th:utext="${cartLineInfo.key.product.productPrice}"></span>
                 </p>
                 
+                <p th:if="${cartLineInfo.value !=0 && cartLineInfo.value ==1 }">
+                <span th:text = "${cartLineInfo.value} +' item is out of Stock!'"></span>
+                </p>
                 
+                <p th:if="${cartLineInfo.value !=0 && cartLineInfo.value >1 }">
+                <span th:text = "${cartLineInfo.value} +' items are out of Stock!'"></span>
+                </p>
                
-                <a th:href="@{|/shoppingCartRemoveProduct?id=${cartLineInfo.product.productID}|}"  style="margin-right: 10px;"> Remove</a>
+                <a th:href="@{|/shoppingCartRemoveProduct?id=${cartLineInfo.key.product.productID}|}"  style="margin-right: 10px;"> Remove</a>
+                
               </td>
-              <td> <input type="text" th:name="|cartDetails[${varStatus.index}].quantity|" th:value="${cartLineInfo.quantity}"  th:onchange="'javascript:updateCartItemQuantity( \''+${cartLineInfo.product.productID}+'\' , '+this.value+');'" class="form-control" style="width: 50px; height: 35px;">
+              <td> <input type="text"  th:value="${cartLineInfo.key.quantity}"  th:onchange="'javascript:updateCartItemQuantity( \''+${cartLineInfo.key.product.productID}+'\' , '+this.value+');'" class="form-control" style="width: 50px; height: 35px;">
               
               </td>
-              <td>$<span th:utext="${cartLineInfo.product.productPrice}"></span></td>
+              <td>$<span th:utext="${cartLineInfo.key.product.productPrice}"></span></td>
             </tr>
               </div>
 
@@ -66,15 +73,15 @@
                 Estimated TAX
               </td>
               <td>
-              $<span th:utext="${cartForm.amountTotal}"></span><br><br>
-              [<span th:utext="${cartForm.quantityTotal}"></span> ITEMS]<br><br>
+              $<span th:utext="${totalAmount}"></span><br><br>
+              [<span th:utext="${totalQuantity}"></span> ITEMS]<br><br>
               FREE<br><br>
               $0.0
             </td> 
          
             <tr>
               <td><b>TOTAL</b></td>
-              <td><b>$<span th:utext="${cartForm.amountTotal}"></span></b></td> 
+              <td><b>$<span th:utext="${totalAmount}"></span></b></td> 
             </tr>
           </table>
           
@@ -100,7 +107,15 @@
 	        	quantity : quantity
 	        },
 	        success: function(response){
-	        	
+	        	var jason =jQuery.parseJSON(response);
+	        	var count = jason.uncount;
+	        	if(count>0){
+	        		if(count==1){
+	        			alert(count +" item is out of Stock!");
+	        		}else{
+		        		alert(count +" items are out of Stock!");
+		        	}
+	        	}
 	        	location.href = '/shoppingcart' 
 	        },
 	        error:function(xmlHttpRequest, textStatus, errorThrown){
