@@ -11,5 +11,5 @@ import sg.edu.iss.jam.model.User;
 public interface ChannelRepository extends JpaRepository<Channel, Long> {
 	
 	public Channel findByChannelUserAndMediaType(User user, MediaType MediaType);
-
+	
 }

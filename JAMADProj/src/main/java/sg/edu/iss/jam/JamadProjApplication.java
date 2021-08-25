@@ -10,6 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.client.RestTemplate;
 
 import sg.edu.iss.jam.model.Category;
@@ -100,6 +101,13 @@ public class JamadProjApplication {
 	CommandLineRunner runner() {
 
 		return args -> {
+			
+//			BCryptPasswordEncoder password = new BCryptPasswordEncoder();
+//			User jayChou = urepo.getById(1L);
+//			jayChou.setPassword(password.encode("123"));
+//			urepo.save(jayChou);
+
 		};
 	}
+	
 }

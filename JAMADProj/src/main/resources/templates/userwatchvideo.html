@@ -11,7 +11,6 @@
 
  	<!-- Video Introduction Section -->
  	<div class="userPageVideoIntroSection">
- 		<!-- <span th:text="'Title: ' + ${media.title}" class="userVideoTitleLabel"></span> -->
  		
  		<span class="userVideoTitleLabel">
 	     <span th:text="${media.title}" class=""></span>
@@ -27,8 +26,8 @@
 		<hr>
  	</div>
  	
- 	<div class="playlistFormPopup" id="myHeartForm">
-	  <form name="heartForm" id="heartForm" method="post" class="form-container">
+ 	<div class="playlistFormPopup" id="myHeartFormVideo">
+	  <form name="myHeartFormVideo" id="myHeartFormVideo" method="post" class="form-container">
 	
 	    <label><b>Please select a Playlist to save to:</b></label>
 	    <br>
@@ -45,7 +44,7 @@
 		<input type="hidden" id="mediaID" th:value="${media.id}">
 		
 		<span style="display: flex">
-	    <button id="savePlaylistButton" type="button" class="btn saveToPlaylistButton" onclick="closeForm()">Submit</button>
+	    <button id="savePlaylistButtonVideo" type="button" class="btn saveToPlaylistButton" onclick="closeForm()">Submit</button>
   		
   		<button id="cancelSavePlaylistButton" type="button" class="btn cancelSavePlaylistButton" onclick="closeForm()">Cancel</button>
   		</span>
@@ -87,7 +86,7 @@
 			<input type="hidden" id="commentMediaId" th:value = "${media.id}">
 			<input type="hidden" id="commentDateTime" th:value = "${#dates.format(#dates.createNow(),'dd MMMM YYYY, HH:mm')}">
 			<input type="hidden" id="commentedNumberOfComments" th:value = "${commentCount}">
-			<button id="userCommentsSubmitBtn" class="userCommentsBtn" type="button">Submit</button>
+			<button id="userCommentsSubmitBtnVideo" class="userCommentsBtn" type="button">Submit</button>
 		</div>
 	</form>
 
@@ -106,8 +105,7 @@
 <!-- Side Videos List -->
 
 	<div class="userPageSideVideosSection flex-container">
-		<!--  <span th:each = "sideMedia: ${allMedia}"> --> <!-- th:each goes into this span to iterate and generate videos list -->
-		<span th:each = "sideMedia: ${recommend_medialist}"> 	
+		<span th:each = "sideMedia: ${allMedia}"> 	
 			<a th:href="@{/video/watchvideo/{mediaId}(mediaId = ${sideMedia.id})}" class="sideVideoLinkColor"><img th:src="${sideMedia.thumbnailUrl}" class="userPageSideVideos" alt="...">
 			<span class="col smallVidDescription">
 				<span th:text="${sideMedia.title}" class=""></span>

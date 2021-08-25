@@ -26,6 +26,7 @@ public class Media {
 	@Enumerated(EnumType.STRING)
 	private MediaType mediaType;
 	
+	@Length(max=1000)
 	private String mediaUrl;
 	
 	private String title;
