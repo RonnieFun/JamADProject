@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import sg.edu.iss.jam.model.Album;
 import sg.edu.iss.jam.model.Category;
+import sg.edu.iss.jam.model.Channel;
 import sg.edu.iss.jam.model.Comments;
 import sg.edu.iss.jam.model.Media;
 import sg.edu.iss.jam.model.MediaType;
@@ -98,6 +100,11 @@ public class UserImplementation implements UserInterface {
 	public List<Playlists> findPlaylistsByUserId(Long userID) {
 		return plrepo.findPlaylistsByUserId(userID);
 	}
+	
+	@Transactional
+	public List<Playlists> findPlaylistByUserIdAndMediaType(Long userID, MediaType mediaType) {
+		return plrepo.findPlaylistByUserIdAndMediaType(userID, mediaType);
+	}
 
 	@Transactional
 	public List<Playlists> savePlaylists(List<Playlists> playlists) {
@@ -133,6 +140,11 @@ public class UserImplementation implements UserInterface {
 	}
 	
 	@Transactional
+	public List<Media> findAllMediaByMediaType(MediaType mediaType) {
+		return mediarepo.findAllMediaByMediaType(mediaType);
+	}
+	
+	@Transactional
 	public Media saveMedia(Media media) {
 		return mediarepo.save(media);
 	}
@@ -142,6 +154,11 @@ public class UserImplementation implements UserInterface {
 		return mediarepo.findMediaByMediaTypeAndMediaId(mediaType, id);
 	}
 
+	@Transactional
+	public List<Media> findMediaByAlbumAndMediaType(Album album, MediaType mediaType) {
+		return mediarepo.findMediaByAlbumAndMediaType(album, mediaType);
+	}
+	
 	//SUBSCRIBED REPO
 	@Transactional
 	public Subscribed saveSubscribed(Subscribed subscribed) {
