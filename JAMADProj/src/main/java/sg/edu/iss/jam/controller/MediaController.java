@@ -332,15 +332,15 @@ public class MediaController {
 		int numberOfSubscribers = 0;
 		
 		Media selectedMedia = uservice.findMediaByMediaTypeAndMediaId(MediaType.Video, mediaId);
-		
-		// Get the artist
-		Long artistId = selectedMedia.getChannel().getChannelUser().getUserID();
-		User artist = selectedMedia.getChannel().getChannelUser();		
-		
 		if(selectedMedia == null) {
 			redirectAttributes.addAttribute("mediaId", mediaId);
 			return "redirect:/video/medianotfound/{mediaId}";
 		}
+		
+		// Get the artist
+		Long artistId = selectedMedia.getChannel().getChannelUser().getUserID();
+		User artist = selectedMedia.getChannel().getChannelUser();		
+	
 		
 		// Add new userhistory object based on logged in user's userid on each page reload
 		UserHistory userhistory = new UserHistory(LocalDateTime.now(), loggedInUser, selectedMedia);
@@ -557,15 +557,15 @@ public class MediaController {
 		
 		int commentCount = uservice.findCommentsByMediaId(mediaId).size();
 		Media selectedMedia = uservice.findMediaByMediaTypeAndMediaId(MediaType.Music, mediaId);
-		
-		// Get the artist
-		Long artistId = selectedMedia.getChannel().getChannelUser().getUserID();
-		User artist = selectedMedia.getChannel().getChannelUser();
-		
 		if(selectedMedia == null) {
 			redirectAttributes.addAttribute("mediaId", mediaId);
 			return "redirect:/music/medianotfound/{mediaId}";
 		}
+		
+		// Get the artist
+		Long artistId = selectedMedia.getChannel().getChannelUser().getUserID();
+		User artist = selectedMedia.getChannel().getChannelUser();
+	
 		
 		// Add new userhistory object based on logged in user's userid on each page reload
 		UserHistory userhistory = new UserHistory(LocalDateTime.now(), loggedInUser, selectedMedia);
