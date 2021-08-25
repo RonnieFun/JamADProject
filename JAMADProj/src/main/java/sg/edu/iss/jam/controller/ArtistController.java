@@ -73,7 +73,7 @@ public class ArtistController {
 			Long quantity = ArtistService.getQuantitySold(product.getProductID());
 			productsAndCountShop.put(product, quantity);
 		}
-
+		model.addAttribute("profileUrl", user.getProfileUrl());	
 		model.addAttribute("productsAndCountShop", productsAndCountShop);
 		model.addAttribute("user", user);
 		model.addAttribute("count", count);
@@ -97,6 +97,7 @@ public class ArtistController {
 			productsAndCountShop.put(product, quantity);
 		}
 
+		model.addAttribute("profileUrl", user.getProfileUrl());	
 		model.addAttribute("productsAndCountShop", productsAndCountShop);
 		model.addAttribute("user", user);
 		model.addAttribute("count", count);
@@ -120,6 +121,7 @@ public class ArtistController {
 			productsAndCountShop.put(product, quantity);
 		}
 
+		model.addAttribute("profileUrl", user.getProfileUrl());	
 		model.addAttribute("productsAndCountShop", productsAndCountShop);
 		model.addAttribute("user", user);
 		model.addAttribute("count", count);
@@ -143,6 +145,7 @@ public class ArtistController {
 			productsAndCountShop.put(product, quantity);
 		}
 
+		model.addAttribute("profileUrl", user.getProfileUrl());	
 		model.addAttribute("productsAndCountShop", productsAndCountShop);
 		model.addAttribute("user", user);
 		model.addAttribute("count", count);
@@ -168,6 +171,7 @@ public class ArtistController {
 			}
 		}
 
+		model.addAttribute("profileUrl", user.getProfileUrl());	
 		model.addAttribute("newProduct", newProduct);
 		model.addAttribute("user", user);
 		model.addAttribute("count", count);
@@ -194,6 +198,7 @@ public class ArtistController {
 			}
 		}
 
+		model.addAttribute("profileUrl", user.getProfileUrl());	
 		model.addAttribute("product", product);
 		model.addAttribute("user", user);
 		model.addAttribute("count", count);
@@ -206,8 +211,6 @@ public class ArtistController {
 	public String saveProduct(@Valid @ModelAttribute("product") Product product,
 			@RequestParam("file") Optional<MultipartFile> rawfile, BindingResult bindingResult, Model model,
 			@AuthenticationPrincipal MyUserDetails userDetails) {
-		
-		Boolean uploaded = false;
 
 		User user = userService.findUserByUserId(userDetails.getUserId());
 
@@ -223,59 +226,24 @@ public class ArtistController {
 			MultipartFile file = rawfile.get();
 			Long productidtemp = product.getProductID();
 
-			Path fileStorageLocation = Paths.get("src/main/resources/static/productimages");
+			Path fileStorageLocation = Paths.get("src/main/resources/static/images/productimages");
 			String filename = productidtemp.toString() + "_productimg."
 					+ file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
 			Path destinationFile = fileStorageLocation.resolve(Paths.get(filename)).toAbsolutePath();
-			
-			uploaded = uploadFile(file, destinationFile);
-			
-			while(uploaded != true) {
-				try {
-					Thread.sleep(500);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-			product.setProductUrl("/productimages/" + filename);
-			ArtistService.saveProduct(product);
 
-//			try {
-//				URL url = new URL("http://127.0.0.1:8080" + product.getProductUrl());
-//
-//				HttpURLConnection huc = (HttpURLConnection) url.openConnection();
-//
-//				while (huc.getResponseCode() != HttpURLConnection.HTTP_OK) {
-//					Thread.sleep(500);
-//				}
-//			} catch (MalformedURLException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (ProtocolException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+			InputStream inputStream;
+			try {
+				inputStream = file.getInputStream();
+				Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			product.setProductUrl("/images/productimages/" + filename);
 		}
-		
+
+		ArtistService.saveProduct(product);
 		return "redirect:/artist/manageshop";
-	}
-	
-	public boolean uploadFile(MultipartFile file, Path destinationFile) {
-		try (InputStream inputStream = file.getInputStream()) {
-			Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
-			IOUtils.closeQuietly(inputStream);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return true;
 	}
 
 	@PostMapping(value = "/editShopDescription")

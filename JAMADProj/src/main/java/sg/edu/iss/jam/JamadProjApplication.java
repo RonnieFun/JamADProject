@@ -42,31 +42,31 @@ import sg.edu.iss.jam.repo.UserRepository;
 
 @SpringBootApplication
 public class JamadProjApplication {
-	
+
 	@Autowired
 	RolesRepository rolesrepo;
-	
+
 	@Autowired
 	PlaylistsRepository plrepo;
-	
+
 	@Autowired
 	MediaRepository mediarepo;
-	
+
 	@Autowired
 	UserRepository urepo;
-	
+
 	@Autowired
 	TagRepository tagrepo;
-	
+
 	@Autowired
 	CommentsRepository commentsrepo;
-	
+
 	@Autowired
 	ChannelRepository channelrepo;
-	
+
 	@Autowired
 	UserHistoryRepository uhrepo;
-	
+
 	@Autowired
 	RolesRepository rrepo;
 
@@ -75,24 +75,23 @@ public class JamadProjApplication {
 
 	@Autowired
 	OrderDetailsRepository odrepo;
-	
+
 	@Autowired
 	MediaRepository mrepo;
-	
+
 	@Autowired
 	ShoppingCartRepository srepo;
-	
+
 	@Autowired
 	ShoppingCartDetailsRepository shdrepo;
-	
+
 	@Autowired
 	ChannelRepository crepo;
-	
+
 	@Bean
 	public RestTemplate getRestTemplage() {
 		return new RestTemplate();
 	}
-
 
 	public static void main(String[] args) {
 		SpringApplication.run(JamadProjApplication.class, args);
