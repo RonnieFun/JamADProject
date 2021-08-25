@@ -101,7 +101,7 @@
 
 									<!-- Price -->
 									<div class="mb-1 productPrice h6"
-										th:text="${#numbers.formatCurrency(productAndCount.key.productPrice)}"></div>
+										th:text="'$' + ${#numbers.formatDecimal(productAndCount.key.productPrice,0,2)}"></div>
 
 									<label for="heartLikeButton" style="padding-left: 5%">
 										<button type="button" style="background-color: #FFB6C1"
@@ -170,7 +170,7 @@
 
 									<!-- Price -->
 									<div class="mb-1 productPrice h6"
-										th:text="${#numbers.formatCurrency(productAndCount.key.productPrice)}"></div>
+										th:text="'$' + ${#numbers.formatDecimal(productAndCount.key.productPrice,0,2)}"></div>
 
 									<label for="heartLikeButton" style="padding-left: 5%">
 										<button type="button" style="background-color: #FFB6C1"
@@ -236,7 +236,7 @@
 
 									<!-- Price -->
 									<div class="mb-1 productPrice h6"
-										th:text="${#numbers.formatCurrency(productAndCount.key.productPrice)}"></div>
+										th:text="'$' + ${#numbers.formatDecimal(productAndCount.key.productPrice,0,2)}"></div>
 
 									<label for="heartLikeButton" style="padding-left: 5%">
 										<button type="button" style="background-color: #FFB6C1"
@@ -303,7 +303,7 @@
 
 									<!-- Price -->
 									<div class="mb-1 productPrice h6"
-										th:text="${#numbers.formatCurrency(productAndCount.key.productPrice)}"></div>
+										th:text="'$' + ${#numbers.formatDecimal(productAndCount.key.productPrice,0,2)}"></div>
 
 									<label for="heartLikeButton" style="padding-left: 5%">
 										<button type="button" style="background-color: #FFB6C1"

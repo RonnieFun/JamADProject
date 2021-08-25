@@ -5,8 +5,11 @@
 <body>
 	<nav th:replace="Fragments/layout.html :: navbar"></nav>
 	
-	<!-- Artist Introduction Section -->
 	
+<h4 th:if="${loggedInUserSubscribeErrorMsg != null}" th:text="${loggedInUserSubscribeErrorMsg}" style="color: red"></h4>
+<h4 th:if="${totalNumberOfSubscribeErrorMsg != null}" th:text="${totalNumberOfSubscribeErrorMsg}" style="color: red"></h4>
+	
+	<!-- Artist Introduction Section -->
 <div class="artistIntroSectionzq">
 
  	 <img class="smallBannerzq" th:src="${artist.profileUrl}" alt=""></img>
@@ -72,7 +75,7 @@
       <div class="card mb-1 h-100"> 
       
       <!--  Media image -->
-       <a th:href="@{/video/watchvideo/{mediaId}(mediaId = ${music.id})}">
+       <a th:href="@{/music/listenmusic/{mediaId}(mediaId = ${music.id})}">
         <img th:src="${music.thumbnailUrl}" class="card-img-top productPhotoSize" alt="...">
         <span class="sideDurationVideoChannelPage" th:text="${music.duration}"></span> 
        </a>

@@ -34,6 +34,8 @@ public class Playlists {
 	@ManyToOne
 	private User playlistUser;
 	
+	//Change to OneToMany
+	
 	//ManyToMany relation with media
 	@ManyToMany
 	private Collection<Media> mediaPlayList;
