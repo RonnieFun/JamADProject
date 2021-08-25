@@ -185,23 +185,20 @@ public class ProductController {
 	@GetMapping("/shop/allproducts")
 	public String allProductsLandingPage(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
 		User user = uservice.findUserByUserId(userDetails.getUserId());
+		
 		List<Object[]> topAllProductsBySale = uservice.getAllProducts();
 
 		Long count = uservice.getItemCountByUserID(userDetails.getUserId());
 
-		model.addAttribute("allProductsAndCountShop", new LazyContextVariable<Map<Product, Long>>() {
-			@Override
-			protected Map<Product, Long> loadValue() {
-				Map<Product, Long> allProductsAndCountShop = new LinkedHashMap<Product, Long>(16, 0.75F, true);
-				for (Object[] object : topAllProductsBySale) {
-					Product product = (Product) object[0];
-					if (product.getProductQty() > 0) {
-						allProductsAndCountShop.put(product, (Long) object[1]);
-					}
-				}
-				return allProductsAndCountShop;
+		Map<Product, Long> allProductsAndCountShop = new LinkedHashMap<Product, Long>(16, 0.75F, true);
+		for (Object[] object : topAllProductsBySale) {
+			Product product = (Product) object[0];
+			if (product.getProductQty() > 0) {
+				allProductsAndCountShop.put((Product) object[0], (Long) object[1]);
 			}
-		});
+		}
+		
+		model.addAttribute("allProductsAndCountShop", allProductsAndCountShop);
 		model.addAttribute("category", "allProducts");
 		model.addAttribute("count", count);
 		model.addAttribute("profileUrl", user.getProfileUrl());

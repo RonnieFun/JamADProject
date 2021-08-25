@@ -62,6 +62,10 @@
   		</span>
   		</form>
 	</div>
+	
+	
+
+	<h4 th:if="${loggedInUserSubscribeErrorMsg != null}" th:text="${loggedInUserSubscribeErrorMsg}" style="color: red"></h4>
 
  	<!-- Artist Intro Section -->
  	<div class="userPageArtistIntroSectionMusic">
@@ -117,7 +121,7 @@
 <!-- Side Music List -->
 
 	<div class="userPageSideMusicSection flex-container">
-		<span th:each = "sideMedia: ${allMedia}"> 	
+		<span th:each = "sideMedia: ${recommend_medialist}"> 	
 			<a th:href="@{/music/listenmusic/{mediaId}(mediaId = ${sideMedia.id})}" class="sideMusicLinkColor"><img th:src="${sideMedia.thumbnailUrl}" class="userPageSideMusic" alt="...">
 			<span class="col smallMusicDescription">
 				<span th:text="${sideMedia.title}" class=""></span>
