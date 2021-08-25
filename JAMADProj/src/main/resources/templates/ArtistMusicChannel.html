@@ -72,7 +72,7 @@
       <div class="card mb-1 h-100"> 
       
       <!--  Media image -->
-       <a th:href="@{/video/watchvideo/{mediaId}(mediaId = ${music.id})}">
+       <a th:href="@{/music/listenmusic/{mediaId}(mediaId = ${music.id})}">
         <img th:src="${music.thumbnailUrl}" class="card-img-top productPhotoSize" alt="...">
         <span class="sideDurationVideoChannelPage" th:text="${music.duration}"></span> 
        </a>

@@ -404,31 +404,31 @@ public class MediaController {
 
 		// side bar recommendations 
 		// Recommendation Model 3  
-//		List<Long> recommend_mediaid_list = new ArrayList<Long>();
-//		List<Media> recommend_medialist = new ArrayList<Media>();
-//		
-//		String url = "http://127.0.0.1:5000/model3?item_id={1}";
-//		ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class, mediaId);
-//		response_model3 = responseEntity.getBody();
-//		
-//		if (! response_model3.isEmpty()) {
-//			
-//			List<String> strList = new ArrayList<String>();
-//			strList = Arrays.asList(response_model2.split(","));
-//			for (String s: strList) {
-//				recommend_mediaid_list.add(Long.parseLong(s));
-//			}
-//		}
-//		
-//		for(Long id: recommend_mediaid_list) {
-//			Media recommendMedia = mservice.getMediaById(id);
-//			if (recommendMedia != null) {
-//				recommend_medialist.add(recommendMedia);
-//			}
-//		}
+		List<Long> recommend_mediaid_list = new ArrayList<Long>();
+		List<Media> recommend_medialist = new ArrayList<Media>();
+		
+		String url = "http://127.0.0.1:5000/model3?item_id={1}";
+		ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class, mediaId);
+		response_model3 = responseEntity.getBody();
+		
+		if (! response_model3.isEmpty()) {
+			
+			List<String> strList = new ArrayList<String>();
+			strList = Arrays.asList(response_model3.split(","));
+			for (String s: strList) {
+				recommend_mediaid_list.add(Long.parseLong(s));
+			}
+		}
+		
+		for(Long id: recommend_mediaid_list) {
+			Media recommendMedia = mservice.getMediaById(id);
+			if (recommendMedia != null) {
+				recommend_medialist.add(recommendMedia);
+			}
+		}
 
 		model.addAttribute("subscribeStatus", subscribeStatus);
-//		model.addAttribute("recommend_medialist", recommend_medialist);
+		model.addAttribute("recommend_medialist", recommend_medialist);
 			
 		return "userwatchvideo";
 	}
@@ -630,32 +630,32 @@ public class MediaController {
 		
 		
 		// side bar recommendations 
-		// Recommendation Model 3  
-//		List<Long> recommend_mediaid_list = new ArrayList<Long>();
-//		List<Media> recommend_medialist = new ArrayList<Media>();
-//		
-//		String url = "http://127.0.0.1:5000/model3?item_id={1}";
-//		ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class, mediaId);
-//		response_model2 = responseEntity.getBody();
-//		
-//		if (! response_model2.isEmpty()) {
-//			
-//			List<String> strList = new ArrayList<String>();
-//			strList = Arrays.asList(response_model2.split(","));
-//			for (String s: strList) {
-//				recommend_mediaid_list.add(Long.parseLong(s));
-//			}
-//		}
-//		
-//		for(Long id: recommend_mediaid_list) {
-//			Media recommendMedia = mservice.getMediaById(id);
-//			if (recommendMedia != null) {
-//				recommend_medialist.add(recommendMedia);
-//			}
-//		}
+		// Recommendation Model 4 
+		List<Long> recommend_mediaid_list = new ArrayList<Long>();
+		List<Media> recommend_medialist = new ArrayList<Media>();
+		
+		String url = "http://127.0.0.1:5000/model4?item_id={1}";
+		ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class, mediaId);
+		response_model4 = responseEntity.getBody();
+		
+		if (! response_model4.isEmpty()) {
+			
+			List<String> strList = new ArrayList<String>();
+			strList = Arrays.asList(response_model4.split(","));
+			for (String s: strList) {
+				recommend_mediaid_list.add(Long.parseLong(s));
+			}
+		}
+		
+		for(Long id: recommend_mediaid_list) {
+			Media recommendMedia = mservice.getMediaById(id);
+			if (recommendMedia != null) {
+				recommend_medialist.add(recommendMedia);
+			}
+		}
 
 		model.addAttribute("subscribeStatus", subscribeStatus);
-//		model.addAttribute("recommend_medialist", recommend_medialist);
+		model.addAttribute("recommend_medialist", recommend_medialist);
 		
 		return "userlistenmusic";
 	}
