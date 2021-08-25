@@ -18,7 +18,7 @@ public interface ShoppingCartDetailsRepository extends JpaRepository<ShoppingCar
 	void deleteCartDetailsByID(@Param("productID") Long productID , @Param("shoppingCartID") Long shoppingCartID );
 
 	
-	@Query("SELECT count(*) FROM ShoppingCartDetails sd JOIN sd.shoppingCart s WHERE s.shoppingCartUser.userID = :userID")
+	@Query("SELECT sum(sd.quantity) FROM ShoppingCartDetails sd JOIN sd.shoppingCart s WHERE s.shoppingCartUser.userID = :userID")
 	Long getItemCount(@Param("userID") long userid);
 
 	@Query("SELECT u FROM ShoppingCartDetails u where u.shoppingCart.shoppingCartID =:shoppingCartID and u.product.productID =:productID")

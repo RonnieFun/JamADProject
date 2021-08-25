@@ -2,36 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="Fragments/layout.html :: headerfiles">
 </head>
-<body style="padding-bottom: 30px">
-	<a th:href="@{/home}"><img th:src="@{/images/JAM_LOGO.png}"
-		class="logo2"> </a>
-	<nav class="navbar jamHeader3">
-
-		<form class="navbar-form form-inline"
-			th:action="@{/home/searchresults}" method="post">
-			<div class="input-group searchBox">
-				<input type="text" id="search" name="searchTerm"
-					class="form-control" placeholder="Search in this shop">
-				<button type="submit" value="Search" class="input-group-addon">
-					<i class="material-icons">&#xE8B6;</i>
-				</button>
-			</div>
-		</form>
-
-		<a th:href="@{/home}" class="helpIcon btn"><i
-			class="fa fa-question-circle"></i><span class="smallHelpText">Help</span></a>
-
-		<button class="addShoppingCartIcon btn"
-			onclick="location.href='/shoppingcart'">
-			<i class="fa fa-cart-plus" style="font-size: 24px"></i><span
-				class='badge badge-warning' id='lblCartCount' th:text="${count}"></span>
-		</button>
-		<a th:href="@{/home}" class="profileImageIconLink"><img
-			class="profileImageIcon" th:src="${user.profileUrl}"
-			alt="Artist Small Profile Photo" /> <span
-			class="smallProfileNameText"
-			th:text="${user.firstName} + ' ' + ${user.lastName}"></span> </a>
-	</nav>
+<body style="padding-bottom: 35px">
+	<div th:replace="Fragments/layout.html :: navbar"></div>
 
 	<!-- PRODUCTS ON SALE NAVBAR -->
 	<section class="productsOnSaleSection">
@@ -351,7 +323,7 @@
 					<div class="d-flex justify-content-end">
 						<div id="divProductId" style="display: none;"></div>
 						<button type="button" class="btn btn-primary"
-							th:onclick="'javascript:myFunction()'">
+							id="addToCart">
 							<i class="fa fa-shopping-cart"></i> Add To Cart
 						</button>
 					</div>
@@ -367,7 +339,12 @@
 </body>
 
 <script>
+	$("#addToCart").click(function() {
+		var productID = $("#divProductId").html();
+		myFunction(productID);
+	});
 	function myFunction(productID) {
+		//alert(productID);
 		$.ajax({
 			type : 'POST',
 			url : "/addToCart",
@@ -376,8 +353,16 @@
 				productId : productID
 			},
 			success : function(response) {
+				//alert(response);
+				var jason = jQuery.parseJSON(response);
+				var status = jason.status;
+				var count = jason.count;
+				$("#lblCartCount").text(count);
+				if (status == "error") {
+					alert("The product you added is reach to maximum amount");
+				}
 
-				$("#lblCartCount").text(response);
+				$('#cartModal').modal('hide');
 
 			},
 			error : function(xmlHttpRequest, textStatus, errorThrown) {
