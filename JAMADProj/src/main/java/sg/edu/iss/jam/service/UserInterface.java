@@ -51,9 +51,12 @@ public interface UserInterface {
 	Subscribed saveSubscribed(Subscribed subscribed);
 	void deleteSubscribed(Subscribed s);
 	List<Subscribed> getAllSubscribed();
-	List<Subscribed> getArtistUnSubscribed(Long userID);
-	List<Subscribed> getArtistSubscribed(Long userID);
-	List<Subscribed> getArtistSubscribedUnsubscribed(Long userID);
+	List<Subscribed> getArtistUnSubscribed(Long artistId);
+	List<Subscribed> getArtistSubscribed(Long artistId);
+//	List<Subscribed> getArtistSubscribedUnsubscribed(Long userID, Long loggedInUserId);
+	List<Subscribed> getArtistUnsubscribedByLoggInUserId(Long artistId, Long loggedInUserId);
+	List<Subscribed> getArtistSubscribedByLoggInUserId(Long artistId, Long loggedInUserId);
+	
 	
 	//COMMENTS
 	List<Comments> findCommentsByMediaId(Long id);
@@ -118,5 +121,8 @@ public interface UserInterface {
 	List<Product> getListOfAllProduts();
 	List<UserHistory> findUserHistoryByUserId(Long userId);
 	List<UserHistory> findUserHistoryByUserIdAndMediaType(Long userId, MediaType mediaType);
+	
+	
+	
 
 }
