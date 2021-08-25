@@ -35,8 +35,8 @@ public class DashboardController  {
 		@GetMapping("/dashboard")
 		public String showDashboard(Model model) {
 			
-		//video and music chart	
-				Long userId = (long) 1;
+//video and music chart	with count
+				Long userId = (long) 2;
 				User artist = aservice.findById(userId);
 				
 				List<Media> artistVideos = new ArrayList<Media>();
@@ -105,7 +105,7 @@ public class DashboardController  {
 					model.addAttribute("productnumber",productnumber);
 					
 
-		//Line chart with time series:
+//Line chart of media with time series in 2 years:
 				
 					//Find all userhistory
 					List<UserHistory> allUserHistories=uservice.findAllUserHistory();
@@ -243,7 +243,6 @@ public class DashboardController  {
 					model.addAttribute("videodatalastyear",videoCountInMonthLastYear);
 					model.addAttribute("musicdata",musicCountInMonth);
 					model.addAttribute("musicdatalastyear",musicCountInMonthLastyear);
-//					model.addAttribute("date",stringTimePoint);
 					
 
 					
