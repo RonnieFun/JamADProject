@@ -1,10 +1,5 @@
 package sg.edu.iss.jam;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.validation.constraints.Max;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -13,20 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.client.RestTemplate;
 
-import sg.edu.iss.jam.model.Category;
-import sg.edu.iss.jam.model.Channel;
-import sg.edu.iss.jam.model.Comments;
-import sg.edu.iss.jam.model.Media;
-import sg.edu.iss.jam.model.MediaType;
-import sg.edu.iss.jam.model.Playlists;
-import sg.edu.iss.jam.model.Product;
-import sg.edu.iss.jam.model.Role;
-import sg.edu.iss.jam.model.Roles;
-import sg.edu.iss.jam.model.ShoppingCart;
-import sg.edu.iss.jam.model.ShoppingCartDetails;
-import sg.edu.iss.jam.model.Tag;
 import sg.edu.iss.jam.model.User;
-import sg.edu.iss.jam.model.UserHistory;
 import sg.edu.iss.jam.repo.ChannelRepository;
 import sg.edu.iss.jam.repo.CommentsRepository;
 import sg.edu.iss.jam.repo.MediaRepository;
@@ -102,10 +84,12 @@ public class JamadProjApplication {
 
 		return args -> {
 			
-//			BCryptPasswordEncoder password = new BCryptPasswordEncoder();
-//			User jayChou = urepo.getById(1L);
-//			jayChou.setPassword(password.encode("123"));
-//			urepo.save(jayChou);
+			BCryptPasswordEncoder password = new BCryptPasswordEncoder();
+			User usera = new User();
+			usera.setEmail("asdf@asdf");
+			usera.setPassword(password.encode("asdf"));
+			usera.setEnabled(true);
+			urepo.save(usera);
 
 		};
 	}
