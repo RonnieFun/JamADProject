@@ -329,18 +329,17 @@ public class MediaController {
 		User loggedInUser = uservice.findUserByUserId(loggedInUserId);
 		
 		int commentCount = uservice.findCommentsByMediaId(mediaId).size();
-		int numberOfSubscribers = 0;
 		
 		Media selectedMedia = uservice.findMediaByMediaTypeAndMediaId(MediaType.Video, mediaId);
+
 		if(selectedMedia == null) {
 			redirectAttributes.addAttribute("mediaId", mediaId);
 			return "redirect:/video/medianotfound/{mediaId}";
 		}
 		
 		// Get the artist
-		Long artistId = selectedMedia.getChannel().getChannelUser().getUserID();
-		User artist = selectedMedia.getChannel().getChannelUser();		
-	
+
+		Long artistId = selectedMedia.getChannel().getChannelUser().getUserID();	
 		
 		// Add new userhistory object based on logged in user's userid on each page reload
 		UserHistory userhistory = new UserHistory(LocalDateTime.now(), loggedInUser, selectedMedia);
@@ -411,7 +410,6 @@ public class MediaController {
 		
 		// side bar recommendation section
 		// Recommendation Model 3  
-		
 		List<Long> recommend_mediaid_list = new ArrayList<Long>();
 		List<Media> recommend_medialist = new ArrayList<Media>();
 		
@@ -452,8 +450,6 @@ public class MediaController {
 		}
 		
 		long loggedInUserId = userDetails.getUserId(); 
-		
-		User loggedInUser = uservice.findUserByUserId(loggedInUserId);
 		
 		Media selectedMedia = uservice.findMediaByMediaTypeAndMediaId(MediaType.Music, mediaId);
 		
@@ -557,6 +553,7 @@ public class MediaController {
 		
 		int commentCount = uservice.findCommentsByMediaId(mediaId).size();
 		Media selectedMedia = uservice.findMediaByMediaTypeAndMediaId(MediaType.Music, mediaId);
+
 		if(selectedMedia == null) {
 			redirectAttributes.addAttribute("mediaId", mediaId);
 			return "redirect:/music/medianotfound/{mediaId}";
@@ -564,9 +561,7 @@ public class MediaController {
 		
 		// Get the artist
 		Long artistId = selectedMedia.getChannel().getChannelUser().getUserID();
-		User artist = selectedMedia.getChannel().getChannelUser();
-	
-		
+
 		// Add new userhistory object based on logged in user's userid on each page reload
 		UserHistory userhistory = new UserHistory(LocalDateTime.now(), loggedInUser, selectedMedia);
 		List<UserHistory> userHistory = uservice.findUserHistoryByMediaId(mediaId);
