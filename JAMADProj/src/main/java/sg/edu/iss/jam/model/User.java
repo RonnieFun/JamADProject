@@ -1,6 +1,8 @@
 package sg.edu.iss.jam.model;
 
 import java.util.Collection;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -41,6 +43,8 @@ public class User {
 	private String shopDescription;
 	
 	private boolean enabled;
+	
+	private boolean isArtist;
 	
 //	@Enumerated(EnumType.STRING)
 //	private Role role;
@@ -127,6 +131,21 @@ public class User {
 		this.about = about;
 		this.profileUrl = profileUrl;
 		this.roles = roles;
+	}
+
+	public User(String firstName, String lastName, String email, String password, String dateOfBirth,
+			String displayName, String about, String profileUrl, boolean enabled, boolean isArtist) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
+		this.dateOfBirth = dateOfBirth;
+		this.displayName = displayName;
+		this.about = about;
+		this.profileUrl = profileUrl;
+		this.enabled = enabled;
+		this.isArtist = isArtist;
 	}
 
 	public Long getUserID() {
@@ -227,6 +246,15 @@ public class User {
 
 	public Collection<Roles> getRoles() {
 		return roles;
+	}
+	
+	public String getRole() {
+		
+		String role = roles.stream()
+			.map(x->x.toString())
+			.collect(Collectors.joining(" ")).toString();
+			
+			return role;
 	}
 
 
@@ -372,6 +400,16 @@ public class User {
 	public void setPaymentList(Collection<Payment> paymentList) {
 		this.paymentList = paymentList;
 	}
+
+	public boolean isArtist() {
+		return isArtist;
+	}
+
+	public void setArtist(boolean isArtist) {
+		this.isArtist = isArtist;
+	}
+	
+	
 
 //	public Role getRole() {
 //		return role;

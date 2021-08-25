@@ -43,9 +43,8 @@ public class ProductController {
 		// userId need to replace
 		Long count = uservice.getItemCountByUserID(userDetails.getUserId());
 		model.addAttribute("status", "allProducts");
+		model.addAttribute("user", artist);
 		model.addAttribute("count", count);
-		model.addAttribute("artistId", artist.getUserID());
-		model.addAttribute("artistName", artist.getDisplayName());
 		model.addAttribute("profileUrl", artist.getProfileUrl());
 		model.addAttribute("productList", aservice.getProductListByArtistID(artistid));
 		return "carthometab";
@@ -61,9 +60,8 @@ public class ProductController {
 		Long count = uservice.getItemCountByUserID(userDetails.getUserId());
 
 		model.addAttribute("status", category.toString());
+		model.addAttribute("user", artist);
 		model.addAttribute("count", count);
-		model.addAttribute("artistId", artist.getUserID());
-		model.addAttribute("artistName", artist.getDisplayName());
 		model.addAttribute("profileUrl", artist.getProfileUrl());
 		model.addAttribute("productList", aservice.getPopularProductByCategory(artistid, category));
 		return "carthometab";

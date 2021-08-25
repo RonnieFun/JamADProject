@@ -4,24 +4,7 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 <body style="padding-bottom: 30px">
-  <img th:src="@{/images/JAM_LOGO.png}" class="logo2" alt="JAM Logo">
- <nav class="navbar jamHeader3">
- 
- 	<form class="navbar-form form-inline" th:action="@{/home/searchresults}" method="post">
-        <div class="input-group searchBox">
-             <input type="text" id="search" name ="searchTerm" class="form-control" placeholder="Search in this shop">
-             <button type="submit" value="Search" class="input-group-addon"><i class="material-icons">&#xE8B6;</i></button>
-        </div>
-    </form>
-
-    <a th:href="@{/home}" class="helpIcon btn"><i class="fa fa-question-circle"></i><span class="smallHelpText">Help</span></a>
-    
-	<button class="addShoppingCartIcon btn" onclick="location.href='/shoppingcart'"><i class="fa fa-cart-plus"style="font-size:24px"></i><span class='badge badge-warning' id='lblCartCount' th:text="${count}"></span></button>
-	
-	<a th:href="@{/home}" class="profileImageIconLink"><img class="profileImageIcon" th:src="${profileUrl}" alt="Artist Small Profile Photo"/>
-		<span class="smallProfileNameText" th:text="${artistName}"/>
-	</a>	
- </nav>
+<div th:replace="Fragments/layout.html :: navbar"></div>
  
  <div class="cartIntroSection">
 
