@@ -247,7 +247,6 @@ public class DashboardController  {
 
 					
 	//Line chart with Subscribe
-					
 					// get artist's subscribers
 					List<Subscribed> users_Subscribed_artist = uservice.getArtistSubscribed(userId);
 					List<Subscribed> users_Unsubscribed_artist = uservice.getArtistUnSubscribed(userId);
