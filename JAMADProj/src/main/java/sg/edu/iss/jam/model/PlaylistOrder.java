@@ -21,6 +21,19 @@ public class PlaylistOrder {
 	
 	@ManyToOne
 	private Media media;
+	
+	public PlaylistOrder() {
+		super();
+	}
+
+	public PlaylistOrder(Long playlistOrderID, int playlistOrder, Playlists playlists, Media media) {
+		super();
+		PlaylistOrderID = playlistOrderID;
+		PlaylistOrder = playlistOrder;
+		this.playlists = playlists;
+		this.media = media;
+	}
+
 
 	public PlaylistOrder(int playlistOrder, Playlists playlists, Media media) {
 		super();

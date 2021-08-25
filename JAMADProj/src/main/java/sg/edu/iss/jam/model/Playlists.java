@@ -2,6 +2,7 @@ package sg.edu.iss.jam.model;
 
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -40,7 +41,7 @@ public class Playlists {
 	@ManyToMany
 	private Collection<Media> mediaPlayList;
 	
-	@OneToMany(mappedBy = "playlists")
+	@OneToMany(mappedBy = "playlists",cascade = CascadeType.REMOVE)
 	private Collection<PlaylistOrder> playlistsorder;
 
 	public Playlists() {

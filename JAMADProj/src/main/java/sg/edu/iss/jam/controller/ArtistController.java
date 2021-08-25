@@ -261,10 +261,11 @@ public class ArtistController {
 
 	// Get Channels
 	@GetMapping("/channel")
-	public String ViewChannels(Model model) {
-
+	public String ViewChannels(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
+	
+		User user = userService.findUserByUserId(userDetails.getUserId());	
 		// get AristID(userID)
-		Long userid = (long) 1;
+		Long userid = user.getUserID();
 
 		Channel ChannelVideo = ArtistService.getChannelbyUserandMediaType(ArtistService.findById(userid),
 				MediaType.Video);
@@ -285,13 +286,13 @@ public class ArtistController {
 		// Add to Model
 		model.addAttribute("ChannelDTOlist", ChannelDTOlist);
 
-		return "ChannelList.html";
+		return "channel/ChannelList.html";
 
 	}
 
 	// Post(edit) Channels
 	@PostMapping("/channel/editchannel")
-	public String EditChannel(@ModelAttribute("channel") @Validated Channel channeldto, BindingResult bindingResult) {
+	public String EditChannel(@ModelAttribute("channel") @Validated Channel channeldto, BindingResult bindingResult,@AuthenticationPrincipal MyUserDetails userDetails) {
 
 		if (bindingResult.hasErrors()) {
 			return "redirect:/artist/channel";
@@ -312,10 +313,11 @@ public class ArtistController {
 
 	// Get Channel Contents for Video Channel
 	@GetMapping("channel/Video")
-	public String ChannelContent(Model model) {
+	public String ChannelContent(Model model,@AuthenticationPrincipal MyUserDetails userDetails) {
 
+		User user = userService.findUserByUserId(userDetails.getUserId());	
 		// get AristID(userID)
-		Long userid = (long) 1;
+		Long userid = user.getUserID();
 
 		// get enum mediatype
 		MediaType mediaType = MediaType.valueOf("Video");
@@ -338,7 +340,7 @@ public class ArtistController {
 
 		model.addAttribute("MediaDTOList", MediaDTOList);
 
-		return "ChannelContentVideo.html";
+		return "channel/ChannelContentVideo.html";
 	}
 
 	// Post(edit) Channels
@@ -346,14 +348,16 @@ public class ArtistController {
 	public String EditMedia(@ModelAttribute("media") @Validated Media mediaDTO,
 			@RequestPart("tags") Optional<String> tags,
 			@RequestPart("thumbnailfile") Optional<MultipartFile> multipartFileThumbnail,
-			@RequestPart("VideoFile") Optional<MultipartFile> multipartFileMedia, BindingResult bindingResult) {
+			@RequestPart("VideoFile") Optional<MultipartFile> multipartFileMedia, BindingResult bindingResult,
+			@AuthenticationPrincipal MyUserDetails userDetails) {
 
 		if (bindingResult.hasErrors()) {
 			return "error";
 		}
 
+		User user = userService.findUserByUserId(userDetails.getUserId());	
 		// get AristID(userID)
-		Long userid = (long) 1;
+		Long userid = user.getUserID();
 		// define enum mediatype
 		MediaType mediaType = MediaType.valueOf("Video");
 		// get channel
@@ -381,10 +385,8 @@ public class ArtistController {
 
 			// When creating new video, file cannot be empty
 			if (mediafile.getSize() > 0 && thumbFile.getSize() > 0) {
-				media.setMediaUrl(
-						UploadService.store(thumbFile, uploadDir, "video" + media.getId().toString() + "_thumbnail."));
-				media.setThumbnailUrl(
-						UploadService.store(mediafile, uploadDir, "video" + media.getId().toString() + "_video."));
+				media.setMediaUrl("/media/channel"+ channel.getChannelID().toString()+"/video/"+UploadService.store(mediafile, uploadDir, "video" + media.getId().toString() + "_video."));
+				media.setThumbnailUrl("/media/channel"+ channel.getChannelID().toString()+"/video/"+UploadService.store(thumbFile, uploadDir, "video" + media.getId().toString() + "_thumbnail."));
 				media = ArtistService.saveMedia(media);
 			} else {
 				return "error";
@@ -404,12 +406,10 @@ public class ArtistController {
 				media.setTagList(null);
 
 			if (mediafile.getSize() > 0) {
-				media.setMediaUrl(
-						UploadService.store(thumbFile, uploadDir, "video" + media.getId().toString() + "_thumbnail."));
+				media.setMediaUrl("/media/channel"+ channel.getChannelID().toString()+"/video/"+UploadService.store(mediafile, uploadDir, "video" + media.getId().toString() + "_video."));
 			}
 			if (thumbFile.getSize() > 0) {
-				media.setThumbnailUrl(
-						UploadService.store(mediafile, uploadDir, "video" + media.getId().toString() + "_video."));
+				media.setThumbnailUrl("/media/channel"+ channel.getChannelID().toString()+"/video/"+UploadService.store(thumbFile, uploadDir, "video" + media.getId().toString() + "_thumbnail."));
 				// set duration using xuggler?
 			}
 
@@ -421,10 +421,11 @@ public class ArtistController {
 
 	// Get(delete) Video
 	@GetMapping("/channel/deletevideo/{mediaid}")
-	public String deleteVideo(@PathVariable("mediaid") Long mediaID) {
+	public String deleteVideo(@PathVariable("mediaid") Long mediaID,@AuthenticationPrincipal MyUserDetails userDetails) {
 
+		User user = userService.findUserByUserId(userDetails.getUserId());	
 		// get AristID(userID)
-		Long userid = (long) 1;
+		Long userid = user.getUserID();
 		// get enum mediatype
 		MediaType mediaType = MediaType.valueOf("Video");
 		// get channel
@@ -450,10 +451,11 @@ public class ArtistController {
 
 	// View Channel Contents for Album
 	@GetMapping("channel/Music")
-	public String viewAlbums(Model model) {
+	public String viewAlbums(Model model,@AuthenticationPrincipal MyUserDetails userDetails) {
 
+		User user = userService.findUserByUserId(userDetails.getUserId());	
 		// get AristID(userID)
-		Long userid = (long) 1;
+		Long userid = user.getUserID();
 
 		// get enum mediatype
 		MediaType mediaType = MediaType.valueOf("Music");
@@ -474,19 +476,24 @@ public class ArtistController {
 		// Add list of albums to model
 		model.addAttribute("AlbumDTOList", albumDTOlist);
 
-		return "ChannelContentMusic";
+		return "channel/ChannelContentMusic";
 	}
 
 	// POST(Edit) Albums
-	@PostMapping("channel/albums/editalbum")
+	@PostMapping("channel/Music/editalbum")
 	public String EditAlbums(@ModelAttribute("album") @Validated Album albumdto,
-			@RequestPart("AlbumCover") Optional<MultipartFile> multipartFileAlbumCover, BindingResult bindingResult) {
+			@RequestPart("AlbumCover") Optional<MultipartFile> multipartFileAlbumCover, 
+			BindingResult bindingResult,
+			@AuthenticationPrincipal MyUserDetails userDetails) {
 
 		if (bindingResult.hasErrors()) {
 			return "error";
 		}
+		
+		User user = userService.findUserByUserId(userDetails.getUserId());	
 		// get AristID(userID)
-		Long userid = (long) 1;
+		Long userid = user.getUserID();
+		
 		Album album;
 		MultipartFile Albumcoverfile = multipartFileAlbumCover.get();
 		// define enum mediatype
@@ -528,11 +535,12 @@ public class ArtistController {
 	}
 
 	// View Album Contents for Music
-	@GetMapping("channel/album/{albumid}")
-	public String Music(Model model, @PathVariable("albumid") Long albumid) {
+	@GetMapping("channel/Music/{albumid}")
+	public String Music(Model model, @PathVariable("albumid") Long albumid,@AuthenticationPrincipal MyUserDetails userDetails) {
 
-		// get AristID(userID) Should be from Sessions
-		Long userid = (long) 1;
+		User user = userService.findUserByUserId(userDetails.getUserId());	
+		// get AristID(userID)
+		Long userid = user.getUserID();
 
 		// get enum mediatype
 		MediaType mediaType = MediaType.valueOf("Music");
@@ -562,22 +570,24 @@ public class ArtistController {
 		model.addAttribute("album", album);
 		model.addAttribute("MediaDTOList", MediaDTOList);
 
-		return "ChannelContentAlbum.html";
+		return "channel/ChannelContentAlbum.html";
 	}
 
 	// POST(Edit/Add Music)
-	@PostMapping("channel/album/editmusic/{albumid}")
+	@PostMapping("channel/Music/editmusic/{albumid}")
 	public String EditMusic(Model model, @ModelAttribute("media") @Validated Media mediaDTO,
 			@RequestPart("tags") Optional<String> tags,
 			@RequestPart("MediaFile") Optional<MultipartFile> multipartFileMedia, @PathVariable("albumid") Long albumid,
-			BindingResult bindingResult) {
+			BindingResult bindingResult,
+			@AuthenticationPrincipal MyUserDetails userDetails) {
 
 		if (bindingResult.hasErrors()) {
 			return "error";
 		}
 
+		User user = userService.findUserByUserId(userDetails.getUserId());	
 		// get AristID(userID)
-		Long userid = (long) 1;
+		Long userid = user.getUserID();
 		// get enum mediatype
 		MediaType mediaType = MediaType.valueOf("Music");
 		// get ChannelID
@@ -637,15 +647,17 @@ public class ArtistController {
 			ArtistService.saveMedia(media);
 
 		}
-		return "redirect:/artist/channel/album/" + albumid;
+		return "redirect:/artist/channel/Music/" + albumid;
 	}
 
 	// Delete music
 	@GetMapping("/channel/deletemusic/{AlbumID}/{mediaid}")
-	public String deleteMusic(@PathVariable("mediaid") Long mediaID, @PathVariable("AlbumID") Long AlbumID) {
+	public String deleteMusic(@PathVariable("mediaid") Long mediaID, @PathVariable("AlbumID") Long AlbumID,
+			@AuthenticationPrincipal MyUserDetails userDetails) {
 
+		User user = userService.findUserByUserId(userDetails.getUserId());	
 		// get AristID(userID)
-		Long userid = (long) 1;
+		Long userid = user.getUserID();
 		// get enum mediatype
 		MediaType mediaType = MediaType.valueOf("Music");
 		// get channel
@@ -668,71 +680,7 @@ public class ArtistController {
 
 		ArtistService.deleteMedia(media);
 
-		return "redirect:/artist/channel/album/" + AlbumID;
+		return "redirect:/artist/channel/Music/" + AlbumID;
 	}
 
 }
-//		Courses course1 = new Courses();
-//		List<Users> lecturers = leservice.getAllUsersByRole(Roles.LECTURER);
-//		model.addAttribute("course", course);
-//		model.addAttribute("lecturers", lecturers);
-//		model.addAttribute("statusupcoming", CourseStatus.UPCOMING);
-//		model.addAttribute("statusongoing", CourseStatus.ONGOING);
-//		model.addAttribute("statuscompleted", CourseStatus.COMPLETED);
-//
-//		// check if submission has any class annotation validation errors
-
-//
-//		// validate if submission's start date is before end date
-//		if (course.getCourseStartDate() != null && course.getCourseEndDate() != null) {
-//			if (course.getCourseStartDate().compareTo(course.getCourseEndDate()) > 0) {
-//				model.addAttribute("enddateerror", "End date should not be before start date.");
-//				return "admin/courseform";
-//			}
-//		}
-//
-//		// validate if submission's start date is before exam date
-//		if (course.getCourseStartDate() != null && course.getExamDate() != null) {
-//			if (course.getCourseStartDate().compareTo(course.getExamDate()) > 0) {
-//				model.addAttribute("examdateerror", "Exam date should not be before start date.");
-//				return "admin/courseform";
-//			}
-//		}
-//
-//		// validate if submission's start date and end date are populated for automatic
-//		// course status
-//		if (course.getCourseStatus() == null) {
-//			if (course.getCourseStartDate() == null || course.getCourseEndDate() == null) {
-//				model.addAttribute("datemissingerror",
-//						"Course Start Date and Course End Date need to be filled in for automatic detection of course status.");
-//				return "admin/courseform";
-//			} else {
-//				if (course.getCourseStartDate().compareTo(LocalDate.now()) > 0) {
-//					course.setCourseStatus(CourseStatus.UPCOMING);
-//				} else if (course.getCourseStartDate().compareTo(LocalDate.now()) <= 0
-//						&& course.getCourseEndDate().compareTo(LocalDate.now()) >= 0) {
-//					course.setCourseStatus(CourseStatus.ONGOING);
-//				} else if (course.getCourseEndDate().compareTo(LocalDate.now()) < 0) {
-//					course.setCourseStatus(CourseStatus.COMPLETED);
-//				}
-//			}
-//		}
-//
-//		// save course + save course to selected lecturers
-//		if (adservice.findCourseById(course.getCourseID()).isPresent()) {
-//			course1 = adservice.getCourseById(course.getCourseID());
-//		}
-//		if (course1.getUsers() != null) {
-//			for (Users a : course1.getUsers()) {
-//				leservice.removeCourseTaught(a.getUserID(), course1);
-//				adservice.save(a);
-//			}
-//		}
-//		adservice.savecourse(course);
-//		if (course.getUsers() != null) {
-//			for (Users a : course.getUsers()) {
-//				leservice.addCourseTaught(a.getUserID(), course);
-//				adservice.save(a);
-//			}
-//		}
-//		return "forward:/admin/courselist";

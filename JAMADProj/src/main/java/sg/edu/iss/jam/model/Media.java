@@ -45,11 +45,11 @@ public class Media {
 	private int AlbumOrder;
 
 	//relation with userhistory
-	@OneToMany(mappedBy = "mediaHistory")
+	@OneToMany(mappedBy = "mediaHistory",cascade = CascadeType.REMOVE)
 	private Collection<UserHistory> userHistory;
 	
 	//relation with comment
-	@OneToMany(mappedBy = "mediaComment")
+	@OneToMany(mappedBy = "mediaComment",cascade = CascadeType.REMOVE)
 	private Collection<Comments> commentList;
 	
 	//relation with channel
@@ -61,11 +61,11 @@ public class Media {
 	private Album album;
 
 	//relation with playlists
-	@ManyToMany(mappedBy = "mediaPlayList")
+	@ManyToMany(mappedBy = "mediaPlayList",cascade = CascadeType.REMOVE)
 	private Collection<Playlists> playLists;
 	
 	//relation with playlistorder
-	@OneToMany(mappedBy = "media")
+	@OneToMany(mappedBy = "media",cascade = CascadeType.REMOVE)
 	private Collection<PlaylistOrder> PlaylistOrder;
 	
 	//relation with tag
@@ -73,12 +73,6 @@ public class Media {
 	@JoinTable(name="tag_media_tag_list")
 	private Collection<Tag> tagList;
 	
-	
-
-
-	
-
-
 	public Long getId() {
 		return id;
 	}
