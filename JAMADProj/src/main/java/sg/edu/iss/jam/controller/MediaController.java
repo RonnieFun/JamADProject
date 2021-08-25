@@ -335,8 +335,7 @@ public class MediaController {
 		
 		// Get the artist
 		Long artistId = selectedMedia.getChannel().getChannelUser().getUserID();
-		User artist = selectedMedia.getChannel().getChannelUser();
-					
+		User artist = selectedMedia.getChannel().getChannelUser();		
 		
 		if(selectedMedia == null) {
 			redirectAttributes.addAttribute("mediaId", mediaId);

@@ -191,7 +191,6 @@ public class UserImplementation implements UserInterface {
 //		return subrepo.getArtistSubscribedUnsubscribed(userID);
 //	}
 	
-	
 	@Override
 	public List<Subscribed> getArtistUnsubscribedByLoggInUserId(Long artistId, Long loggedInUserId) {
 		// TODO Auto-generated method stub

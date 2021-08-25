@@ -57,6 +57,7 @@ public interface UserInterface {
 	List<Subscribed> getArtistUnsubscribedByLoggInUserId(Long artistId, Long loggedInUserId);
 	List<Subscribed> getArtistSubscribedByLoggInUserId(Long artistId, Long loggedInUserId);
 	
+	
 	//COMMENTS
 	List<Comments> findCommentsByMediaId(Long id);
 	List<Comments> findCommentsByUserId(Long id);

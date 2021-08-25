@@ -20,7 +20,6 @@ public interface SubscribedRepository extends JpaRepository<Subscribed, Long> {
 	
 //	@Query("SELECT s FROM Subscribed s WHERE s.artist.userID = :userID")
 //	List<Subscribed> getArtistSubscribedUnsubscribed(@Param("userID") Long userId, @Param("loggedInUserId")Long loggedInUserId);
-
 	
 	@Query("SELECT s FROM Subscribed s WHERE s.artist.userID = :artistId "
 			+ "AND s.subscriber.userID = :loggedInUserId "
