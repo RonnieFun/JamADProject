@@ -100,6 +100,11 @@ public class UserImplementation implements UserInterface {
 	public List<Playlists> findPlaylistsByUserId(Long userID) {
 		return plrepo.findPlaylistsByUserId(userID);
 	}
+	
+	@Transactional
+	public List<Playlists> findPlaylistByUserIdAndMediaType(Long userID, MediaType mediaType) {
+		return plrepo.findPlaylistByUserIdAndMediaType(userID, mediaType);
+	}
 
 	@Transactional
 	public List<Playlists> savePlaylists(List<Playlists> playlists) {

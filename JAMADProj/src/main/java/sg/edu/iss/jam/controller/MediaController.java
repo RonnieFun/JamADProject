@@ -348,7 +348,7 @@ public class MediaController {
 		
 		model.addAttribute("commentCount", commentCount);
 		model.addAttribute("user", loggedInUser);
-		model.addAttribute("playlists", uservice.findPlaylistsByUserId(loggedInUserId));
+		model.addAttribute("playlists", uservice.findPlaylistByUserIdAndMediaType(loggedInUserId, MediaType.Video));
 		model.addAttribute("media", selectedMedia);
 		model.addAttribute("allMedia", uservice.findAllMediaByMediaType(MediaType.Video));
 		model.addAttribute("comments", uservice.findCommentsByMediaId(mediaId));
@@ -573,7 +573,7 @@ public class MediaController {
 		model.addAttribute("isLastMusicSelection", isLastMusicSelection);
 		model.addAttribute("commentCount", commentCount);
 		model.addAttribute("user", loggedInUser);
-		model.addAttribute("playlists", uservice.findPlaylistsByUserId(loggedInUserId));
+		model.addAttribute("playlists", uservice.findPlaylistByUserIdAndMediaType(loggedInUserId, MediaType.Music));
 		model.addAttribute("media", selectedMedia);
 		model.addAttribute("allMedia", uservice.findAllMediaByMediaType(MediaType.Music));
 		model.addAttribute("comments", uservice.findCommentsByMediaId(mediaId));
@@ -757,7 +757,7 @@ public class MediaController {
 			return "/login";	
 		}
 		
-		List<Playlists> playlists = uservice.findPlaylistsByUserId(userID);
+		List<Playlists> playlists = uservice.findPlaylistByUserIdAndMediaType(userID, MediaType.Video);
 		
 		Media selectedMediaToRemoveFromPlaylist = uservice.findMediaByMediaId(mediaID);
 		
@@ -812,7 +812,7 @@ public class MediaController {
 				return "/login";	
 			}
 			
-			List<Playlists> playlists = uservice.findPlaylistsByUserId(userIDmusic);
+			List<Playlists> playlists = uservice.findPlaylistByUserIdAndMediaType(userIDmusic, MediaType.Music);
 			
 			Media selectedMediaToRemoveFromPlaylist = uservice.findMediaByMediaId(mediaIDmusic);
 			

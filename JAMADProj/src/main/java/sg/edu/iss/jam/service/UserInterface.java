@@ -33,6 +33,7 @@ public interface UserInterface {
 
 	//PLAYLISTS
 	List<Playlists> findPlaylistsByUserId(Long userID);
+	List<Playlists> findPlaylistByUserIdAndMediaType(Long userID, MediaType mediaType);
 	Playlists findPlaylistByPlaylistID(long playlistID);
 	Playlists savePlaylist(Playlists playlists);
 	List<Playlists> savePlaylists(List<Playlists> playlists);
