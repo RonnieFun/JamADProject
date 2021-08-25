@@ -40,8 +40,13 @@ public class ShoppingCartController {
 	@GetMapping("/shoppingcart")
 	public String shoppingCart(Model model,@AuthenticationPrincipal MyUserDetails userDetails) {
 		//long userID = (long) 2;
+		User user = uservice.findUserByUserId(userDetails.getUserId());
+		Long count = uservice.getItemCountByUserID(user.getUserID());
+		model.addAttribute("profileUrl", user.getProfileUrl());
 		model.addAttribute("cartForm", uservice.getShoppingCartByUserID(userDetails.getUserId()));
-		System.out.println(uservice.getShoppingCartByUserID(userDetails.getUserId()));
+		model.addAttribute("profileUrl", user.getProfileUrl());
+		model.addAttribute("count", count);
+		//System.out.println(uservice.getShoppingCartByUserID(userDetails.getUserId()));
 		return "product/shoppingCart";
 	}
 	
@@ -76,11 +81,10 @@ public class ShoppingCartController {
 	   }
 	
 	@GetMapping("/checkout")
-	public String checkOut(Model model) {
-		long userID = (long) 2;
+	public String checkOut(Model model,@AuthenticationPrincipal MyUserDetails userDetails) {
 		Payment payment = new Payment();
 		model.addAttribute("newPayment", payment);
-		model.addAttribute("cartForm", uservice.getShoppingCartByUserID(userID));
+		model.addAttribute("cartForm", uservice.getShoppingCartByUserID(userDetails.getUserId()));
 		return "product/checkout";
 	}
 	
