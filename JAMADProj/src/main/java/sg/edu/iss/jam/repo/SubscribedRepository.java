@@ -10,12 +10,28 @@ import sg.edu.iss.jam.model.Subscribed;
 
 public interface SubscribedRepository extends JpaRepository<Subscribed, Long> {
 
-	@Query("SELECT s FROM Subscribed s WHERE s.artist.userID = :userID AND s.subscribed = false")
-	List<Subscribed> getArtistUnSubscribed(@Param("userID") Long userID);
+	@Query("SELECT s FROM Subscribed s WHERE s.artist.userID = :artistId "
+			+ "AND s.subscribed = false")
+	List<Subscribed> getArtistUnSubscribed(@Param("artistId") Long artistId);
 	
-	@Query("SELECT s FROM Subscribed s WHERE s.artist.userID = :userID AND s.subscribed = true")
-	List<Subscribed> getArtistSubscribed(@Param("userID") Long userID);
+	@Query("SELECT s FROM Subscribed s WHERE s.artist.userID = :artistId "
+			+ "AND s.subscribed = true")
+	List<Subscribed> getArtistSubscribed(@Param("artistId") Long artistId);
 	
-	@Query("SELECT s FROM Subscribed s WHERE s.artist.userID = :userID")
-	List<Subscribed> getArtistSubscribedUnsubscribed(@Param("userID") Long userId);
+//	@Query("SELECT s FROM Subscribed s WHERE s.artist.userID = :userID")
+//	List<Subscribed> getArtistSubscribedUnsubscribed(@Param("userID") Long userId, @Param("loggedInUserId")Long loggedInUserId);
+
+	
+	@Query("SELECT s FROM Subscribed s WHERE s.artist.userID = :artistId "
+			+ "AND s.subscriber.userID = :loggedInUserId "
+			+ "AND s.subscribed = false")
+	List<Subscribed> getArtistUnsubscribedByLoggInUserId(@Param("artistId") Long artistId, @Param("loggedInUserId")Long loggedInUserId);
+	
+	
+	@Query("SELECT s FROM Subscribed s WHERE s.artist.userID = :artistId "
+			+ "AND s.subscriber.userID = :loggedInUserId "
+			+ "AND s.subscribed = true")
+	List<Subscribed> getArtistSubscribedByLoggInUserId(@Param("artistId") Long artistId, @Param("loggedInUserId")Long loggedInUserId);
+
+
 }
