@@ -6,6 +6,8 @@ import javax.validation.Valid;
 
 import org.springframework.data.jpa.repository.Query;
 
+import sg.edu.iss.jam.model.Album;
+import sg.edu.iss.jam.model.Channel;
 import sg.edu.iss.jam.model.Comments;
 import sg.edu.iss.jam.model.Media;
 import sg.edu.iss.jam.model.MediaType;
@@ -24,12 +26,14 @@ import sg.edu.iss.jam.model.ShoppingCartDetails;
 
 public interface UserInterface {
 
+	
 	//USER
 	User findUserByUserId(Long userID);
 	User saveUser(User user);
 
 	//PLAYLISTS
 	List<Playlists> findPlaylistsByUserId(Long userID);
+	List<Playlists> findPlaylistByUserIdAndMediaType(Long userID, MediaType mediaType);
 	Playlists findPlaylistByPlaylistID(long playlistID);
 	Playlists savePlaylist(Playlists playlists);
 	List<Playlists> savePlaylists(List<Playlists> playlists);
@@ -38,12 +42,18 @@ public interface UserInterface {
 	Media findMediaByMediaId(Long ID);
 	List<Media> findMediaListByPlayListID(Long playlistID);
 	List<Media> findAllMedia();
-	Media findMediaByMediaTypeAndMediaId(MediaType mediaType, Long id);
+	List<Media> findAllMediaByMediaType(MediaType mediaType);
+	List<Media> findMediaByAlbumAndMediaType(Album album, MediaType mediaType);
+ 	Media findMediaByMediaTypeAndMediaId(MediaType mediaType, Long id);
 	Media saveMedia(Media media);
 
 	//SUBSCRIBED
 	Subscribed saveSubscribed(Subscribed subscribed);
 	void deleteSubscribed(Subscribed s);
+	List<Subscribed> getAllSubscribed();
+	List<Subscribed> getArtistUnSubscribed(Long userID);
+	List<Subscribed> getArtistSubscribed(Long userID);
+	List<Subscribed> getArtistSubscribedUnsubscribed(Long userID);
 	
 	//COMMENTS
 	List<Comments> findCommentsByMediaId(Long id);
@@ -54,6 +64,8 @@ public interface UserInterface {
 	List<Tag> findTagsByMediaId(Long id);
 	
 	//USER HISTORY
+	List<UserHistory> findAllUserHistory();
+	
 	List<UserHistory> findUserHistoryByMediaId(Long id);
 	
 	ShoppingCart getShoppingCartByUserID(long userID);
@@ -102,5 +114,9 @@ public interface UserInterface {
 	List<Object[]> getAllMerchandise();
 
 	List<Orders> getPurchaseHistoryByUserId(Long userID);
+	
+	List<Product> getListOfAllProduts();
+	List<UserHistory> findUserHistoryByUserId(Long userId);
+	List<UserHistory> findUserHistoryByUserIdAndMediaType(Long userId, MediaType mediaType);
 
 }

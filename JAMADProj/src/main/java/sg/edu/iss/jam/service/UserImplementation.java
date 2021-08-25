@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import sg.edu.iss.jam.model.Album;
 import sg.edu.iss.jam.model.Category;
+import sg.edu.iss.jam.model.Channel;
 import sg.edu.iss.jam.model.Comments;
 import sg.edu.iss.jam.model.Media;
 import sg.edu.iss.jam.model.MediaType;
@@ -41,6 +43,7 @@ import sg.edu.iss.jam.repo.UserRepository;
 @Service
 public class UserImplementation implements UserInterface {
 
+	
 	@Autowired
 	UserRepository urepo;
 
@@ -97,6 +100,11 @@ public class UserImplementation implements UserInterface {
 	public List<Playlists> findPlaylistsByUserId(Long userID) {
 		return plrepo.findPlaylistsByUserId(userID);
 	}
+	
+	@Transactional
+	public List<Playlists> findPlaylistByUserIdAndMediaType(Long userID, MediaType mediaType) {
+		return plrepo.findPlaylistByUserIdAndMediaType(userID, mediaType);
+	}
 
 	@Transactional
 	public List<Playlists> savePlaylists(List<Playlists> playlists) {
@@ -132,6 +140,11 @@ public class UserImplementation implements UserInterface {
 	}
 	
 	@Transactional
+	public List<Media> findAllMediaByMediaType(MediaType mediaType) {
+		return mediarepo.findAllMediaByMediaType(mediaType);
+	}
+	
+	@Transactional
 	public Media saveMedia(Media media) {
 		return mediarepo.save(media);
 	}
@@ -141,15 +154,40 @@ public class UserImplementation implements UserInterface {
 		return mediarepo.findMediaByMediaTypeAndMediaId(mediaType, id);
 	}
 
+	@Transactional
+	public List<Media> findMediaByAlbumAndMediaType(Album album, MediaType mediaType) {
+		return mediarepo.findMediaByAlbumAndMediaType(album, mediaType);
+	}
+	
 	//SUBSCRIBED REPO
 	@Transactional
 	public Subscribed saveSubscribed(Subscribed subscribed) {
 		return subrepo.save(subscribed);
 	}
-
+	
 	@Transactional
 	public void deleteSubscribed(Subscribed s) {
 		subrepo.delete(s);
+	}
+	
+	@Transactional
+	public List<Subscribed> getAllSubscribed() {
+		return subrepo.findAll();
+	}
+	
+	@Transactional
+	public List<Subscribed> getArtistSubscribed(Long userID) {
+		return subrepo.getArtistSubscribed(userID);
+	}
+	
+	@Transactional
+	public List<Subscribed> getArtistUnSubscribed(Long userID) {
+		return subrepo.getArtistUnSubscribed(userID);
+	}
+	
+	@Transactional
+	public List<Subscribed> getArtistSubscribedUnsubscribed(Long userID) {
+		return subrepo.getArtistSubscribedUnsubscribed(userID);
 	}
 
 	//TAG REPO
@@ -176,6 +214,9 @@ public class UserImplementation implements UserInterface {
 
 	
 	//USERHISTORY REPO
+	
+	
+
 	@Transactional
 	public List<UserHistory> findUserHistoryByMediaId(Long id) {
 		
@@ -303,6 +344,27 @@ public class UserImplementation implements UserInterface {
 	@Override
 	public List<Orders> getPurchaseHistoryByUserId(Long userID) {
 		return orepo.getPurchaseHistoryByUserId(userID);
+	}
+
+	@Override
+	public List<Product> getListOfAllProduts() {
+		return prepo.findAll();
+	}
+
+	@Override
+	public List<UserHistory> findUserHistoryByUserId(Long userId) {
+		
+		return uhrepo.findUserHistoryByUserId(userId);
+	}
+
+	@Override
+	public List<UserHistory> findUserHistoryByUserIdAndMediaType(Long userId, MediaType  mediaType) {
+		
+		return uhrepo.findUserHistoryByUserIdAndMediaType(userId, mediaType);
+	}
+	
+	public List<UserHistory> findAllUserHistory(){
+		return uhrepo.findAll();
 	}
 
 }

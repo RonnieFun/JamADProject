@@ -16,6 +16,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class User {
 	@Id
@@ -49,53 +51,68 @@ public class User {
 	
 	//OneToMany relation with Roles
 	@OneToMany(mappedBy = "roleUser", fetch= FetchType.EAGER)
+	@JsonBackReference
 	private Collection<Roles> roles;
 	
 	//OneToMany relation with Sessions
 	@OneToMany(mappedBy = "sessionUser")
+	@JsonBackReference
 	private Collection<Sessions> sessions;
 	
 	//ManyToMany relation with Orders
 	@OneToMany(mappedBy = "user")
+	@JsonBackReference
 	private Collection<Orders> orders;
 	
 	//oneToOne relation with wishlist
 	@OneToOne(mappedBy = "wishlistUser")  
+	@JsonBackReference
 	private Wishlist wishlist;
 	
 	//relation with product 
 	@OneToMany(mappedBy = "productUser")
+	@JsonBackReference
 	private Collection<Product> products;
 	
 	
 	//OneToOne relation with shoppingcart
 	@OneToOne(mappedBy = "shoppingCartUser")
+	@JsonBackReference
 	private ShoppingCart shoppingCart;
 	
 	//OneToMany relation with userhistory
 	@OneToMany(mappedBy = "historyUser")
+	@JsonBackReference
 	private Collection<UserHistory> histories;
 	
 	//OneToMany relation with playlists
 	@OneToMany(mappedBy = "playlistUser")
+	@JsonBackReference
 	private Collection<Playlists> playlists;
 	
 	//OneToMany relation with subscribed
-	@OneToMany(mappedBy = "user")
-	private Collection<Subscribed> subscribers;
+	@OneToMany(mappedBy = "artist")
+	@JsonBackReference
+	private Collection<Subscribed> targetArtists;
 
+	@OneToMany(mappedBy = "subscriber")
+	@JsonBackReference
+	private Collection<Subscribed> subscribers;
 	
 	//OneToMany relation with channel
 	@OneToMany(mappedBy = "channelUser")
+	@JsonBackReference
 	private Collection<Channel> channels;
 	
 	
 	//OneToMany relation with comment
 	@OneToMany(mappedBy = "commentUser")
+	@JsonBackReference
 	private Collection<Comments> comments;
 	
 	//OneToMany relation with payment
 	@OneToMany(mappedBy = "user")
+	@JsonBackReference
 	private Collection<Payment> paymentList;
 
 	public User() {
@@ -315,16 +332,21 @@ public class User {
 		this.playlists = playlists;
 	}
 
+	public Collection<Subscribed> getTargetArtists() {
+		return targetArtists;
+	}
+
+	public void setTargetArtists(Collection<Subscribed> targetArtists) {
+		this.targetArtists = targetArtists;
+	}
 
 	public Collection<Subscribed> getSubscribers() {
 		return subscribers;
 	}
 
-
 	public void setSubscribers(Collection<Subscribed> subscribers) {
 		this.subscribers = subscribers;
 	}
-
 
 	public Collection<Channel> getChannels() {
 		return channels;

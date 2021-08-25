@@ -33,6 +33,8 @@ public class HomeController {
 		
 		model.addAttribute("user", uService.findUserByUserId(userDetails.getUserId()));
 		model.addAttribute("profileUrl", user.getProfileUrl());
+		Long count = uService.getItemCountByUserID(userDetails.getUserId());
+		model.addAttribute("count", count);
 		
 		return "home";
 	}
