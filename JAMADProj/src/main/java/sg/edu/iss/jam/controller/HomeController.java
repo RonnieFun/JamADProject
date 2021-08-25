@@ -17,7 +17,6 @@ import sg.edu.iss.jam.service.UserInterface;
 
 @Controller
 @RequestMapping("/home")
-@PreAuthorize("hasRole('Customer')")
 public class HomeController {
 	
 	@Autowired 

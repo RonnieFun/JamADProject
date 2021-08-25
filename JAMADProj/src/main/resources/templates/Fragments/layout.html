@@ -38,8 +38,10 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 		</div>
 		
 		<div class="header_middle">
-			<div class="header_option active">
+			<div class="header_option">
+			<a th:href = "@{/home/}">
 				<span class="material-icons"> home </span>
+				</a>
 			</div>
 			
 			<div class="header_option">
@@ -47,11 +49,15 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 			</div>
 			
 			<div class="header_option">
-				<span class="material-icons"> videocam </span>
+				<a th:href = "@{/video/genericvideolandingpage}">
+					<span class="material-icons"> videocam </span>
+				</a>
 			</div>
 			
 			<div class="header_option">
-				<span class="material-icons"> music_note </span>
+				<a th:href = "@{/music/genericmusiclandingpage}">
+					<span class="material-icons"> music_note </span>
+				</a>
 			</div>
 			
 			<div class="header_option">
@@ -59,7 +65,7 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 				<span class="material-icons"> shopping_bag </span>
 				</a>
 			</div>
-		
+			
 		</div>
 		
 		<div class="header_right">

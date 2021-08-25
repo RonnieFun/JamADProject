@@ -10,6 +10,11 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Roles {
+	@Override
+	public String toString() {
+		return role.toString();
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

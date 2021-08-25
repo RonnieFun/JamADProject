@@ -1,5 +1,6 @@
 package sg.edu.iss.jam.security;
 
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -31,7 +32,7 @@ public class MyUserDetails implements UserDetails {
 		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 		
 		for(int i = 0; i < roles.size(); i++) {
-		authorities.add(new SimpleGrantedAuthority(roles.get(i)));
+		authorities.add(new SimpleGrantedAuthority("ROLE_"+roles.get(i)));
 		}
 		return authorities;  
 		
@@ -91,6 +92,20 @@ public class MyUserDetails implements UserDetails {
 	
 	public Long getUserId() {
 		return user.getUserID();
+	}
+	
+//	public String getRole() {
+//		String role = "";
+//		 for(Roles r : user.getRoles()) {
+//			String r2 = r.toString();
+//			role += r2 + " ";
+//		 }
+//		 
+//		 return role;
+//	}
+	
+	public String getRole() {
+		return user.getRole();
 	}
 
 }

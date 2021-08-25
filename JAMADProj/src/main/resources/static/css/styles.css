@@ -4896,37 +4896,74 @@ a.nav-link.active.blackFontText.ml-5 {
 
 /* story */
 
-.story {
-	position: relative; 
-	border-radius: 5%;
-	padding: 10px 10px;
-	margin-right: 10px;
-	background-repeat: no-repeat;
-	background-size:cover;
-	width:120px;
-	height: 200px;
-	box-shadow: 0px 5px 17px -7px rgba(0,0,0,0.75);
-	cursor: pointer;
-	transition: transform 100ms ease-in;
-}
-.story:hover{
-	transform: scale(1.07);
+/* .story { */
+/* 	position: relative;  */
+/* 	border-radius: 5%; */
+/* 	padding: 10px 10px; */
+/* 	margin-right: 10px; */
+/* 	background-repeat: no-repeat; */
+/* 	background-size:cover; */
+/* 	width:120px; */
+/* 	height: 200px; */
+/* 	box-shadow: 0px 5px 17px -7px rgba(0,0,0,0.75); */
+/* 	cursor: pointer; */
+/* 	transition: transform 100ms ease-in; */
+/* } */
+/* .story:hover{ */
+/* 	transform: scale(1.07); */
+/* } */
+
+/* .userStoryPic{ */
+/* 	margin: 10px; */
+/* } */
+
+/* .story h5 { */
+/* 	position: absolute; */
+/* 	bottom: 20px; */
+/* 	left: 20px; */
+/* 	color: white;  */
+/* } */
+
+/* .storyReel{ */
+/* 	padding:10px 0; */
+/* 	display: flex; */
+/* 	justify-content: center; */
+/* } */
+
+/* Banner profile */
+
+.bannerProfile{
+	display:block;
+	position:relative;
+	width:980px;
+	margin:0 auto;
 }
 
-.userStoryPic{
-	margin: 10px;
+.cover{
+	display:block;
+    position:relative;
+    height:437px;
+    overflow:hidden;
+    z-index:1;
 }
-
-.story h5 {
-	position: absolute;
-	bottom: 20px;
-	left: 20px;
-	color: white; 
+.cover img {
+    max-width:100%;
+    z-index:1;
 }
-
-.storyReel{
-	padding:10px 0;
-	display: flex;
+.profile {
+    display:block;
+    position:relative;
+    border:#ffffff solid 10px;
+    border-radius:100px;
+    width:200px;
+    height:200px;
+    margin: -200px 0 10px;
+    margin-left: 220px;
+    z-index:999;
+}
+.profile img {
+    max-width:100%;
+    z-index:999;
 }
 
 .mainBody{
