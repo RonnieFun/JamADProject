@@ -84,13 +84,27 @@ public class JamadProjApplication {
 
 		return args -> {
 			
-			BCryptPasswordEncoder password = new BCryptPasswordEncoder();
-			User usera = new User();
-			usera.setEmail("asdf@asdf");
-			usera.setPassword(password.encode("asdf"));
-			usera.setEnabled(true);
-			urepo.save(usera);
-
+//			BCryptPasswordEncoder password = new BCryptPasswordEncoder();
+//			User usera = new User();
+//			usera.setEmail("123@123");
+//			usera.setPassword(password.encode("123"));
+//			usera.setEnabled(true);
+//			urepo.save(usera);
+//			
+//			Product product1 = new Product();
+//			product1.setProductName("HELLO");
+//			product1.setProductQty(2);
+//			product1.setProductUser(usera);
+//			Product product2 = new Product();
+//			product2.setProductName("HELLO");
+//			product2.setProductQty(3);
+//			product2.setProductUser(usera);
+//			prepo.save(product1);
+//			prepo.save(product2);
+//			
+//			ShoppingCart shoppingCart = new ShoppingCart();
+//			shoppingCart.setShoppingCartUser(usera);
+//			srepo.save(shoppingCart);
 		};
 	}
 	
