@@ -717,7 +717,7 @@ public class MediaController {
 			return "aftersubmitcommentmusic";
 		}	
 	
-	//ajax call for Like Button Add to play list
+	//ajax call for Like Button Add to VIDEO play list
 	@PostMapping("/video/addToPlaylist")
 	@ResponseBody
 	public String addToPlaylist(Model model, @AuthenticationPrincipal MyUserDetails userDetails,
@@ -746,7 +746,7 @@ public class MediaController {
 		return "userwatchvideo";
 	}
 	
-	//ajax call for Like Button Remove from play list
+	//ajax call for Like Button Remove from VIDEO play list
 	@PostMapping("/video/removeFromPlaylist")
 	@ResponseBody
 	public String removeFromPlaylist(Model model, @AuthenticationPrincipal MyUserDetails userDetails,
@@ -770,6 +770,64 @@ public class MediaController {
 		uservice.savePlaylists(playlists);
 		return "userwatchvideo";
 	}
+	
+	
+	//ajax call for Like Button Add to MUSIC play list
+		@PostMapping("/music/addToPlaylist")
+		@ResponseBody
+		public String addToMusicPlaylist(Model model, @AuthenticationPrincipal MyUserDetails userDetails,
+				@RequestParam(value = "userIDmusic") Long userIDmusic, 
+				@RequestParam(value = "playlistIDmusic") Long playlistIDmusic,
+				@RequestParam(value= "mediaIDmusic") Long mediaIDmusic) throws Exception {
+			
+			if(userDetails == null) {
+				return "/login";	
+			}
+			
+			User existingUser = uservice.findUserByUserId(userIDmusic);
+			
+			Playlists playlist = uservice.findPlaylistByPlaylistID(playlistIDmusic);
+
+			List<Media> selectedPlayListMediaList = uservice.findMediaListByPlayListID(playlistIDmusic);
+			
+			Media selectedMediaToSave = uservice.findMediaByMediaId(mediaIDmusic);
+			
+			selectedPlayListMediaList.add(selectedMediaToSave);
+			
+			playlist.setMediaPlayList(selectedPlayListMediaList);
+
+			uservice.savePlaylist(playlist);
+			uservice.saveUser(existingUser);
+			return "userlistenmusic";
+		}
+		
+		//ajax call for Like Button Remove from MUSIC play list
+		@PostMapping("/music/removeFromPlaylist")
+		@ResponseBody
+		public String removeFromMusicPlaylist(Model model, @AuthenticationPrincipal MyUserDetails userDetails,
+				@RequestParam(value = "userIDmusic") Long userIDmusic, 
+				@RequestParam(value= "mediaIDmusic") Long mediaIDmusic) throws Exception {
+			
+			if(userDetails == null) {
+				return "/login";	
+			}
+			
+			List<Playlists> playlists = uservice.findPlaylistsByUserId(userIDmusic);
+			
+			Media selectedMediaToRemoveFromPlaylist = uservice.findMediaByMediaId(mediaIDmusic);
+			
+			for (Playlists playlist : playlists) {
+				if (playlist.getMediaPlayList().contains(selectedMediaToRemoveFromPlaylist)) {
+					playlist.getMediaPlayList().remove(selectedMediaToRemoveFromPlaylist);
+				}
+			}
+			
+			uservice.savePlaylists(playlists);
+			return "userlistenmusic";
+		}
+		
+	
+	
 	
 	//ajax call for Video Subscribe button
 	@PostMapping("/video/subscribe")

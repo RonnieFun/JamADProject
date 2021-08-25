@@ -6,6 +6,14 @@ function closeForm() {
 	  document.getElementById("myHeartFormVideo").style.display = "none";
 	}
 	
+function openFormMusic() {
+	  document.getElementById("myHeartFormMusic").style.display = "block";
+	}
+
+function closeFormMusic() {
+	  document.getElementById("myHeartFormMusic").style.display = "none";
+	}
+	
 //Close save to playlist heart button if click outside box
 $(document).mouseup(function(e) 
 {
@@ -56,6 +64,49 @@ $(document).ready(function(){
 			})
 		}
 	});
+	
+	
+	$("#savePlaylistButtonMusic").on("click", function() {
+		var userIDmusic = document.getElementById("userID").value;
+		var playlistIDmusic = document.getElementById("playlistID").value;
+		var mediaIDmusic = document.getElementById("mediaID").value;
+		$.ajax({
+			type: "POST",
+			url: "/music/addToPlaylist",
+			contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+			data: {
+				userIDmusic :userIDmusic,
+				playlistIDmusic :playlistIDmusic,
+				mediaIDmusic :mediaIDmusic
+			},
+			success: function (response) {
+				$("#heartButtonMusic").removeClass('userPageHeartIcon').addClass('userPageHeartIconLiked');
+				$('#heartButtonMusic').attr("onclick", "closeFormMusic()");
+			}
+		}) 
+	});
+	
+	$('#heartButtonMusic').on("click", function() {
+		if($("#heartButtonMusic").hasClass("userPageHeartIconLiked")) {
+			//If already liked, then send Ajax request to unlike it
+			var userIDmusic = document.getElementById("userID").value;
+			var mediaIDmusic = document.getElementById("mediaID").value;
+			$.ajax({
+				type: "POST",
+				url: "/music/removeFromPlaylist",
+				contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+				data: {
+					userIDmusic :userIDmusic,
+					mediaIDmusic :mediaIDmusic
+				},
+				success: function (response) {
+					$("#heartButtonMusic").removeClass('userPageHeartIconLiked').addClass('userPageHeartIcon');
+					$('#heartButtonMusic').attr("onclick", "openFormMusic()");
+				}
+			})
+		}
+	});
+	
 	
 	$("#zqButton").on("click", function() {
 		if ($("#zqButton").hasClass("zqClass") == false) {

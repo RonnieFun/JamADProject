@@ -33,13 +33,13 @@
      
 		<span th:text="${viewCount} + ' views, published on ' + ${media.createdOn}" class="numberOfReviews"></span> 
  		<!-- Like Button Heart Shape -->
-		<i th:if="${liked == false}" id="heartButton" class="fas fa-heart userPageHeartIcon" onclick="openForm()" aria-hidden="true"></i>
-		<i th:if="${liked == true}" id="heartButton" class="fas fa-heart userPageHeartIconLiked" onclick="" aria-hidden="true"></i>
+		<i th:if="${liked == false}" id="heartButtonMusic" class="fas fa-heart userPageHeartIcon" onclick="openFormMusic()" aria-hidden="true"></i>
+		<i th:if="${liked == true}" id="heartButtonMusic" class="fas fa-heart userPageHeartIconLiked" onclick="" aria-hidden="true"></i>
 		<hr>
  	</div>
  	
- 	<div class="playlistFormPopup" id="myHeartFormVideo">
-	  <form name="myHeartFormVideo" id="myHeartFormVideo" method="post" class="form-container">
+ 	<div class="playlistFormPopup" id="myHeartFormMusic">
+	  <form name="myHeartFormMusic" id="myHeartFormMusic" method="post" class="form-container">
 	
 	    <label><b>Please select a Playlist to save to:</b></label>
 	    <br>
@@ -56,9 +56,9 @@
 		<input type="hidden" id="mediaID" th:value="${media.id}">
 		
 		<span style="display: flex">
-	    <button id="savePlaylistButtonVideo" type="button" class="btn saveToPlaylistButton" onclick="closeForm()">Submit</button>
+	    <button id="savePlaylistButtonMusic" type="button" class="btn saveToPlaylistButton" onclick="closeFormMusic()">Submit</button>
   		
-  		<button id="cancelSavePlaylistButton" type="button" class="btn cancelSavePlaylistButton" onclick="closeForm()">Cancel</button>
+  		<button id="cancelSavePlaylistButton" type="button" class="btn cancelSavePlaylistButton" onclick="closeFormMusic()">Cancel</button>
   		</span>
   		</form>
 	</div>
