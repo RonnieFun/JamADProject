@@ -175,19 +175,32 @@ public class UserImplementation implements UserInterface {
 		return subrepo.findAll();
 	}
 	
+	
 	@Transactional
-	public List<Subscribed> getArtistSubscribed(Long userID) {
-		return subrepo.getArtistSubscribed(userID);
+	public List<Subscribed> getArtistSubscribed(Long artistId) {
+		return subrepo.getArtistSubscribed(artistId);
 	}
 	
 	@Transactional
-	public List<Subscribed> getArtistUnSubscribed(Long userID) {
-		return subrepo.getArtistUnSubscribed(userID);
+	public List<Subscribed> getArtistUnSubscribed(Long artistId) {
+		return subrepo.getArtistUnSubscribed(artistId);
 	}
 	
-	@Transactional
-	public List<Subscribed> getArtistSubscribedUnsubscribed(Long userID) {
-		return subrepo.getArtistSubscribedUnsubscribed(userID);
+//	@Transactional
+//	public List<Subscribed> getArtistSubscribedUnsubscribed(Long userID) {
+//		return subrepo.getArtistSubscribedUnsubscribed(userID);
+//	}
+	
+	@Override
+	public List<Subscribed> getArtistUnsubscribedByLoggInUserId(Long artistId, Long loggedInUserId) {
+		// TODO Auto-generated method stub
+		return  subrepo.getArtistUnsubscribedByLoggInUserId(artistId, loggedInUserId);
+	}
+	
+	@Override
+	public List<Subscribed> getArtistSubscribedByLoggInUserId(Long artistId, Long loggedInUserId) {
+		// TODO Auto-generated method stub
+		return subrepo.getArtistSubscribedByLoggInUserId(artistId, loggedInUserId);
 	}
 
 	//TAG REPO
@@ -366,5 +379,12 @@ public class UserImplementation implements UserInterface {
 	public List<UserHistory> findAllUserHistory(){
 		return uhrepo.findAll();
 	}
+
+
+
+
+
+
+
 
 }

@@ -45,7 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 			.antMatchers("/api/**").permitAll()
 			.antMatchers("/images/**","/css/**","/videos/**","/login/**","/login/signup","/login/save").permitAll()
-			.antMatchers("/login").permitAll()
+			.antMatchers("/login", "/video/viewartistvideochannel/**", "/music/viewartistmusicchannel/**").permitAll()
 			.anyRequest().authenticated()
 			.and()
 			.formLogin()
@@ -58,7 +58,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.logout().logoutSuccessUrl("/").permitAll()
 			;
 	}
-	
 	
 	
 }
