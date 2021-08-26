@@ -192,6 +192,7 @@ public class Media {
 		this.channel = channel;
 	}
 
+	
 	public Collection<Playlists> getPlayLists() {
 		return playLists;
 	}

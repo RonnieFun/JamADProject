@@ -43,9 +43,6 @@ public class Playlists {
 	public Playlists() {
 		super();
 	}
-	
-	
-
 
 	public Playlists(String playlistName, String playlistDescription, MediaType mediaType, User playlistUser,
 			Collection<Media> mediaPlayList, Collection<PlaylistOrder> playlistsorder) {

@@ -230,11 +230,13 @@ public class UserImplementation implements UserInterface {
 		return commentsrepo.save(comment);
 	}
 
+	@Transactional
+	public void removeComments(Long commentId) {
+		commentsrepo.deleteById(commentId);
+	}
+	
 	
 	//USERHISTORY REPO
-	
-	
-
 	@Transactional
 	public List<UserHistory> findUserHistoryByMediaId(Long id) {
 		
@@ -396,6 +398,8 @@ public class UserImplementation implements UserInterface {
 		// TODO Auto-generated method stub
 		rrepo.save(b);
 	}
+
+
 
 
 

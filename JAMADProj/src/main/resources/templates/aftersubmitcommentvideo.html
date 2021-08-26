@@ -18,7 +18,7 @@
 			<input type="hidden" id="commentUserId" th:value = "${user.userID}">
 			<input type="hidden" id="commentDisplayName" th:value = "${user.displayName}">
 			<input type="hidden" id="commentMediaId" th:value = "${media.id}">
-			<input type="hidden" id="commentDateTime" th:value = "${#dates.format(#dates.createNow(),'dd MMMM YYYY, HH:mm')}">
+			<input type="hidden" id="commentDateTime" th:value = "${#dates.format(#dates.createNow(),'dd MMMM YYYY, HH:mm:ss')}">
 			<input type="hidden" id="commentedNumberOfComments" th:value = "${commentCount}">
 			<button id="userCommentsSubmitBtnVideo" class="userCommentsBtn" type="button">Submit</button>
 		</div>
@@ -30,6 +30,8 @@
 			<span class="flex-container">
 				<span th:text="${c.commentUser.displayName}" class="commentName"></span>
 				<span th:text="${' | ' + c.dateTime}" class="commentDate"></span>
+				<span id="deleteCommentBtnVideo" th:if="${user != null}" class="deleteCommentBtnVideo"><i th:if="${media.channel.channelUser.userID == user.userID or c.commentUser.userID == user.userID}" class="far fa-minus-square"></i></span>
+				<input type="hidden" id="commentIDvideo" th:value="${c.id}">
 				<span th:text="${c.userComment}" class="commentDetails"></span>
 			</span>
 		</span>
