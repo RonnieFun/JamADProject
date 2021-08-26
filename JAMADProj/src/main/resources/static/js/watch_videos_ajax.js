@@ -257,8 +257,16 @@ $(document).ready(function(){
 		
 	});
 	
-	$("#deleteCommentBtnVideo").on("click", function() {
-		var commentIDvideo = document.getElementById("commentIDvideo").value;
+	$("span[id='deleteCommentBtnVideo']").each(function(i){
+    	$(this).attr('id', $(this).attr('id') + i);
+	});
+	
+	$("input[id='commentIDvideo']").each(function(i){
+    	$(this).attr('id', $(this).attr('id') + i);
+	});
+	
+	$(".deleteCommentBtnVideo").on("click", function() {
+		var commentIDvideo = document.getElementById($(this).next('input').attr('id')).value;
 		var commentMediaId = document.getElementById("commentMediaId").value;
 		var ajaxChecker = 543501872;
 		var ajaxChecker2 = 32163231;
