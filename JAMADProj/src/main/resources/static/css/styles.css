@@ -1459,6 +1459,62 @@ body {
 	margin-top: 4%;
 }
 
+.askToLoginHeartFormPopup{
+	display: none;
+	background-color: rgba(242.24999696016312, 233.16562682390213, 233.16562682390213, 1);
+	position: absolute;
+	left: 32%;
+	z-index:9;
+	border: 1px solid black;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.8vw;
+	padding: 3px 10px;
+	max-height: 50%;
+	max-width: 20%;
+}
+
+.askToLoginSubscribeFormPopup{
+	display: none;
+	background-color: rgba(242.24999696016312, 233.16562682390213, 233.16562682390213, 1);
+	position: absolute;
+	left: 32%;
+	z-index:9;
+	border: 1px solid black;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.8vw;
+	padding: 3px 10px;
+	max-height: 50%;
+	margin-top: 4%;
+}
+
+.askToLoginHeartFormPopupMusic{
+	display: none;
+	background-color: rgba(242.24999696016312, 233.16562682390213, 233.16562682390213, 1);
+	position: absolute;
+	left: 32%;
+	z-index:9;
+	border: 1px solid black;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.8vw;
+	padding: 3px 10px;
+	max-height: 50%;
+	max-width: 20%;
+}
+
+.askToLoginSubscribeFormPopupMusic{
+	display: none;
+	background-color: rgba(242.24999696016312, 233.16562682390213, 233.16562682390213, 1);
+	position: absolute;
+	left: 32%;
+	z-index:9;
+	border: 1px solid black;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.8vw;
+	padding: 3px 10px;
+	max-height: 50%;
+	margin-top: 4%;
+}
+
 .saveToPlaylistButton{
 	font-family: 'Roboto', sans-serif;
 	font-size: 0.7vw;

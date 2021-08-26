@@ -29,7 +29,8 @@
  	</div>
  	
  	
- 	<!-- Popup Form to ask if non-logged in user wants register/log when he clicks Heart Button -->
+ 	<!-- Popup Form upon clicking heart button to ask if non-logged in user wants 
+ 	register/log when he clicks Heart Button -->
  	<div th:if="${user == null}" class="askToLoginHeartFormPopup" id ="askToLoginHeartForm">
  		<label><b>Please sign-in or register to add a video to a playlist</b></label>
  		<span style="display: flex">
@@ -39,7 +40,7 @@
  	</div>
  	
  	
- 	
+ 	<!-- Popup Form upon clicking heart button if user is logged in -->
  	<div th:if="${user != null}" class="playlistFormPopup" id="myHeartFormVideo">
 	  <form name="myHeartFormVideo" id="myHeartFormVideo" method="post" class="form-container">
 	
