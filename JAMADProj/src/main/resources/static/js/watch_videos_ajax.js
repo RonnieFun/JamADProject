@@ -257,5 +257,23 @@ $(document).ready(function(){
 		
 	});
 	
+	$("#deleteCommentBtnVideo").on("click", function() {
+		var commentIDvideo = document.getElementById("commentIDvideo").value;
+		var commentMediaId = document.getElementById("commentMediaId").value;
+		var ajaxChecker = 543501872;
+		var ajaxChecker2 = 32163231;
+		$.ajax({
+			type: "POST",
+			url: "/video/deleteComment",
+			contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+			data: {
+				commentIDvideo :commentIDvideo,
+			},
+			success: function (response) {
+				$('#userCommentsSection').load("http://localhost:8080/video/aftersubmitcomment/" + commentMediaId + "/" + ajaxChecker + "/" + ajaxChecker2);
+			}
+		}) 
+	});
+	
 	
 });

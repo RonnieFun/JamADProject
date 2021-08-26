@@ -62,6 +62,7 @@ public interface UserInterface {
 	List<Comments> findCommentsByMediaId(Long id);
 	List<Comments> findCommentsByUserId(Long id);
 	Comments saveComment(Comments comment);
+	void removeComments(Long commentId);
 	
 	//TAGS
 	List<Tag> findTagsByMediaId(Long id);

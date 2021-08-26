@@ -66,6 +66,21 @@ public class MediaController {
 	List<String> recommendMediaNames_model3 = new ArrayList<String>();
 	List<String> recommendMediaNames_model4 = new ArrayList<String>();
 	
+	//ajax call for delete comment button on Watch Videos page
+	@PostMapping("/video/deleteComment")
+	@ResponseBody
+	public String deleteCommentVideo(Model model, @AuthenticationPrincipal MyUserDetails userDetails,
+			@RequestParam(value = "commentIDvideo") Long commentIDvideo) {
+		
+		if(userDetails == null) {
+			return "/login/";	
+		}
+		
+		uservice.removeComments(commentIDvideo);
+		return "";
+	}
+	
+	
 	@GetMapping("/video/medianotfound/{mediaId}") 
 	public String videoNotFound(Model model, @PathVariable Long mediaId, @AuthenticationPrincipal MyUserDetails userDetails) {
 		

@@ -134,7 +134,8 @@
 			<span class="flex-container">
 				<span th:text="${c.commentUser.displayName}" class="commentName"></span>
 				<span th:text="${' | ' + c.dateTime}" class="commentDate"></span>
-				<span class="deleteCommentBtn"><i class="far fa-minus-square"></i></span>
+				<span id="deleteCommentBtnVideo" th:if="${user != null}" class="deleteCommentBtnVideo"><i class="far fa-minus-square"></i></span>
+				<input type="hidden" id="commentIDvideo" th:value="${c.id}">
 				<span th:text="${c.userComment}" class="commentDetails"></span>
 			</span>
 		</span>
