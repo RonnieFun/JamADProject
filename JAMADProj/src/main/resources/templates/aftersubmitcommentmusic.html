@@ -18,7 +18,7 @@
 			<input type="hidden" id="commentUserIdMusic" th:value = "${user.userID}">
 			<input type="hidden" id="commentDisplayNameMusic" th:value = "${user.displayName}">
 			<input type="hidden" id="commentMediaIdMusic" th:value = "${media.id}">
-			<input type="hidden" id="commentDateTimeMusic" th:value = "${#dates.format(#dates.createNow(),'dd MMMM YYYY, HH:mm')}">
+			<input type="hidden" id="commentDateTimeMusic" th:value = "${#dates.format(#dates.createNow(),'dd MMMM YYYY, HH:mm:ss')}">
 			<input type="hidden" id="commentedNumberOfCommentsMusic" th:value = "${commentCount}">
 			<button id="userCommentsSubmitBtnMusic" class="userCommentsBtnMusic" type="button">Submit</button>
 		</div>

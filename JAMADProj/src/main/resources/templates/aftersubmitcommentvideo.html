@@ -18,7 +18,7 @@
 			<input type="hidden" id="commentUserId" th:value = "${user.userID}">
 			<input type="hidden" id="commentDisplayName" th:value = "${user.displayName}">
 			<input type="hidden" id="commentMediaId" th:value = "${media.id}">
-			<input type="hidden" id="commentDateTime" th:value = "${#dates.format(#dates.createNow(),'dd MMMM YYYY, HH:mm')}">
+			<input type="hidden" id="commentDateTime" th:value = "${#dates.format(#dates.createNow(),'dd MMMM YYYY, HH:mm:ss')}">
 			<input type="hidden" id="commentedNumberOfComments" th:value = "${commentCount}">
 			<button id="userCommentsSubmitBtnVideo" class="userCommentsBtn" type="button">Submit</button>
 		</div>
