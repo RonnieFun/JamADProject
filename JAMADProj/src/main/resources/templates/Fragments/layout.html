@@ -23,8 +23,8 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 
 <body> 
 
-<div th:fragment = "navbar">
-
+<!--  If user has not logged in yet -->
+<div th:fragment = "navbar"  sec:authorize="isAnonymous()">
 
 	<div class="header">
 		<div class="header_left">
@@ -82,6 +82,75 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 		</div>
 		
 		<div class="header_right">
+			<div>
+				<a href="/home/login"><button type="button">Login</button></a>
+			</div>
+			<span class="material-icons"> notifications</span>
+		</div>
+	
+	</div>
+</div>
+
+<!--  If user has logged in -->
+
+<div th:fragment = "navbar"  sec:authorize="isAuthenticated()">
+
+	<div class="header">
+		<div class="header_left">
+		<a th:href = "@{/home/}">
+			<img th:src="@{/images/JAM_LOGO.png}" class="" alt="JAM Logo"/>
+		</a>
+			<div class="header_input">
+				<span class="material-icons"> search </span>
+				<input type="text" placeholder="search JAM"/>
+			</div>
+		</div>
+		
+		<div class="header_middle">
+			<div class="header_option">
+			<a th:href = "@{/home/}">
+				<span class="material-icons"> home </span>
+				</a>
+			</div>
+			
+			<div class="header_option">
+				<span class="material-icons"> groups </span>
+			</div>
+			
+			<div class="header_option">
+				<a th:href = "@{/video/loginvideolandingpage}">
+					<span class="material-icons"> videocam </span>
+				</a>
+			</div>
+			
+			<div class="header_option">
+				<a th:href = "@{/music/loginmusiclandingpage}">
+					<span class="material-icons"> music_note </span>
+				</a>
+			</div>
+			
+			<div class="header_option">
+				<a th:href = "@{/shop}">
+				<span class="material-icons"> shopping_bag </span>
+				</a>
+			</div>
+      
+			<div class="header_option">
+				<a  style="text-decoration: none" th:href = "@{/shoppingcart}">
+				<span class="material-icons"> shopping_cart </span>
+				<span class='badge badge-warning' id='lblCartCount'  th:text="${count}"></span>
+				</a>
+			</div>
+			
+			<!-- <div class="header_option">
+				<button class="addShoppingCartIcon btn" onclick="location.href='/shoppingcart'">
+				<i class="fa fa-cart-plus"style="font-size:24px"></i><span class='badge badge-warning' id='lblCartCount' th:text="${count}"></span>
+				</button>
+			</div> -->
+
+		</div>
+		
+		<div class="header_right">
 			<div class="header_info">
 				<img th:src="${profileUrl}" class="" alt="profileIcon"/>
 				<h5> <span sec:authentication="principal.fullName">first
@@ -99,6 +168,12 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 	
 	</div>
 </div>
+
+
+
+
+
+
 
  <nav th:fragment="watchVideosNavBar" class="navbar jamHeaderUser">
  	<img th:src="@{/images/JAM_LOGO.png}" class="logo3">
