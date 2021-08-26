@@ -122,6 +122,8 @@ public interface UserInterface {
 	List<UserHistory> findUserHistoryByUserId(Long userId);
 	List<UserHistory> findUserHistoryByUserIdAndMediaType(Long userId, MediaType mediaType);
 	
+	List<Orders> getAllOrders();
+	
 	
 	
 

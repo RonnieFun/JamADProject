@@ -2,7 +2,9 @@ package sg.edu.iss.jam.controller;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,9 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import sg.edu.iss.jam.model.Category;
 import sg.edu.iss.jam.model.Channel;
 import sg.edu.iss.jam.model.Media;
 import sg.edu.iss.jam.model.MediaType;
+import sg.edu.iss.jam.model.OrderDetails;
+import sg.edu.iss.jam.model.Orders;
 import sg.edu.iss.jam.model.Product;
 import sg.edu.iss.jam.model.Subscribed;
 import sg.edu.iss.jam.model.User;
@@ -36,7 +41,7 @@ public class DashboardController  {
 		public String showDashboard(Model model) {
 			
 //video and music chart	with count
-				Long userId = (long) 2;
+				Long userId = (long) 9;
 				User artist = aservice.findById(userId);
 				
 				List<Media> artistVideos = new ArrayList<Media>();
@@ -89,9 +94,7 @@ public class DashboardController  {
 						totalMusicsCounts=totalMusicsCounts+listenMusicCounts.get(i);
 					}
 					
-	    //products chart
-					List<Product> productsInShop = aservice.getProductListByArtistID(userId);
-					int productnumber=productsInShop.size();
+
 					
 					model.addAttribute("videos",videotitle);
 					model.addAttribute("videocounts",viewVideoCounts);
@@ -102,7 +105,7 @@ public class DashboardController  {
 					model.addAttribute("musiccounts",listenMusicCounts);
 					model.addAttribute("musicsnumber",musicsnumber);
 					model.addAttribute("totalmusicscount",totalMusicsCounts);
-					model.addAttribute("productnumber",productnumber);
+
 					
 
 //Line chart of media with time series in 2 years:
@@ -350,6 +353,114 @@ public class DashboardController  {
 					model.addAttribute("total",totalSubscribe );
 					model.addAttribute("datetime",stringTimePoint );
 
+//Product chart
+					
+				    //products chart
+					
+					 //products chart
+					
+//					User user = uservice.findUserByUserId(userId);
+//					Map<Product, Long> productsAndCountShop = new HashMap<Product, Long>();
+//					List<Product> productsInShop = aservice.getProductListByArtistID(userId);
+					
+					
+					
+					List<Product> clothing=aservice.getProductListByArtistIDAndCategory(userId,Category.Clothing);
+					List<Product> merchandise=aservice.getProductListByArtistIDAndCategory(userId,Category.Merchandise);
+					List<Product> musiccollection=aservice.getProductListByArtistIDAndCategory(userId,Category.MusicCollection);
+					
+					//count of different category
+					int clothingCount=clothing.size();
+					int merchandiseCount=merchandise.size();
+					int musiccollectionCount=musiccollection.size();
+					
+					//find  artist different product sold quantity in this year 
+					//-clothing
+					List<OrderDetails> clothing_orderdetails=new ArrayList<OrderDetails>();
+					List<Integer> clothingSoldWithMonth=new ArrayList<Integer>();
+					for(int i=1;i<=monthNow;i++) {
+						int sum=0;
+					  for(Product p:clothing) {
+						     clothing_orderdetails=(List<OrderDetails>) p.getOrderDetails();
+								for(OrderDetails od:clothing_orderdetails) {
+								      if(od.getOrder().getOrderDate().getMonthValue()==i
+										&& od.getOrder().getOrderDate().getYear()==LocalDateTime.now().getYear()) {
+									  sum= sum+od.getQuantity();
+								}
+							}
+						}
+					  clothingSoldWithMonth.add(i-1,sum); 
+					}
+					
+					//-merchandise
+					List<OrderDetails> merchandise_orderdetails=new ArrayList<OrderDetails>();
+					List<Integer> merchandiseSoldWithMonth=new ArrayList<Integer>();
+					for(int i=1;i<=monthNow;i++) {
+						int sum=0;
+					    for(Product p:merchandise) {
+					    	merchandise_orderdetails=(List<OrderDetails>) p.getOrderDetails();
+								for(OrderDetails od:merchandise_orderdetails) {
+								      if(od.getOrder().getOrderDate().getMonthValue()==i
+										&& od.getOrder().getOrderDate().getYear()==LocalDateTime.now().getYear()) {
+									  sum= sum+od.getQuantity();
+								}
+							}
+						}
+					    merchandiseSoldWithMonth.add(i-1,sum); 
+					}
+					
+					//-musiccollection
+					List<OrderDetails> music_orderdetails=new ArrayList<OrderDetails>();
+					List<Integer> musicSoldWithMonth=new ArrayList<Integer>();
+					for(int i=1;i<=monthNow;i++) {
+						int sum=0;
+					  for(Product p:musiccollection) {
+						     music_orderdetails=(List<OrderDetails>) p.getOrderDetails();
+								for(OrderDetails od:music_orderdetails) {
+								      if(od.getOrder().getOrderDate().getMonthValue()==i
+										&& od.getOrder().getOrderDate().getYear()==LocalDateTime.now().getYear()) {
+									  sum= sum+od.getQuantity();
+								}
+							}
+						}
+					  musicSoldWithMonth.add(i-1,sum); 
+					}
+					
+					//find total quantity for each category
+					int clothingTotalSold=0;
+					int merchandiseTotalSold=0;
+					int musicTotalSold=0;
+					for(int i=0;i<clothingSoldWithMonth.size();i++) {
+						clothingTotalSold=clothingTotalSold+clothingSoldWithMonth.get(i);
+						merchandiseTotalSold=merchandiseTotalSold+merchandiseSoldWithMonth.get(i);
+						musicTotalSold=musicTotalSold+musicSoldWithMonth.get(i);
+					}
+					
+					
+					
+					//find average quantity each month
+					List<Integer> average=new ArrayList<Integer>();
+					int clothingSold=0;
+					int merchandiseSold=0;
+					int musicSold=0;
+					for(int i=0;i<clothingSoldWithMonth.size();i++)
+					{
+						clothingSold=clothingSoldWithMonth.get(i);
+						merchandiseSold=merchandiseSoldWithMonth.get(i);
+						musicSold=musicSoldWithMonth.get(i);
+						int monthAverage=(Integer)(clothingSold+merchandiseSold+musicSold)/3;
+						average.add(monthAverage);
+					}
+					
+					
+					model.addAttribute("clothing",clothingSoldWithMonth);
+					model.addAttribute("merchandise",merchandiseSoldWithMonth);
+					model.addAttribute("music",musicSoldWithMonth);
+					model.addAttribute("clothingtotal",clothingTotalSold);
+					model.addAttribute("merchandisetotal",merchandiseTotalSold);
+					model.addAttribute("musictotal",musicTotalSold);
+					model.addAttribute("average",average);
+					
 					
 					return "dashboard";	
 		}
