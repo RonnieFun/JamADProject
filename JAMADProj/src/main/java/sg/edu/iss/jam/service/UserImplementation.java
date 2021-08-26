@@ -21,6 +21,7 @@ import sg.edu.iss.jam.model.Orders;
 import sg.edu.iss.jam.model.Payment;
 import sg.edu.iss.jam.model.Playlists;
 import sg.edu.iss.jam.model.Product;
+import sg.edu.iss.jam.model.Roles;
 import sg.edu.iss.jam.model.ShoppingCart;
 import sg.edu.iss.jam.model.ShoppingCartDetails;
 import sg.edu.iss.jam.model.Subscribed;
@@ -34,6 +35,7 @@ import sg.edu.iss.jam.repo.OrdersRepository;
 import sg.edu.iss.jam.repo.PaymentRepository;
 import sg.edu.iss.jam.repo.PlaylistsRepository;
 import sg.edu.iss.jam.repo.ProductRepository;
+import sg.edu.iss.jam.repo.RolesRepository;
 import sg.edu.iss.jam.repo.ShoppingCartDetailsRepository;
 import sg.edu.iss.jam.repo.ShoppingCartRepository;
 import sg.edu.iss.jam.repo.SubscribedRepository;
@@ -82,6 +84,9 @@ public class UserImplementation implements UserInterface {
 	
 	@Autowired
 	PaymentRepository payrepo;
+	
+	@Autowired
+	RolesRepository rrepo;
 	
 	//USER REPO
 	@Transactional
@@ -380,6 +385,18 @@ public class UserImplementation implements UserInterface {
 	
 	public List<UserHistory> findAllUserHistory(){
 		return uhrepo.findAll();
+	}
+
+	@Override
+	public List<User> getAllUser() {
+		// TODO Auto-generated method stub
+		return urepo.findAll();
+	}
+
+	@Override
+	public void saveRole(Roles b) {
+		// TODO Auto-generated method stub
+		rrepo.save(b);
 	}
 
 
