@@ -234,6 +234,7 @@ body {
   margin-bottom: 30px;
   width: 90%;
   max-width: 90%;
+  overflow-wrap: break-word;
 }
 
 .mediaNotFound{
@@ -1668,6 +1669,11 @@ body {
   margin-bottom: 30px;
   width: 97%;
   max-width: 97%;
+  overflow-wrap: break-word;
+}
+
+.deleteCommentBtn{
+	padding: 0px;	
 }
 
 .userPageSideVideosSection{
@@ -2007,6 +2013,7 @@ body {
   margin-bottom: 30px;
   width: 97%;
   max-width: 97%;
+  overflow-wrap: break-word;
 }
 
 .userPageSideVideosSection{
@@ -2284,6 +2291,7 @@ body {
   margin-bottom: 30px;
   width: 90%;
   max-width: 90%;
+  overflow-wrap: break-word;
 }
 
 
@@ -2545,6 +2553,7 @@ body {
   margin-bottom: 30px;
   width: 97%;
   max-width: 97%;
+  overflow-wrap: break-word;
 }
 
 .userPageSideVideosSection{
@@ -2803,6 +2812,7 @@ body {
   margin-bottom: 30px;
   width: 90%;
   max-width: 90%;
+  overflow-wrap: break-word;
 }
 
 }
@@ -3058,6 +3068,7 @@ body {
   margin-bottom: 30px;
   width: 97%;
   max-width: 97%;
+  overflow-wrap: break-word;
 }
 
 .userPageSideVideosSection{
@@ -3316,6 +3327,7 @@ body {
   margin-bottom: 30px;
   width: 90%;
   max-width: 90%;
+  overflow-wrap: break-word;
 }
 
 }
@@ -3571,6 +3583,7 @@ body {
   margin-bottom: 30px;
   width: 97%;
   max-width: 97%;
+  overflow-wrap: break-word;
 }
 
 .userPageSideVideosSection{
@@ -3829,6 +3842,7 @@ body {
   margin-bottom: 30px;
   width: 90%;
   max-width: 90%;
+  overflow-wrap: break-word;
 }
 
 }
@@ -4084,7 +4098,7 @@ body {
   margin-bottom: 30px;
   width: 97%;
   max-width: 97%;
-  overflow-wrap: normal;
+  overflow-wrap: break-word;
 }
 
 .userPageSideVideosSection{
@@ -4343,6 +4357,7 @@ body {
   margin-bottom: 30px;
   width: 90%;
   max-width: 90%;
+  overflow-wrap: break-word;
 }
 
 }
@@ -4598,6 +4613,7 @@ body {
   margin-bottom: 30px;
   width: 97%;
   max-width: 97%;
+  overflow-wrap: break-word;
 }
 
 .userPageSideVideosSection{
@@ -4856,6 +4872,7 @@ body {
   margin-bottom: 30px;
   width: 90%;
   max-width: 90%;
+  overflow-wrap: break-word;
 }
 
 }
@@ -5111,6 +5128,7 @@ body {
   margin-bottom: 30px;
   width: 97%;
   max-width: 97%;
+  overflow-wrap: break-word;
 }
 
 .userPageSideVideosSection{
@@ -5369,6 +5387,7 @@ body {
   margin-bottom: 30px;
   width: 90%;
   max-width: 90%;
+  overflow-wrap: break-word;
 }
 
 }
@@ -5625,6 +5644,7 @@ body {
   margin-bottom: 30px;
   width: 97%;
   max-width: 97%;
+  overflow-wrap: break-word;
 }
 
 .userPageSideVideosSection{
@@ -5883,6 +5903,7 @@ body {
   margin-bottom: 30px;
   width: 90%;
   max-width: 90%;
+  overflow-wrap: break-word;
 }
 
 
@@ -6140,6 +6161,7 @@ body {
   margin-bottom: 30px;
   width: 97%;
   max-width: 97%;
+  overflow-wrap: break-word;
 }
 
 .userPageSideVideosSection{
@@ -6399,7 +6421,7 @@ body {
   margin-bottom: 30px;
   width: 90%;
   max-width: 90%;
-  
+  overflow-wrap: break-word;
 }
 
 
