@@ -34,8 +34,8 @@ public class Playlists {
 	@ManyToOne
 	private User playlistUser;
 	
-	//OneToMany relation with media
-	@OneToMany(mappedBy = "playLists")
+	//ManyToMany relation with media
+	@ManyToMany
 	private Collection<Media> mediaPlayList;
 	
 	@OneToMany(mappedBy = "playlists")

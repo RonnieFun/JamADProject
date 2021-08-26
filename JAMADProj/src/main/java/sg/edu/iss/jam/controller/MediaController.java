@@ -69,7 +69,7 @@ public class MediaController {
 	public String videoNotFound(Model model, @PathVariable Long mediaId, @AuthenticationPrincipal MyUserDetails userDetails) {
 		
 		if(userDetails == null) {
-			return "/login";	
+			return "/login/";	
 		}
 		
 		String errorMessage = "Your Requested Video Title is not found.";
@@ -86,7 +86,7 @@ public class MediaController {
 	public String musicNotFound(Model model, @PathVariable Long mediaId, @AuthenticationPrincipal MyUserDetails userDetails) {
 		
 		if(userDetails == null) {
-			return "/login";	
+			return "/login/";	
 		}
 		
 		String errorMessage = "Your Requested Music Title is not found.";
@@ -327,137 +327,206 @@ public class MediaController {
 			@AuthenticationPrincipal MyUserDetails userDetails) {
 		
 		if(userDetails == null) {
-			return "/login";	
-		}
-		
-		// Get the login user
-		Long loggedInUserId = userDetails.getUserId(); 
-		User loggedInUser = uservice.findUserByUserId(loggedInUserId);
-		
-		int commentCount = uservice.findCommentsByMediaId(mediaId).size();
-		
-		Media selectedMedia = uservice.findMediaByMediaTypeAndMediaId(MediaType.Video, mediaId);
-
-		if(selectedMedia == null) {
-			redirectAttributes.addAttribute("mediaId", mediaId);
-			return "redirect:/video/medianotfound/{mediaId}";
-		}
-		
-		// Get the artist
-
-		Long artistId = selectedMedia.getChannel().getChannelUser().getUserID();	
-		
-		// Add new userhistory object based on logged in user's userid on each page reload
-		UserHistory userhistory = new UserHistory(LocalDateTime.now(), loggedInUser, selectedMedia);
-		List<UserHistory> userHistory = uservice.findUserHistoryByMediaId(mediaId);
-		uservice.saveUserHistory(userhistory);
-		userHistory.add(userhistory);
-		
-		//Retrieve number of views based on userhistory size for the selected Media
-		int viewCount = userHistory.size();
-		
-		model.addAttribute("commentCount", commentCount);
-		model.addAttribute("user", loggedInUser);
-		model.addAttribute("playlists", uservice.findPlaylistByUserIdAndMediaType(loggedInUserId, MediaType.Video));
-		model.addAttribute("media", selectedMedia);
-		model.addAttribute("allMedia", uservice.findAllMediaByMediaType(MediaType.Video));
-		model.addAttribute("comments", uservice.findCommentsByMediaId(mediaId));
-		model.addAttribute("tags", uservice.findTagsByMediaId(mediaId));
-		model.addAttribute("viewCount", viewCount);
-	    
-		// like/unlike button section
-		
-		boolean liked = false;
-		
-		List<Playlists> loggedInUserPlaylists = uservice.findPlaylistsByUserId(loggedInUserId);
-		
-		for (Playlists playlist : loggedInUserPlaylists) {
-			if(playlist.getMediaPlayList().contains(selectedMedia)) {
-				liked = true;
-			} 
-		}	
-		
-		
-
-					
-		// subscribe/unsubscribe section
-		
-		Boolean subscribeStatus = false;
-		String loggedInUserSubscribeErrorMsg = "";
-		
-		// check whether the current loggedIn user has subscribed the artist
-		List<Subscribed> unsubscribed_loggedInUser = uservice.getArtistUnsubscribedByLoggInUserId(artistId, loggedInUserId);
-		List<Subscribed> subscribed_loggedInUser = uservice.getArtistSubscribedByLoggInUserId(artistId, loggedInUserId);
-		
-		if (subscribed_loggedInUser.size() < unsubscribed_loggedInUser.size() 
-				|| (subscribed_loggedInUser == null && unsubscribed_loggedInUser != null)) {
-			loggedInUserSubscribeErrorMsg =  "The number of subscriptions true should not be less than the number of subscriptions false";
-		}
-		
-		if (subscribed_loggedInUser.size() - unsubscribed_loggedInUser.size() > 1) {
-			loggedInUserSubscribeErrorMsg = "The number of subscriptions true should only be 1 count bigger than the number of subscriptions false ";
-		}
-		
-		if ((unsubscribed_loggedInUser == null && subscribed_loggedInUser == null) 
-				||(subscribed_loggedInUser.size() == unsubscribed_loggedInUser.size())) {
 			
-			subscribeStatus = false;
-		}
-		
-		if (subscribed_loggedInUser.size() - unsubscribed_loggedInUser.size() == 1) {
-			subscribeStatus = true;
-		}
-		
-		if (artistId == loggedInUserId) {
-			subscribeStatus = null;
-		}
-		
-		
-		
-		// side bar recommendation section
-		// Recommendation Model 3  
-		List<Long> recommend_mediaid_list = new ArrayList<Long>();
-		List<Media> recommend_medialist = new ArrayList<Media>();
-		List<Media> recommend_medialist_toshow = new ArrayList<Media>();
-		
-		String url = "http://127.0.0.1:5000/model3?item_id={1}";
-		ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class, mediaId);
-		response_model3 = responseEntity.getBody();
-		
-		if (! response_model3.isEmpty()) {
+			int commentCount = uservice.findCommentsByMediaId(mediaId).size();
 			
-			List<String> strList = new ArrayList<String>();
-			strList = Arrays.asList(response_model3.split(","));
-			for (String s: strList) {
-				recommend_mediaid_list.add(Long.parseLong(s));
+			Media selectedMedia = uservice.findMediaByMediaTypeAndMediaId(MediaType.Video, mediaId);
+			
+			if(selectedMedia == null) {
+				redirectAttributes.addAttribute("mediaId", mediaId);
+				return "redirect:/video/medianotfound/{mediaId}";
+			}
+			
+			List<UserHistory> userHistory = uservice.findUserHistoryByMediaId(mediaId);
+			
+			//Retrieve number of views based on userhistory size for the selected Media
+			int viewCount = userHistory.size();
+			
+			model.addAttribute("commentCount", commentCount);
+			model.addAttribute("user", null);
+			model.addAttribute("playlists", "");
+			model.addAttribute("media", selectedMedia);
+			model.addAttribute("allMedia", uservice.findAllMediaByMediaType(MediaType.Video));
+			model.addAttribute("comments", uservice.findCommentsByMediaId(mediaId));
+			model.addAttribute("tags", uservice.findTagsByMediaId(mediaId));
+			model.addAttribute("viewCount", viewCount);
+			
+			
+			// side bar recommendation section
+			// Recommendation Model 3  
+			List<Long> recommend_mediaid_list = new ArrayList<Long>();
+			List<Media> recommend_medialist = new ArrayList<Media>();
+			List<Media> recommend_medialist_toshow = new ArrayList<Media>();
+						
+			String url = "http://127.0.0.1:5000/model3?item_id={1}";
+			ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class, mediaId);
+			response_model3 = responseEntity.getBody();
+						
+			if (! response_model3.isEmpty()) {
+							
+				List<String> strList = new ArrayList<String>();
+				strList = Arrays.asList(response_model3.split(","));
+				for (String s: strList) {
+					recommend_mediaid_list.add(Long.parseLong(s));
+				}
+			}
+			for(Long id: recommend_mediaid_list) {
+				Media recommendMedia = mservice.getMediaById(id);
+				if (recommendMedia != null) {
+					recommend_medialist.add(recommendMedia);
+				}
+			}
+						
+			// we retrieve the top 10 medias from python server, 
+			// then shuffle the list,then we select 5 medias to show on the page
+			Collections.shuffle(recommend_medialist);	
+			if (recommend_medialist.size() <= 5) {
+				recommend_medialist_toshow = recommend_medialist;
+			}
+			else {
+				for (int i = 0; i < recommend_medialist.size(); i++) {
+					if (recommend_medialist_toshow.size() < 5 
+							&& recommend_medialist.get(i).getId() != selectedMedia.getId()) // exclude the same media with the current media
+					recommend_medialist_toshow.add(recommend_medialist.get(i));
+				}
+			
+						
+			model.addAttribute("liked", false);
+			model.addAttribute("subscribeStatus", false);
+			model.addAttribute("loggedInUserSubscribeErrorMsg", "");
+			model.addAttribute("recommend_medialist_toshow", recommend_medialist_toshow);			
 			}
 		}
-		for(Long id: recommend_mediaid_list) {
-			Media recommendMedia = mservice.getMediaById(id);
-			if (recommendMedia != null) {
-				recommend_medialist.add(recommendMedia);
-			}
-		}
-		
-		// we retrieve the top 10 medias from python server, 
-		// then shuffle the list,then we select 5 medias to show on the page
-		Collections.shuffle(recommend_medialist);	
-		if (recommend_medialist.size() <= 5) {
-			recommend_medialist_toshow = recommend_medialist;
-		}
-		else {
-			for (int i = 0; i < recommend_medialist.size(); i++) {
-				if (recommend_medialist_toshow.size() < 5 
-						&& recommend_medialist.get(i).getId() != selectedMedia.getId()) // exclude the same media with the current media
-				recommend_medialist_toshow.add(recommend_medialist.get(i));
-			}
-		}
-		
-		model.addAttribute("liked", liked);
-		model.addAttribute("subscribeStatus", subscribeStatus);
-		model.addAttribute("loggedInUserSubscribeErrorMsg", loggedInUserSubscribeErrorMsg);
-		model.addAttribute("recommend_medialist_toshow", recommend_medialist_toshow);
+			else {
+			// Get the login user
+			Long loggedInUserId = userDetails.getUserId(); 
+			User loggedInUser = uservice.findUserByUserId(loggedInUserId);
 			
+			int commentCount = uservice.findCommentsByMediaId(mediaId).size();
+			
+			Media selectedMedia = uservice.findMediaByMediaTypeAndMediaId(MediaType.Video, mediaId);
+
+			if(selectedMedia == null) {
+				redirectAttributes.addAttribute("mediaId", mediaId);
+				return "redirect:/video/medianotfound/{mediaId}";
+			}
+			
+			// Get the artist
+
+			Long artistId = selectedMedia.getChannel().getChannelUser().getUserID();	
+			
+			// Add new userhistory object based on logged in user's userid on each page reload
+			UserHistory userhistory = new UserHistory(LocalDateTime.now(), loggedInUser, selectedMedia);
+			List<UserHistory> userHistory = uservice.findUserHistoryByMediaId(mediaId);
+			uservice.saveUserHistory(userhistory);
+			userHistory.add(userhistory);
+			
+			//Retrieve number of views based on userhistory size for the selected Media
+			int viewCount = userHistory.size();
+			
+			model.addAttribute("commentCount", commentCount);
+			model.addAttribute("user", loggedInUser);
+			model.addAttribute("playlists", uservice.findPlaylistByUserIdAndMediaType(loggedInUserId, MediaType.Video));
+			model.addAttribute("media", selectedMedia);
+			model.addAttribute("allMedia", uservice.findAllMediaByMediaType(MediaType.Video));
+			model.addAttribute("comments", uservice.findCommentsByMediaId(mediaId));
+			model.addAttribute("tags", uservice.findTagsByMediaId(mediaId));
+			model.addAttribute("viewCount", viewCount);
+		    
+			// like/unlike button section
+			
+			boolean liked = false;
+			
+			List<Playlists> loggedInUserPlaylists = uservice.findPlaylistsByUserId(loggedInUserId);
+			
+			for (Playlists playlist : loggedInUserPlaylists) {
+				if(playlist.getMediaPlayList().contains(selectedMedia)) {
+					liked = true;
+				} 
+			}	
+			
+			
+
+						
+			// subscribe/unsubscribe section
+			
+			Boolean subscribeStatus = false;
+			String loggedInUserSubscribeErrorMsg = "";
+			
+			// check whether the current loggedIn user has subscribed the artist
+			List<Subscribed> unsubscribed_loggedInUser = uservice.getArtistUnsubscribedByLoggInUserId(artistId, loggedInUserId);
+			List<Subscribed> subscribed_loggedInUser = uservice.getArtistSubscribedByLoggInUserId(artistId, loggedInUserId);
+			
+			if (subscribed_loggedInUser.size() < unsubscribed_loggedInUser.size() 
+					|| (subscribed_loggedInUser == null && unsubscribed_loggedInUser != null)) {
+				loggedInUserSubscribeErrorMsg =  "The number of subscriptions true should not be less than the number of subscriptions false";
+			}
+			
+			if (subscribed_loggedInUser.size() - unsubscribed_loggedInUser.size() > 1) {
+				loggedInUserSubscribeErrorMsg = "The number of subscriptions true should only be 1 count bigger than the number of subscriptions false ";
+			}
+			
+			if ((unsubscribed_loggedInUser == null && subscribed_loggedInUser == null) 
+					||(subscribed_loggedInUser.size() == unsubscribed_loggedInUser.size())) {
+				
+				subscribeStatus = false;
+			}
+			
+			if (subscribed_loggedInUser.size() - unsubscribed_loggedInUser.size() == 1) {
+				subscribeStatus = true;
+			}
+			
+			if (artistId == loggedInUserId) {
+				subscribeStatus = null;
+			}
+			
+			
+			
+			// side bar recommendation section
+			// Recommendation Model 3  
+			List<Long> recommend_mediaid_list = new ArrayList<Long>();
+			List<Media> recommend_medialist = new ArrayList<Media>();
+			List<Media> recommend_medialist_toshow = new ArrayList<Media>();
+			
+			String url = "http://127.0.0.1:5000/model3?item_id={1}";
+			ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class, mediaId);
+			response_model3 = responseEntity.getBody();
+			
+			if (! response_model3.isEmpty()) {
+				
+				List<String> strList = new ArrayList<String>();
+				strList = Arrays.asList(response_model3.split(","));
+				for (String s: strList) {
+					recommend_mediaid_list.add(Long.parseLong(s));
+				}
+			}
+			for(Long id: recommend_mediaid_list) {
+				Media recommendMedia = mservice.getMediaById(id);
+				if (recommendMedia != null) {
+					recommend_medialist.add(recommendMedia);
+				}
+			}
+			
+			// we retrieve the top 10 medias from python server, 
+			// then shuffle the list,then we select 5 medias to show on the page
+			Collections.shuffle(recommend_medialist);	
+			if (recommend_medialist.size() <= 5) {
+				recommend_medialist_toshow = recommend_medialist;
+			}
+			else {
+				for (int i = 0; i < recommend_medialist.size(); i++) {
+					if (recommend_medialist_toshow.size() < 5 
+							&& recommend_medialist.get(i).getId() != selectedMedia.getId()) // exclude the same media with the current media
+					recommend_medialist_toshow.add(recommend_medialist.get(i));
+				}
+			}
+			
+			model.addAttribute("liked", liked);
+			model.addAttribute("subscribeStatus", subscribeStatus);
+			model.addAttribute("loggedInUserSubscribeErrorMsg", loggedInUserSubscribeErrorMsg);
+			model.addAttribute("recommend_medialist_toshow", recommend_medialist_toshow);
+		}
+
 		return "userwatchvideo";
 	}
 	
@@ -467,7 +536,7 @@ public class MediaController {
 			@AuthenticationPrincipal MyUserDetails userDetails) {
 		
 		if(userDetails == null) {
-			return "/login";	
+			return "/login/";	
 		}
 		
 		long loggedInUserId = userDetails.getUserId(); 
@@ -515,7 +584,7 @@ public class MediaController {
 				@AuthenticationPrincipal MyUserDetails userDetails) {
 			
 			if(userDetails == null) {
-				return "/login";	
+				return "/login/";	
 			}
 			
 			long loggedInUserId = userDetails.getUserId(); 
@@ -565,7 +634,7 @@ public class MediaController {
 			@AuthenticationPrincipal MyUserDetails userDetails) {
 		
 		if(userDetails == null) {
-			return "/login";	
+			return "/login/";	
 		}
 		
 		// Get the login user
@@ -715,7 +784,7 @@ public class MediaController {
 			@AuthenticationPrincipal MyUserDetails userDetails) {
 	
 		if(userDetails == null) {
-			return "/login";	
+			return "/login/";	
 		}
 		
 		if (ajaxChecker != 543501872 || ajaxChecker2 != 32163231) {
@@ -744,7 +813,7 @@ public class MediaController {
 				@AuthenticationPrincipal MyUserDetails userDetails) {
 		
 			if(userDetails == null) {
-				return "/login";	
+				return "/login/";	
 			}
 			
 			if (ajaxCheckerMusic != 723472837 || ajaxChecker2Music != 340982904) {
@@ -772,7 +841,7 @@ public class MediaController {
 			@RequestParam(value= "mediaID") Long mediaID) throws Exception {
 		
 		if(userDetails == null) {
-			return "/login";	
+			return "/login/";	
 		}
 		
 		User existingUser = uservice.findUserByUserId(userID);
@@ -800,7 +869,7 @@ public class MediaController {
 			@RequestParam(value= "mediaID") Long mediaID) throws Exception {
 		
 		if(userDetails == null) {
-			return "/login";	
+			return "/login/";	
 		}
 		
 		List<Playlists> playlists = uservice.findPlaylistByUserIdAndMediaType(userID, MediaType.Video);
@@ -827,7 +896,7 @@ public class MediaController {
 				@RequestParam(value= "mediaIDmusic") Long mediaIDmusic) throws Exception {
 			
 			if(userDetails == null) {
-				return "/login";	
+				return "/login/";	
 			}
 			
 			User existingUser = uservice.findUserByUserId(userIDmusic);
@@ -855,7 +924,7 @@ public class MediaController {
 				@RequestParam(value= "mediaIDmusic") Long mediaIDmusic) throws Exception {
 			
 			if(userDetails == null) {
-				return "/login";	
+				return "/login/";	
 			}
 			
 			List<Playlists> playlists = uservice.findPlaylistByUserIdAndMediaType(userIDmusic, MediaType.Music);
@@ -881,7 +950,7 @@ public class MediaController {
 	public String subscribeArtistVideo(@RequestParam(value = "artistId") Long artistId, @AuthenticationPrincipal MyUserDetails userDetails) throws Exception{
 		
 		if(userDetails == null) {
-			return "/login";	
+			return "/login/";	
 		}
 		
 		long loggedInUserId = userDetails.getUserId();
@@ -913,7 +982,7 @@ public class MediaController {
 	public String unsubscribeArtistVideo(@RequestParam(value = "artistId") Long artistId, @AuthenticationPrincipal MyUserDetails userDetails) throws Exception {
 		
 		if(userDetails == null) {
-			return "/login";	
+			return "/login/";	
 		}
 		
 		long loggedInUserId = userDetails.getUserId();
@@ -945,7 +1014,7 @@ public class MediaController {
 		public String subscribeArtistMusic(@RequestParam(value = "artistIdMusic") Long artistIdMusic, @AuthenticationPrincipal MyUserDetails userDetails) throws Exception{
 			
 			if(userDetails == null) {
-				return "/login";	
+				return "/login/";	
 			}
 			
 			long loggedInUserId = userDetails.getUserId();
@@ -977,7 +1046,7 @@ public class MediaController {
 		public String unsubscribeArtistMusic(@RequestParam(value = "artistIdMusic") Long artistIdMusic, @AuthenticationPrincipal MyUserDetails userDetails) throws Exception {
 			
 			if(userDetails == null) {
-				return "/login";	
+				return "/login/";	
 			}
 			
 			long loggedInUserId = userDetails.getUserId();
@@ -1016,7 +1085,7 @@ public class MediaController {
 					throws Exception {
 		
 		if(userDetails == null) {
-			return "/login";	
+			return "/login/";	
 		}
 		
 		User commentUser = uservice.findUserByUserId(commentUserId);
@@ -1049,7 +1118,7 @@ public class MediaController {
 						throws Exception {
 			
 			if(userDetails == null) {
-				return "/login";	
+				return "/login/";	
 			}
 			
 			User commentUserMusic = uservice.findUserByUserId(commentUserIdMusic);
@@ -1161,7 +1230,7 @@ public class MediaController {
 	public String subscribeArtistNoAjaxVideo(@PathVariable("artistId") Long artistId, @AuthenticationPrincipal MyUserDetails userDetails){
 		
 		if(userDetails == null) {
-			return "redirect:/login";	
+			return "redirect:/login/";	
 		}
 		
 		User customer = uservice.findUserByUserId(userDetails.getUserId());	
@@ -1187,7 +1256,7 @@ public class MediaController {
 	@GetMapping("/video/unsubscribenoajax/{artistId}")	
 	public String unsubscribeArtistNoAjaxVideo(@PathVariable("artistId") Long artistId, @AuthenticationPrincipal MyUserDetails userDetails) {
 		if(userDetails == null) {
-			return "redirect:/login";	
+			return "redirect:/login/";	
 		}
 		
 		User customer = uservice.findUserByUserId(userDetails.getUserId());	
@@ -1323,7 +1392,7 @@ public class MediaController {
 	public String subscribeArtistNoAjaxMusic(@PathVariable("artistId") Long artistId, @AuthenticationPrincipal MyUserDetails userDetails){
 		
 		if(userDetails == null) {
-			return "redirect:/login";	
+			return "redirect:/login/";	
 		}
 		
 		User customer = uservice.findUserByUserId(userDetails.getUserId());	
@@ -1349,7 +1418,7 @@ public class MediaController {
 	@GetMapping("/music/unsubscribenoajax/{artistId}")	
 	public String unsubscribeArtistNoAjaxMusic(@PathVariable("artistId") Long artistId, @AuthenticationPrincipal MyUserDetails userDetails) {
 		if(userDetails == null) {
-			return "redirect:/login";	
+			return "redirect:/login/";	
 		}
 		
 		User customer = uservice.findUserByUserId(userDetails.getUserId());	

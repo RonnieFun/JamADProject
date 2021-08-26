@@ -64,7 +64,7 @@ $(document).ready(function(){
 			})
 		}
 	});
-	
+
 	
 	$("#savePlaylistButtonMusic").on("click", function() {
 		var userIDmusic = document.getElementById("userID").value;
