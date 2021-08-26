@@ -38,6 +38,8 @@ public class User {
 	
 	private String profileUrl;
 	
+	private String bannerUrl;
+	
 	private String shopDescription;
 	
 	private boolean enabled;
@@ -103,7 +105,7 @@ public class User {
 	}
 
 	public User(String firstName, String lastName, String email, String password, String dateOfBath, String displayName,
-			String about, String profileUrl, Collection<Roles> roles) {
+			String about, String profileUrl, String bannerUrl, Collection<Roles> roles) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -113,6 +115,7 @@ public class User {
 		this.displayName = displayName;
 		this.about = about;
 		this.profileUrl = profileUrl;
+		this.bannerUrl = bannerUrl;
 		this.roles = roles;
 	}
 
@@ -385,6 +388,14 @@ public class User {
 
 	public void setArtist(boolean isArtist) {
 		this.isArtist = isArtist;
+	}
+
+	public String getBannerUrl() {
+		return bannerUrl;
+	}
+
+	public void setBannerUrl(String bannerUrl) {
+		this.bannerUrl = bannerUrl;
 	}
 	
 	
