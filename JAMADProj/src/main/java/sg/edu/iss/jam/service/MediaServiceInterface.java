@@ -21,6 +21,8 @@ public interface MediaServiceInterface {
 	public Media getMediaById(Long id);
 
 //	public List<Object[]> getTopMediasByUserHistory(int i, MediaType mediaType);
+	
+	public List<Media> findAllVideos();
 
 
 }
