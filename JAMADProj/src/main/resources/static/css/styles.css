@@ -1673,7 +1673,9 @@ body {
 }
 
 .deleteCommentBtn{
-	padding: 0px;	
+	padding: 0px;
+	position: absolute;
+	left: 96.5%;	
 }
 
 .userPageSideVideosSection{
