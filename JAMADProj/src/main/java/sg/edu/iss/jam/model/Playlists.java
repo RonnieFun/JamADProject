@@ -34,10 +34,8 @@ public class Playlists {
 	@ManyToOne
 	private User playlistUser;
 	
-	//Change to OneToMany
-	
-	//ManyToMany relation with media
-	@ManyToMany
+	//OneToMany relation with media
+	@OneToMany(mappedBy = "playLists")
 	private Collection<Media> mediaPlayList;
 	
 	@OneToMany(mappedBy = "playlists")
@@ -46,9 +44,6 @@ public class Playlists {
 	public Playlists() {
 		super();
 	}
-	
-	
-
 
 	public Playlists(String playlistName, String playlistDescription, MediaType mediaType, User playlistUser,
 			Collection<Media> mediaPlayList, Collection<PlaylistOrder> playlistsorder) {

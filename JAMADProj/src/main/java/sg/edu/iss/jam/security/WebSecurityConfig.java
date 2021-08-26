@@ -45,7 +45,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 			.antMatchers("/api/**").permitAll()
 			.antMatchers("/images/**","/css/**","/videos/**","/login/**","/login/signup","/login/save").permitAll()
-			.antMatchers("/login").permitAll()
+			.antMatchers("/login" , "/video/viewartistvideochannel/**", "/music/viewartistmusicchannel/**").permitAll()
+			.antMatchers("/video/watchvideo/{mediaId}/**", "/music/loadnextmusic/{mediaId}/**").permitAll()
+			.antMatchers("/music/loadpreviousmusic/{mediaId}/**", "/music/loadnextmusic/{mediaId}/**").permitAll()
+			.antMatchers("/music/listenmusic/{mediaId}/**", "/video/medianotfound/{mediaId}/**", "/music/medianotfound/{mediaId}/**").permitAll()
 			.anyRequest().authenticated()
 			.and()
 			.formLogin()

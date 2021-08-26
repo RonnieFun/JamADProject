@@ -61,8 +61,8 @@ public class Media {
 	private Album album;
 
 	//relation with playlists
-	@ManyToMany(mappedBy = "mediaPlayList")
-	private Collection<Playlists> playLists;
+	@ManyToOne
+	private Playlists playLists;
 	
 	//relation with playlistorder
 	@OneToMany(mappedBy = "media")
@@ -72,12 +72,6 @@ public class Media {
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name="tag_media_tag_list")
 	private Collection<Tag> tagList;
-	
-	
-
-
-	
-
 
 	public Long getId() {
 		return id;
@@ -139,7 +133,7 @@ public class Media {
 	public Media(MediaType mediaType, String mediaUrl, String title, String description, String duration,
 			LocalDate createdOn, String publishStatus, String thumbnailUrl, int albumOrder,
 			Collection<UserHistory> userHistory, Collection<Comments> commentList, Channel channel, Album album,
-			Collection<Playlists> playLists, Collection<sg.edu.iss.jam.model.PlaylistOrder> playlistOrder,
+			Playlists playLists, Collection<sg.edu.iss.jam.model.PlaylistOrder> playlistOrder,
 			Collection<Tag> tagList) {
 		super();
 		this.mediaType = mediaType;
@@ -200,11 +194,11 @@ public class Media {
 		this.channel = channel;
 	}
 
-	public Collection<Playlists> getPlayLists() {
+	public Playlists getPlayLists() {
 		return playLists;
 	}
 
-	public void setPlayLists(Collection<Playlists> playLists) {
+	public void setPlayLists(Playlists playLists) {
 		this.playLists = playLists;
 	}
 
