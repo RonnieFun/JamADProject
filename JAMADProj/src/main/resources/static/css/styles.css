@@ -1678,10 +1678,24 @@ body {
 	left: 96.5%;	
 }
 
+.deleteCommentBtnVideo:hover{
+	padding: 0px;
+	position: absolute;
+	left: 96.5%;	
+	color: crimson;
+}
+
 .deleteCommentBtnMusic{
 	padding: 0px;
 	position: absolute;
 	left: 83%;	
+}
+
+.deleteCommentBtnMusic:hover{
+	padding: 0px;
+	position: absolute;
+	left: 83%;	
+	color: crimson;
 }
 
 .userPageSideVideosSection{

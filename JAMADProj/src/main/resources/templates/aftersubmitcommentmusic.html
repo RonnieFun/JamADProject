@@ -30,7 +30,7 @@
 			<span class="flex-container">
 				<span th:text="${c.commentUser.displayName}" class="commentNameMusic"></span>
 				<span th:text="${' | ' + c.dateTime}" class="commentDateMusic"></span>
-				<span id="deleteCommentBtnMusic" th:if="${user != null}" class="deleteCommentBtnMusic"><i class="far fa-minus-square"></i></span>
+				<span id="deleteCommentBtnMusic" th:if="${user != null}" class="deleteCommentBtnMusic"><i th:if="${media.channel.channelUser.userID == user.userID or c.commentUser.userID == user.userID}" class="far fa-minus-square"></i></span>
 				<input type="hidden" id="commentIDmusic" th:value="${c.id}">
 				<span th:text="${c.userComment}" class="commentDetailsMusic"></span>
 			</span>

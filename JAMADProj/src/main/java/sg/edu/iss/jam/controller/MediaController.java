@@ -372,7 +372,7 @@ public class MediaController {
 			
 			//Retrieve number of views based on userhistory size for the selected Media
 			int viewCount = userHistory.size();
-			
+
 			model.addAttribute("commentCount", commentCount);
 			model.addAttribute("user", null);
 			model.addAttribute("playlists", "");
@@ -388,7 +388,7 @@ public class MediaController {
 			List<Long> recommend_mediaid_list = new ArrayList<Long>();
 			List<Media> recommend_medialist = new ArrayList<Media>();
 			List<Media> recommend_medialist_toshow = new ArrayList<Media>();
-						
+			
 			String url = "http://127.0.0.1:5000/model3?item_id={1}";
 			ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class, mediaId);
 			response_model3 = responseEntity.getBody();
