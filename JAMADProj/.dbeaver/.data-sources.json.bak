@@ -39,8 +39,7 @@
 				"properties": {
 					"connectTimeout": "20000"
 				},
-				"auth-model": "native",
-				"handlers": {}
+				"auth-model": "native"
 			}
 		}
 	},
