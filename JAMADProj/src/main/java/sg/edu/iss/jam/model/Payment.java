@@ -5,6 +5,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Entity
 public class Payment {
@@ -13,28 +16,37 @@ public class Payment {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long paymentID;
 	
+	@NotNull(message = "First Name cannot be null.")
 	private String firstName;
 	
+	@NotNull(message = "Last Name cannot be null.")
 	private String lastName;
 	
 	private String email;
 	
+	@NotNull(message = "Country is required")
 	private String country;
 	
+	@NotNull(message = "Address is required")
 	private String address;
 	
+	@NotNull(message = "City is required")
 	private String city;
 	
 	private String postalCode;
 	
+	@NotNull(message = "Name on Card is required")
 	private String nameOnCard;
 	
 	private String phoneNumber;
 	
+	@Pattern(regexp = "^4[0-9]{12}(?:[0-9]{3})?$", message = "Only Visa cards are accepted.")
 	private String creditNumber;
 	
+	@Pattern(regexp = "^(0[1-9]|1[0-2])([\\/])([1-9][0-9])$")
 	private String expiration;
 	
+	@Digits(integer = 3, fraction = 0, message = "Invalid CVV")
 	private String cvv;
 	
 	//relation with user

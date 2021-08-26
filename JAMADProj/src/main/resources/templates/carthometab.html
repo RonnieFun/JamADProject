@@ -47,49 +47,10 @@
     <section class="productsContentSection">
       <div class="container">
         <div class="row col-lg-11 mx-auto">
-	       <!-- <div style="margin-bottom: 18px;">
-					<section class="productsFilter">
-						<div class="container">
-							<div class="row align-items-center">
-								<div class="col-12 col-md">
-									Product Categories
-									<nav class="navbar spaceLeft py-0">
-										<a class="nav-link blackFontText ml-5 sortLabel"
-											data-toggle="tab" href="#">Sort by:</a> <a
-											class="nav-link blackFontText popularSort" data-toggle="tab"
-											th:href="@{/carthometab/}+${artistId}+${status}">Popular</a> <a
-											class="nav-link blackFontText latestSort" data-toggle="tab"
-											href="#">Latest</a> <a
-											class="nav-link blackFontText salesSort" data-toggle="tab"
-											href="#">Top Sales</a>
-
-										<div class="dropdown">
-											<a class="nav-link blackFontText dropdown-toggle priceSort"
-												href="#" id="navbarDropdown" role="button"
-												data-bs-toggle="dropdown" aria-haspopup="true"
-												aria-expanded="false"> Price </a>
-											<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-												<li><a class="dropdown-item" href="#">Highest Price</a></li>
-												<li><a class="dropdown-item" href="#">Lowest Price</a></li>
-												<li><a class="dropdown-item" href="#">Promotions</a></li>
-											</ul>
-										</div>
-									</nav>
-								</div>
-							</div>
-						</div>
-					</section>
-				</div> -->
-			
 			
           <div class="col-6 col-md-3 col-lg-3 mb-5" th:each="product: ${productList}">
             <!-- Card -->
             <div class="card mb-1 h-100">
-
-              <!-- Image -->
-              <!-- <a th:href="@{/product/details/}+${product.productID}">
-                <img th:src="${product.productUrl}" alt="..." class="card-img-top productPhotoSize">
-              </a> -->
               
               <a class="modalclickable" th:onclick="'javascript:GetById(' + ${product.productID} + ')'">
                 <img th:src="${product.productUrl}" alt="..." class="card-img-top productPhotoSize">

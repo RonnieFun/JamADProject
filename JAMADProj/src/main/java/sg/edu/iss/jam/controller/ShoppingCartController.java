@@ -2,7 +2,9 @@ package sg.edu.iss.jam.controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,9 +44,24 @@ public class ShoppingCartController {
 		//long userID = (long) 2;
 		User user = uservice.findUserByUserId(userDetails.getUserId());
 		Long count = uservice.getItemCountByUserID(user.getUserID());
+		ShoppingCart cartInfo = uservice.getShoppingCartByUserID(userDetails.getUserId());
+		Map<ShoppingCartDetails, Long> detailsAndCountQty = new HashMap<ShoppingCartDetails, Long>();
+		if(cartInfo.getCartDetails()!=null) {
+			for (ShoppingCartDetails cartdetail : cartInfo.getCartDetails()) {
+				Long quantity = 0L;
+				if(cartdetail.getQuantity()>cartdetail.getProduct().getProductQty()) {
+					quantity = (long) (cartdetail.getQuantity() - cartdetail.getProduct().getProductQty());
+					cartdetail.setQuantity(cartdetail.getProduct().getProductQty());
+					uservice.saveCartDetails(cartdetail);
+				}
+				detailsAndCountQty.put(cartdetail, quantity);
+			}
+		}
 		model.addAttribute("profileUrl", user.getProfileUrl());
-		model.addAttribute("cartForm", uservice.getShoppingCartByUserID(userDetails.getUserId()));
+		model.addAttribute("cartForm", detailsAndCountQty);
 		model.addAttribute("profileUrl", user.getProfileUrl());
+		model.addAttribute("totalAmount", cartInfo.getAmountTotal());
+		model.addAttribute("totalQuantity",cartInfo.getQuantityTotal());
 		model.addAttribute("count", count);
 		//System.out.println(uservice.getShoppingCartByUserID(userDetails.getUserId()));
 		return "product/shoppingCart";
@@ -83,7 +100,11 @@ public class ShoppingCartController {
 	@GetMapping("/checkout")
 	public String checkOut(Model model,@AuthenticationPrincipal MyUserDetails userDetails) {
 		Payment payment = new Payment();
+		User user = uservice.findUserByUserId(userDetails.getUserId());
+		Long count = uservice.getItemCountByUserID(user.getUserID());
 		model.addAttribute("newPayment", payment);
+		model.addAttribute("profileUrl", user.getProfileUrl());
+		model.addAttribute("count", count);
 		model.addAttribute("cartForm", uservice.getShoppingCartByUserID(userDetails.getUserId()));
 		return "product/checkout";
 	}
@@ -91,15 +112,16 @@ public class ShoppingCartController {
 	@PostMapping("/placeorder")
 	public String placeOrder(Model model,@Valid @ModelAttribute("payment") Payment payment , BindingResult bindingResult,@AuthenticationPrincipal MyUserDetails userDetails) {
 		if (bindingResult.hasErrors()) {
-			return "product/checkout";
+			return "redirect:checkout";
 		}
 		//long userID = (long) 2;
 		User user = null;
+		Orders neworder = null;
 		user = uservice.findUserByUserId(userDetails.getUserId());
 		//insert order depending on shoppingcart
 		ShoppingCart cart = uservice.getShoppingCartByUserID(userDetails.getUserId());
 		if(cart.getCartDetails()!=null) {
-			Orders neworder = new Orders(LocalDate.now(), payment.getAddress(), user,null);
+			neworder = new Orders(LocalDate.now(), payment.getAddress(), user,null);
 			uservice.saveOrder(neworder);
 			
 			List<OrderDetails> orderDetailList = new ArrayList<>();
@@ -119,6 +141,7 @@ public class ShoppingCartController {
 		//save payment
 		payment.setUser(user);
 		uservice.savePayement(payment);
+		model.addAttribute("order", neworder);
 		return "product/orderconfirm";
 	}
 	
@@ -162,17 +185,34 @@ public class ShoppingCartController {
 	
 	@RequestMapping(value="/updatecartitemqty", method=RequestMethod.PUT)
 	@ResponseBody
-	public void updateItem(@RequestParam(value = "productId") Long productId ,@RequestParam(value = "quantity") Integer quantity, @AuthenticationPrincipal MyUserDetails userDetails) throws Exception {
+	public String updateItem(@RequestParam(value = "productId") Long productId ,@RequestParam(value = "quantity") Integer quantity, @AuthenticationPrincipal MyUserDetails userDetails) throws Exception {
 		//long userID = (long) 2;
+		String result = "";
+		Long uncount= 0L;
 		ShoppingCart cart = uservice.getShoppingCartByUserID(userDetails.getUserId());
 		if(quantity<=0) {
 			uservice.removeCartDetails(productId, cart.getShoppingCartID());
 		}
 		else {
 			ShoppingCartDetails carddetail = uservice.getCartDetailByProductID(productId,cart.getShoppingCartID());
-			carddetail.setQuantity(quantity);
+			if(quantity>carddetail.getProduct().getProductQty()) {
+				if(carddetail.getProduct().getProductQty()!=0) {
+					carddetail.setQuantity(carddetail.getProduct().getProductQty());
+					uncount = (long) (quantity- carddetail.getProduct().getProductQty());
+				}
+				else {
+					uservice.removeCartDetails(productId, cart.getShoppingCartID());
+				}
+			}
+			else {
+				carddetail.setQuantity(quantity);
+			}
 			uservice.saveCartDetails(carddetail);
 		}
+		result = "{\"uncount\":";
+		result += "\"" + uncount + "\"";
+		result += "}";
+		return result;
 		
 	}
 	

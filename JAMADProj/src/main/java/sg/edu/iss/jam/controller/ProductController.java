@@ -101,12 +101,10 @@ public class ProductController {
 		return Result;
 	}
 
-	@GetMapping("/cartothertab")
-	public String shoppingCartOther(Model model) {
-		Payment payment = new Payment();
-		model.addAttribute("newPayment", payment);
-		return "product/checkout";
-	}
+//	@GetMapping("/cartothertab")
+//	public String shoppingCartOther(Model model) {
+//		return "product/orderconfrim";
+//	}
 
 	// ajax call
 	@RequestMapping(value = "/getAllProduct", method = RequestMethod.POST)
