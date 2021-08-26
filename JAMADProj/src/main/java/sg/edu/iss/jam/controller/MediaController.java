@@ -1112,7 +1112,7 @@ public class MediaController {
 		if (userDetails != null) {
 			// Get the loggedIn user
 			Long loggedInUserId = userDetails.getUserId(); 
-			User loggedInUser = uservice.findUserByUserId(loggedInUserId);
+//			User loggedInUser = uservice.findUserByUserId(loggedInUserId);
 			
 			// check whether the current loggedIn user has subscribed the artist
 			List<Subscribed> unsubscribed_loggedInUser = uservice.getArtistUnsubscribedByLoggInUserId(artistId, loggedInUserId);
@@ -1261,7 +1261,7 @@ public class MediaController {
 			
 			// Get the loggedIn user
 			Long loggedInUserId = userDetails.getUserId(); 
-			User loggedInUser = uservice.findUserByUserId(loggedInUserId);
+//			User loggedInUser = uservice.findUserByUserId(loggedInUserId);
 			
 			// check whether the current loggedIn user has subscribed the artist
 			List<Subscribed> unsubscribed_loggedInUser = uservice.getArtistUnsubscribedByLoggInUserId(artistId, loggedInUserId);
