@@ -16,7 +16,7 @@
 						
 						<!--  Meida image  -->
                         	<!-- <a th:href="@{/video/watchvideo(id=${video.id})}"> -->
-							<a th:href="@{/video/watchvideo}">
+							<a th:href="@{/music/viewartistmusicchannel/}+${music.channel.channelUser.userID}">
 								<img th:src="${music.thumbnailUrl}" class="card-img-top productPhotoSize" alt="...">
 								<span  class="sideDurationMusicLandingPage" th:text="${music.duration}"></span> 
 							</a>
@@ -26,7 +26,7 @@
 								
 								<!-- artisit photo -->
 								<div class="card-body px-0 bg-white">
-								<a th:href="@{/music/viewartistmusicchannel}">
+								<a th:href="@{/music/viewartistmusicchannel/}+${music.channel.channelUser.userID}">
 									<div class="row">
 										<div class="col-4">
 											<img class="rounded-circle" width="100%"
@@ -41,7 +41,7 @@
 									   
 									<!--   need add channel id
 									  <a th:href="@{/music/viewartistmusicchannel(id=${video.channel.channelID})}"> -->
-									  	 <a th:href="@{/music/viewartistmusicchannel}">
+									  	 <a th:href="@{/music/viewartistmusicchannel/}+${music.channel.channelUser.userID}">
 											<span th:text="${music.channel.channelUser.displayName}"> </span>
 											</span>
 											</a> 
