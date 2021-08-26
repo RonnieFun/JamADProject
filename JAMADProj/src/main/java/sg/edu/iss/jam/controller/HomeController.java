@@ -51,21 +51,23 @@ public class HomeController {
 		model.addAttribute("user", uService.findUserByUserId(userDetails.getUserId()));
 		model.addAttribute("profileUrl", user.getProfileUrl());
 		model.addAttribute("bannerUrl", user.getBannerUrl());
-		model.addAttribute("followers", srepo.countByTargetId(user.getUserID()));
-		model.addAttribute("following", cService.getFollowingByUserId(user.getUserID()));
+		
+		
+		model.addAttribute("followers", ((srepo.getArtistSubscribed(user.getUserID())).size() - (srepo.getArtistUnSubscribed(user.getUserID())).size()));
+		model.addAttribute("following", ((srepo.getSubscriptions(user.getUserID())).size() - srepo.getMyUnsubscribe(user.getUserID()).size()));
 		
 
-		System.out.println("Total subscribers: " + srepo.countByTargetId(user.getUserID()));
-		System.out.println("Total following: " + cService.getFollowingByUserId(user.getUserID()));
+		System.out.println("Total subscribers: " + ((srepo.getArtistSubscribed(user.getUserID())).size() - (srepo.getArtistUnSubscribed(user.getUserID())).size()));
+		System.out.println("Total following: " + ((srepo.getSubscriptions(user.getUserID())).size() - srepo.getMyUnsubscribe(user.getUserID()).size()));
 		
-		System.out.println("IDs of people I follow:" );
-		List<Subscribed> following = cService.getListofFollowingByUserId(user.getUserID());
-		following.stream().forEach(x->System.out.print(" " + x.getTargetId()));
+//		System.out.println("IDs of people I follow:" );
+//		List<Subscribed> following = srepo.getListofFollowingByUserId(user.getUserID());
+//		following.stream().forEach(x->System.out.print(" " + x.getTargetId()));
 		
 		System.out.println();
 		System.out.println("IDs of people who follow me: ");
-		List<Subscribed> subs = srepo.findByTargetId(user.getUserID());
-		subs.stream().forEach(x->System.out.print(" " + x.getUser().getUserID()));
+		List<Subscribed> subs = srepo.getArtistSubscribed(user.getUserID());
+		subs.stream().forEach(x->System.out.print(" " + x.getSubscriber().getUserID()));
 
 
 		Long count = uService.getItemCountByUserID(userDetails.getUserId());
@@ -75,24 +77,24 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping("/subscribers")
-	public String viewSubs(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
-		User user = uService.findUserByUserId(userDetails.getUserId());
-		List<Subscribed> subs = srepo.findByTargetId(user.getUserID());
-		List<User> subscribers = subs.stream().map(x->x.getUser())
-				.collect(Collectors.toList());
-		
-		model.addAttribute("subscribers", subscribers);
-		model.addAttribute("user", uService.findUserByUserId(userDetails.getUserId()));
-		model.addAttribute("profileUrl", user.getProfileUrl());
-		model.addAttribute("noOfSubs", srepo.countByTargetId(user.getUserID()));
-		model.addAttribute("followers", srepo.countByTargetId(user.getUserID()));
-		model.addAttribute("following", cService.getFollowingByUserId(user.getUserID()));
-		
-	
-	
-		return "subscribers";
-	}
-	
+//	@RequestMapping("/subscribers")
+//	public String viewSubs(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
+//		User user = uService.findUserByUserId(userDetails.getUserId());
+//		List<Subscribed> subs = srepo.findByTargetId(user.getUserID());
+//		List<User> subscribers = subs.stream().map(x->x.getUser())
+//				.collect(Collectors.toList());
+//		
+//		model.addAttribute("subscribers", subscribers);
+//		model.addAttribute("user", uService.findUserByUserId(userDetails.getUserId()));
+//		model.addAttribute("profileUrl", user.getProfileUrl());
+//		model.addAttribute("noOfSubs", srepo.countByTargetId(user.getUserID()));
+//		model.addAttribute("followers", srepo.countByTargetId(user.getUserID()));
+//		model.addAttribute("following", cService.getFollowingByUserId(user.getUserID()));
+//		
+//	
+//	
+//		return "subscribers";
+//	}
+//	
 
 }
