@@ -189,9 +189,6 @@ $(document).ready(function(){
 		
 	});
 	
-	
-	
-	
 	$("#userCommentsSubmitBtnVideo").on("click", function() {
 		
 		if($('#commentsTxtArea').val().trim() == "") {
@@ -259,5 +256,6 @@ $(document).ready(function(){
 	}
 		
 	});
-
+	
+	
 });

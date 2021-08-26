@@ -12,11 +12,13 @@
 			<button class="musicBack" type="submit"><i class="fas fa-backward"></i></button>
 		</form>
 	
-		<audio class="col-md-4 col-lg-5 userPageMainMusic" controls>
+		<audio id="mainAudioPlaying" class="col-md-4 col-lg-5 userPageMainMusic" controls>
 	 		<source th:src="${media.mediaUrl}" type="audio/mp3">
 	 	</audio>
+	 	
+	 	<input type="hidden" id="mainAudioCurrentId" th:value="${media.id}">
 
-		<form th:action="@{/music/loadnextmusic/{mediaId}(mediaId = ${media.id})}" action="GET">
+		<form id="playNextAudioSubmitForm" th:action="@{/music/loadnextmusic/{mediaId}(mediaId = ${media.id})}" action="GET">
 			<button class="musicNext" type="submit"><i class="fas fa-forward"></i></button>
 		</form>
 	</div>
@@ -186,6 +188,10 @@ function openSubscribeFormLoginMusic() {
 function closeSubscribeFormLoginMusic() {
 	document.getElementById("askToLoginSubscribeFormMusic").style.display = "none";
 }
+
+document.getElementById('mainAudioPlaying').addEventListener("ended", function() {
+	document.getElementById("playNextAudioSubmitForm").submit();
+});
 
 $(document).mouseup(function(e) {
 	if ($("#myHeartFormVideo").has(e.target).length === 0 && !$("#myHeartFormVideo").is(e.target)) 
