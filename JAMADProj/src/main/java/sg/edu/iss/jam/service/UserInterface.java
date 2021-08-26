@@ -16,6 +16,7 @@ import sg.edu.iss.jam.model.Orders;
 import sg.edu.iss.jam.model.Payment;
 import sg.edu.iss.jam.model.Playlists;
 import sg.edu.iss.jam.model.Product;
+import sg.edu.iss.jam.model.Roles;
 import sg.edu.iss.jam.model.Playlists;
 import sg.edu.iss.jam.model.Subscribed;
 import sg.edu.iss.jam.model.Tag;
@@ -121,6 +122,12 @@ public interface UserInterface {
 	List<Product> getListOfAllProduts();
 	List<UserHistory> findUserHistoryByUserId(Long userId);
 	List<UserHistory> findUserHistoryByUserIdAndMediaType(Long userId, MediaType mediaType);
+	
+	
+	List<User> getAllUser();
+	
+	
+	void saveRole(Roles b);
 	
 	
 	
