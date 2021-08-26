@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import sg.edu.iss.jam.model.Role;
 import sg.edu.iss.jam.model.Roles;
+import sg.edu.iss.jam.model.ShoppingCart;
 import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.repo.RolesRepository;
+import sg.edu.iss.jam.repo.ShoppingCartRepository;
 import sg.edu.iss.jam.service.UserInterface;
 
 @Controller
@@ -29,6 +31,9 @@ public class LoginController {
 		
 		@Autowired
 		RolesRepository rrepo;
+		
+		@Autowired
+		ShoppingCartRepository screpo;
 		
 		@RequestMapping("/")
 		public String login(Model model) {
@@ -57,6 +62,7 @@ public class LoginController {
 			String encodedPassword = encoder.encode(rawPassword);
 			user.setPassword(encodedPassword);
 			user.setEnabled(true);
+			user.setBannerUrl("/images/JAM_LOGO.png");
 			
 			if(user.getProfileUrl()==null) {
 				user.setProfileUrl("/images/default_user.jpg");
@@ -65,8 +71,10 @@ public class LoginController {
 			if(user.isArtist()==true) {
 				user.setRoles(roles);
 				Roles a = new Roles(Role.Artist, user);
+				ShoppingCart s = new ShoppingCart(user,null);
 				userService.updateUser(user);
 				rrepo.save(a);
+				screpo.save(s);
 				model.addAttribute("user", userService.findUserByUserId(user.getUserID()));
 				model.addAttribute("profileUrl", user.getProfileUrl());
 				System.out.println(user.getUserID());
@@ -76,8 +84,10 @@ public class LoginController {
 			else {
 				user.setRoles(roles);
 				Roles b = new Roles(Role.Customer, user);
+				ShoppingCart s = new ShoppingCart(user,null);
 				userService.updateUser(user);
 				rrepo.save(b);
+				screpo.save(s);
 				return"successSignUp";
 			}
 				
