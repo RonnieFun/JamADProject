@@ -13,9 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
 public class Product {
 
@@ -41,21 +38,17 @@ public class Product {
 
 	// relation with Wishlist
 	@ManyToMany
-	@JsonManagedReference
 	private Collection<Wishlist> wishlists;
 	
 	@OneToMany(mappedBy = "product")
-	@JsonBackReference
 	private Collection<OrderDetails> orderDetails;
 
 	// relation with cartDetails
 	@OneToMany(mappedBy = "product")
-	@JsonBackReference
 	private Collection<ShoppingCartDetails> shoppingCartDetails;
 
 	// ManyToOne relation with User
 	@ManyToOne
-	@JsonManagedReference
 	private User productUser;
 
 	public Product() {
