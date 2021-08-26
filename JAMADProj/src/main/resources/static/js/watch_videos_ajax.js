@@ -13,13 +13,14 @@ function openFormMusic() {
 function closeFormMusic() {
 	  document.getElementById("myHeartFormMusic").style.display = "none";
 	}
-	
+
 //Close save to playlist heart button if click outside box
 $(document).mouseup(function(e) 
 {
     if ($("#myHeartFormVideo").has(e.target).length === 0 && !$("#myHeartFormVideo").is(e.target)) 
     {
         closeForm();
+        closeFormMusic();
     }
 });	
 
@@ -64,7 +65,7 @@ $(document).ready(function(){
 			})
 		}
 	});
-	
+
 	
 	$("#savePlaylistButtonMusic").on("click", function() {
 		var userIDmusic = document.getElementById("userID").value;
@@ -188,9 +189,6 @@ $(document).ready(function(){
 		
 	});
 	
-	
-	
-	
 	$("#userCommentsSubmitBtnVideo").on("click", function() {
 		
 		if($('#commentsTxtArea').val().trim() == "") {
@@ -258,5 +256,59 @@ $(document).ready(function(){
 	}
 		
 	});
-
+	
+	$("span[id='deleteCommentBtnVideo']").each(function(i){
+    	$(this).attr('id', $(this).attr('id') + i);
+	});
+	
+	$("input[id='commentIDvideo']").each(function(i){
+    	$(this).attr('id', $(this).attr('id') + i);
+	});
+	
+	$(".deleteCommentBtnVideo").on("click", function() {
+		var commentIDvideo = document.getElementById($(this).next('input').attr('id')).value;
+		var commentMediaId = document.getElementById("commentMediaId").value;
+		var ajaxChecker = 543501872;
+		var ajaxChecker2 = 32163231;
+		$.ajax({
+			type: "POST",
+			url: "/video/deleteComment",
+			contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+			data: {
+				commentIDvideo :commentIDvideo,
+			},
+			success: function (response) {
+				$('#userCommentsSection').load("http://localhost:8080/video/aftersubmitcomment/" + commentMediaId + "/" + ajaxChecker + "/" + ajaxChecker2);
+			}
+		}) 
+	});
+	
+	
+	$("span[id='deleteCommentBtnMusic']").each(function(i){
+    	$(this).attr('id', $(this).attr('id') + i);
+	});
+	
+	$("input[id='commentIDmusic']").each(function(i){
+    	$(this).attr('id', $(this).attr('id') + i);
+	});
+	
+	$(".deleteCommentBtnMusic").on("click", function() {
+		var commentIDmusic = document.getElementById($(this).next('input').attr('id')).value;
+		var commentMediaIdMusic = document.getElementById("commentMediaIdMusic").value;
+		var ajaxCheckerMusic = 723472837;
+		var ajaxChecker2Music = 340982904;
+		$.ajax({
+			type: "POST",
+			url: "/music/deleteComment",
+			contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+			data: {
+				commentIDmusic :commentIDmusic,
+			},
+			success: function (response) {
+				$('#userCommentsSectionMusic').load("http://localhost:8080/music/aftersubmitcomment/" + commentMediaIdMusic + "/" + ajaxCheckerMusic + "/" + ajaxChecker2Music);
+			}
+		}) 
+	});
+	
+	
 });

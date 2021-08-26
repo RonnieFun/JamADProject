@@ -33,8 +33,6 @@ public class ShoppingCartDetails {
 		this.shoppingCart = shoppingCart;
 	}
 
-
-
 	public Long getCartDetailID() {
 		return cartDetailID;
 	}

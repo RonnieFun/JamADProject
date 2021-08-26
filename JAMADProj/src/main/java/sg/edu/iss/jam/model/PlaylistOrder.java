@@ -43,6 +43,13 @@ public class PlaylistOrder {
 	}
 
 	
+	public PlaylistOrder() {
+		super();
+	}
+
+
+
+
 	public Long getPlaylistOrderID() {
 		return PlaylistOrderID;
 	}

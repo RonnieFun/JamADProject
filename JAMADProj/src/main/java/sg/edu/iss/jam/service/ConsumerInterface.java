@@ -1,5 +1,10 @@
 package sg.edu.iss.jam.service;
 
-public interface ConsumerInterface {
+import java.util.List;
 
+import sg.edu.iss.jam.model.Subscribed;
+
+
+public interface ConsumerInterface {
+	
 }

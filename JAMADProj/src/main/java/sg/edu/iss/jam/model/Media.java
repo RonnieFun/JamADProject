@@ -1,4 +1,7 @@
 package sg.edu.iss.jam.model;
+import java.time.LocalDate;
+import java.util.Collection;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,7 +14,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -27,7 +29,6 @@ public class Media {
 	@Enumerated(EnumType.STRING)
 	private MediaType mediaType;
 	
-	@Length(max=1000)
 	private String mediaUrl;
 	
 	private String title;
@@ -145,13 +146,13 @@ public class Media {
 		this.createdOn = createdOn;
 		this.publishStatus = publishStatus;
 		this.thumbnailUrl = thumbnailUrl;
-		AlbumOrder = albumOrder;
+		this.AlbumOrder = albumOrder;
 		this.userHistory = userHistory;
 		this.commentList = commentList;
 		this.channel = channel;
 		this.album = album;
 		this.playLists = playLists;
-		PlaylistOrder = playlistOrder;
+		this.PlaylistOrder = playlistOrder;
 		this.tagList = tagList;
 	}
 
@@ -195,6 +196,7 @@ public class Media {
 		this.channel = channel;
 	}
 
+	
 	public Collection<Playlists> getPlayLists() {
 		return playLists;
 	}

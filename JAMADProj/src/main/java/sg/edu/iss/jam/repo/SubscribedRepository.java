@@ -7,8 +7,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import sg.edu.iss.jam.model.Subscribed;
+import sg.edu.iss.jam.model.User;
 
 public interface SubscribedRepository extends JpaRepository<Subscribed, Long> {
+	
 
 	@Query("SELECT s FROM Subscribed s WHERE s.artist.userID = :artistId "
 			+ "AND s.subscribed = false")
@@ -17,6 +19,14 @@ public interface SubscribedRepository extends JpaRepository<Subscribed, Long> {
 	@Query("SELECT s FROM Subscribed s WHERE s.artist.userID = :artistId "
 			+ "AND s.subscribed = true")
 	List<Subscribed> getArtistSubscribed(@Param("artistId") Long artistId);
+	
+	@Query("SELECT s FROM Subscribed s WHERE s.subscriber.userID = :artistId "
+			+ "AND s.subscribed = true")
+	List<Subscribed> getSubscriptions(@Param("artistId") Long artistId);
+	
+	@Query("SELECT s FROM Subscribed s WHERE s.subscriber.userID = :artistId "
+			+ "AND s.subscribed = false")
+	List<Subscribed> getMyUnsubscribe(@Param("artistId") Long artistId);
 	
 //	@Query("SELECT s FROM Subscribed s WHERE s.artist.userID = :userID")
 //	List<Subscribed> getArtistSubscribedUnsubscribed(@Param("userID") Long userId, @Param("loggedInUserId")Long loggedInUserId);

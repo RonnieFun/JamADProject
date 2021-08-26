@@ -1,22 +1,15 @@
 package sg.edu.iss.jam.model;
 
 import java.util.Collection;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class User {
@@ -40,6 +33,8 @@ public class User {
 	
 	private String profileUrl;
 	
+	private String bannerUrl;
+	
 	private String shopDescription;
 	
 	private boolean enabled;
@@ -51,68 +46,54 @@ public class User {
 	
 	//OneToMany relation with Roles
 	@OneToMany(mappedBy = "roleUser", fetch= FetchType.EAGER)
-	@JsonBackReference
 	private Collection<Roles> roles;
 	
 	//OneToMany relation with Sessions
 	@OneToMany(mappedBy = "sessionUser")
-	@JsonBackReference
 	private Collection<Sessions> sessions;
 	
 	//ManyToMany relation with Orders
 	@OneToMany(mappedBy = "user")
-	@JsonBackReference
 	private Collection<Orders> orders;
 	
 	//oneToOne relation with wishlist
 	@OneToOne(mappedBy = "wishlistUser")  
-	@JsonBackReference
 	private Wishlist wishlist;
 	
 	//relation with product 
 	@OneToMany(mappedBy = "productUser")
-	@JsonBackReference
 	private Collection<Product> products;
-	
-	
+		
 	//OneToOne relation with shoppingcart
 	@OneToOne(mappedBy = "shoppingCartUser")
-	@JsonBackReference
 	private ShoppingCart shoppingCart;
 	
 	//OneToMany relation with userhistory
 	@OneToMany(mappedBy = "historyUser")
-	@JsonBackReference
 	private Collection<UserHistory> histories;
 	
 	//OneToMany relation with playlists
 	@OneToMany(mappedBy = "playlistUser")
-	@JsonBackReference
 	private Collection<Playlists> playlists;
 	
 	//OneToMany relation with subscribed
 	@OneToMany(mappedBy = "artist")
-	@JsonBackReference
 	private Collection<Subscribed> targetArtists;
 
 	@OneToMany(mappedBy = "subscriber")
-	@JsonBackReference
 	private Collection<Subscribed> subscribers;
 	
 	//OneToMany relation with channel
 	@OneToMany(mappedBy = "channelUser")
-	@JsonBackReference
 	private Collection<Channel> channels;
 	
 	
 	//OneToMany relation with comment
 	@OneToMany(mappedBy = "commentUser")
-	@JsonBackReference
 	private Collection<Comments> comments;
 	
 	//OneToMany relation with payment
 	@OneToMany(mappedBy = "user")
-	@JsonBackReference
 	private Collection<Payment> paymentList;
 
 	public User() {
@@ -120,7 +101,7 @@ public class User {
 	}
 
 	public User(String firstName, String lastName, String email, String password, String dateOfBath, String displayName,
-			String about, String profileUrl, Collection<Roles> roles) {
+			String about, String profileUrl, String bannerUrl, Collection<Roles> roles) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -130,6 +111,7 @@ public class User {
 		this.displayName = displayName;
 		this.about = about;
 		this.profileUrl = profileUrl;
+		this.bannerUrl = bannerUrl;
 		this.roles = roles;
 	}
 
@@ -407,6 +389,14 @@ public class User {
 
 	public void setArtist(boolean isArtist) {
 		this.isArtist = isArtist;
+	}
+
+	public String getBannerUrl() {
+		return bannerUrl;
+	}
+
+	public void setBannerUrl(String bannerUrl) {
+		this.bannerUrl = bannerUrl;
 	}
 	
 	

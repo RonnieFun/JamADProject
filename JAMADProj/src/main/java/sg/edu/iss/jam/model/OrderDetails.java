@@ -1,7 +1,5 @@
 package sg.edu.iss.jam.model;
 
-import java.util.Collection;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

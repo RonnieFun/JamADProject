@@ -13,7 +13,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-
 @Entity
 public class Playlists {
 	
@@ -34,8 +33,6 @@ public class Playlists {
 	//ManyToOne relation with user
 	@ManyToOne
 	private User playlistUser;
-	
-	//Change to OneToMany
 	
 	//ManyToMany relation with media
 	@ManyToMany

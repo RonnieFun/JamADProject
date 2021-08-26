@@ -1,15 +1,12 @@
 package sg.edu.iss.jam.model;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @Entity
 public class UserHistory {
