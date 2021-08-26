@@ -284,4 +284,31 @@ $(document).ready(function(){
 	});
 	
 	
+	$("span[id='deleteCommentBtnMusic']").each(function(i){
+    	$(this).attr('id', $(this).attr('id') + i);
+	});
+	
+	$("input[id='commentIDmusic']").each(function(i){
+    	$(this).attr('id', $(this).attr('id') + i);
+	});
+	
+	$(".deleteCommentBtnMusic").on("click", function() {
+		var commentIDmusic = document.getElementById($(this).next('input').attr('id')).value;
+		var commentMediaIdMusic = document.getElementById("commentMediaIdMusic").value;
+		var ajaxCheckerMusic = 723472837;
+		var ajaxChecker2Music = 340982904;
+		$.ajax({
+			type: "POST",
+			url: "/music/deleteComment",
+			contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+			data: {
+				commentIDmusic :commentIDmusic,
+			},
+			success: function (response) {
+				$('#userCommentsSectionMusic').load("http://localhost:8080/music/aftersubmitcomment/" + commentMediaIdMusic + "/" + ajaxCheckerMusic + "/" + ajaxChecker2Music);
+			}
+		}) 
+	});
+	
+	
 });

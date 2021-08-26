@@ -77,8 +77,22 @@ public class MediaController {
 		}
 		
 		uservice.removeComments(commentIDvideo);
-		return "";
-	}
+		return "userlistenmusic";
+	}	
+	
+	//ajax call for delete comment button on Listen Music page
+		@PostMapping("/music/deleteComment")
+		@ResponseBody
+		public String deleteCommentMusic(Model model, @AuthenticationPrincipal MyUserDetails userDetails,
+				@RequestParam(value = "commentIDmusic") Long commentIDmusic) {
+			
+			if(userDetails == null) {
+				return "/login/";	
+			}
+			
+			uservice.removeComments(commentIDmusic);
+			return "userlistenmusic";
+		}	
 	
 	
 	@GetMapping("/video/medianotfound/{mediaId}") 
