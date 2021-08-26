@@ -52,7 +52,13 @@ public class UploadImplementation implements UploadInterface {
 		
 
 	    Path fileToDeletePath = Paths.get("src/main/resources/static"+filepath);
-	    Files.delete(fileToDeletePath);
+	    
+	    try {
+		    Files.delete(fileToDeletePath);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
 		
 	    
 		return true;

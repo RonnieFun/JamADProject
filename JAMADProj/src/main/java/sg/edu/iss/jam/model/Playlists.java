@@ -41,15 +41,12 @@ public class Playlists {
 	@ManyToMany
 	private Collection<Media> mediaPlayList;
 	
-	@OneToMany(mappedBy = "playlists",cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "playlists")
 	private Collection<PlaylistOrder> playlistsorder;
 
 	public Playlists() {
 		super();
 	}
-	
-	
-
 
 	public Playlists(String playlistName, String playlistDescription, MediaType mediaType, User playlistUser,
 			Collection<Media> mediaPlayList, Collection<PlaylistOrder> playlistsorder) {

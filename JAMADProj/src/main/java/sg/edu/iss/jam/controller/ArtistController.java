@@ -509,8 +509,7 @@ public class ArtistController {
 			String uploadDir = "src/main/resources/static/media/channel" + channel.getChannelID().toString()
 					+ "/Music/album" + album.getAlbumID().toString();
 			if (Albumcoverfile.getSize() > 0 && Albumcoverfile.getSize() > 0) {
-				album.setAlbumImgURL(UploadService.store(Albumcoverfile, uploadDir,
-						"albumcover" + album.getAlbumID().toString() + "."));
+				album.setAlbumImgURL("/media/channel"+channel.getChannelID().toString()+"/Music/album"+album.getAlbumID().toString()+"/"+UploadService.store(Albumcoverfile, uploadDir, "albumcover" + album.getAlbumID().toString() + "."));
 				album = ArtistService.saveAlbum(album);
 			} else
 				return "error";
@@ -524,8 +523,7 @@ public class ArtistController {
 			String uploadDir = "src/main/resources/static/media/channel" + channel.getChannelID().toString()
 					+ "/Music/album" + album.getAlbumID().toString();
 			if (Albumcoverfile.getSize() > 0 && Albumcoverfile.getSize() > 0) {
-				album.setAlbumImgURL(
-						UploadService.store(Albumcoverfile, uploadDir, "albumcover" + album.getAlbumID().toString()));
+				album.setAlbumImgURL("/media/channel"+channel.getChannelID().toString()+"/Music/album"+album.getAlbumID().toString()+"/"+UploadService.store(Albumcoverfile, uploadDir, "albumcover" + album.getAlbumID().toString() + "."));
 				album = ArtistService.saveAlbum(album);
 			}
 
@@ -606,12 +604,12 @@ public class ArtistController {
 
 			media = mediaDTO;
 			media.setAlbum(album);
-			media.setMediaType(MediaType.Video);
+			media.setMediaType(mediaType);
 			media.setCreatedOn(LocalDate.now());
 			media.setChannel(channel);
 			media.setThumbnailUrl(album.getAlbumImgURL());
 			if (!tags.isEmpty()) {
-				media.setTagList(ArtistService.getTagsbytagName(tags.get()));
+				media.setTagList(ArtistService.getTagsbytagName(tags.get())); //Having Problem saving tags due to ownership 
 
 			}
 
@@ -619,7 +617,7 @@ public class ArtistController {
 
 			// When creating new video, file cannot be empty
 			if (mediafile.getSize() > 0) {
-				media.setMediaUrl(UploadService.store(mediafile, uploadDir, "music" + media.getId().toString() + "."));
+				media.setMediaUrl("/media/channel"+channel.getChannelID().toString()+"/Music/album"+album.getAlbumID().toString()+"/"+UploadService.store(mediafile, uploadDir, "music" + media.getId().toString() + "."));
 				media = ArtistService.saveMedia(media);
 			} else {
 				return "error";
@@ -635,13 +633,13 @@ public class ArtistController {
 			media.setPublishStatus(mediaDTO.getPublishStatus());
 			media.setAlbumOrder(mediaDTO.getAlbumOrder());
 			if (!tags.isEmpty()) {
-				media.setTagList(ArtistService.getTagsbytagName(tags.get()));// Cannot delete tags. Probably Cascade
-																				// Problem
+				media.setTagList(ArtistService.getTagsbytagName(tags.get()));
+
 			} else
 				media.setTagList(null);
 
 			if (mediafile.getSize() > 0) {
-				media.setMediaUrl(UploadService.store(mediafile, uploadDir, "music" + media.getId().toString() + "."));
+				media.setMediaUrl("/media/channel"+channel.getChannelID().toString()+"/Music/album"+album.getAlbumID().toString()+"/"+UploadService.store(mediafile, uploadDir, "music" + media.getId().toString() + "."));
 			}
 
 			ArtistService.saveMedia(media);

@@ -16,6 +16,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Set;
 @Entity
 public class Media {
 	
@@ -61,7 +62,7 @@ public class Media {
 	private Album album;
 
 	//relation with playlists
-	@ManyToMany(mappedBy = "mediaPlayList",cascade = CascadeType.REMOVE)
+	@ManyToMany(mappedBy = "mediaPlayList")
 	private Collection<Playlists> playLists;
 	
 	//relation with playlistorder
@@ -69,9 +70,9 @@ public class Media {
 	private Collection<PlaylistOrder> PlaylistOrder;
 	
 	//relation with tag
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
 	@JoinTable(name="tag_media_tag_list")
-	private Collection<Tag> tagList;
+	private Set<Tag> tagList;
 	
 	public Long getId() {
 		return id;
@@ -134,7 +135,7 @@ public class Media {
 			LocalDate createdOn, String publishStatus, String thumbnailUrl, int albumOrder,
 			Collection<UserHistory> userHistory, Collection<Comments> commentList, Channel channel, Album album,
 			Collection<Playlists> playLists, Collection<sg.edu.iss.jam.model.PlaylistOrder> playlistOrder,
-			Collection<Tag> tagList) {
+			Set<Tag> tagList) {
 		super();
 		this.mediaType = mediaType;
 		this.mediaUrl = mediaUrl;
@@ -206,7 +207,7 @@ public class Media {
 		return tagList;
 	}
 
-	public void setTagList(Collection<Tag> tagList) {
+	public void setTagList(Set<Tag> tagList) {
 		this.tagList = tagList;
 	}
 	
