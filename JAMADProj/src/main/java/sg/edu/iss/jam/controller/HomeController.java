@@ -1,5 +1,7 @@
 package sg.edu.iss.jam.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -8,9 +10,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import sg.edu.iss.jam.model.Subscribed;
 import sg.edu.iss.jam.model.User;
+import sg.edu.iss.jam.repo.SubscribedRepository;
+import sg.edu.iss.jam.repo.UserRepository;
 import sg.edu.iss.jam.security.MyUserDetails;
 import sg.edu.iss.jam.service.ArtistInterface;
+import sg.edu.iss.jam.service.ConsumerInterface;
 import sg.edu.iss.jam.service.UserInterface;
 
 
