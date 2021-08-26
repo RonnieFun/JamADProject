@@ -1,18 +1,13 @@
 package sg.edu.iss.jam.model;
 
 import java.util.Collection;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -68,8 +63,7 @@ public class User {
 	//relation with product 
 	@OneToMany(mappedBy = "productUser")
 	private Collection<Product> products;
-	
-	
+		
 	//OneToOne relation with shoppingcart
 	@OneToOne(mappedBy = "shoppingCartUser")
 	private ShoppingCart shoppingCart;
@@ -83,9 +77,11 @@ public class User {
 	private Collection<Playlists> playlists;
 	
 	//OneToMany relation with subscribed
-	@OneToMany(mappedBy = "user")
-	private Collection<Subscribed> subscribers;
+	@OneToMany(mappedBy = "artist")
+	private Collection<Subscribed> targetArtists;
 
+	@OneToMany(mappedBy = "subscriber")
+	private Collection<Subscribed> subscribers;
 	
 	//OneToMany relation with channel
 	@OneToMany(mappedBy = "channelUser")
@@ -318,16 +314,21 @@ public class User {
 		this.playlists = playlists;
 	}
 
+	public Collection<Subscribed> getTargetArtists() {
+		return targetArtists;
+	}
+
+	public void setTargetArtists(Collection<Subscribed> targetArtists) {
+		this.targetArtists = targetArtists;
+	}
 
 	public Collection<Subscribed> getSubscribers() {
 		return subscribers;
 	}
 
-
 	public void setSubscribers(Collection<Subscribed> subscribers) {
 		this.subscribers = subscribers;
 	}
-
 
 	public Collection<Channel> getChannels() {
 		return channels;

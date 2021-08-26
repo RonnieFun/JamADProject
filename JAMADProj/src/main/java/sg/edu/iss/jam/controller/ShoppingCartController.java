@@ -2,13 +2,16 @@ package sg.edu.iss.jam.controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,6 +31,7 @@ import sg.edu.iss.jam.model.Product;
 import sg.edu.iss.jam.model.ShoppingCart;
 import sg.edu.iss.jam.model.ShoppingCartDetails;
 import sg.edu.iss.jam.model.User;
+import sg.edu.iss.jam.security.MyUserDetails;
 import sg.edu.iss.jam.service.UserInterface;
 @Controller
 public class ShoppingCartController {
@@ -36,19 +40,39 @@ public class ShoppingCartController {
 	UserInterface uservice;
 	
 	@GetMapping("/shoppingcart")
-	public String shoppingCart(Model model) {
-		long userID = (long) 1;
-		model.addAttribute("cartForm", uservice.getShoppingCartByUserID(userID));
-		System.out.println(uservice.getShoppingCartByUserID(userID));
+	public String shoppingCart(Model model,@AuthenticationPrincipal MyUserDetails userDetails) {
+		//long userID = (long) 2;
+		User user = uservice.findUserByUserId(userDetails.getUserId());
+		Long count = uservice.getItemCountByUserID(user.getUserID());
+		ShoppingCart cartInfo = uservice.getShoppingCartByUserID(userDetails.getUserId());
+		Map<ShoppingCartDetails, Long> detailsAndCountQty = new HashMap<ShoppingCartDetails, Long>();
+		if(cartInfo.getCartDetails()!=null) {
+			for (ShoppingCartDetails cartdetail : cartInfo.getCartDetails()) {
+				Long quantity = 0L;
+				if(cartdetail.getQuantity()>cartdetail.getProduct().getProductQty()) {
+					quantity = (long) (cartdetail.getQuantity() - cartdetail.getProduct().getProductQty());
+					cartdetail.setQuantity(cartdetail.getProduct().getProductQty());
+					uservice.saveCartDetails(cartdetail);
+				}
+				detailsAndCountQty.put(cartdetail, quantity);
+			}
+		}
+		model.addAttribute("profileUrl", user.getProfileUrl());
+		model.addAttribute("cartForm", detailsAndCountQty);
+		model.addAttribute("profileUrl", user.getProfileUrl());
+		model.addAttribute("totalAmount", cartInfo.getAmountTotal());
+		model.addAttribute("totalQuantity",cartInfo.getQuantityTotal());
+		model.addAttribute("count", count);
+		//System.out.println(uservice.getShoppingCartByUserID(userDetails.getUserId()));
 		return "product/shoppingCart";
 	}
 	
 	// POST: Update quantity for product in cart
 	@RequestMapping(value = { "/shoppingcart" }, method = RequestMethod.POST)
 	public String shoppingCartUpdateQty(HttpServletRequest request, Model model, //
-	         @ModelAttribute("cartForm") ShoppingCart cartForm) {
-		long userID = (long) 1;
-		ShoppingCart cartInfo = uservice.getShoppingCartByUserID(userID);
+	         @ModelAttribute("cartForm") ShoppingCart cartForm,@AuthenticationPrincipal MyUserDetails userDetails) {
+		//long userID = (long) 2;
+		ShoppingCart cartInfo = uservice.getShoppingCartByUserID(userDetails.getUserId());
 	    cartInfo.updateQuantity(cartForm);
 	 
 	    return "redirect:shoppingcart";
@@ -56,16 +80,16 @@ public class ShoppingCartController {
 	
 	@RequestMapping({ "/shoppingCartRemoveProduct" })
 	   public String removeProductHandler(HttpServletRequest request, Model model, //
-	         @RequestParam(value = "id", defaultValue = "") Long id) {
+	         @RequestParam(value = "id", defaultValue = "") Long id,@AuthenticationPrincipal MyUserDetails userDetails) {
 	      Product product = null;
 	      if (id != null) {
 	         product = uservice.findProduct(id);
 	      }
 	      if (product != null) {
 	    	  
-	    	 long userID = (long) 1;
+	    	 //long userID = (long) 2;
 	 
-	         ShoppingCart cartInfo = uservice.getShoppingCartByUserID(userID);
+	         ShoppingCart cartInfo = uservice.getShoppingCartByUserID(userDetails.getUserId());
 	         uservice.removeCartDetails(product.getProductID(),cartInfo.getShoppingCartID());
 	 
 	      }
@@ -74,26 +98,30 @@ public class ShoppingCartController {
 	   }
 	
 	@GetMapping("/checkout")
-	public String checkOut(Model model) {
-		long userID = (long) 1;
+	public String checkOut(Model model,@AuthenticationPrincipal MyUserDetails userDetails) {
 		Payment payment = new Payment();
+		User user = uservice.findUserByUserId(userDetails.getUserId());
+		Long count = uservice.getItemCountByUserID(user.getUserID());
 		model.addAttribute("newPayment", payment);
-		model.addAttribute("cartForm", uservice.getShoppingCartByUserID(userID));
+		model.addAttribute("profileUrl", user.getProfileUrl());
+		model.addAttribute("count", count);
+		model.addAttribute("cartForm", uservice.getShoppingCartByUserID(userDetails.getUserId()));
 		return "product/checkout";
 	}
 	
 	@PostMapping("/placeorder")
-	public String placeOrder(Model model,@Valid @ModelAttribute("payment") Payment payment , BindingResult bindingResult) {
+	public String placeOrder(Model model,@Valid @ModelAttribute("payment") Payment payment , BindingResult bindingResult,@AuthenticationPrincipal MyUserDetails userDetails) {
 		if (bindingResult.hasErrors()) {
-			return "product/checkout";
+			return "redirect:checkout";
 		}
-		long userID = (long) 1;
+		//long userID = (long) 2;
 		User user = null;
-		user = uservice.findUserByUserId(1L);
+		Orders neworder = null;
+		user = uservice.findUserByUserId(userDetails.getUserId());
 		//insert order depending on shoppingcart
-		ShoppingCart cart = uservice.getShoppingCartByUserID(userID);
+		ShoppingCart cart = uservice.getShoppingCartByUserID(userDetails.getUserId());
 		if(cart.getCartDetails()!=null) {
-			Orders neworder = new Orders(LocalDate.now(), payment.getAddress(), user,null);
+			neworder = new Orders(LocalDate.now(), payment.getAddress(), user,null);
 			uservice.saveOrder(neworder);
 			
 			List<OrderDetails> orderDetailList = new ArrayList<>();
@@ -101,7 +129,9 @@ public class ShoppingCartController {
 				OrderDetails newOrderDetail= new OrderDetails(cardetail.getQuantity(), cardetail.getProduct(), neworder);
 				orderDetailList.add(newOrderDetail);
 				Product product = cardetail.getProduct();
-				product.setProductQty(product.getProductQty()- cardetail.getQuantity());
+				if(product.getProductQty()> 0 && product.getProductQty()>=cardetail.getQuantity()) {
+					product.setProductQty(product.getProductQty()- cardetail.getQuantity());
+				}
 				uservice.updateProduct(product);
 				//delete cart detail
 				uservice.deleteCartDetails(cardetail);
@@ -111,45 +141,78 @@ public class ShoppingCartController {
 		//save payment
 		payment.setUser(user);
 		uservice.savePayement(payment);
+		model.addAttribute("order", neworder);
 		return "product/orderconfirm";
 	}
 	
 	// ajax call
 	@RequestMapping(value = "/addToCart", method = RequestMethod.POST)
 	@ResponseBody
-	public Long add(@RequestParam(value = "productId") Long productId) throws Exception {
+	public String add(@RequestParam(value = "productId") Long productId,@AuthenticationPrincipal MyUserDetails userDetails) throws Exception {
 
-		long userID = (long) 1;
+		//long userID = (long) 2;
+		String result = "";
+		String status ="";
 		ShoppingCartDetails carddetail = null;
 	      if (productId != null) {
-	    	 ShoppingCart cart = uservice.getShoppingCartByUserID(userID);
+	    	 ShoppingCart cart = uservice.getShoppingCartByUserID(userDetails.getUserId());
+	    	 Product product =  uservice.findProduct(productId);
 	    	 carddetail = uservice.getCartDetailByProductID(productId, cart.getShoppingCartID());
 	    	 if(carddetail!=null) {
-	    		 carddetail.setQuantity(carddetail.getQuantity()+1);
-	    		 uservice.saveCartDetails(carddetail);
+	    		 if(carddetail.getQuantity()+1 <= product.getProductQty()) {
+	    			 carddetail.setQuantity(carddetail.getQuantity()+1);
+		    		 uservice.saveCartDetails(carddetail);
+		    		 status ="ok";
+	    		 }
+	    		 else {
+	    			 status ="error";
+	    		 }
 	    	 }
 	    	 else {
-	    		 carddetail = new ShoppingCartDetails(1,uservice.findProduct(productId), uservice.getShoppingCartByUserID(userID));
+	    		 carddetail = new ShoppingCartDetails(1,uservice.findProduct(productId), uservice.getShoppingCartByUserID(userDetails.getUserId()));
 	    		 uservice.saveCartDetails(carddetail);
+	    		 status ="ok";
 			}
 	      }
-		Long count  = uservice.getItemCountByUserID(userID);
-		return count;
+		Long count  = uservice.getItemCountByUserID(userDetails.getUserId());
+		result = "{\"status\":";
+		result += "\"" + status + "\",";
+		result += "\"count\":\"" + count + "\"";
+		result += "}";
+		System.out.println(result);
+		return result;
 	}
 	
 	@RequestMapping(value="/updatecartitemqty", method=RequestMethod.PUT)
 	@ResponseBody
-	public void updateItem(@RequestParam(value = "productId") Long productId ,@RequestParam(value = "quantity") Integer quantity) throws Exception {
-		long userID = (long) 1;
-		ShoppingCart cart = uservice.getShoppingCartByUserID(userID);
+	public String updateItem(@RequestParam(value = "productId") Long productId ,@RequestParam(value = "quantity") Integer quantity, @AuthenticationPrincipal MyUserDetails userDetails) throws Exception {
+		//long userID = (long) 2;
+		String result = "";
+		Long uncount= 0L;
+		ShoppingCart cart = uservice.getShoppingCartByUserID(userDetails.getUserId());
 		if(quantity<=0) {
 			uservice.removeCartDetails(productId, cart.getShoppingCartID());
 		}
 		else {
 			ShoppingCartDetails carddetail = uservice.getCartDetailByProductID(productId,cart.getShoppingCartID());
-			carddetail.setQuantity(quantity);
+			if(quantity>carddetail.getProduct().getProductQty()) {
+				if(carddetail.getProduct().getProductQty()!=0) {
+					carddetail.setQuantity(carddetail.getProduct().getProductQty());
+					uncount = (long) (quantity- carddetail.getProduct().getProductQty());
+				}
+				else {
+					uservice.removeCartDetails(productId, cart.getShoppingCartID());
+				}
+			}
+			else {
+				carddetail.setQuantity(quantity);
+			}
 			uservice.saveCartDetails(carddetail);
 		}
+		result = "{\"uncount\":";
+		result += "\"" + uncount + "\"";
+		result += "}";
+		return result;
 		
 	}
 	

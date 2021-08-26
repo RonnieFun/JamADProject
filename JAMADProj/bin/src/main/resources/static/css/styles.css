@@ -6,6 +6,14 @@ body {
 	font-family: 'Roboto', sans-serif;
 }
 
+.mediaNotFound{
+	text-align: center;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.8rem;
+	margin: auto;
+	margin-top: 16%;
+}
+
 .cartHorizonalLine { 
 	margin-top: 220px; 
 }
@@ -17,6 +25,12 @@ body {
 	border-bottom: 2px solid #B8C5D0;
 }
 
+.cartIntroSection1{
+	background-color: white;
+	padding-bottom: 0px;
+	margin-top: 40px;
+	border-bottom: 2px solid #B8C5D0;
+}
 .smallBanner{
 	position: relative;
 	height: 110px;
@@ -27,6 +41,77 @@ body {
 	border: 1.5px solid black;
 	filter: blur(0.9px);
   	-webkit-filter: blur(0.9px);
+}
+
+.artistIntroSectionzq{
+	background-color: white;
+	padding-bottom: 60px;
+	margin-top: 0px;
+	border-bottom: 2px solid #B8C5D0;
+}
+
+
+.aboutArtistSectionzq{
+	position:absolute;
+	background-color:white;
+	width:43%;
+	height:180px;
+	margin-left: 35%;
+	margin-top: 6%;
+	top: 17px;
+}
+
+.smallBannerzq{
+	position: relative;
+	height: 250px;
+	width: 20%;
+	margin-left: 10%;
+	margin-top: 1.5%;
+	top: 17px;
+	border: 1.5px solid black;
+	filter: blur(0.9px);
+  	-webkit-filter: blur(0.9px);
+}
+
+.aboutArtistHeaderzq{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.65vw;
+	margin-left: 6%;
+	margin-top: 2%;
+	font-weight: 900;
+}
+
+.aboutArtistFeature1zq{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1vw;
+	margin-left: 6.5%;
+	margin-top: 9%;
+}
+
+.aboutArtistFeature2zq{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1vw;
+	margin-left: 6.5%;
+	margin-top: 14%;
+}
+
+.aboutArtistFeature3zq{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1vw;
+	margin-left: 6.5%;
+	margin-top: 20%;
+}
+
+.aboutArtistFeature4zq{
+	position:absolute;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1vw;
+	margin-left: 6.5%;
+	margin-top: 21.5%;
 }
 
 .aboutShopSection{
@@ -156,6 +241,10 @@ body {
 	margin-left: 43%;
 	top: 160px;
 }
+
+/*.container {
+    margin: 5px 0px;
+}*/
 	
   .aboutShopHeader{
 	position:absolute;
@@ -371,6 +460,16 @@ body {
 	height: 115px;
 	position:absolute;
 	border: 1px solid red;
+}
+
+.jamHeaderUser2{
+	background-color: white;
+	font-family: 'Roboto', sans-serif;
+	top:2%;
+	overflow:hidden;
+	width: 100%;
+	height: 115px;
+	position:absolute;
 }
 
 .loginUsernameLabel{
@@ -987,9 +1086,19 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 55%;
+  height: 25rem;
   margin-left: 7.5%;
-  margin-top: calc(3.5vh + 9.5%);
+  margin-top: calc(8vh - 0.01%);
+  padding: 0px;
+  object-fit: fill;
+}
+
+.userPageImage{
+  max-width: 30%;
+  width: 30%;
+  height: 20%;
+  margin-left: 15%;
+  margin-top: 2.5%;
   padding: 0px;
 }
 
@@ -1008,6 +1117,15 @@ body {
 }
 
 .userPageHeartIcon{
+	cursor: pointer;
+	margin-left: 92.5%;
+	margin-top: -6%;
+	color: lightgray;
+	position: absolute;
+	font-size: 2rem;
+}
+
+.userPageHeartIconLiked{
 	cursor: pointer;
 	margin-left: 92.5%;
 	margin-top: -6%;
@@ -1048,6 +1166,39 @@ body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 1.1vw;
 	margin-top: -5%;
+	text-decoration: underline;
+}
+
+.playlistFormPopup{
+	display: none;
+	background-color: rgba(242.24999696016312, 233.16562682390213, 233.16562682390213, 1);
+	position: absolute;
+	left: 38%;
+	margin-top: -0.2rem;
+	z-index:9;
+	border: 1px solid black;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.7vw;
+	padding: 3px 15px;
+	max-height: 5rem;
+}
+
+.saveToPlaylistButton{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.7vw;
+	background-color: rgba(239.0625, 104.58984375, 104.58984375, 0.7200000286102295);
+	padding: 0px 3%;
+	
+	margin-top: 4.5%;
+}
+
+.cancelSavePlaylistButton{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.7vw;
+	background-color: rgba(239.0625, 104.58984375, 104.58984375, 0.7200000286102295);
+	padding: 0px 3%;
+	margin-left: 29%;
+	margin-top: 4.5%;
 }
 
 .userSubscribeBtn{
@@ -1153,12 +1304,16 @@ body {
   margin-top: calc(3.5vh - 31.5%);
 }
 
+.userPageSideImageSection{
+  margin-left: 50%;
+  margin-top: calc(3.5vh - 31.5%);
+}
 .userPageSideVideos{
   display: flex;
   flex-direction: column;
   width: 37%;
   height: 170px;
-  margin-top: calc(2.5vh + 0.5%);
+  margin-top: calc(2.5vh + 3.5%);
 }
 
 .sideVideoLinkColor{
@@ -1170,19 +1325,13 @@ body {
 	position: absolute;
 	margin-left: 15%;
 	margin-top: -10%;
-	display: flex;
+	display: block;
     flex-direction: row;
     font-size: 1vw;
 	font-family: 'Roboto', sans-serif;
 }
 
 .smallVidAuthor{
-	width: 15%;
-	position: absolute;
-	display: flex;
-  	margin-left: 15%;
-  	margin-bottom: 30px;
-  	margin-top: -5%;
   	font-size: 0.9vw;
 	font-family: 'Roboto', sans-serif;
 	color: Gray;
@@ -1196,6 +1345,48 @@ body {
   	margin-bottom: 10px;
   	margin-top: -1.6%;
   	font-size: 0.8vw;
+	font-family: 'Roboto', sans-serif;
+	color: white;
+	background-color: black;
+	padding: 0px 0.2%;
+}
+
+.sideDurationVideoChannelPage{
+	position: absolute;
+	display: block;
+  	right: 0;
+  	margin-right: 2%;
+  	margin-bottom: 10px;
+  	margin-top: -8%;
+  	font-size: 0.9vw;
+	font-family: 'Roboto', sans-serif;
+	color: white;
+	background-color: black;
+	padding: 0px 0.2%;
+}
+
+.sideDurationVideoLandingPage{
+	position: absolute;
+	display: block;
+  	right: 0;
+  	margin-right: 2%;
+  	margin-bottom: 10px;
+  	margin-top: -8.5%;
+  	font-size: 0.9vw;
+	font-family: 'Roboto', sans-serif;
+	color: white;
+	background-color: black;
+	padding: 0px 0.2%;
+}
+
+.sideDurationMusicLandingPage{
+	position: absolute;
+	display: block;
+  	right: 0;
+  	margin-right: 2%;
+  	margin-bottom: 10px;
+  	margin-top: -8.5%;
+  	font-size: 0.9vw;
 	font-family: 'Roboto', sans-serif;
 	color: white;
 	background-color: black;
@@ -1275,10 +1466,11 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 55%;
+  height: 25rem;
   margin-left: 7.5%;
-  margin-top: calc(3.5vh + 11.5%);
+  margin-top: calc(8vh - 0.01%);
   padding: 0px;
+  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -1296,6 +1488,15 @@ body {
 }
 
 .userPageHeartIcon{
+	cursor: pointer;
+	margin-left: 92.5%;
+	margin-top: -6%;
+	color: lightgray;
+	position: absolute;
+	font-size: 2rem;
+}
+
+.userPageHeartIconLiked{
 	cursor: pointer;
 	margin-left: 92.5%;
 	margin-top: -6%;
@@ -1336,6 +1537,7 @@ body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 1.1vw;
 	margin-top: -5%;
+	text-decoration: underline;
 }
 
 .userSubscribeBtn{
@@ -1446,7 +1648,7 @@ body {
   flex-direction: column;
   width: 37%;
   height: 140px;
-  margin-top: calc(2.5vh + 0.5%);
+  margin-top: calc(2.5vh + 3.5%);
 }
 
 .sideVideoLinkColor{
@@ -1458,19 +1660,13 @@ body {
 	position: absolute;
 	margin-left: 15%;
 	margin-top: -12%;
-	display: flex;
+	display: block;
     flex-direction: row;
     font-size: 1vw;
 	font-family: 'Roboto', sans-serif;
 }
 
 .smallVidAuthor{
-	width: 15%;
-	position: absolute;
-	display: flex;
-  	margin-left: 15%;
-  	margin-bottom: 30px;
-  	margin-top: -7%;
   	font-size: 0.9vw;
 	font-family: 'Roboto', sans-serif;
 	color: Gray;
@@ -1562,10 +1758,11 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 55%;
+  height: 25rem;
   margin-left: 7.5%;
-  margin-top: calc(3.5vh + 11%);
+  margin-top: calc(8vh - 0.01%);
   padding: 0px;
+  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -1573,6 +1770,11 @@ body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 1.1vw;
 	margin-top: -7%;
+}
+.titleName{
+	font-family: 'Roboto', sans-serif;
+  	font-size: 0.95vw;
+	font-weight: 900;
 }
 
 .numberOfReviews{
@@ -1583,10 +1785,19 @@ body {
 }
 
 .userPageHeartIcon{
-	color: #ff4d4d;
+	color: lightgray;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPageHeartIconLiked{
+	cursor: pointer;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	color: #ff4d4d;
+	position: absolute;
 	font-size: 2rem;
 }
 
@@ -1633,6 +1844,7 @@ body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 1.1vw;
 	margin-top: -5%;
+	text-decoration: underline;
 }
 
 .userSubscribeBtn{
@@ -1743,27 +1955,23 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 2.6%);
+  margin-top: calc(2.5vh + 1.5%);
 }
 
 .smallVidDescription{
 	position: absolute;
 	margin-left: 15%;
 	margin-top: -11.9%;
-	display: flex;
+	display: block;
     flex-direction: row;
     font-size: 1vw;
 	font-family: 'Roboto', sans-serif;
 }
 
 .smallVidAuthor{
-	position: absolute;
-	display: flex;
-  	margin-left: 15%;
-  	margin-bottom: 30px;
-  	margin-top: -6.5%;
   	font-size: 0.95vw;
 	font-family: 'Roboto', sans-serif;
+	color: Gray;
 }
 }
 
@@ -1838,10 +2046,11 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 55%;
+  height: 25rem;
   margin-left: 7.5%;
-  margin-top: calc(3.5vh + 11%);
+  margin-top: calc(8vh - 0.01%);
   padding: 0px;
+  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -1859,10 +2068,19 @@ body {
 }
 
 .userPageHeartIcon{
-	color: #ff4d4d;
+	color: lightgray;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPageHeartIconLiked{
+	cursor: pointer;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	color: #ff4d4d;
+	position: absolute;
 	font-size: 2rem;
 }
 
@@ -1909,6 +2127,7 @@ body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 1.1vw;
 	margin-top: -5%;
+	text-decoration: underline;
 }
 
 .userSubscribeBtn{
@@ -2019,27 +2238,23 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 3.4%);
+  margin-top: calc(2.5vh + 3.5%);
 }
 
 .smallVidDescription{
 	position: absolute;
 	margin-left: 15%;
 	margin-top: -11%;
-	display: flex;
+	display: block;
     flex-direction: row;
     font-size: 1vw;
 	font-family: 'Roboto', sans-serif;
 }
 
 .smallVidAuthor{
-	position: absolute;
-	display: flex;
-  	margin-left: 15%;
-  	margin-bottom: 30px;
-  	margin-top: -6%;
   	font-size: 0.95vw;
 	font-family: 'Roboto', sans-serif;
+	color: Gray;
 }
 }
 
@@ -2114,10 +2329,11 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 55%;
+  height: 25rem;
   margin-left: 7.5%;
-  margin-top: calc(3.5vh + 11%);
+  margin-top: calc(8vh - 0.01%);
   padding: 0px;
+  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -2135,10 +2351,19 @@ body {
 }
 
 .userPageHeartIcon{
-	color: #ff4d4d;
+	color: lightgray;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPageHeartIconLiked{
+	cursor: pointer;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	color: #ff4d4d;
+	position: absolute;
 	font-size: 2rem;
 }
 
@@ -2185,6 +2410,7 @@ body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 1.1vw;
 	margin-top: -5%;
+	text-decoration: underline;
 }
 
 .userSubscribeBtn{
@@ -2295,27 +2521,23 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 3.4%);
+  margin-top: calc(2.5vh + 3.5%);
 }
 
 .smallVidDescription{
 	position: absolute;
 	margin-left: 15%;
 	margin-top: -10.5%;
-	display: flex;
+	display: block;
     flex-direction: row;
     font-size: 1vw;
 	font-family: 'Roboto', sans-serif;
 }
 
 .smallVidAuthor{
-	position: absolute;
-	display: flex;
-  	margin-left: 15%;
-  	margin-bottom: 30px;
-  	margin-top: -5.5%;
   	font-size: 0.95vw;
 	font-family: 'Roboto', sans-serif;
+	color: Gray;
 }
 }
 
@@ -2390,10 +2612,11 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 55%;
+  height: 30rem;
   margin-left: 7.5%;
-  margin-top: calc(3.5vh + 11%);
+  margin-top: calc(8vh - 0.01%);
   padding: 0px;
+  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -2411,10 +2634,19 @@ body {
 }
 
 .userPageHeartIcon{
-	color: #ff4d4d;
+	color: lightgray;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPageHeartIconLiked{
+	cursor: pointer;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	color: #ff4d4d;
+	position: absolute;
 	font-size: 2rem;
 }
 
@@ -2461,6 +2693,7 @@ body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 1.1vw;
 	margin-top: -5%;
+	text-decoration: underline;
 }
 
 .userSubscribeBtn{
@@ -2563,7 +2796,7 @@ body {
 
 .userPageSideVideosSection{
   margin-left: 63%;
-  margin-top: calc(3vh - 33%);
+  margin-top: calc(1vh - 30.5% - 4.9rem);
 }
 
 .userPageSideVideos{
@@ -2571,27 +2804,23 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 5.4%);
+  margin-top: calc(2.5vh + 5%);
 }
 
 .smallVidDescription{
 	position: absolute;
 	margin-left: 15%;
 	margin-top: -9.7%;
-	display: flex;
+	display: block;
     flex-direction: row;
     font-size: 1vw;
 	font-family: 'Roboto', sans-serif;
 }
 
 .smallVidAuthor{
-	position: absolute;
-	display: flex;
-  	margin-left: 15%;
-  	margin-bottom: 30px;
-  	margin-top: -5%;
   	font-size: 0.95vw;
 	font-family: 'Roboto', sans-serif;
+	color: Gray;
 }
 }
 
@@ -2666,10 +2895,11 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 55%;
+  height: 35rem;
   margin-left: 7.5%;
-  margin-top: calc(3.5vh + 11%);
+  margin-top: calc(8vh - 0.01%);
   padding: 0px;
+  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -2687,10 +2917,19 @@ body {
 }
 
 .userPageHeartIcon{
-	color: #ff4d4d;
+	color: lightgray;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPageHeartIconLiked{
+	cursor: pointer;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	color: #ff4d4d;
+	position: absolute;
 	font-size: 2rem;
 }
 
@@ -2737,6 +2976,7 @@ body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 1.1vw;
 	margin-top: -5%;
+	text-decoration: underline;
 }
 
 .userSubscribeBtn{
@@ -2839,7 +3079,7 @@ body {
 
 .userPageSideVideosSection{
   margin-left: 63%;
-  margin-top: calc(3vh - 33%);
+  margin-top: calc(3vh - 37%);
 }
 
 .userPageSideVideos{
@@ -2847,27 +3087,23 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 3.4%);
+  margin-top: calc(2.5vh + 3.5%);
 }
 
 .smallVidDescription{
 	position: absolute;
 	margin-left: 15%;
 	margin-top: -9.4%;
-	display: flex;
+	display: block;
     flex-direction: row;
     font-size: 1vw;
 	font-family: 'Roboto', sans-serif;
 }
 
 .smallVidAuthor{
-	position: absolute;
-	display: flex;
-  	margin-left: 15%;
-  	margin-bottom: 30px;
-  	margin-top: -4.7%;
   	font-size: 0.95vw;
 	font-family: 'Roboto', sans-serif;
+	color: Gray;
 }
 }
 
@@ -2942,10 +3178,11 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 55%;
+  height: 35rem;
   margin-left: 7.5%;
-  margin-top: calc(3.5vh + 11%);
+  margin-top: calc(8vh - 0.01%);
   padding: 0px;
+  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -2963,10 +3200,19 @@ body {
 }
 
 .userPageHeartIcon{
-	color: #ff4d4d;
+	color: lightgray;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPageHeartIconLiked{
+	cursor: pointer;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	color: #ff4d4d;
+	position: absolute;
 	font-size: 2rem;
 }
 
@@ -3013,6 +3259,7 @@ body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 1.1vw;
 	margin-top: -5%;
+	text-decoration: underline;
 }
 
 .userSubscribeBtn{
@@ -3115,7 +3362,7 @@ body {
 
 .userPageSideVideosSection{
   margin-left: 63%;
-  margin-top: calc(3vh - 32.5%);
+  margin-top: calc(3.5vh - 37.5%);
 }
 
 .userPageSideVideos{
@@ -3123,27 +3370,23 @@ body {
   flex-direction: column;
   width: 37%;
   height: 150px;
-  margin-top: calc(2.5vh + 3.4%);
+  margin-top: calc(2.5vh + 3.5%);
 }
 
 .smallVidDescription{
 	position: absolute;
 	margin-left: 15%;
 	margin-top: -8.7%;
-	display: flex;
+	display: block;
     flex-direction: row;
     font-size: 1vw;
 	font-family: 'Roboto', sans-serif;
 }
 
 .smallVidAuthor{
-	position: absolute;
-	display: flex;
-  	margin-left: 15%;
-  	margin-bottom: 30px;
-  	margin-top: -4%;
   	font-size: 0.95vw;
 	font-family: 'Roboto', sans-serif;
+	color: Gray;
 }
 }
 
@@ -3219,10 +3462,11 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 55%;
+  height: 35rem;
   margin-left: 7.5%;
-  margin-top: calc(3.5vh + 11%);
+  margin-top: calc(8vh - 0.01%);
   padding: 0px;
+  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -3240,10 +3484,19 @@ body {
 }
 
 .userPageHeartIcon{
-	color: #ff4d4d;
+	color: lightgray;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPageHeartIconLiked{
+	cursor: pointer;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	color: #ff4d4d;
+	position: absolute;
 	font-size: 2rem;
 }
 
@@ -3290,6 +3543,7 @@ body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 1.1vw;
 	margin-top: -5%;
+	text-decoration: underline;
 }
 
 .userSubscribeBtn{
@@ -3392,7 +3646,7 @@ body {
 
 .userPageSideVideosSection{
   margin-left: 63%;
-  margin-top: calc(3vh - 32.5%);
+  margin-top: calc(3vh - 33.6%);
 }
 
 .userPageSideVideos{
@@ -3400,27 +3654,23 @@ body {
   flex-direction: column;
   width: 37%;
   height: 170px;
-  margin-top: calc(2.5vh + 3.4%);
+  margin-top: calc(2.5vh + 3%);
 }
 
 .smallVidDescription{
 	position: absolute;
 	margin-left: 15%;
 	margin-top: -8.7%;
-	display: flex;
+	display: block;
     flex-direction: row;
     font-size: 1vw;
 	font-family: 'Roboto', sans-serif;
 }
 
 .smallVidAuthor{
-	position: absolute;
-	display: flex;
-  	margin-left: 15%;
-  	margin-bottom: 30px;
-  	margin-top: -4%;
   	font-size: 0.95vw;
 	font-family: 'Roboto', sans-serif;
+	color: Gray;
 }
 }
 
@@ -3496,10 +3746,11 @@ body {
 .userPageMainVideo{
   max-width: 50%;
   width: 50%;
-  height: 55%;
+  height: 40rem;
   margin-left: 7.5%;
-  margin-top: calc(3.5vh + 11%);
+  margin-top: calc(8vh - 0.01%);
   padding: 0px;
+  object-fit: fill;
 }
 
 .userVideoTitleLabel{
@@ -3517,10 +3768,19 @@ body {
 }
 
 .userPageHeartIcon{
-	color: #ff4d4d;
+	color: lightgray;
 	position: absolute;
 	margin-left: 91.5%;
 	margin-top: -6%;
+	font-size: 2rem;
+}
+
+.userPageHeartIconLiked{
+	cursor: pointer;
+	margin-left: 91.5%;
+	margin-top: -6%;
+	color: #ff4d4d;
+	position: absolute;
 	font-size: 2rem;
 }
 
@@ -3567,6 +3827,7 @@ body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 1.1vw;
 	margin-top: -5%;
+	text-decoration: underline;
 }
 
 .userSubscribeBtn{
@@ -3669,7 +3930,7 @@ body {
 
 .userPageSideVideosSection{
   margin-left: 63%;
-  margin-top: calc(3vh - 32.5%);
+  margin-top: calc(3vh - 30.8%);
 }
 
 .userPageSideVideos{
@@ -3677,34 +3938,30 @@ body {
   flex-direction: column;
   width: 37%;
   height: 200px;
-  margin-top: calc(2.5vh + 3.4%);
+  margin-top: calc(2.5vh + 3.5%);
 }
 
 .smallVidDescription{
 	position: absolute;
 	margin-left: 15%;
 	margin-top: -8%;
-	display: flex;
+	display: block;
     flex-direction: row;
     font-size: 1vw;
 	font-family: 'Roboto', sans-serif;
 }
 
 .smallVidAuthor{
-	position: absolute;
-	display: flex;
-  	margin-left: 15%;
-  	margin-bottom: 30px;
-  	margin-top: -3%;
   	font-size: 0.95vw;
 	font-family: 'Roboto', sans-serif;
+	color: Gray;
 }
 }
 
 
 .addShoppingCartIcon{
 	position: absolute;
-	top: 54px;
+	top: 32px;
 	margin-left: 65.8%;
 	font-size: 1.7vw;
 	padding: 0px;
@@ -3712,8 +3969,8 @@ body {
 
 .helpIcon{
 	position:absolute;
-	top: 10px;
-	margin-left: 66%;
+	top: 32px;
+	margin-left: 50%;
 	padding: 0px;
 	font-size: 1.7vw;
 }	
@@ -3806,8 +4063,8 @@ body {
 
 .addShoppingCartIcon{
 	position: absolute;
-	top: 54px;
-	margin-left: 65.8%;
+	top: 10px;
+	margin-left: 57%;
 	font-size: 1.7vw;
 	padding: 0px;
 }
@@ -4460,6 +4717,418 @@ a.nav-link.active.blackFontText.ml-5 {
 		padding-left: 0px;
 		margin-right: 29.5%;
 		margin-top: -9%;
-	}	
+	}
 	
 }
+
+* {
+	margin: 0;
+}
+	
+.header_left img{
+	height:40px;
+	width: 100px
+}
+
+.header_info img {
+	border-radius: 50%;
+	height: 50px;
+	width: 45px;
+}
+
+.header {
+	padding: 15px 20px;
+	display: flex;
+	justify-content: space-between;
+	position: -webkit - sticky;
+	position: sticky;
+	top: 0;
+	background-color: white;
+	z-index: 100;
+	box-shadow: 0 5px 8px -9px rgba(0,0,0,0.75)
+}
+
+
+.header_left {
+	display:flex;
+	align-items: center;
+	justify-content: space-evenly; 
+}
+
+.header_input{
+	display:flex;
+	align-items: center; 
+	background-color: #eff2f5;
+	padding:10px;
+	margin-left: 10px;
+	border-radius: 999px;
+}
+
+.header_input input {
+	border: none;
+	background-color: transparent;
+	outline-width:0;
+}
+
+.header_middle {
+	display: flex;
+	flex: 1;
+	justify-content: center;
+}
+
+.header_option .material-icons{
+	font-size: xx-large;
+	color: gray;
+}
+
+.header_right .material-icons{
+	font-size: xx-large;
+}
+
+.header_option:hover .material-icons {
+	color: #2e81f4;
+}
+
+.header_option:hover{
+	background-color: #eff2f5;
+	border-radius: 10px;
+	align-items: center;
+	padding: 0px 30px;
+	border-bottom:none;
+}
+	
+.header_option {
+	display:flex;
+	align-items:center;
+	padding: 0 30px;
+	cursor:pointer; 
+}
+
+.header_option.active .material-icons{
+	color: #2e81f4;
+} 
+
+.header_option.active{
+	border-bottom: 4px solid #2e81f4
+}
+
+.header_info {
+	display: flex;
+	align-items: center; 
+	background-color: #eff2f5;
+	padding:5px;
+	margin-left: 10px;
+	border-radius: 999px;
+	cursor: pointer;
+}
+
+
+.header_info h5{
+	margin-left: 10px;
+	margin-right: 10px
+}
+
+.header_right {
+	display:flex;
+	align-items:center;
+}
+
+.header_right .material-icons{
+	color: gray;
+	margin: 0 10px;
+	cursor: pointer;
+}
+
+/* sidebar */
+
+.profilePic{
+	border-radius: 50%;
+	height: 50px;
+	width: 45px;
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+.sidebarRow {
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	cursor: pointer;
+}
+
+.sidebarRow:hover{
+	background-color: lightgray;
+	border-radius: 10px;
+}
+
+.sidebarRow h6{
+	margin-left: 20px;
+	margin-top: 10px;
+	font-weight: 600;
+}
+
+.sidebarRow .material-icons {
+	font-size: xx-large;
+	color: #2e81f4;
+}
+
+.sidebar{
+	padding: 25px 10px;
+	flex:0.33;
+}
+
+/* story */
+
+.story {
+	position: relative; 
+	border-radius: 5%;
+	padding: 10px 10px;
+	margin-right: 10px;
+	background-repeat: no-repeat;
+	background-size:cover;
+	width:120px;
+	height: 200px;
+	box-shadow: 0px 5px 17px -7px rgba(0,0,0,0.75);
+	cursor: pointer;
+	transition: transform 100ms ease-in;
+}
+.story:hover{
+	transform: scale(1.07);
+}
+
+.userStoryPic{
+	margin: 10px;
+}
+
+.story h5 {
+	position: absolute;
+	bottom: 20px;
+	left: 20px;
+	color: white; 
+}
+
+.storyReel{
+	padding:10px 0;
+	display: flex;
+}
+
+.mainBody{
+	display:flex;
+}
+body{
+	background-color: #f1f2f5;
+}
+
+.feed {
+	flex: 1;
+	padding: 30px 100px;
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items:center;
+}
+
+/*messageSender*/
+
+.messageSender{
+	display:flex;
+	margin-top: 30px;
+	flex-direction: column;
+	background-color: white;
+	border-radius: 15px;
+	box-shadow: 0px 5px 7px -7px rgba(0,0,0,0.75);
+	width:100% 
+}
+
+.messageSender_Top{
+	display: flex;
+	align-items:center;
+	border-bottom: 1px solid #eff2f5;
+	padding:15px;
+}
+
+.messageSender_Top form {
+	flex: 1;
+	display: flex;
+}
+
+.messageSender_Top form input {
+	flex: 1;
+	outline-width: 0;
+	border: none;
+	padding: 15px 20px;
+	margin: 0 10px;
+	border-radius: 999px;
+	background-color: #eff2f5; 
+}
+
+.messageSender_Bottom {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.messageSender_option{
+	padding: 8px;
+	display: flex; 
+	align-items:center; 
+	color: gray; 
+	margin: 5px;
+}
+
+.messageSender_option:hover{
+	cursor:pointer;
+	background-color: #eff2f5;
+	border-radius:20px;
+}
+
+.messageSender_option h5{
+	font-size: medium;
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+/* post */
+
+.post{
+	width: 100%;
+	margin-top: 15px;
+	border-radius: 15px;
+	background-color: white;
+	box-shadow: 0px 5px 7px -7px rgba(0,0,0,0.75);
+}
+
+.post_Image img {
+	width:100%;
+}
+
+.post_Top {
+	display: flex;
+	position: relative;
+	align-items: center;
+	padding: 15px;
+}
+
+.post_Top_Info {
+	margin-top: 25px;
+	margin-left: 10px;
+}
+
+.post_Top_Info h5{
+	font-size: medium;
+}
+
+.post_Top_Info p{
+	font-size: small;
+	color: gray;
+}
+
+.post_Bottom {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding: 15px 25px;
+}
+
+.post_Options{
+	padding-top: 10px;
+	border-top:1px solid lightgray;
+	display: flex; 
+	justify-content: space-evenly;
+	font-size: medium; 
+	color: gray;
+	cursor: pointer; 
+	padding: 15px;
+}
+
+.post_Option{
+	display: flex;
+	align-items: center; 
+	justify-content: center; 
+	padding: 5px;
+	flex: 1; 
+}
+
+.post_Option p {
+	margin-left: 10px;
+	margin-top: 15px
+}
+
+.post_Option:hover{
+	background-color: #eff2f5;
+	border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+	.sidebar{
+	display:none;
+	}
+	.header_input input {
+	display: none;
+	}
+	.header_info{
+	display:none;
+	}
+	.feed{
+	margin-top:20p;
+	width:100%;
+	padding:0;
+	}
+	.story img{
+	width:40px;
+	}
+	.story h5{
+	font-size:10px;
+	}
+	.header_middle{
+	display:none;
+	}
+}
+@media (min-width: 320px){
+	.storyReel{
+	width:100%;
+	overflow-x: scroll;
+	}
+}
+
+@media (min-width: 769px) and (max-width: 1440px) {
+	.feed{
+	width: 50%;
+	padding: 10px 50px;
+	}	
+	.ml-auto,
+	.mx-auto {
+  margin-left: auto !important; }	
+}
+.badge {
+  padding-left: 9px;
+  padding-right: 9px;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  border-radius: 9px;
+}
+
+.label-warning[href],
+.badge-warning[href] {
+  background-color: #c67605;
+}
+#lblCartCount {
+    font-size: 12px;
+    background: #ff0000;
+    color: #fff;
+    padding: 0 5px;
+    vertical-align: top;
+    margin-left: -10px; 
+}
+
+.ml-auto,
+.mx-auto {
+  margin-left: auto !important; }
+
+.d-flex {
+  display: flex !important; }
+.modalclickable {
+	cursor:pointer
+}
+
+
+
+

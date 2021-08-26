@@ -2,8 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="Fragments/layout.html :: headerfiles">
 </head>
-<body style="padding-bottom: 35px">
-	<div th:replace="Fragments/layout.html :: navbar"></div>
+<body style="padding-bottom: 30px">
+	<a th:href="@{/home}"><img th:src="@{/images/JAM_LOGO.png}"
+		class="logo2"> </a>
+	<nav class="navbar jamHeader3">
+
+		<form class="navbar-form form-inline"
+			th:action="@{/home/searchresults}" method="post">
+			<div class="input-group searchBox">
+				<input type="text" id="search" name="searchTerm"
+					class="form-control" placeholder="Search in this shop">
+				<button type="submit" value="Search" class="input-group-addon">
+					<i class="material-icons">&#xE8B6;</i>
+				</button>
+			</div>
+		</form>
+	</nav>
 
 	<!-- PRODUCTS ON SALE NAVBAR -->
 	<section class="productsOnSaleSection">
@@ -51,10 +65,81 @@
 	<section class="productsContentSection2">
 
 		<div class="container">
+			<h3 class="col-md-auto">Trending Products</h3>
+			<hr>
 
 			<div class="row col-lg-11 mx-auto">
 
 				<th:block th:each="productAndCount: ${allProductsAndCountShop}">
+					<div class="col-6 col-md-3 col-lg-3 mb-5">
+						<div class="card mb-1 h-100">
+							<a class="modalclickable"
+								th:onclick="'javascript:GetById(' + ${productAndCount.key.productID} + ')'" onmouseover="">
+								<img th:src="${productAndCount.key.productUrl}"
+								class="card-img-top productPhotoSize">
+							</a>
+
+							<!-- Collapse -->
+							<div class="card-collapse-parent">
+
+								<!-- Body -->
+								<div class="card-body px-0 bg-white">
+									<div class="row">
+										<div class="col-4">
+											<img class="rounded-circle" width="100%"
+												style="padding-left: 30%; padding-bottom: 10%"
+												th:src="${productAndCount.key.productUser.profileUrl}">
+										</div>
+										<div class="col">
+											<h5>
+												<a
+													th:href="'/carthometab/' + ${productAndCount.key.productUser.userID}"
+													style="text-decoration: none; color: black"> <strong
+													th:text="${productAndCount.key.productUser.firstName + ' ' +
+												productAndCount.key.productUser.lastName}">
+												</strong>
+												</a>
+											</h5>
+										</div>
+									</div>
+
+									<!-- Heading -->
+
+									<div class="mb-1 productHeading h6"
+										th:text="${productAndCount.key.productName}"></div>
+
+									<!-- Quantity Sold -->
+									<div class="quantitySold" style="padding-right: 10%"
+										th:text="${productAndCount.value} + ' sold in the past week'"></div>
+
+									<!-- Price -->
+									<div class="mb-1 productPrice h6"
+										th:text="${#numbers.formatCurrency(productAndCount.key.productPrice)}"></div>
+
+									<label for="heartLikeButton" style="padding-left: 5%">
+										<button type="button" style="background-color: #FFB6C1"
+											th:onclick="'javascript:myFunction(' + ${productAndCount.key.productID} + ')'">
+											Add To Cart</button>
+									</label>
+
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</th:block>
+			</div>
+		</div>
+
+		<div class="container">
+			<h3 class="col-md-auto">Trending Merchandise</h3>
+			<hr>
+
+			<div class="row col-lg-11 mx-auto">
+
+				<th:block
+					th:each="productAndCount: ${merchandiseProductsAndCountShop}">
 					<div class="col-6 col-md-3 col-lg-3 mb-5">
 						<div class="card mb-1 h-100">
 							<a class="modalclickable"
@@ -98,69 +183,13 @@
 
 									<!-- Price -->
 									<div class="mb-1 productPrice h6"
-										th:text="'$' + ${#numbers.formatDecimal(productAndCount.key.productPrice,0,2)}"></div>
+										th:text="${#numbers.formatCurrency(productAndCount.key.productPrice)}"></div>
 
 									<label for="heartLikeButton" style="padding-left: 5%">
 										<button type="button" style="background-color: #FFB6C1"
 											th:onclick="'javascript:myFunction(' + ${productAndCount.key.productID} + ')'">
 											Add To Cart</button>
 									</label>
-								</div>
-							</div>
-						</div>
-					</div>
-				</th:block>
-			</div>
-		</div>
-
-		<div class="container">
-
-			<div class="row col-lg-11 mx-auto">
-
-				<th:block
-					th:each="productAndCount: ${merchandiseProductsAndCountShop}">
-					<div class="col-6 col-md-3 col-lg-3 mb-5">
-						<div class="card mb-1 h-100">
-							<a class="modalclickable"
-								th:onclick="'javascript:GetById(' + ${productAndCount.key.productID} + ')'">
-								<img th:src="${productAndCount.key.productUrl}"
-								class="card-img-top productPhotoSize">
-							</a>
-
-							<!-- Collapse -->
-							<div class="card-collapse-parent">
-
-								<!-- Body -->
-								<div class="card-body px-0 bg-white">
-									<div class="row">
-										<div class="col-4">
-											<img class="rounded-circle" width="100%"
-												style="padding-left: 30%; padding-bottom: 10%"
-												th:src="${productAndCount.key.productUser.profileUrl}">
-										</div>
-										<div class="col">
-											<h5>
-												<strong
-													th:text="${productAndCount.key.productUser.firstName + ' ' +
-												productAndCount.key.productUser.lastName}"></strong>
-											</h5>
-										</div>
-									</div>
-
-									<!-- Heading -->
-
-									<div class="mb-1 productHeading h6"
-										th:text="${productAndCount.key.productName}"></div>
-
-									<!-- Quantity Sold -->
-									<div class="quantitySold" style="padding-right: 10%"
-										th:text="${productAndCount.value} + ' sold in the past week'"></div>
-
-									<!-- Price -->
-									<div class="mb-1 productPrice h6"
-										th:text="'$' + ${#numbers.formatDecimal(productAndCount.key.productPrice,0,2)}"></div>
-
-									<input type="button" />
 
 								</div>
 							</div>
@@ -171,6 +200,8 @@
 		</div>
 
 		<div class="container">
+			<h3 class="col-md-auto">Trending Clothing</h3>
+			<hr>
 
 			<div class="row col-lg-11 mx-auto">
 
@@ -196,9 +227,13 @@
 										</div>
 										<div class="col">
 											<h5>
-												<strong
+												<a
+													th:href="'/carthometab/' + ${productAndCount.key.productUser.userID}"
+													style="text-decoration: none; color: black"> <strong
 													th:text="${productAndCount.key.productUser.firstName + ' ' +
-												productAndCount.key.productUser.lastName}"></strong>
+												productAndCount.key.productUser.lastName}">
+												</strong>
+												</a>
 											</h5>
 										</div>
 									</div>
@@ -214,7 +249,7 @@
 
 									<!-- Price -->
 									<div class="mb-1 productPrice h6"
-										th:text="'$' + ${#numbers.formatDecimal(productAndCount.key.productPrice,0,2)}"></div>
+										th:text="${#numbers.formatCurrency(productAndCount.key.productPrice)}"></div>
 
 									<label for="heartLikeButton" style="padding-left: 5%">
 										<button type="button" style="background-color: #FFB6C1"
@@ -231,6 +266,8 @@
 		</div>
 
 		<div class="container">
+			<h3 class="col-md-auto">Trending Music Collection</h3>
+			<hr>
 
 			<div class="row col-lg-11 mx-auto">
 
@@ -257,9 +294,13 @@
 										</div>
 										<div class="col">
 											<h5>
-												<strong
+												<a
+													th:href="'/carthometab/' + ${productAndCount.key.productUser.userID}"
+													style="text-decoration: none; color: black"> <strong
 													th:text="${productAndCount.key.productUser.firstName + ' ' +
-												productAndCount.key.productUser.lastName}"></strong>
+												productAndCount.key.productUser.lastName}">
+												</strong>
+												</a>
 											</h5>
 										</div>
 									</div>
@@ -275,7 +316,7 @@
 
 									<!-- Price -->
 									<div class="mb-1 productPrice h6"
-										th:text="'$' + ${#numbers.formatDecimal(productAndCount.key.productPrice,0,2)}"></div>
+										th:text="${#numbers.formatCurrency(productAndCount.key.productPrice)}"></div>
 
 									<label for="heartLikeButton" style="padding-left: 5%">
 										<button type="button" style="background-color: #FFB6C1"
@@ -323,7 +364,7 @@
 					<div class="d-flex justify-content-end">
 						<div id="divProductId" style="display: none;"></div>
 						<button type="button" class="btn btn-primary"
-							id="addToCart">
+							th:onclick="'javascript:myFunction()'">
 							<i class="fa fa-shopping-cart"></i> Add To Cart
 						</button>
 					</div>
@@ -339,12 +380,7 @@
 </body>
 
 <script>
-	$("#addToCart").click(function() {
-		var productID = $("#divProductId").html();
-		myFunction(productID);
-	});
 	function myFunction(productID) {
-		//alert(productID);
 		$.ajax({
 			type : 'POST',
 			url : "/addToCart",
@@ -353,16 +389,8 @@
 				productId : productID
 			},
 			success : function(response) {
-				//alert(response);
-				var jason = jQuery.parseJSON(response);
-				var status = jason.status;
-				var count = jason.count;
-				$("#lblCartCount").text(count);
-				if (status == "error") {
-					alert("The product you added is reach to maximum amount");
-				}
 
-				$('#cartModal').modal('hide');
+				$("#lblCartCount").text(response);
 
 			},
 			error : function(xmlHttpRequest, textStatus, errorThrown) {

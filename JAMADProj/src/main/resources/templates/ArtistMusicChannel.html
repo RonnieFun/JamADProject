@@ -3,10 +3,14 @@
 <head th:replace="Fragments/layout.html :: headerfiles"> </head>
 
 <body>
+	
 	<nav th:replace="Fragments/layout.html :: navbar"></nav>
 	
-	<!-- Artist Introduction Section -->
 	
+<h4 th:if="${loggedInUserSubscribeErrorMsg != null}" th:text="${loggedInUserSubscribeErrorMsg}" style="color: red"></h4>
+<h4 th:if="${totalNumberOfSubscribeErrorMsg != null}" th:text="${totalNumberOfSubscribeErrorMsg}" style="color: red"></h4>
+	
+	<!-- Artist Introduction Section -->
 <div class="artistIntroSectionzq">
 
  	 <img class="smallBannerzq" th:src="${artist.profileUrl}" alt=""></img>
@@ -19,19 +23,25 @@
  	 	
  	 	<span class="aboutArtistFeature3zq">
  	 		<!--  If the customer already subscribed the artist, it shows "UNSUBSCRIBE"	--> 	
- 	 		<span th:if = "${subscribeStatus}">
-				<Button class="userSubscribeBtn"><a th:href="@{/music/unsubscribenoajax}">UNSUBSCRIBE</a></Button>
+ 	 		<span th:if = "${subscribeStatus == true}">
+				<Button class="userSubscribeBtn"><a th:href="@{/music/unsubscribenoajax/{artistId}(artistId = ${artistId})}">UNSUBSCRIBE</a></Button>
 			</span>
 		
 			<!--  Else if the customer haven't subscribed the artist, it shows "SUBSCRIBE" -->
-			<span th:unless = "${subscribeStatus}" >
-				<Button class="userSubscribeBtn"> <a th:href="@{/music/subscribenoajax}">SUBSCRIBE</a></Button>
+			<span th:if = "${subscribeStatus == false}" >
+				<Button class="userSubscribeBtn"> <a th:href="@{/music/subscribenoajax/{artistId}(artistId = ${artistId})}">SUBSCRIBE</a></Button>
 			</span> 
- 	 	</span> 	
+ 	 	</span>
  	 </div>
 </div> 
 
+
 	<!-- Artist Music Gallery Section -->
+	<!--  
+	<div>
+			<input type = "hidden" id="artistId"  th:value = "${artistId}">
+	</div>
+	-->
 
   <!-- Album NAVBAR -->
     <section class="productsOnSaleSection">
@@ -40,8 +50,8 @@
           <div class="col-12 col-md">
             <!-- Product Categories -->
             	<nav class="navbar spaceEvenly">
-		            <span th:each = "album: ${artistalbums}">
-		            <form id ="albumMusicForm" th:action="@{viewartistmusicchannel}" method="GET">
+		            <span th:each = "album: ${artistAlbums}">
+		            <form id ="albumMusicForm" th:action="@{/music/viewartistmusicchannel/{artistId}(artistId = ${artistId})}" method="GET">
 			              <a class="nav-link active blackFontText" data-toggle="tab" href="#"
 			              onclick="$(this).closest('form').submit(); return false;">
 			     			<span th:text = "${album.AlbumDescription}"></span>
@@ -66,7 +76,7 @@
       <div class="card mb-1 h-100"> 
       
       <!--  Media image -->
-       <a th:href="@{/video/watchvideo/{mediaId}(mediaId = ${music.id})}">
+       <a th:href="@{/music/listenmusic/{mediaId}(mediaId = ${music.id})}">
         <img th:src="${music.thumbnailUrl}" class="card-img-top productPhotoSize" alt="...">
         <span class="sideDurationVideoChannelPage" th:text="${music.duration}"></span> 
        </a>

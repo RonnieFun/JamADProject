@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="Fragments/layout.html :: headerfiles"> </head>
 
 <body>
+
 	<nav th:replace="Fragments/layout.html :: navbar"></nav>
+	
+<h4 th:if="${loggedInUserSubscribeErrorMsg != null}" th:text="${loggedInUserSubscribeErrorMsg}" style="color: red"></h4>
+<h4 th:if="${totalNumberOfSubscribeErrorMsg != null}" th:text="${totalNumberOfSubscribeErrorMsg}" style="color: red"></h4>	
+	
 	
 	<!-- Artist Introduction Section -->
 	
@@ -19,6 +25,7 @@
  	 	<span class="aboutArtistFeature2zq" th:text="'Number of Videos: ' + ${numberOfArtistVideos}"></span>
  	 	
  	 	<span class="aboutArtistFeature3zq">
+ 	 	
  	 		<!--  If the customer already subscribed the artist, it shows "UNSUBSCRIBE"	--> 	
  	 		<span th:if = "${subscribeStatus == true}">
 				<Button class="userSubscribeBtn"><a th:href="@{/video/unsubscribenoajax/{artistId}(artistId = ${artistId})}">UNSUBSCRIBE</a></Button>
@@ -33,10 +40,12 @@
  	 </div>
  	 
 </div> 
- 
+
+ 	<!--  
 	<div>
 			<input type = "hidden" id="artistId"  th:value = "${artistId}">
 	</div>
+	-->
 	
 	<!-- Artist Video Gallery Section -->
 	<div class="row col-lg-11 mx-auto">

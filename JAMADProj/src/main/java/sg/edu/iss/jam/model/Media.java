@@ -1,4 +1,7 @@
 package sg.edu.iss.jam.model;
+import java.time.LocalDate;
+import java.util.Collection;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,9 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
-import java.time.LocalDate;
-import java.util.Collection;
 @Entity
 public class Media {
 	
@@ -70,12 +70,6 @@ public class Media {
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name="tag_media_tag_list")
 	private Collection<Tag> tagList;
-	
-	
-
-
-	
-
 
 	public Long getId() {
 		return id;

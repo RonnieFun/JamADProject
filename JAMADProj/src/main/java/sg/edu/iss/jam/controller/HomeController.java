@@ -67,6 +67,10 @@ public class HomeController {
 		List<Subscribed> subs = srepo.findByTargetId(user.getUserID());
 		subs.stream().forEach(x->System.out.print(" " + x.getUser().getUserID()));
 
+
+		Long count = uService.getItemCountByUserID(userDetails.getUserId());
+		model.addAttribute("count", count);
+
 		
 		return "home";
 	}

@@ -2,29 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="Fragments/layout.html :: headerfiles">
 </head>
-<body style="padding-bottom: 30px">
-	<a th:href="@{/home}"><img th:src="@{/images/JAM_LOGO.png}"
-		class="logo2"> </a>
-	<nav class="navbar jamHeader3">
-
-		<div class="navbar-form form-inline">
-			<div class="input-group searchBox" style="padding-left: 5%"></div>
-		</div>
-
-		<a th:href="@{/home}" class="helpIcon btn"><i
-			class="fa fa-question-circle"></i><span class="smallHelpText">Help</span></a>
-
-		<button class="addShoppingCartIcon btn"
-			onclick="location.href='/shoppingcart'">
-			<i class="fa fa-cart-plus" style="font-size: 24px"></i><span
-				class='badge badge-warning' id='lblCartCount' th:text="${count}"></span>
-		</button>
-		<a th:href="@{/home}" class="profileImageIconLink"><img
-			class="profileImageIcon" th:src="${user.profileUrl}"
-			alt="Artist Small Profile Photo" /> <span
-			class="smallProfileNameText"
-			th:text="${user.firstName} + ' ' + ${user.lastName}"></span> </a>
-	</nav>
+<body style="padding-bottom: 35px">
+	<div th:replace="Fragments/layout.html :: navbar"></div>
 
 	<div class="container">
 		<div class="row">
@@ -35,7 +14,7 @@
 	</div>
 	<div class="container">
 		<div class="row" th:each="purchaseHistory: ${purchaseHistories}">
-			<div class="row">
+			<div class="row" style="margin-bottom:2%">
 				<div class="col">
 					<h6>
 						<strong th:text="'Purchased on: '"></strong>
@@ -46,7 +25,8 @@
 					<h6>
 						<strong th:text="'Total: '"></strong>
 					</h6>
-					<h6 th:text="${#numbers.formatCurrency(purchaseHistory.value)}"></h6>
+					<h6
+						th:text="'$' + ${#numbers.formatDecimal(purchaseHistory.value, 0, 2)}"></h6>
 				</div>
 				<div class="col">
 					<h6>
@@ -58,12 +38,23 @@
 			<div class="col"></div>
 			<div class="row"
 				th:each="purchaseHistoryOrder: ${purchaseHistory.key.orderDetails}"
-				style="margin-bottom: 1%">
+				style="margin-bottom: 2%">
 
-				<img th:src="${purchaseHistoryOrder.product.productUrl}"
-					class="modalclickable"
-					th:onclick="'javascript:GetById(' + ${purchaseHistoryOrder.product.productID} + ')'"
-					style="height: 100%; width: 10%">
+				<div class="col"
+					th:if="${purchaseHistoryOrder.product.productQty}>0">
+					<img th:src="${purchaseHistoryOrder.product.productUrl}"
+						class="modalclickable"
+						th:onclick="'javascript:GetById(' + ${purchaseHistoryOrder.product.productID} + ')'"
+						style="height: 100%; width: 30%">
+				</div>
+
+				<div class="col"
+					th:if="${purchaseHistoryOrder.product.productQty}<=0">
+					<img th:src="${purchaseHistoryOrder.product.productUrl}"
+						style="height: 100%; width: 30%">
+						
+				</div>
+
 				<div class="col">
 					<strong th:text="${purchaseHistoryOrder.product.productName}"></strong>
 					<div>
@@ -74,15 +65,18 @@
 					</div>
 					<div th:text="'Quantity: ' + ${purchaseHistoryOrder.quantity}"></div>
 					<div
-						th:text="'Unit price: ' + ${#numbers.formatCurrency(purchaseHistoryOrder.product.productPrice)}"></div>
+						th:text="'Unit price: $' + ${#numbers.formatDecimal(purchaseHistoryOrder.product.productPrice,0,2)}"></div>
 				</div>
-				<div class="col">
+				<div class="col"
+					th:if="${purchaseHistoryOrder.product.productQty} > 0">
 					<label for="heartLikeButton" style="padding-left: 5%">
 						<button type="button" style="background-color: #FFB6C1"
 							th:onclick="'javascript:myFunction(' + ${purchaseHistoryOrder.product.productID} + ')'">
 							Add To Cart</button>
 					</label>
 				</div>
+				<div class="col"
+					th:if="${purchaseHistoryOrder.product.productQty}<=0"></div>
 			</div>
 			<hr>
 		</div>
@@ -118,8 +112,7 @@
 					</table>
 					<div class="d-flex justify-content-end">
 						<div id="divProductId" style="display: none;"></div>
-						<button type="button" class="btn btn-primary"
-							th:onclick="'javascript:myFunction()'">
+						<button type="button" class="btn btn-primary" id="addToCart">
 							<i class="fa fa-shopping-cart"></i> Add To Cart
 						</button>
 					</div>
@@ -133,6 +126,11 @@
 	</div>
 </body>
 <script>
+	$("#addToCart").click(function() {
+		var productID = $("#divProductId").html();
+		myFunction(productID);
+	});
+
 	function myFunction(productID) {
 		$.ajax({
 			type : 'POST',
@@ -142,8 +140,16 @@
 				productId : productID
 			},
 			success : function(response) {
+				//alert(response);
+				var jason = jQuery.parseJSON(response);
+				var status = jason.status;
+				var count = jason.count;
+				$("#lblCartCount").text(count);
+				if (status == "error") {
+					alert("The product you added is reach to maximum amount");
+				}
 
-				$("#lblCartCount").text(response);
+				$('#cartModal').modal('hide');
 
 			},
 			error : function(xmlHttpRequest, textStatus, errorThrown) {
