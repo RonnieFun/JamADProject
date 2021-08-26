@@ -13,13 +13,14 @@ function openFormMusic() {
 function closeFormMusic() {
 	  document.getElementById("myHeartFormMusic").style.display = "none";
 	}
-	
+
 //Close save to playlist heart button if click outside box
 $(document).mouseup(function(e) 
 {
     if ($("#myHeartFormVideo").has(e.target).length === 0 && !$("#myHeartFormVideo").is(e.target)) 
     {
         closeForm();
+        closeFormMusic();
     }
 });	
 

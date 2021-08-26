@@ -1430,12 +1430,40 @@ body {
 	max-height: 5rem;
 }
 
+
+.askToLoginHeartFormPopup{
+	display: none;
+	background-color: rgba(242.24999696016312, 233.16562682390213, 233.16562682390213, 1);
+	position: absolute;
+	left: 32%;
+	z-index:9;
+	border: 1px solid black;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.8vw;
+	padding: 3px 10px;
+	max-height: 50%;
+	max-width: 20%;
+}
+
+.askToLoginSubscribeFormPopup{
+	display: none;
+	background-color: rgba(242.24999696016312, 233.16562682390213, 233.16562682390213, 1);
+	position: absolute;
+	left: 32%;
+	z-index:9;
+	border: 1px solid black;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.8vw;
+	padding: 3px 10px;
+	max-height: 50%;
+	margin-top: 4%;
+}
+
 .saveToPlaylistButton{
 	font-family: 'Roboto', sans-serif;
 	font-size: 0.7vw;
 	background-color: rgba(239.0625, 104.58984375, 104.58984375, 0.7200000286102295);
 	padding: 0px 3%;
-	
 	margin-top: 4.5%;
 }
 
@@ -1446,6 +1474,56 @@ body {
 	padding: 0px 3%;
 	margin-left: 29%;
 	margin-top: 4.5%;
+}
+
+.popupHeartLoginButton{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.8vw;
+	background-color: rgba(239.0625, 104.58984375, 104.58984375, 0.7200000286102295);
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 9%;
+	padding-right: 9%;
+	margin-top: 5%;
+	margin-left: 15%;
+	min-width: max-content;
+}
+
+.popupCancelHeartLoginButton{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.8vw;
+	background-color: rgba(239.0625, 104.58984375, 104.58984375, 0.7200000286102295);
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 3%;
+	padding-right: 3%;
+	margin-top: 1.7%;
+	margin-left: 40%;
+}
+
+.popupSubscribeLoginButton{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.8vw;
+	background-color: rgba(239.0625, 104.58984375, 104.58984375, 0.7200000286102295);
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 9%;
+	padding-right: 9%;
+	margin-top: 5%;
+	margin-left: 15%;
+	min-width: max-content;
+}
+
+.popupCancelSubscribeLoginButton{
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.8vw;
+	background-color: rgba(239.0625, 104.58984375, 104.58984375, 0.7200000286102295);
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 3%;
+	padding-right: 3%;
+	margin-top: 1.7%;
+	margin-left: 40%;
 }
 
 .userSubscribeBtn{
