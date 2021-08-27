@@ -1,8 +1,6 @@
 package sg.edu.iss.jam.controller;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -76,6 +74,8 @@ public class HomeController {
 		
 		return "home";
 	}
+	
+	
 	
 //	@RequestMapping("/subscribers")
 //	public String viewSubs(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
