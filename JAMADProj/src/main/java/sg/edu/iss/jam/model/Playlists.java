@@ -2,6 +2,7 @@ package sg.edu.iss.jam.model;
 
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -43,9 +44,6 @@ public class Playlists {
 	public Playlists() {
 		super();
 	}
-	
-	
-
 
 	public Playlists(String playlistName, String playlistDescription, MediaType mediaType, User playlistUser,
 			Collection<Media> mediaPlayList, Collection<PlaylistOrder> playlistsorder) {

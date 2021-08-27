@@ -15,6 +15,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Set;
 @Entity
 public class Media {
 	
@@ -43,11 +47,11 @@ public class Media {
 	private int AlbumOrder;
 
 	//relation with userhistory
-	@OneToMany(mappedBy = "mediaHistory")
+	@OneToMany(mappedBy = "mediaHistory",cascade = CascadeType.REMOVE)
 	private Collection<UserHistory> userHistory;
 	
 	//relation with comment
-	@OneToMany(mappedBy = "mediaComment")
+	@OneToMany(mappedBy = "mediaComment",cascade = CascadeType.REMOVE)
 	private Collection<Comments> commentList;
 	
 	//relation with channel
@@ -63,14 +67,14 @@ public class Media {
 	private Collection<Playlists> playLists;
 	
 	//relation with playlistorder
-	@OneToMany(mappedBy = "media")
+	@OneToMany(mappedBy = "media",cascade = CascadeType.REMOVE)
 	private Collection<PlaylistOrder> PlaylistOrder;
 	
 	//relation with tag
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
 	@JoinTable(name="tag_media_tag_list")
-	private Collection<Tag> tagList;
-
+	private Set<Tag> tagList;
+	
 	public Long getId() {
 		return id;
 	}
@@ -132,7 +136,7 @@ public class Media {
 			LocalDate createdOn, String publishStatus, String thumbnailUrl, int albumOrder,
 			Collection<UserHistory> userHistory, Collection<Comments> commentList, Channel channel, Album album,
 			Collection<Playlists> playLists, Collection<sg.edu.iss.jam.model.PlaylistOrder> playlistOrder,
-			Collection<Tag> tagList) {
+			Set<Tag> tagList) {
 		super();
 		this.mediaType = mediaType;
 		this.mediaUrl = mediaUrl;
@@ -142,13 +146,13 @@ public class Media {
 		this.createdOn = createdOn;
 		this.publishStatus = publishStatus;
 		this.thumbnailUrl = thumbnailUrl;
-		AlbumOrder = albumOrder;
+		this.AlbumOrder = albumOrder;
 		this.userHistory = userHistory;
 		this.commentList = commentList;
 		this.channel = channel;
 		this.album = album;
 		this.playLists = playLists;
-		PlaylistOrder = playlistOrder;
+		this.PlaylistOrder = playlistOrder;
 		this.tagList = tagList;
 	}
 
@@ -192,6 +196,7 @@ public class Media {
 		this.channel = channel;
 	}
 
+	
 	public Collection<Playlists> getPlayLists() {
 		return playLists;
 	}
@@ -204,7 +209,7 @@ public class Media {
 		return tagList;
 	}
 
-	public void setTagList(Collection<Tag> tagList) {
+	public void setTagList(Set<Tag> tagList) {
 		this.tagList = tagList;
 	}
 	

@@ -3,9 +3,11 @@ package sg.edu.iss.jam.service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -309,7 +311,7 @@ public class ArtistImplementation implements ArtistInterface {
 	}
 
 	@Override
-	public Collection<Tag> getTagsbytagName(String TagNames) {
+	public Set<Tag> getTagsbytagName(String TagNames) {
 
 		String[] tagsarray = TagNames.split(",");
 		
@@ -322,7 +324,7 @@ public class ArtistImplementation implements ArtistInterface {
 	    }
 
 	    tagsarray = list.toArray(new String[list.size()]);
-		Collection<Tag> TagCollection = new ArrayList<Tag>();
+	    Set<Tag> TagCollection = new HashSet<Tag>();
 
 		for (String tagstring : tagsarray) {
 			tagstring = tagstring.trim();

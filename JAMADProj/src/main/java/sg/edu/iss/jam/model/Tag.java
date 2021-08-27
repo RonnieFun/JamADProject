@@ -1,6 +1,7 @@
 package sg.edu.iss.jam.model;
 
 import java.util.Collection;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -18,14 +19,14 @@ public class Tag {
 	private String tagName;
 	
 	//relation with media
-	@ManyToMany(mappedBy = "tagList", cascade = CascadeType.ALL)
-	private Collection<Media> mediaTagList;
+	@ManyToMany(mappedBy = "tagList")
+	private Set<Media> mediaTagList;
 
 	public Tag() {
 		super();
 	}	
 
-	public Tag(String tagName, Collection<Media> mediaTagList) {
+	public Tag(String tagName, Set<Media> mediaTagList) {
 		super();
 		this.tagName = tagName;
 		this.mediaTagList = mediaTagList;
@@ -51,7 +52,7 @@ public class Tag {
 		return mediaTagList;
 	}
 
-	public void setMediaTagList(Collection<Media> mediaTagList) {
+	public void setMediaTagList(Set<Media> mediaTagList) {
 		this.mediaTagList = mediaTagList;
 	}
 	

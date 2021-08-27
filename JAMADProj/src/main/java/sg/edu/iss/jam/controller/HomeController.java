@@ -1,5 +1,6 @@
 package sg.edu.iss.jam.controller;
 
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,6 +19,8 @@ import java.util.function.Predicate;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.List;
+
 
 import org.hibernate.criterion.Distinct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,6 +101,7 @@ public class HomeController {
 		return "home";
 	}
 	
+
 	@RequestMapping("/subscribers")
 	public String viewSubs(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
 		User user = uService.findUserByUserId(userDetails.getUserId());
@@ -284,6 +288,5 @@ public class HomeController {
 		
 		return "following";
 	}
-	
 
 }

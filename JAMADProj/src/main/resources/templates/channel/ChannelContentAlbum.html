@@ -27,7 +27,7 @@
 								<h1>Add Song</h1>
 							</div>
 							<form action="#"
-								th:action="@{/artist/channel/album/editmusic/{albumid} (albumid =${album.albumID})}"
+								th:action="@{/artist/channel/Music/editmusic/{albumid} (albumid =${album.albumID})}"
 								method="post" enctype="multipart/form-data">
 								<div class="modal-body">
  										
@@ -35,7 +35,7 @@
 									placeholder="mediaID" class="form-control input-md" /> 
 										
 										<label>Album Order:</label> 
-										<input id="AlbumOrder" name="AlbumOrder" type="text"
+										<input id="AlbumOrder" name="AlbumOrder" type="number"
 										required placeholder="Album Order"
 										class="form-control input-md" /> 
 										
@@ -58,7 +58,7 @@
 										placeholder="description" class="form-control" /> 
 										<br> 
 										<label>Music File:</label> 
-										<input type="file" id="MediaFile" name="MediaFile">
+										<input type="file" id="MediaFile" required name="MediaFile">
 										
 								</div>
 
@@ -112,7 +112,7 @@
 						<br>
 							<button type="button" class="btn btn-info btn-lg"
 								data-bs-toggle="modal" data-bs-target="#myModal"
-								th:attrappend="data-bs-target=${MediaDTO.media.id}">Edit Video</button>
+								th:attrappend="data-bs-target=${MediaDTO.media.id}">Edit Song</button>
 								
 							<div class="modal fade" id="myModal" role="dialog"
 								th:attrappend="id=${MediaDTO.media.id}">
@@ -123,7 +123,7 @@
 										<div class="modal-header">
 											<h1>Edit Song</h1>
 										</div>
-										<form action="#" th:action="@{/artist/channel/album/editmusic/{albumid} (albumid =${album.albumID})}"
+										<form action="#" th:action="@{/artist/channel/Music/editmusic/{albumid} (albumid =${album.albumID})}"
 											method="post" enctype="multipart/form-data">
 											<div class="modal-body">
 
@@ -132,7 +132,7 @@
 													th:value="${MediaDTO.media.id}" /> 								
 													
 													<label>Album Order:</label> 
-													<input id="AlbumOrder" name="AlbumOrder" type="text"
+													<input id="AlbumOrder" name="AlbumOrder" type="number"
 													required placeholder="Album Order"
 													class="form-control input-md" th:value=${MediaDTO.media.AlbumOrder} /> 
 													
