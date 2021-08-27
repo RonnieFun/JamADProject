@@ -3,6 +3,8 @@ package sg.edu.iss.jam.service;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -37,7 +39,8 @@ public class UploadImplementation implements UploadInterface {
 				e.printStackTrace();
 			}
 			
-			return destinationFile.toString();
+			System.out.println("File: "+file.getOriginalFilename()+"saved to "+destinationFile.toString()+"as "+filename);
+			return filename;
 
 		}
 		
@@ -46,9 +49,17 @@ public class UploadImplementation implements UploadInterface {
 
 	@Override
 	public Boolean delete(String filepath) throws IOException {
-		 
-	    Path fileToDeletePath = Paths.get(filepath);
-	    Files.delete(fileToDeletePath);
+		
+
+	    Path fileToDeletePath = Paths.get("src/main/resources/static"+filepath);
+	    
+	    try {
+		    Files.delete(fileToDeletePath);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		
 	    
 		return true;
 	}

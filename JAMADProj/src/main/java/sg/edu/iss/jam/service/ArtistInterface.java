@@ -2,6 +2,7 @@ package sg.edu.iss.jam.service;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import sg.edu.iss.jam.model.Album;
 import sg.edu.iss.jam.model.Category;
@@ -82,7 +83,7 @@ public interface ArtistInterface {
 
 	List<Product> getPopularProductByCategory(long artistid, Category category);
 	
-	Collection<Tag> getTagsbytagName(String TagName);
+	Set<Tag> getTagsbytagName(String TagName);
 
 
 

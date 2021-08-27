@@ -18,19 +18,6 @@ public class ConsumerImplementation implements ConsumerInterface{
 	@Autowired
 	UserRepository urepo;
 
-	@Override
-	public int getFollowingByUserId(Long Userid) {
-		
-		return srepo.getFollowingByUserId(Userid) ;
-	}
-
-	@Override
-	public List<Subscribed> getListofFollowingByUserId(Long userID) {
-		
-		return urepo.getListofFollowingByUserId(userID);
-	}
-	
-	
 	
 
 
