@@ -15,8 +15,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	public User getUserByEmail(@Param("email") String email);
 	
 	
-	@Query("SELECT s FROM Subscribed s JOIN s.user u where u.userID = :userid")
-	List<Subscribed>getListofFollowingByUserId(@Param("userid") long userId);
+//	@Query("SELECT s FROM Subscribed s JOIN s.user u where u.userID = :userid")
+//	List<Subscribed>getListofFollowingByUserId(@Param("userid") long userId);
 	
 	
 }

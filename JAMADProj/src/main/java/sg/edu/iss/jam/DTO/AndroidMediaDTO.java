@@ -1,27 +1,36 @@
 package sg.edu.iss.jam.DTO;
 
-public class AndroidGetAllVideosDTO {
+public class AndroidMediaDTO {
 
+	private Long videoId;
+	private Long artistId;
 	private String videoThumbnailUrl;
 	private String artistProfileThumbnailUrl;
 	private String artistName;
 	private String videoTitle;
 	private String videoDuration;
 	private String tags;
-	
-	public AndroidGetAllVideosDTO() {
-		super();
+	private String videoUrl;
+	private Boolean subscribed;
+
+	public String getVideoUrl() {
+		return videoUrl;
 	}
 
-	public AndroidGetAllVideosDTO(String videoThumbnailUrl, String artistProfileThumbnailUrl, String artistName,
-			String videoTitle, String videoDuration, String tags) {
+	public void setVideoUrl(String videoUrl) {
+		this.videoUrl = videoUrl;
+	}
+
+	public Boolean getSubscribed() {
+		return subscribed;
+	}
+
+	public void setSubscribed(Boolean subscribed) {
+		this.subscribed = subscribed;
+	}
+
+	public AndroidMediaDTO() {
 		super();
-		this.videoThumbnailUrl = videoThumbnailUrl;
-		this.artistProfileThumbnailUrl = artistProfileThumbnailUrl;
-		this.artistName = artistName;
-		this.videoTitle = videoTitle;
-		this.videoDuration = videoDuration;
-		this.tags = tags;
 	}
 
 	public String getVideoThumbnailUrl() {
@@ -71,5 +80,21 @@ public class AndroidGetAllVideosDTO {
 	public void setTags(String tags) {
 		this.tags = tags;
 	}
-	
+
+	public Long getVideoId() {
+		return videoId;
+	}
+
+	public void setVideoId(Long videoId) {
+		this.videoId = videoId;
+	}
+
+	public Long getArtistId() {
+		return artistId;
+	}
+
+	public void setArtistId(Long artistId) {
+		this.artistId = artistId;
+	}
+
 }
