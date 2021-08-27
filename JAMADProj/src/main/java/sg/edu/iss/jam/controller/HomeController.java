@@ -132,11 +132,13 @@ public class HomeController {
 		System.out.println("mySubs size:" + mySubs.size());
 		
 		int mySubsSize = mySubs.size();
+		List<Subscribed>timeAdjustment = new ArrayList<>();
 		
 		for(int i = 0; i<mySubsSize; i++) {
 			for(int j = 0; j<tobeRemoved.size(); j++) {
 				if(mySubs.get(i).getSubscriber().getUserID() == tobeRemoved.get(j).getSubscriber().getUserID()) {
-					mySubs.get(i).setTimeSubscribed(LocalDateTime.now().plusYears(1));
+					mySubs.get(i).setTimeSubscribed(mySubs.get(i).getTimeSubscribed().plusYears(100));
+					timeAdjustment.add(mySubs.get(i));
 				}
 			}
 		}
@@ -148,6 +150,7 @@ public class HomeController {
 				itr.remove();
 			}
 		}
+		timeAdjustment.stream().forEach(x->x.setTimeSubscribed(x.getTimeSubscribed().minusYears(100)));
 		mySubs.stream().forEach(x->System.out.println("ConfirmedSubs: " + x.getSubscriber().getUserID()));
 		
 		List<Subscribed> mySubCheck = 	subscribers.stream()
@@ -160,26 +163,19 @@ public class HomeController {
 		mySubCheck.stream().forEach(x->System.out.println("subCheckResult: " + x.getSubscribedID()));
 		
 		List<Subscribed> latestStatus = new ArrayList<>();
-		Subscribed latest = new Subscribed();
-		latest.setTimeSubscribed(LocalDateTime.now().minusYears(1));
-		Subscribed latestTemp = latest;
 		for(Subscribed s : mySubCheck) {
 			List<Subscribed> temp = srepo.findAllSubscribedBySubId(s.getSubscriber().getUserID());
-			for(Subscribed sb : temp) {
-				if(sb.getTimeSubscribed().isAfter(latestTemp.getTimeSubscribed()) && sb.isSubscribed()==true && sb.getArtist().getUserID() == user.getUserID()) {
-					latestTemp = sb;
-					latestStatus.add(sb);
+			Subscribed latest = Collections.max(temp,Comparator.comparing(x->x.getTimeSubscribed()));
+			if(latest.isSubscribed()==true && latest.getArtist().getUserID() == user.getUserID()) {
+					latestStatus.add(latest);
 				}
 			}
-		}
 		
 		latestStatus.stream().forEach(x->System.out.println("ConfirmedSubsAfterCheck: " + x.getSubscribedID()));
 		
 		latestStatus.stream().filter(distinctByKey(x->x.getSubscriber().getUserID())).collect(Collectors.toCollection(()->mySubs));
 			
-		List<User> subUsers = new ArrayList<>();
-		
-				
+		List<User> subUsers = new ArrayList<>();	
 		for(Subscribed s : mySubs) {
 			
 			Optional<User> ou = urepo.findById(s.getSubscriber().getUserID());
@@ -232,7 +228,7 @@ public class HomeController {
 				for(int i = 0; i<myFollowSize; i++) {
 					for(int j = 0; j<tobeRemoved.size(); j++) {
 						if(myFollowings.get(i).getArtist().getUserID() == tobeRemoved.get(j).getArtist().getUserID()) {
-							myFollowings.get(i).setTimeSubscribed(LocalDateTime.now().plusYears(1));
+							myFollowings.get(i).setTimeSubscribed(myFollowings.get(i).getTimeSubscribed().plusYears(100));
 						}
 					}
 				}
@@ -241,10 +237,11 @@ public class HomeController {
 				while(itr.hasNext()) {
 					Subscribed s = itr.next();
 					if(s.getTimeSubscribed().isAfter(LocalDateTime.now())) {
+						s.setTimeSubscribed(s.getTimeSubscribed().minusYears(100));
 						itr.remove();
 					}
 				}
-		myFollowings.stream().forEach(x->System.out.println("ConfirmedSubs: " + x.getSubscriber().getUserID()));
+		myFollowings.stream().forEach(x->System.out.println("ConfirmedSubs: " + x.getArtist().getUserID()));
 		
 		
 		myFollowings.stream().forEach(x->System.out.println("myFollowingRemove: " + x.getArtist().getUserID()));
@@ -261,19 +258,14 @@ public class HomeController {
 		myFollowingCheck.stream().forEach(x->System.out.println("followingCheckResult: " + x.getSubscribedID()));
 		
 		List<Subscribed> latestStatus = new ArrayList<>();
-		Subscribed latest = new Subscribed();
-		latest.setTimeSubscribed(LocalDateTime.now().minusYears(1));
-		Subscribed latestTemp = latest;
 		for(Subscribed s : myFollowingCheck) {
 			List<Subscribed> temp = srepo.findAllFollowingByArtistId(s.getArtist().getUserID());
-			for(Subscribed sb : temp) {
-				if(sb.getTimeSubscribed().isAfter(latestTemp.getTimeSubscribed()) && sb.isSubscribed()==true && sb.getSubscriber().getUserID() == user.getUserID()) {
-					latestTemp = sb;
-					latestStatus.add(sb);
+			Subscribed latest = Collections.max(temp,Comparator.comparing(x->x.getTimeSubscribed()));
+			if(latest.isSubscribed()==true && latest.getSubscriber().getUserID() == user.getUserID()) {
+					latestStatus.add(latest);
 				}
-			}
 		}
-		
+	
 		latestStatus.stream().forEach(x->System.out.println("ConfirmedFollowingAfterCheck: " + x.getSubscribedID()));
 		latestStatus.stream().filter(distinctByKey(x->x.getArtist().getUserID())).collect(Collectors.toCollection(()->myFollowings));
 
@@ -365,6 +357,15 @@ public class HomeController {
 			
 			return "redirect:/home/";
 		}
+		
+		@RequestMapping("/profile/{userID}")
+		public String viewUserProfile(Model model, @AuthenticationPrincipal MyUserDetails userDetails,
+				@PathVariable("userID") Long userID) {
+			System.out.println(userID);
+			
+			return"index";
+		}
+		
 
 }
 

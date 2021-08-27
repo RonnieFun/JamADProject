@@ -103,13 +103,18 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 <!--        Message sender ends    -->
 	
 	</div>
-			<table class="messageSender">
-				<tr class="messageSender_Top" th:each="following : ${followingUsers}">
-				<td><img th:src="${following.profileUrl}" class="profilePic"/></td>
-				<td th:text="${following.firstName} + ' ' + ${following.lastName}"class="messageSender_input">
-				</tr>
-			</table>
-	
+		<div class="messageSenderSub" th:each="following : ${followingUsers}">
+			<a th:href="@{'/home/profile/' + ${following.userID}}" style="text-decoration: none; color:black">
+				<table>
+					<tr class="messageSender_Top">
+						<td>
+							<img th:src="${following.profileUrl}" class="profilePic"/>
+						</td>
+					<td th:text="${following.firstName} + ' ' + ${following.lastName}"class="messageSender_input">
+					</tr>
+				</table>
+			</a>
+		</div>
 	</div>
 </div>
 
