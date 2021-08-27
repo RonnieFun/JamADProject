@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import sg.edu.iss.jam.DTO.UserDTO;
 import sg.edu.iss.jam.model.Role;
 import sg.edu.iss.jam.model.Roles;
 import sg.edu.iss.jam.model.Status;
