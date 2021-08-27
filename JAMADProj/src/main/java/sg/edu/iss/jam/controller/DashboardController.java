@@ -41,7 +41,8 @@ public class DashboardController  {
 		@GetMapping("/dashboard")
 		public String showDashboard(Model model) {
 			
-		//video and music chart	
+		
+			//video and music chart	
 				Long userId = (long) 1;
 				User artist = aservice.findById(userId);
 				
