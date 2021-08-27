@@ -162,6 +162,7 @@ public class MediaRestController {
 					androidGetAllVideosDTO.setMediaThumbnailUrl(video.getThumbnailUrl());
 					androidGetAllVideosDTO.setMediaTitle(video.getTitle());
 					androidGetAllVideosDTO.setArtistId(video.getChannel().getChannelUser().getUserID());
+					androidGetAllVideosDTO.getMediaUrl(video.getMediaUrl());
 					for (Tag tag : video.getTagList()) {
 						tags = tags + tag.getTagName() + " ";
 						tags.trim();
