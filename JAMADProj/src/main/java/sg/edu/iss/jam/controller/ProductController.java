@@ -37,7 +37,6 @@ public class ProductController {
 	@GetMapping("/carthometab/{artistid}")
 	public String shoppingCartHome(Model model, @PathVariable long artistid,
 			@AuthenticationPrincipal MyUserDetails userDetails) {
-		// long userID = (long) 1;
 		User artist = null;
 		artist = aservice.getArtistByID(artistid);
 		// userId need to replace
@@ -53,7 +52,6 @@ public class ProductController {
 	@GetMapping("/carthometab/{artistid}/{category}")
 	public String getProductByCategory(Model model, @PathVariable long artistid, @PathVariable Category category,
 			@AuthenticationPrincipal MyUserDetails userDetails) {
-		// long userID = (long) 1;
 		User artist = null;
 		artist = aservice.getArtistByID(artistid);
 		// userId need to replace
@@ -66,21 +64,6 @@ public class ProductController {
 		model.addAttribute("productList", aservice.getPopularProductByCategory(artistid, category));
 		return "carthometab";
 	}
-
-//	@GetMapping("/carthometab/{artistid}/{category}")
-//	public String getPopularProductByCategory(Model model, @PathVariable long artistid, @PathVariable Category category) {
-//		// long userID = (long) 1;
-//		User artist = null;
-//		artist = aservice.getArtistByID(artistid);
-//		//userId need to replace
-//		Long count  =  uservice.getItemCountByUserID(artistid);
-//		model.addAttribute("count", count);
-//		model.addAttribute("artistId", artist.getUserID());
-//		model.addAttribute("artistName", artist.getDisplayName());
-//		model.addAttribute("profileUrl", artist.getProfileUrl());
-//		//model.addAttribute("productList", aservice.getProductListByArtistIDAndCategory(artistid, category));
-//		return "carthometab";
-//	}
 
 	@RequestMapping(value = "/product/details", method = RequestMethod.POST)
 	@ResponseBody
@@ -99,30 +82,6 @@ public class ProductController {
 			Result = "Invalid";
 		}
 		return Result;
-	}
-
-//	@GetMapping("/cartothertab")
-//	public String shoppingCartOther(Model model) {
-//		return "product/orderconfrim";
-//	}
-
-	// ajax call
-	@RequestMapping(value = "/getAllProduct", method = RequestMethod.POST)
-	@ResponseBody
-	public String add(@RequestParam(value = "artistId") Long artistId) throws Exception {
-
-		List<Product> productList = aservice.getProductListByArtistID(artistId);
-		System.out.println(productList.size());
-		String jsSon = null;
-//		ObjectMapper mapper = new ObjectMapper();
-//		if (!productList.isEmpty()) {
-//			try {
-//				jsSon = mapper.writeValueAsString(productList);
-//			} catch (JsonGenerationException e) {
-//				e.printStackTrace();
-//			}
-//		}
-		return "carthometab";
 	}
 
 	@GetMapping("/shop")
