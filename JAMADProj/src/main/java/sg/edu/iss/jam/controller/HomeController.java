@@ -100,6 +100,8 @@ public class HomeController {
 		User targetuser = uService.findUserByUserId(userid);
 		
 		model.addAttribute("posts",hService.getPostsbyID(targetuser.getUserID()));
+		model.addAttribute("profileUrl", userDetails.getProfileUrl());
+		model.addAttribute("firstName", userDetails.getFirstName());
 		
 		return "/Fragments/PostContent";
 	}
@@ -131,6 +133,8 @@ public class HomeController {
 		}
 		
 		model.addAttribute("posts",hService.getPostsbyID(loggedinuser.getUserID()));
+		model.addAttribute("profileUrl", userDetails.getProfileUrl());
+		model.addAttribute("firstName", userDetails.getFirstName());
 		
 		return "/Fragments/PostContent"; 
 	}
@@ -145,10 +149,13 @@ public class HomeController {
 		if (hService.deletepost(hService.getPostbyID(postID))) {
 			model.addAttribute("error","Post not deleted");
 		}
+		
+		
 
 		model.addAttribute("posts",hService.getPostsbyID(loggedinuser.getUserID()));
 		
-		return "/Fragments/PostContent";
+		
+		return "redirect:/home/";
 	}
 	
 	

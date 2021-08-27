@@ -7522,7 +7522,7 @@ body{
 /* post */
 
 .post{
-	width: 100%;
+	width: 1000px;
 	margin-top: 15px;
 	border-radius: 15px;
 	background-color: white;
@@ -7563,6 +7563,7 @@ body{
 .post_Options{
 	padding-top: 10px;
 	border-top:1px solid lightgray;
+	border-bottom:1px solid lightgray;
 	display: flex; 
 	justify-content: space-evenly;
 	font-size: medium; 
@@ -7582,6 +7583,20 @@ body{
 .post_Option p {
 	margin-left: 10px;
 	margin-top: 15px
+}
+
+.post_Option button {
+	display: flex;
+	align-items: center; 
+	justify-content: center; 
+	padding: 5px;
+	flex: 1; 
+	border: none;
+	background: white;
+}
+.post_Option .material-icons{
+	font-size: xx-large;
+	color: gray;
 }
 
 .post_Option:hover{
