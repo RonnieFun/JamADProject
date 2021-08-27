@@ -40,10 +40,13 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 		</div>
 		</a>
 		
+	<a href="/home/following" style="text-decoration: none; color:black">
 		<div class="sidebarRow">
 			<span class="material-icons">volunteer_activism</span>
 			<h6>Following <span th:text="${following}" style="font-weight:lighter;"></span></h6>
 		</div>
+	</a>
+
 		
 		<a href = "/artist/channel" style="text-decoration: none; color:black">
 			<div class="sidebarRow">

@@ -66,6 +66,13 @@ public class MediaController {
 	List<String> recommendMediaNames_model3 = new ArrayList<String>();
 	List<String> recommendMediaNames_model4 = new ArrayList<String>();
 	
+	
+	@GetMapping("/media/redirectLogin")
+	public String watchMusicVideoRedirectLogin() {
+		
+		return "redirect:/login/";
+	}
+	
 	//ajax call for delete comment button on Watch Videos page
 	@PostMapping("/video/deleteComment")
 	@ResponseBody

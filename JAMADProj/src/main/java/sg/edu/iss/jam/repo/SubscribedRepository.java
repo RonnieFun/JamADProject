@@ -11,6 +11,11 @@ import sg.edu.iss.jam.model.User;
 
 public interface SubscribedRepository extends JpaRepository<Subscribed, Long> {
 	
+	@Query("SELECT s FROM Subscribed s WHERE s.subscriber.userID = :artistId ")
+	List<Subscribed> findAllSubscribedBySubId(@Param("artistId") Long subscriberId);
+	
+	@Query("SELECT s FROM Subscribed s WHERE s.artist.userID = :artistId ")
+	List<Subscribed> findAllFollowingByArtistId(@Param("artistId") Long artistId);
 
 	@Query("SELECT s FROM Subscribed s WHERE s.artist.userID = :artistId "
 			+ "AND s.subscribed = false")
