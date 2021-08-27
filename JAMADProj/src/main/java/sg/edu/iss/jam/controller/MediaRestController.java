@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import sg.edu.iss.jam.DTO.AndroidMediaDTO;
+import sg.edu.iss.jam.DTO.MediaDTO;
 import sg.edu.iss.jam.model.Media;
 import sg.edu.iss.jam.model.MediaType;
 import sg.edu.iss.jam.model.Tag;
@@ -87,6 +88,7 @@ public class MediaRestController {
 				mediaDTO.setMediaTitle(video.getTitle());
 				mediaDTO.setArtistId(video.getChannel().getChannelUser().getUserID());
 				mediaDTO.getMediaId(video.getId());
+				mediaDTO.getMediaUrl(video.getMediaUrl());
 				for (Tag tag : video.getTagList()) {
 					tags = tags + tag.getTagName() + " ";
 					tags.trim();
@@ -136,6 +138,7 @@ public class MediaRestController {
 				androidGetAllVideosDTO.setMediaTitle(video.getTitle());
 				androidGetAllVideosDTO.setArtistId(video.getChannel().getChannelUser().getUserID());
 				androidGetAllVideosDTO.getMediaId(video.getId());
+				androidGetAllVideosDTO.getMediaUrl(video.getMediaUrl());
 				for (Tag tag : video.getTagList()) {
 					tags = tags + tag.getTagName() + " ";
 					tags.trim();
@@ -167,7 +170,7 @@ public class MediaRestController {
 			}
 			return new ResponseEntity<>(androidGetAllVideosDTOList, HttpStatus.OK);
 		}
-	}
+	}		
 }
 
 //	@GetMapping("/video/getallvideos")
