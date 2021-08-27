@@ -22,7 +22,11 @@ public interface MediaServiceInterface {
 
 //	public List<Object[]> getTopMediasByUserHistory(int i, MediaType mediaType);
 	
+	
+	//dashboard
 	public List<Media> findAllVideos();
+
+	public List<Media> findMediaByAlbumId(Long albumID);
 
 
 }
