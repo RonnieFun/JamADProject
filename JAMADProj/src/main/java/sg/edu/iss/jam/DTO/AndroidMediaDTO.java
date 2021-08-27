@@ -1,5 +1,7 @@
 package sg.edu.iss.jam.DTO;
 
+import java.time.LocalDate;
+
 public class AndroidMediaDTO {
 
 	private Long mediaId;
@@ -12,12 +14,11 @@ public class AndroidMediaDTO {
 	private String tags;
 	private String mediaUrl;
 	private Boolean subscribed;
-	
+	private String createdOn;
 	
 	public AndroidMediaDTO() {
 		super();
 	}
-	
 
 	public String getMediaUrl() {
 		return mediaUrl;
@@ -102,5 +103,17 @@ public class AndroidMediaDTO {
 	public void setArtistId(Long artistId) {
 		this.artistId = artistId;
 	}
-
+	
+	public String getCreatedOn() {
+		return createdOn;
+	}
+	
+	public void getCreatedOn(String createdOn) {
+		this.createdOn = createdOn;
+	}
+	
+	public void setCreatedOn(String createdOn) {
+		this.createdOn = createdOn;
+	}
+	
 }

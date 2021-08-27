@@ -1,6 +1,7 @@
 package sg.edu.iss.jam.controller;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -89,6 +90,7 @@ public class MediaRestController {
 				mediaDTO.setArtistId(video.getChannel().getChannelUser().getUserID());
 				mediaDTO.getMediaId(video.getId());
 				mediaDTO.getMediaUrl(video.getMediaUrl());
+				mediaDTO.getCreatedOn(video.getCreatedOn().format(DateTimeFormatter.ofPattern("dd MMMM yyyy")));
 				for (Tag tag : video.getTagList()) {
 					tags = tags + tag.getTagName() + " ";
 					tags.trim();
@@ -139,6 +141,7 @@ public class MediaRestController {
 				androidGetAllVideosDTO.setArtistId(video.getChannel().getChannelUser().getUserID());
 				androidGetAllVideosDTO.getMediaId(video.getId());
 				androidGetAllVideosDTO.getMediaUrl(video.getMediaUrl());
+				androidGetAllVideosDTO.getCreatedOn(video.getCreatedOn().format(DateTimeFormatter.ofPattern("dd MMMM yyyy")));
 				for (Tag tag : video.getTagList()) {
 					tags = tags + tag.getTagName() + " ";
 					tags.trim();
