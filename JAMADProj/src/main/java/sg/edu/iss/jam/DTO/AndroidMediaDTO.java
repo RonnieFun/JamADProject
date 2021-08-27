@@ -22,6 +22,10 @@ public class AndroidMediaDTO {
 	public String getMediaUrl() {
 		return mediaUrl;
 	}
+	
+	public void getMediaUrl(String mediaUrl) {
+		this.mediaUrl = mediaUrl;
+	}
 
 	public void setMediaUrl(String mediaUrl) {
 		this.mediaUrl = mediaUrl;
