@@ -63,6 +63,9 @@ public interface MediaRepository extends JpaRepository<Media, Long> {
 	@Query("Select m FROM Media m WHERE m.mediaType = 'Video'")
 	List<Media> findAllVideos();
 
+	@Query("Select m from Media m join m.album a where a.AlbumID=:AlbumID")
+	public List<Media> findMediaByAlbumId(@Param("AlbumID") long AlbumID );
+
 
 	
 	
