@@ -95,6 +95,10 @@ public class User {
 	//OneToMany relation with payment
 	@OneToMany(mappedBy = "user")
 	private Collection<Payment> paymentList;
+	
+	//OneToMany relation with comment
+	@OneToMany(mappedBy = "user")
+	private Collection<Post> posts;
 
 	public User() {
 		super();

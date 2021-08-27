@@ -1,15 +1,21 @@
 package sg.edu.iss.jam.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import sg.edu.iss.jam.model.Post;
 import sg.edu.iss.jam.model.Subscribed;
 import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.repo.SubscribedRepository;
@@ -17,6 +23,7 @@ import sg.edu.iss.jam.repo.UserRepository;
 import sg.edu.iss.jam.security.MyUserDetails;
 import sg.edu.iss.jam.service.ArtistInterface;
 import sg.edu.iss.jam.service.ConsumerInterface;
+import sg.edu.iss.jam.service.HomeInterface;
 import sg.edu.iss.jam.service.UserInterface;
 
 
@@ -39,6 +46,9 @@ public class HomeController {
 	
 	@Autowired
 	UserRepository urepo;
+	
+	@Autowired
+	HomeInterface hService;
 	
 	@GetMapping("/")
 	public String goToHome(Model model,@AuthenticationPrincipal MyUserDetails userDetails) {
@@ -70,11 +80,76 @@ public class HomeController {
 
 		Long count = uService.getItemCountByUserID(userDetails.getUserId());
 		model.addAttribute("count", count);
+		model.addAttribute("user",user);
 
 		
 		return "home";
 	}
 	
+	
+	
+	//--------------------Posts Methods------------------//
+	
+	@GetMapping("/getposts/{userid}")
+	public String getPosts(Model model,@AuthenticationPrincipal MyUserDetails userDetails,@PathVariable("userid")Long userid) {
+		
+		//logged in user
+		User loggedinuser = uService.findUserByUserId(userDetails.getUserId());
+		
+		//User who's page you are viewing
+		User targetuser = uService.findUserByUserId(userid);
+		
+		model.addAttribute("posts",hService.getPostsbyID(targetuser.getUserID()));
+		
+		return "/Fragments/PostContent";
+	}
+	
+	
+	//Ajax Controller to post/edit Content
+	@PostMapping("/postpost")
+	public String postPosts(Model model,@AuthenticationPrincipal MyUserDetails userDetails,
+			@RequestParam(value = "submittedContent") String submittedContent,
+			@Nullable@RequestParam(value = "postID") Long postID) {
+		
+		//logged in user
+		User loggedinuser = uService.findUserByUserId(userDetails.getUserId());
+		
+	    Post post = new Post();
+		
+		//Add New Post
+		if (postID == null) {
+			post.setContent(submittedContent);
+			post.setDateTime(LocalDateTime.now().toString());
+			post.setUser(loggedinuser);
+			hService.SavePost(post);
+		}else {
+			hService.getPostbyID(postID);
+			post.setContent(submittedContent);
+			post.setDateTime(LocalDateTime.now().toString());
+			post.setUser(loggedinuser);
+			hService.SavePost(post);
+		}
+		
+		model.addAttribute("posts",hService.getPostsbyID(loggedinuser.getUserID()));
+		
+		return "/Fragments/PostContent"; 
+	}
+	
+	@PostMapping("/deletepost")
+	public String deletePosts(Model model,@AuthenticationPrincipal MyUserDetails userDetails,
+			@RequestParam(value = "postID") Long postID) {
+
+		//logged in user
+		User loggedinuser = uService.findUserByUserId(userDetails.getUserId());
+		
+		if (hService.deletepost(hService.getPostbyID(postID))) {
+			model.addAttribute("error","Post not deleted");
+		}
+
+		model.addAttribute("posts",hService.getPostsbyID(loggedinuser.getUserID()));
+		
+		return "/Fragments/PostContent";
+	}
 	
 	
 //	@RequestMapping("/subscribers")

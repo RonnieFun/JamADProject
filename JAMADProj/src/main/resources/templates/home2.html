@@ -12,16 +12,11 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 	<div th:replace="Fragments/layout.html :: navbar">
 	</div>
 	
-	<div>
-	    <a id=userID style="display: none;" th:value="${user.userID}"></a>
-	</div>
-	
-	
 <div class="mainBody">
 <!-- 	Sidebar  start -->
 	
 	<div class = "sidebar">
-
+	
 		<div sec:authorize="isAuthenticated()" class = "sidebarRow">
 		<img th:src="${profileUrl}" class="profilePic" alt="profileIcon"/>
 			<h6>Welcome <span sec:authentication="principal.firstName">first
@@ -128,20 +123,66 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 			<div class="messageSender_Top">
 				<img th:src="${profileUrl}" class="profilePic" alt="profileIcon"/>
 				
-				<form id="submitPost" th:action="@{home/postpost}"	method="post">
-					<input type="text" class ="messageSender_input" placeholder ="Hello say something" id="submittedContent">
-					<input type="submit" style="display:none" />
+				<form>
+					<input type="text" class ="messageSender_input" placeholder ="Hello say something">
 				</form>
 		
 			</div>
 			
+			<div class="messageSender_Bottom">
+				<div class="messageSender_option">
+					<span style="color: red" class="material-icons">live_tv</span>
+					<h5>Live</h5>
+				</div>
+				<div class="messageSender_option">
+					<span style="color: orange" class="material-icons">videocam</span>
+					<h5>Upload video</h5>
+				</div>
+				<div class="messageSender_option">
+					<span style="color: green" class="material-icons">photo_library</span>
+					<h5>Upload photo</h5>
+				</div>
+			</div>
 		</div>
 <!--        Message sender ends    -->
 
 <!-- post starts  -->
 
-		<div id="PostsSection">
-
+		<div class="post">
+			<div class = "post_Top">
+				<img th:src="${profileUrl}" class="profilePic" alt="profileIcon"/>
+				
+				<div class="post_Top_Info">
+					<h5>User</h5>
+					<p>18 August at 15:00</p>
+				</div>
+			</div>
+			
+			<div class="post_Bottom">
+				<p>Message</p>
+			</div>
+			
+			<div class="post_Image">
+				<img th:src="@{/images/samplebanner.jpg}" class="postPic" alt="postPicture"/>
+			</div>
+			
+			<div class="post_Options">
+				<div class="post_Option">
+					<span class="material-icons">thumb_up</span>
+					<p>Like</p>
+				</div>
+					
+				<div class="post_Option">
+					<span class="material-icons">chat_bubble_outline</span>
+					<p>Comment</p>
+				</div>
+					
+				<div class="post_Option">
+					<span class="material-icons">near_me</span>
+					<p>Share</p>
+				</div>
+			</div>
+			
 		</div>
 
 <!-- post ends -->
@@ -152,7 +193,6 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 </div>
 
 
-	<script type="text/javascript" th:src="@{/js/posts_ajax.js}"></script>
+	
 </body>
-
 </html>

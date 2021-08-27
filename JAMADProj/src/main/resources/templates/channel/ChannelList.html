@@ -15,11 +15,11 @@
 	<div th:replace="Fragments/layout.html :: navbar">
 	</div>
 	
-	<div class="mainBody">
+		<div class="mainBody">
 <!-- 	Sidebar  start -->
 	
 	<div class = "sidebar">
-	
+
 		<div sec:authorize="isAuthenticated()" class = "sidebarRow">
 		<img th:src="${profileUrl}" class="profilePic" alt="profileIcon"/>
 			<h6>Welcome <span sec:authentication="principal.firstName">first
@@ -31,35 +31,31 @@
 			<h6>Covid 19 news</h6>
 		</div>
 		
+		<a href="/home/subscribers" style="text-decoration: none; color:black">
 		<div class="sidebarRow">
 			<span class="material-icons">people</span>
-			<h6>Subscribers</h6>
+			<h6>Subscribers <span th:text="${followers}" style="font-weight:lighter;"></span></h6>
 		</div>
+		</a>
 		
 		<div class="sidebarRow">
 			<span class="material-icons">volunteer_activism</span>
-			<h6>Following</h6>
+			<h6>Following <span th:text="${following}" style="font-weight:lighter;"></span></h6>
 		</div>
 		
-		<div class="sidebarRow">
-			<a href = "/artist/channel">
-			<span class="material-icons">music_video</span>
-			</a>
-			<a href = "/artist/channel" style="text-decoration: none; color:black">
-			<h6>My Channel</h6>
-			</a>
-		</div>
+		<a href = "/artist/channel" style="text-decoration: none; color:black">
+			<div class="sidebarRow">
+				<span class="material-icons">music_video</span>
+					<h6>My Channel</h6>
+			</div>
+		</a>
 		
-		<div class="sidebarRow">
-			<a href = "/artist/manageshop">
-			<span class="material-icons">store</span>
-			</a>
-			<a href = "/artist/manageshop" style="text-decoration: none; color:black">
-			<h6>My Store</h6>
-			</a>
-			
-			
-		</div>
+		<a href = "/artist/manageshop" style="text-decoration: none; color:black">
+			<div class="sidebarRow">
+				<span class="material-icons">store</span>
+				<h6>My Store</h6>	
+			</div>
+		</a>
 			
 		<div class="sidebarRow">
 			<span class="material-icons">dashboard</span>
@@ -71,6 +67,8 @@
 <!-- 			<h6>More</h6> -->
 <!-- 		</div> -->
 	</div>
+	
+
 	
 	<div>
 	
