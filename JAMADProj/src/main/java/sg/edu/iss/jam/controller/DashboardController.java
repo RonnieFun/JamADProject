@@ -38,7 +38,6 @@ public class DashboardController  {
 		@Autowired
 		MediaServiceInterface mservice;
 		
-		
 		@GetMapping("/dashboard")
 		public String showDashboard(Model model) {
 			

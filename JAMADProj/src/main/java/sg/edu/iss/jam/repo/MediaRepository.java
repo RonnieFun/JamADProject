@@ -60,6 +60,7 @@ public interface MediaRepository extends JpaRepository<Media, Long> {
 	public List<Media> getMediaByUserHistory(@Param("mediatype") MediaType mediaType,
 											 @Param("lesscurrentdate") LocalDate lesscurrentdate);
 
+	//dashboard
 	@Query("Select m FROM Media m WHERE m.mediaType = 'Video'")
 	List<Media> findAllVideos();
 
