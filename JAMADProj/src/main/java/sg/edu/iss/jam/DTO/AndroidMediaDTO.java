@@ -1,6 +1,10 @@
 package sg.edu.iss.jam.DTO;
 
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
+
+import sg.edu.iss.jam.model.UserHistory;
 
 public class AndroidMediaDTO {
 
@@ -13,8 +17,9 @@ public class AndroidMediaDTO {
 	private String mediaDuration;
 	private String tags;
 	private String mediaUrl;
-	private Boolean subscribed;
 	private String createdOn;
+	private String userHistorySize;
+	private Boolean subscribed;
 	
 	public AndroidMediaDTO() {
 		super();
@@ -116,4 +121,15 @@ public class AndroidMediaDTO {
 		this.createdOn = createdOn;
 	}
 	
+	public String getUserHistorySize() {
+		return userHistorySize;
+	}
+	
+	public void getUserHistorySize(String userHistorySize) {
+		this.userHistorySize = userHistorySize;
+	}
+	
+	public void setUserHistorySize(String userHistorySize) {
+		this.userHistorySize = userHistorySize;
+	}
 }
