@@ -79,21 +79,20 @@ public class MediaRestController {
 
 			for (Media video : topVideos) {
 				String tags = "";
-				AndroidMediaDTO androidGetAllVideosDTO = new AndroidMediaDTO();
-				androidGetAllVideosDTO.setArtistName(video.getChannel().getChannelUser().getFullname());
-				androidGetAllVideosDTO
-						.setArtistProfileThumbnailUrl(video.getChannel().getChannelUser().getProfileUrl());
-				androidGetAllVideosDTO.setVideoDuration(video.getDuration());
-				androidGetAllVideosDTO.setVideoThumbnailUrl(video.getThumbnailUrl());
-				androidGetAllVideosDTO.setVideoTitle(video.getTitle());
-				androidGetAllVideosDTO.setArtistId(video.getChannel().getChannelUser().getUserID());
-				androidGetAllVideosDTO.setVideoId(video.getId());
+				AndroidMediaDTO mediaDTO = new AndroidMediaDTO();
+				mediaDTO.setArtistName(video.getChannel().getChannelUser().getFullname());
+				mediaDTO.setArtistProfileThumbnailUrl(video.getChannel().getChannelUser().getProfileUrl());
+				mediaDTO.setMediaDuration(video.getDuration());
+				mediaDTO.setMediaThumbnailUrl(video.getThumbnailUrl());
+				mediaDTO.setMediaTitle(video.getTitle());
+				mediaDTO.setArtistId(video.getChannel().getChannelUser().getUserID());
+				mediaDTO.getMediaId(video.getId());
 				for (Tag tag : video.getTagList()) {
 					tags = tags + tag.getTagName() + " ";
 					tags.trim();
 				}
-				androidGetAllVideosDTO.setTags(tags);
-				androidGetAllVideosDTOList.add(androidGetAllVideosDTO);
+				mediaDTO.setTags(tags);
+				androidGetAllVideosDTOList.add(mediaDTO);
 			}
 			return new ResponseEntity<>(androidGetAllVideosDTOList, HttpStatus.OK);
 		}
@@ -132,11 +131,11 @@ public class MediaRestController {
 				androidGetAllVideosDTO.setArtistName(video.getChannel().getChannelUser().getFullname());
 				androidGetAllVideosDTO
 						.setArtistProfileThumbnailUrl(video.getChannel().getChannelUser().getProfileUrl());
-				androidGetAllVideosDTO.setVideoDuration(video.getDuration());
-				androidGetAllVideosDTO.setVideoThumbnailUrl(video.getThumbnailUrl());
-				androidGetAllVideosDTO.setVideoTitle(video.getTitle());
+				androidGetAllVideosDTO.setMediaDuration(video.getDuration());
+				androidGetAllVideosDTO.setMediaThumbnailUrl(video.getThumbnailUrl());
+				androidGetAllVideosDTO.setMediaTitle(video.getTitle());
 				androidGetAllVideosDTO.setArtistId(video.getChannel().getChannelUser().getUserID());
-				androidGetAllVideosDTO.setVideoId(video.getId());
+				androidGetAllVideosDTO.getMediaId(video.getId());
 				for (Tag tag : video.getTagList()) {
 					tags = tags + tag.getTagName() + " ";
 					tags.trim();
@@ -154,9 +153,9 @@ public class MediaRestController {
 					androidGetAllVideosDTO.setArtistName(video.getChannel().getChannelUser().getFullname());
 					androidGetAllVideosDTO
 							.setArtistProfileThumbnailUrl(video.getChannel().getChannelUser().getProfileUrl());
-					androidGetAllVideosDTO.setVideoDuration(video.getDuration());
-					androidGetAllVideosDTO.setVideoThumbnailUrl(video.getThumbnailUrl());
-					androidGetAllVideosDTO.setVideoTitle(video.getTitle());
+					androidGetAllVideosDTO.setMediaDuration(video.getDuration());
+					androidGetAllVideosDTO.setMediaThumbnailUrl(video.getThumbnailUrl());
+					androidGetAllVideosDTO.setMediaTitle(video.getTitle());
 					androidGetAllVideosDTO.setArtistId(video.getChannel().getChannelUser().getUserID());
 					for (Tag tag : video.getTagList()) {
 						tags = tags + tag.getTagName() + " ";

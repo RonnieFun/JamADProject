@@ -2,23 +2,29 @@ package sg.edu.iss.jam.DTO;
 
 public class AndroidMediaDTO {
 
-	private Long videoId;
+	private Long mediaId;
 	private Long artistId;
-	private String videoThumbnailUrl;
+	private String mediaThumbnailUrl;
 	private String artistProfileThumbnailUrl;
 	private String artistName;
-	private String videoTitle;
-	private String videoDuration;
+	private String mediaTitle;
+	private String mediaDuration;
 	private String tags;
-	private String videoUrl;
+	private String mediaUrl;
 	private Boolean subscribed;
+	
+	
+	public AndroidMediaDTO() {
+		super();
+	}
+	
 
-	public String getVideoUrl() {
-		return videoUrl;
+	public String getMediaUrl() {
+		return mediaUrl;
 	}
 
-	public void setVideoUrl(String videoUrl) {
-		this.videoUrl = videoUrl;
+	public void setMediaUrl(String mediaUrl) {
+		this.mediaUrl = mediaUrl;
 	}
 
 	public Boolean getSubscribed() {
@@ -29,16 +35,12 @@ public class AndroidMediaDTO {
 		this.subscribed = subscribed;
 	}
 
-	public AndroidMediaDTO() {
-		super();
+	public String getMediaThumbnailUrl() {
+		return mediaThumbnailUrl;
 	}
 
-	public String getVideoThumbnailUrl() {
-		return videoThumbnailUrl;
-	}
-
-	public void setVideoThumbnailUrl(String videoThumbnailUrl) {
-		this.videoThumbnailUrl = videoThumbnailUrl;
+	public void setMediaThumbnailUrl(String videoThumbnailUrl) {
+		this.mediaThumbnailUrl = videoThumbnailUrl;
 	}
 
 	public String getArtistProfileThumbnailUrl() {
@@ -57,20 +59,20 @@ public class AndroidMediaDTO {
 		this.artistName = artistName;
 	}
 
-	public String getVideoTitle() {
-		return videoTitle;
+	public String getMediaTitle() {
+		return mediaTitle;
 	}
 
-	public void setVideoTitle(String videoTitle) {
-		this.videoTitle = videoTitle;
+	public void setMediaTitle(String videoTitle) {
+		this.mediaTitle = videoTitle;
 	}
 
-	public String getVideoDuration() {
-		return videoDuration;
+	public String getMediaDuration() {
+		return mediaDuration;
 	}
 
-	public void setVideoDuration(String videoDuration) {
-		this.videoDuration = videoDuration;
+	public void setMediaDuration(String videoDuration) {
+		this.mediaDuration = videoDuration;
 	}
 
 	public String getTags() {
@@ -81,12 +83,12 @@ public class AndroidMediaDTO {
 		this.tags = tags;
 	}
 
-	public Long getVideoId() {
-		return videoId;
+	public Long getMediaId() {
+		return mediaId;
 	}
 
-	public void setVideoId(Long videoId) {
-		this.videoId = videoId;
+	public void getMediaId(Long mediaId) {
+		this.mediaId = mediaId;
 	}
 
 	public Long getArtistId() {
