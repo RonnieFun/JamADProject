@@ -167,6 +167,8 @@ public class ProductController {
 		}
 
 		Long count = uservice.getItemCountByUserID(userDetails.getUserId());
+		model.addAttribute("count", count);
+		model.addAttribute("profileUrl", user.getProfileUrl());
 
 		model.addAttribute("allProductsAndCountShop", allProductsAndCountShop);
 		model.addAttribute("musicCollectionProductsAndCountShop", musicCollectionProductsAndCountShop);
