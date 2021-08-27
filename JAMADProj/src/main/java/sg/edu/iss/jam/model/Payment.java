@@ -58,9 +58,9 @@ public class Payment {
 		super();
 	}
 
-	public Payment(String firstName, String lastName, String email, String country, String address, String city,
-			String postalCode, String nameOnCard, String phoneNumber, String creditNumber, String expiration,
-			String cvv, User user) {
+	public Payment(@NotNull(message = "First Name cannot be null.")String firstName, @NotNull(message = "Last Name cannot be null.") String lastName, String email, @NotNull(message = "Country is required")String country,@NotNull(message = "Address is required") String address, @NotNull(message = "City is required") String city,
+			String postalCode,@NotNull(message = "Name on Card is required") String nameOnCard, String phoneNumber,@Pattern(regexp = "^4[0-9]{12}(?:[0-9]{3})?$", message = "Only Visa cards are accepted.") String creditNumber,@Pattern(regexp = "^(0[1-9]|1[0-2])([\\/])([1-9][0-9])$" , message = "Only expiration date are accepted.") String expiration,
+			@Digits(integer = 3, fraction = 0, message = "Invalid CVV") String cvv, User user) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;

@@ -43,7 +43,6 @@ public class ShoppingCartController {
 	public String shoppingCart(Model model,@AuthenticationPrincipal MyUserDetails userDetails) {
 		//long userID = (long) 2;
 		User user = uservice.findUserByUserId(userDetails.getUserId());
-		Long count = uservice.getItemCountByUserID(user.getUserID());
 		ShoppingCart cartInfo = uservice.getShoppingCartByUserID(userDetails.getUserId());
 		Map<ShoppingCartDetails, Long> detailsAndCountQty = new HashMap<ShoppingCartDetails, Long>();
 		if(cartInfo.getCartDetails()!=null) {
@@ -57,11 +56,11 @@ public class ShoppingCartController {
 				detailsAndCountQty.put(cartdetail, quantity);
 			}
 		}
-		model.addAttribute("profileUrl", user.getProfileUrl());
 		model.addAttribute("cartForm", detailsAndCountQty);
 		model.addAttribute("profileUrl", user.getProfileUrl());
 		model.addAttribute("totalAmount", cartInfo.getAmountTotal());
 		model.addAttribute("totalQuantity",cartInfo.getQuantityTotal());
+		Long count = uservice.getItemCountByUserID(user.getUserID());
 		model.addAttribute("count", count);
 		//System.out.println(uservice.getShoppingCartByUserID(userDetails.getUserId()));
 		return "product/shoppingCart";
@@ -86,8 +85,6 @@ public class ShoppingCartController {
 	         product = uservice.findProduct(id);
 	      }
 	      if (product != null) {
-	    	  
-	    	 //long userID = (long) 2;
 	 
 	         ShoppingCart cartInfo = uservice.getShoppingCartByUserID(userDetails.getUserId());
 	         uservice.removeCartDetails(product.getProductID(),cartInfo.getShoppingCartID());
@@ -110,10 +107,7 @@ public class ShoppingCartController {
 	}
 	
 	@PostMapping("/placeorder")
-	public String placeOrder(Model model,@Valid @ModelAttribute("payment") Payment payment , BindingResult bindingResult,@AuthenticationPrincipal MyUserDetails userDetails) {
-		if (bindingResult.hasErrors()) {
-			return "redirect:checkout";
-		}
+	public String placeOrder(Model model,@Valid @ModelAttribute("payment") Payment payment ,@AuthenticationPrincipal MyUserDetails userDetails) {
 		//long userID = (long) 2;
 		User user = null;
 		Orders neworder = null;
@@ -141,7 +135,11 @@ public class ShoppingCartController {
 		//save payment
 		payment.setUser(user);
 		uservice.savePayement(payment);
+		model.addAttribute("user", user);
 		model.addAttribute("order", neworder);
+		Long count = uservice.getItemCountByUserID(user.getUserID());
+		model.addAttribute("count", count);
+		model.addAttribute("profileUrl", user.getProfileUrl());
 		return "product/orderconfirm";
 	}
 	
@@ -186,7 +184,6 @@ public class ShoppingCartController {
 	@RequestMapping(value="/updatecartitemqty", method=RequestMethod.PUT)
 	@ResponseBody
 	public String updateItem(@RequestParam(value = "productId") Long productId ,@RequestParam(value = "quantity") Integer quantity, @AuthenticationPrincipal MyUserDetails userDetails) throws Exception {
-		//long userID = (long) 2;
 		String result = "";
 		Long uncount= 0L;
 		ShoppingCart cart = uservice.getShoppingCartByUserID(userDetails.getUserId());
