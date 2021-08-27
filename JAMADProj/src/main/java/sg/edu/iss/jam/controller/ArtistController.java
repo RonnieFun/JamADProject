@@ -285,6 +285,14 @@ public class ArtistController {
 
 		// Add to Model
 		model.addAttribute("ChannelDTOlist", ChannelDTOlist);
+		
+		
+		
+		Long count = userService.getItemCountByUserID(user.getUserID());
+		model.addAttribute("count", count);
+		model.addAttribute("user",user);
+		model.addAttribute("profileUrl", user.getProfileUrl());
+		model.addAttribute("bannerUrl", user.getBannerUrl());
 
 		return "channel/ChannelList.html";
 
@@ -339,6 +347,12 @@ public class ArtistController {
 		}
 
 		model.addAttribute("MediaDTOList", MediaDTOList);
+		
+		Long count = userService.getItemCountByUserID(user.getUserID());
+		model.addAttribute("count", count);
+		model.addAttribute("user",user);
+		model.addAttribute("profileUrl", user.getProfileUrl());
+		model.addAttribute("bannerUrl", user.getBannerUrl());
 
 		return "channel/ChannelContentVideo.html";
 	}
@@ -475,6 +489,12 @@ public class ArtistController {
 
 		// Add list of albums to model
 		model.addAttribute("AlbumDTOList", albumDTOlist);
+		
+		Long count = userService.getItemCountByUserID(user.getUserID());
+		model.addAttribute("count", count);
+		model.addAttribute("user",user);
+		model.addAttribute("profileUrl", user.getProfileUrl());
+		model.addAttribute("bannerUrl", user.getBannerUrl());
 
 		return "channel/ChannelContentMusic";
 	}
@@ -567,6 +587,12 @@ public class ArtistController {
 
 		model.addAttribute("album", album);
 		model.addAttribute("MediaDTOList", MediaDTOList);
+		
+		Long count = userService.getItemCountByUserID(user.getUserID());
+		model.addAttribute("count", count);
+		model.addAttribute("user",user);
+		model.addAttribute("profileUrl", user.getProfileUrl());
+		model.addAttribute("bannerUrl", user.getBannerUrl());
 
 		return "channel/ChannelContentAlbum.html";
 	}

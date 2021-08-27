@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+</head>
+
+<body>
+<!-- 		<span th:each="Post:${posts}">  -->
+<!-- 			<span class ="flex-container"> -->
+<!-- 				<span th:text="${Post.Content}" ></span> -->
+<!-- 				<br> -->
+<!-- 			</span> -->
+<!-- 		</span> -->
+		
+	<div class="post">
+		<div th:each="Post:${posts}">
+			<div class = "post_Top">
+				<img th:src="${profileUrl}" class="profilePic" alt="profileIcon"/>
+				
+				<div class="post_Top_Info">
+					<h5><span th:text="${firstName}"></span></h5>
+					<p th:text="${Post.dateTime}">Date time</p>
+				</div>
+			</div>
+			
+			<div class="post_Bottom">
+				<p th:text="${Post.Content}">Message</p>
+			</div>
+			
+<!-- 			<div class="post_Image"> -->
+<!-- 				<img th:src="@{/images/samplebanner.jpg}" class="postPic" alt="postPicture"/> -->
+<!-- 			</div> -->
+			
+			<div class="post_Options">
+				<div class="post_Option">
+					<span class="material-icons">edit</span>
+				</div>
+				
+				<form class="post_Option" th:action="@{deletepost}" method="post"  >
+				
+					<button type="submit" th:name="postID" id="postID" th:value="${Post.id}"> <span class="material-icons">delete</span>
+				
+					</button>
+				
+				</form>	
+					
+<!-- 				<div class="post_Option"> -->
+<!-- 					<span class="material-icons">near_me</span> -->
+<!-- 					<p>Share</p> -->
+				</div>
+			</div>
+		</div>
+
+</body>
+
+
+</html>
