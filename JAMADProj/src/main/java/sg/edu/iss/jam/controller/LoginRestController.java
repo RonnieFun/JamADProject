@@ -2,7 +2,9 @@ package sg.edu.iss.jam.controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -29,14 +31,16 @@ public class LoginRestController {
 	
 	
 	@PostMapping("/register")
-    public String registerUser(@Valid @RequestBody User newUser) {
+    public Map<String, Long> registerUser(@Valid @RequestBody User newUser) {
+		Map<String,Long> map  = new HashMap<>();
         List<User> users = userService.getAllUser();
         System.out.println("New user: " + newUser.toString());
         for (User user : users) {
             System.out.println("Registered user: " + newUser.toString());
             if (user.getEmail().equals(newUser.getEmail())) {
                 System.out.println("User Already exists!");
-                return "USER_ALREADY_EXISTS";
+                map.put("Result", 0L);
+                return map;
             }
         }
         
@@ -48,19 +52,25 @@ public class LoginRestController {
 		newUser.setProfileUrl("/images/default_user.jpg");
 		newUser.setRoles(roles);
 		Roles b = new Roles(Role.Customer, newUser);
-		userService.updateUser(newUser);
+		User user = userService.saveUser(newUser);
+		System.out.println(user.getUserID());
+		map.put("Result", user.getUserID());
 		userService.saveRole(b);
-        return "SUCCESS";
+        return map;
     }
     
     @PostMapping("/login")
-    public String loginUser(@Valid @RequestBody User user) {
+    public Map<String, Long> loginUser(@Valid @RequestBody User user) {
+    	Map<String,Long> map  = new HashMap<>();
         List<User> users = userService.getAllUser();
         for (User other : users) {
             if (other.getEmail().equals(user.getEmail())) {
-                return "SUCCESS";
+            	System.out.println(other.getUserID());
+            	map.put("Result", other.getUserID());
+                return map;
             }
         }
-        return "FAILURE";
+        map.put("Result",0L);
+        return map;
     }
 }
