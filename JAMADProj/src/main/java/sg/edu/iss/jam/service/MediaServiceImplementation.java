@@ -134,9 +134,17 @@ public class MediaServiceImplementation implements MediaServiceInterface {
 		return mediarepo.getById(id);
 	}
 
+	
+	//dashboard
 	@Override
 	public List<Media> findAllVideos() {
 		return mediarepo.findAllVideos();
+	}
+
+	@Override
+	public List<Media> findMediaByAlbumId(Long albumID) {
+		
+		return mediarepo.findMediaByAlbumId(albumID);
 	}
 
 }

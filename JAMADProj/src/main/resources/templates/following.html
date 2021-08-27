@@ -76,7 +76,7 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 		<div class="messageSender">
 			<div class="messageSender_Top">
 				<img th:src="${profileUrl}" class="profilePic" alt="profileIcon"/>
-				<span class ="messageSender_input" th:text="${user.firstName} + ' ' + ${user.lastName} + ${'''s'}  + ' subscribers' + ': ' + ${followers}">subscribers</span>
+				<span class ="messageSender_input" th:text="'People you follow: ' + ${following}">subscribers</span>
 				
 			<div class="header_input">
 				<span class="material-icons"> search </span>
@@ -104,9 +104,9 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 	
 	</div>
 			<table class="messageSender">
-				<tr class="messageSender_Top" th:each="sub : ${subscribers}">
-				<td><img th:src="${sub.profileUrl}" class="profilePic"/></td>
-				<td th:text="${sub.firstName} + ' ' + ${sub.lastName}"class="messageSender_input">
+				<tr class="messageSender_Top" th:each="following : ${followingUsers}">
+				<td><img th:src="${following.profileUrl}" class="profilePic"/></td>
+				<td th:text="${following.firstName} + ' ' + ${following.lastName}"class="messageSender_input">
 				</tr>
 			</table>
 	

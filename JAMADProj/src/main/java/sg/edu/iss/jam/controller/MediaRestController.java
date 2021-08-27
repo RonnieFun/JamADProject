@@ -90,6 +90,7 @@ public class MediaRestController {
 				mediaDTO.setMediaTitle(video.getTitle());
 				mediaDTO.setArtistId(video.getChannel().getChannelUser().getUserID());
 				mediaDTO.getMediaId(video.getId());
+				mediaDTO.getMediaUrl(video.getMediaUrl());
 				for (Tag tag : video.getTagList()) {
 					tags = tags + tag.getTagName() + " ";
 					tags.trim();
@@ -139,6 +140,7 @@ public class MediaRestController {
 				androidGetAllVideosDTO.setMediaTitle(video.getTitle());
 				androidGetAllVideosDTO.setArtistId(video.getChannel().getChannelUser().getUserID());
 				androidGetAllVideosDTO.getMediaId(video.getId());
+				androidGetAllVideosDTO.getMediaUrl(video.getMediaUrl());
 				for (Tag tag : video.getTagList()) {
 					tags = tags + tag.getTagName() + " ";
 					tags.trim();
@@ -170,7 +172,7 @@ public class MediaRestController {
 			}
 			return new ResponseEntity<>(androidGetAllVideosDTOList, HttpStatus.OK);
 		}
-	}
+	}		
 	
 	@GetMapping("/subscribebutton")
 	public ResponseEntity<?> subscribe(@RequestParam("artistID") long artistID, @RequestParam("userID") long userID) {

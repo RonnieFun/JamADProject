@@ -21,7 +21,6 @@ public class MediaDTO {
 		this.tags = tags;
 	}
 
-
 	public Media getMedia() {
 		return media;
 	}

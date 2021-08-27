@@ -1,5 +1,10 @@
 package sg.edu.iss.jam;
 
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -7,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.client.RestTemplate;
+
 
 import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.repo.ChannelRepository;
@@ -77,6 +83,11 @@ public class JamadProjApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(JamadProjApplication.class, args);
+	}
+	
+	public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+	    Set<Object> seen = ConcurrentHashMap.newKeySet();
+	    return t -> seen.add(keyExtractor.apply(t));
 	}
 
 	@Bean
