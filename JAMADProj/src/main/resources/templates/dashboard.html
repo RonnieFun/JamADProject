@@ -12,22 +12,24 @@
 	<div th:replace="Fragments/layout.html :: navbar">
 	</div>
 	<div class="container">
-		<h2 align="center">Dashboard</h2>
+	<br></br>
+		<h3 class="col-md-auto">OVERVIEW</h3>
+		<div  id="container_subscribe" style="width: 700px; height: 400px; margin: 10px"></div>
+		<div id="container_pie" style="width: 550px; height: 400px; margin: 10px" ></div>
+		<h3 class="col-md-auto">PRODUCT</h3>
+		<div id="container_product" style="width: 700px; height: 500px; margin: auto" ></div>
+		<h3 class="col-md-auto">MEDIA</b></h3>
+		<div id="container_counttwoyears" style="width: 700px; height: 500px; margin: auto"></div>
+		<div id="container_countvideo" style="width: 550px; height: 400px; margin: 10px"></div>
+		<div id="container_countmusic" style="width: 550px; height: 400px; margin: 10px"></div>
 		
-		<div id="container1" style="width: 550px; height: 400px; margin: 10px"></div>
-		<div id="container2" style="width: 550px; height: 400px; margin: 10px"></div>
-		<div id="container2-1" style="width: 550px; height: 400px; margin: 10px"></div>
-		<div id="container3" style="width: 700px; height: 400px; margin: 10px"></div>
-		<div id="container4" style="width: 700px; height: 400px; margin: 10px"></div>
-		<div id="container5" style="width: 700px; height: 500px; margin: 10px" ></div>
-		<div id="container6" style="width: 550px; height: 400px; margin: 10px" ></div>
-		<div id="container7" style="width: 550px; height: 400px; margin: 10px" ></div>
+
+		
 	</div>
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script src="https://code.highcharts.com/highcharts-3d.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://code.highcharts.com/highcharts.js"></script>
+     <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
 	<script src="https://code.highcharts.com/modules/data.js"></script>
 	<script src="https://code.highcharts.com/modules/drilldown.js"></script>
@@ -39,33 +41,21 @@
     $(function(){
     	var video=[[${videos}]];
     	var videocounts=[[${videocounts}]];
-     Highcharts.chart('container1', {
+     Highcharts.chart('container_countvideo', {
         chart: {
             type: 'column',
-            options3d: {
-                enabled: true,
-                alpha: 15,
-                beta: 15,
-                depth: 50,
-                viewDistance: 25
-            }
         },
         title: {
-            text: 'View Counts of Different Videos'
+                text: '<span style="font-size: 23px">View Counts of Videos</span>', 
         },
-        subtitle: {
-            text: 'Details'
-        },
+        
         xAxis: {
             categories: video,
             crosshair: true,
-            title: {
-                text: 'Video Name'
-            }
         },
         yAxis: {
             title: {
-                text: 'Number of Times'
+                text: 'Counts'
             }
         },
         tooltip: {
@@ -87,7 +77,29 @@
         },
         series: [{
             name: 'Times of User Watching',
-            data: videocounts
+            data: videocounts,},
+            {
+                type: 'pie',
+                name: ' Total Sold Quantity',
+                tooltip : {
+        			pointFormat : '<b>Total Count:{point.y}</b> <br><b>Percentage:{point.percentage:.1f} %</b>'
+        		},
+                data: [{
+                    name: 'Video',
+                    y: [[${totalvideoscount}]],
+                    color: Highcharts.getOptions().colors[0] 
+                }, {
+                    name: 'Music',
+                    y: [[${totalmusicscount}]],
+                    color: Highcharts.getOptions().colors[3] 
+                }],
+                center: [380, 20],
+                size: 80,
+                showInLegend: false,
+                dataLabels: {
+                enabled: false
+                }     
+                 
         }]
       });
     }); 
@@ -97,26 +109,21 @@
     	var music=[[${musics}]];
     	var musiccounts=[[${musiccounts}]];
     	
-    Highcharts.chart('container2', {
+    Highcharts.chart('container_countmusic', {
         chart: {
-            type: 'column'
+            type: 'column',
         },
         title: {
-            text: 'View Counts of Different Musics'
+            text: '<span style="font-size: 23px">View Counts of Musics</span>'
         },
-        subtitle: {
-            text: 'Details'
-        },
+      
         xAxis: {
             categories:music ,
             crosshair: true,
-            title: {
-                text: 'Music Name'
-            }
         },
         yAxis: {
             title: {
-                text: 'Number of Times'
+                text: 'Counts'
             }
         },
         tooltip: {
@@ -138,116 +145,80 @@
         },
         series: [{
             name: 'Times of User Listening',
-            data: musiccounts
+            data: musiccounts,
+            color: Highcharts.getOptions().colors[3]},
+            {
+                type: 'pie',
+                name: ' Total Sold Quantity',
+                tooltip : {
+        			pointFormat : '<b>Total Count:{point.y}</b> <br><b>Percentage:{point.percentage:.1f} %</b>'
+        		},
+                data: [{
+                    name: 'Video',
+                    y: [[${totalvideoscount}]],
+                    color: Highcharts.getOptions().colors[0] 
+                }, {
+                    name: 'Music',
+                    y: [[${totalmusicscount}]],
+                    color: Highcharts.getOptions().colors[3] 
+                }],
+                center: [380, 20],
+                size: 80,
+                showInLegend: false,
+                dataLabels: {
+                enabled: false
+                } 
         }]
       });
     }); 
   
-    $(function(){
-    	var video=[[${albumtitle}]];
-    	var videocounts=[[${albumcount}]];
-     Highcharts.chart('container2-1', {
-    	 
-        chart: {
-            type: 'column',
-            options3d: {
-                enabled: true,
-                alpha: 15,
-                beta: 15,
-                depth: 50,
-                viewDistance: 25
-            }
-        },
-        title: {
-            text: 'View Counts of Different Videos'
-        },
-        subtitle: {
-            text: 'Details'
-        },
-        xAxis: {
-            categories: video,
-            crosshair: true,
-            title: {
-                text: 'Video Name'
-            }
-        },
-        yAxis: {
-            title: {
-                text: 'Number of Times'
-            }
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y} times </b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-        },
-        plotOptions: {
-            column: {
-                pointPadding: 0.2,
-                borderWidth: 0
-            }
-        },
-        credits: {
-            enabled: false
-        },
-        series: [{
-            name: 'Times of User Watching',
-            data: videocounts
-        }]
-      });
-    }); 
-
+    
     
     
     $(function(){
-    	/*var date=[[${date}]];*/
     	var videodata=[[${videodata}]];
     	var musicdata=[[${musicdata}]];
     	var videodatalastyear=[[${videodatalastyear}]];
     	var musicdatalastyear=[[${musicdatalastyear}]];
-      Highcharts.chart('container3', {
+      Highcharts.chart('container_counttwoyears', {
     	  chart: {
-              type: 'column'
+              type: 'column',
           },
     	
         title: {
-            text: 'Counts of Viewing Video and Listening Music'
+            text: '<span style="font-size: 23px">Counts of Viewing Video and Listening Music</span>'
         },
 
-        subtitle: {
-            text: 'details'
-        },
 
         xAxis: {
           categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        	       
-          title: {
-                    text: 'Date'
-                }
         }, 
-        
+        yAxis: {
+            title: {
+                text: 'Counts'
+            }
+        },
         series: [{
-            name: 'Count of Watching Video-ThisYear',
+            name: 'Count of Viewing Video-ThisYear',
             data: videodata,
-            
         }, 
+        
         {
-            name: 'Count of Watching Video-LastYear',
-            data: videodatalastyear
-            
-        },
-        {
-            name: 'Count of Listening  Music-ThisYear',
+            name: 'Count of Viewing  Music-ThisYear',
             data: musicdata,
+            color: Highcharts.getOptions().colors[3]
         
         },
         {
-            name: 'Count of Listening Video-LastYear',
-            data: musicdatalastyear
+            name: 'Count of Viewing Video-LastYear',
+            data: videodatalastyear,
+            color: Highcharts.getOptions().colors[1]
             
+        },
+        {
+            name: 'Count of Viewing Music-LastYear',
+            data: musicdatalastyear,
+            color: Highcharts.getOptions().colors[2]
         }
       
         ],
@@ -277,13 +248,13 @@
     	var date=[[${datetime}]];
     	var changes=[[${changes}]];
     	var total=[[${total}]]
-      Highcharts.chart('container4', {
+      Highcharts.chart('container_subscribe', {
     	  chart: {
               type: 'spline'
           },
     	
         title: {
-            text: 'Subscribers Chart'
+            text: '<span style="font-size: 23px">Subscribers Chart</span>'
         },
 
         subtitle: {
@@ -313,8 +284,6 @@
         	type:'column',
             name: 'Changes of Subscribers',
             data:changes,
-            
-            
         } ,
         {
             data:changes,
@@ -348,9 +317,9 @@
 
     
     $(function(){
-        Highcharts.chart('container5', {
+        Highcharts.chart('container_product', {
             title: {
-                text: 'Product Sold Quantity'
+                text: '<span style="font-size: 23px">Product Sold Quantity</span>'
             },
             xAxis: {
                 categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
@@ -424,24 +393,22 @@
         });
        });
 
-
-
     
-/*     $(function(){
-    Highcharts.chart('container4', {
+    $(function(){
+    Highcharts.chart('container_pie', {
 		chart : {
 			type : 'pie',
-			options3d : {
+			options3d: {
 				enabled : true,
-				alpha : 50,
+				alpha : 45,
 				beta : 0
 			}
 		},
 		title : {
-			text : 'Percentage of Artist Product, Video, Music '
+			text : '<span style="font-size: 23px">Percentage of Artist Product, Video, Music </span>'
 		},
 		tooltip : {
-			pointFormat : '{series.name}: <b>{point.percentage:.1f}%</b>'
+			pointFormat : '<b>Number:{point.y} </b><br>TotalNumber: {point.total}'
 		},
 		plotOptions : {
 			pie : {
@@ -450,7 +417,7 @@
 				depth : 35,
 				dataLabels : {
 					enabled : true,
-					format : '{point.name}'
+					format : '{point.name}: <br>{point.percentage:.1f} %'
 				}
 			}
 		},
@@ -460,53 +427,22 @@
 		series : [ {
 			type : 'pie',
 			name : 'Ratio of Media',
-			data : [ [ 'Video', [[${videosnumber}]] ], [ 'Music', [[${musicsnumber}]] ], ['Product',[[${productnumber}]]]  ]
+			data: [{
+                name: 'Video',
+                y: [[${videosnumber}]],
+                color: Highcharts.getOptions().colors[9] 
+            }, {
+                name: 'Music',
+                y: [[${musicsnumber}]],
+                color: Highcharts.getOptions().colors[7] 
+            }, {
+                name: 'Product',
+                y: [[${productnumber}]],
+                color: Highcharts.getOptions().colors[3] 
+            }],
 		} ]
 	});
     }); 
-    
-    $(function(){
-        Highcharts.chart('container5', {
-    		chart : {
-    			type : 'pie',
-    			options3d : {
-    				enabled : true,
-    				alpha : 50,
-    				beta : 0
-    			}
-    		},
-    		title : {
-    			text : 'Percentage Total Counts of Different Media'
-    		},
-    		tooltip : {
-    			pointFormat : '{series.name}: <b>{point.percentage:.1f}%</b>'
-    		},
-    		plotOptions : {
-    			pie : {
-    				allowPointSelect : true,
-    				cursor : 'pointer',
-    				depth : 35,
-    				dataLabels : {
-    					enabled : true,
-    					format : '{point.name}'
-    				}
-    			}
-    		},
-    		credits: {
-    	            enabled: false
-    	        },
-    		series : [ {
-    			type : 'pie',
-    			name : 'Ratio of Media',
-    			data : [ [ 'Video', [[${totalvideoscount}]] ], [ 'Music', [[${totalmusicscount}]] ]  ]
-    		} ]
-    	});
-        }); */
-
-    
-    
-    
-   
     
 
 </script>
