@@ -1,6 +1,7 @@
 package sg.edu.iss.jam.controller;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,7 +19,9 @@ import org.springframework.web.client.RestTemplate;
 import sg.edu.iss.jam.DTO.AndroidMediaDTO;
 import sg.edu.iss.jam.model.Media;
 import sg.edu.iss.jam.model.MediaType;
+import sg.edu.iss.jam.model.Subscribed;
 import sg.edu.iss.jam.model.Tag;
+import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.model.UserHistory;
 import sg.edu.iss.jam.service.ArtistInterface;
 import sg.edu.iss.jam.service.MediaServiceInterface;
@@ -168,13 +171,54 @@ public class MediaRestController {
 			return new ResponseEntity<>(androidGetAllVideosDTOList, HttpStatus.OK);
 		}
 	}
+	
+	@GetMapping("/subscribebutton")
+	public ResponseEntity<?> subscribe(@RequestParam("artistID") long artistID, @RequestParam("userID") long userID) {
+		
+		Boolean subscribeStatus = null;
+		
+		User customer = uservice.findUserByUserId(userID);
+		User artist = aservice.findById(artistID);
+		List<Subscribed> unsubscribed_loggedInUser = uservice.getArtistUnsubscribedByLoggInUserId(artistID, userID);
+		List<Subscribed> subscribed_loggedInUser = uservice.getArtistSubscribedByLoggInUserId(artistID, userID);
+		
+		if ((unsubscribed_loggedInUser == null && subscribed_loggedInUser == null) 
+				||(subscribed_loggedInUser.size() == unsubscribed_loggedInUser.size())) {
+			
+			Subscribed newSubscription = new Subscribed();
+			newSubscription.setSubscribed(true);
+			newSubscription.setArtist(artist);
+			newSubscription.setSubscriber(customer);
+			newSubscription.setTimeSubscribed(LocalDateTime.now());
+			
+			uservice.saveSubscribed(newSubscription);
+			
+			subscribeStatus = true;
+		}
+		
+		if (subscribed_loggedInUser.size() - unsubscribed_loggedInUser.size() == 1) {
+			
+			Subscribed newUnsubscription = new Subscribed();
+			newUnsubscription.setSubscribed(false);
+			newUnsubscription.setArtist(artist);
+			newUnsubscription.setSubscriber(customer);
+			newUnsubscription.setTimeSubscribed(LocalDateTime.now());
+					
+			uservice.saveSubscribed(newUnsubscription);
+						
+			subscribeStatus = false;
+		}
+		
+		return new ResponseEntity<>(subscribeStatus, HttpStatus.OK);
+		
+	}
 }
 
 //	@GetMapping("/video/getallvideos")
 //	public ResponseEntity<?> getAllVideos() {
 //		List<Media> allVideos = mservice.findAllVideos();
 //		Collections.shuffle(allVideos);
-//		List<AndroidGetAllVideosDTO> androidGetAllVideosDTOList = new ArrayList<>();
+//		List<AndroidGetAllVideosDTO> androidGetAllVideosDTOList = new  ArrayList<>();
 //		for (Media video : allVideos) {
 //			String tags = "";
 //			AndroidGetAllVideosDTO androidGetAllVideosDTO = new AndroidGetAllVideosDTO();
