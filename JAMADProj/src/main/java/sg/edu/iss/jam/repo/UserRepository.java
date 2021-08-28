@@ -1,5 +1,6 @@
 package sg.edu.iss.jam.repo;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,5 +19,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
 //	@Query("SELECT s FROM Subscribed s JOIN s.user u where u.userID = :userid")
 //	List<Subscribed>getListofFollowingByUserId(@Param("userid") long userId);
 //	
+	@Query("Select u from User u where u.firstName LIKE %:firstName%")
+	public Collection<User> getusersbyfirstname(@Param("firstName")String firstName);
+	
+	@Query("Select u from User u where u.lastName LIKE %:lastName%")
+	public Collection<User> getusersbylastname(@Param("lastName")String lastName);
+	
+	@Query("Select u from User u where u.firstName LIKE %:name% OR u.lastName LIKE %:name%")
+	public Collection<User> getusersbyname(@Param("name")String name);
 	
 }

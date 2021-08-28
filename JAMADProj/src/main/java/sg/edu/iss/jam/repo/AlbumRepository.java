@@ -14,4 +14,7 @@ public interface AlbumRepository extends JpaRepository<Album, Long>  {
 	@Query("SELECT a from Album a join a.channel c where c.channelID =:channelID")
 	Collection<Album> findBychannelID(@Param("channelID") Long channelID);
 	
+	@Query("Select a from Album a WHERE a.AlbumDescription LIKE %:searchterm%")
+	Collection<Album> findAlbumsLikeName(@Param("searchterm")String searchterm);
+
 }
