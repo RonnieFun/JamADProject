@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import sg.edu.iss.jam.model.Product;
 import sg.edu.iss.jam.model.Subscribed;
 import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.model.UserHistory;
+import sg.edu.iss.jam.security.MyUserDetails;
 import sg.edu.iss.jam.service.ArtistInterface;
 import sg.edu.iss.jam.service.MediaServiceInterface;
 import sg.edu.iss.jam.service.UserInterface;
@@ -35,7 +37,7 @@ public class DashboardController  {
 		MediaServiceInterface mservice;
 		
 		@GetMapping("/artist/dashboard/{userId}")
-		public String showDashboard(Model model,@PathVariable Long userId) {
+		public String showDashboard(Model model,@PathVariable Long userId, @AuthenticationPrincipal MyUserDetails userDetails) {
 		
 			//video and music chart	
 //				Long userId = (long) 9;
@@ -446,7 +448,7 @@ public class DashboardController  {
 						average.add(monthAverage);
 					}
 					
-					
+					model.addAttribute("profileUrl", userDetails.getProfileUrl());
 					model.addAttribute("productnumber", totalproduct);
 					model.addAttribute("clothing",clothingSoldWithMonth);
 					model.addAttribute("merchandise",merchandiseSoldWithMonth);
