@@ -1317,9 +1317,10 @@ public class MediaController {
 			if (artistId == loggedInUserId) {
 				subscribeStatus = null;
 			}
+			model.addAttribute("profileUrl", userDetails.getProfileUrl());
 		}
 		
-		model.addAttribute("profileUrl", userDetails.getProfileUrl());
+		
 		model.addAttribute("artistVideoChannelName", artistVideoChannelName);
 		model.addAttribute("numberOfArtistVideos", numberOfArtistVideos);
 		model.addAttribute("artistVideos", artistVideos);
@@ -1467,6 +1468,8 @@ public class MediaController {
 			if (artistId == loggedInUserId) {
 				subscribeStatus = null;
 			}
+			
+			model.addAttribute("profileUrl", userDetails.getProfileUrl());
 		}
 		
 		
@@ -1482,7 +1485,7 @@ public class MediaController {
 				model.addAttribute("listOfMusic", listOfMusic);
 			}
 			
-		model.addAttribute("profileUrl", userDetails.getProfileUrl());
+		
 		model.addAttribute("artistMusicChannelName", artistMusicChannelName);
 		model.addAttribute("numberOfArtistAlbums", numberOfArtistAlbums);
 		model.addAttribute("numberOfArtistMusics", numberOfArtistMusics);
