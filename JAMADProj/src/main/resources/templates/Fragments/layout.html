@@ -20,12 +20,10 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
   integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
   crossorigin="anonymous"></script>
 </head>
-
 <body> 
 
 <!--  If user has not logged in yet -->
 <div th:fragment = "navbar"  sec:authorize="isAnonymous()">
-
 	<div class="header">
 		<div class="header_left">
 		<a th:href = "@{/home/}">
@@ -40,35 +38,35 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 		<div class="header_middle">
 			<div class="header_option">
 			<a th:href = "@{/home/}">
-				<span class="material-icons"> home </span>
+				<span id="navHomeButton" class="material-icons" data-toggle="tooltip" title="Home Page"> home </span>
 				</a>
 			</div>
 			
 			<div class="header_option">
-				<span class="material-icons"> groups </span>
+				<span id="navGroupsButton" class="material-icons" data-toggle="tooltip" title="Groups"> groups </span>
 			</div>
 			
 			<div class="header_option">
 				<a th:href = "@{/video/genericvideolandingpage}">
-					<span class="material-icons"> videocam </span>
+					<span id="navVideoLandingPageButton" class="material-icons" data-toggle="tooltip" title="Video Landing Page"> videocam </span>
 				</a>
 			</div>
 			
 			<div class="header_option">
 				<a th:href = "@{/music/genericmusiclandingpage}">
-					<span class="material-icons"> music_note </span>
+					<span id="navMusicLandingPageButton" class="material-icons" data-toggle="tooltip" title="Music Landing Page"> music_note </span>
 				</a>
 			</div>
 			
 			<div class="header_option">
 				<a th:href = "@{/shop}">
-				<span class="material-icons"> shopping_bag </span>
+				<span id="navShoppingButton" class="material-icons" data-toggle="tooltip" title="Shopping Page"> shopping_bag </span>
 				</a>
 			</div>
       
 			<div class="header_option">
 				<a  style="text-decoration: none" th:href = "@{/shoppingcart}">
-				<span class="material-icons"> shopping_cart </span>
+				<span id="navShoppingCartPageButton" class="material-icons" data-toggle="tooltip" title="Shopping Cart"> shopping_cart </span>
 				<span class='badge badge-warning' id='lblCartCount'  th:text="${count}"></span>
 				</a>
 			</div>
@@ -78,6 +76,17 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 				<i class="fa fa-cart-plus"style="font-size:24px"></i><span class='badge badge-warning' id='lblCartCount' th:text="${count}"></span>
 				</button>
 			</div> -->
+
+		<script type="text/javascript">
+			$(function () {
+			    $("#navHomeButton").tooltip({placement: 'bottom'});
+			    $("#navGroupsButton").tooltip({placement: 'bottom'});
+			    $("#navVideoLandingPageButton").tooltip({placement: 'bottom'});
+			    $("#navMusicLandingPageButton").tooltip({placement: 'bottom'});
+			    $("#navShoppingButton").tooltip({placement: 'bottom'});
+			    $("#navShoppingCartPageButton").tooltip({placement: 'bottom'});
+			});
+		</script>
 
 		</div>
 		
@@ -94,7 +103,6 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 <!--  If user has logged in -->
 
 <div th:fragment = "navbar"  sec:authorize="isAuthenticated()">
-
 	<div class="header">
 		<div class="header_left">
 		<a th:href = "@{/home/}">
@@ -109,35 +117,35 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 		<div class="header_middle">
 			<div class="header_option">
 			<a th:href = "@{/home/}">
-				<span class="material-icons"> home </span>
+				<span id="navHomeButton" class="material-icons" data-toggle="tooltip" title="Home Page"> home </span>
 				</a>
 			</div>
 			
 			<div class="header_option">
-				<span class="material-icons"> groups </span>
+				<span id="navGroupsButton" class="material-icons" data-toggle="tooltip" title="Groups"> groups </span>
 			</div>
 			
 			<div class="header_option">
 				<a th:href = "@{/video/loginvideolandingpage}">
-					<span class="material-icons"> videocam </span>
+					<span id="navVideoLandingPageButton" class="material-icons" data-toggle="tooltip" title="Video Landing Page"> videocam </span>
 				</a>
 			</div>
 			
 			<div class="header_option">
 				<a th:href = "@{/music/loginmusiclandingpage}">
-					<span class="material-icons"> music_note </span>
+					<span id="navMusicLandingPageButton" class="material-icons" data-toggle="tooltip" title="Music Landing Page"> music_note </span>
 				</a>
 			</div>
 			
 			<div class="header_option">
 				<a th:href = "@{/shop}">
-				<span class="material-icons"> shopping_bag </span>
+				<span id="navShoppingButton" class="material-icons" data-toggle="tooltip" title="Shopping Page"> shopping_bag </span>
 				</a>
 			</div>
       
 			<div class="header_option">
 				<a  style="text-decoration: none" th:href = "@{/shoppingcart}">
-				<span class="material-icons"> shopping_cart </span>
+				<span id="navShoppingCartPageButton" class="material-icons" data-toggle="tooltip" title="Shopping Cart"> shopping_cart </span>
 				<span class='badge badge-warning' id='lblCartCount'  th:text="${count}"></span>
 				</a>
 			</div>
@@ -149,6 +157,17 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 			</div> -->
 
 		</div>
+		
+		<script type="text/javascript">
+			$(function () {
+			    $("#navHomeButton").tooltip({placement: 'bottom'});
+			    $("#navGroupsButton").tooltip({placement: 'bottom'});
+			    $("#navVideoLandingPageButton").tooltip({placement: 'bottom'});
+			    $("#navMusicLandingPageButton").tooltip({placement: 'bottom'});
+			    $("#navShoppingButton").tooltip({placement: 'bottom'});
+			    $("#navShoppingCartPageButton").tooltip({placement: 'bottom'});
+			});
+		</script>
 		
 		<div class="header_right">
 			<div class="header_info">
@@ -168,12 +187,6 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 	
 	</div>
 </div>
-
-
-
-
-
-
 
  <nav th:fragment="watchVideosNavBar" class="navbar jamHeaderUser">
  	<img th:src="@{/images/JAM_LOGO.png}" class="logo3">

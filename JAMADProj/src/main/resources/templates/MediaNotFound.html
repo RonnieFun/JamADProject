@@ -4,11 +4,10 @@
 
 <body>
 
+<nav th:replace="Fragments/layout.html :: navbar"></nav>
+
 <div class="mediaNotFound">
 	<span th:text = "${errorMessage}"></span>
-	<br>
-	<a th:href = "@{${returnLink}}">
-	<span th:text = "${returnToMediaLandingMessage}"></span></a>
 </div>
 
 <div th:replace="Fragments/layout.html :: footer"></div>

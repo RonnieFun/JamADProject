@@ -102,15 +102,21 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 <!-- 		</div> -->
 <!--        Message sender ends    -->
 	
-	</div>
-			<table class="messageSender">
-				<tr class="messageSender_Top" th:each="sub : ${subscribers}">
-				<td><img th:src="${sub.profileUrl}" class="profilePic"/></td>
-				<td th:text="${sub.firstName} + ' ' + ${sub.lastName}"class="messageSender_input">
-				</tr>
-			</table>
+		</div>
+		<div class="messageSenderSub" th:each="sub : ${subscribers}">
+			 <a th:href="@{'/home/profile/' + ${sub.userID}}" style="text-decoration: none; color:black" id="userID">
+				<table>
+					<tr class="messageSender_Top">
+						<td>
+							<img th:src="${sub.profileUrl}" class="profilePic"/>
+						</td>
+					<td th:text="${sub.firstName} + ' ' + ${sub.lastName}"class="messageSender_input">
+					</tr>
+				</table>
+			</a>
+		</div>
+		</div>
 	
-	</div>
 </div>
 
 

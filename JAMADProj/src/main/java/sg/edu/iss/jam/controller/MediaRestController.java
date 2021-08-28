@@ -2,6 +2,7 @@ package sg.edu.iss.jam.controller;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -11,12 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import sg.edu.iss.jam.DTO.AndroidMediaDTO;
+import sg.edu.iss.jam.DTO.MediaDTO;
 import sg.edu.iss.jam.model.Media;
 import sg.edu.iss.jam.model.MediaType;
 import sg.edu.iss.jam.model.Subscribed;
@@ -90,6 +93,9 @@ public class MediaRestController {
 				mediaDTO.setArtistName(video.getChannel().getChannelUser().getFullname());
 				mediaDTO.setMediaTitle(video.getTitle());
 				mediaDTO.setMediaDuration(video.getDuration());
+				mediaDTO.getCreatedOn(video.getCreatedOn().format(DateTimeFormatter.ofPattern("dd MMMM yyyy")));
+				mediaDTO.getUserHistorySize(String.valueOf(video.getUserHistory().size()));
+				mediaDTO.getUserHistorySize(String.valueOf(video.getUserHistory().size()));
 				for (Tag tag : video.getTagList()) {
 					tags = tags + tag.getTagName() + " ";
 					tags.trim();
@@ -142,6 +148,8 @@ public class MediaRestController {
 				mediaDTO.setArtistName(video.getChannel().getChannelUser().getFullname());
 				mediaDTO.setMediaTitle(video.getTitle());
 				mediaDTO.setMediaDuration(video.getDuration());
+				mediaDTO.getCreatedOn(video.getCreatedOn().format(DateTimeFormatter.ofPattern("dd MMMM yyyy")));
+				mediaDTO.getUserHistorySize(String.valueOf(video.getUserHistory().size()));
 				for (Tag tag : video.getTagList()) {
 					tags = tags + tag.getTagName() + " ";
 					tags.trim();

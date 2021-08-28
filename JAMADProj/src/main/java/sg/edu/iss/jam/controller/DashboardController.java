@@ -2,18 +2,14 @@ package sg.edu.iss.jam.controller;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
-import sg.edu.iss.jam.model.Album;
 import sg.edu.iss.jam.model.Category;
 import sg.edu.iss.jam.model.Channel;
 import sg.edu.iss.jam.model.Media;
@@ -38,12 +34,11 @@ public class DashboardController  {
 		@Autowired
 		MediaServiceInterface mservice;
 		
-		@GetMapping("/dashboard")
-		public String showDashboard(Model model) {
-			
+		@GetMapping("/artist/dashboard/{userId}")
+		public String showDashboard(Model model,@PathVariable Long userId) {
 		
 			//video and music chart	
-				Long userId = (long) 1;
+//				Long userId = (long) 9;
 				User artist = aservice.findById(userId);
 				
 				List<Media> artistVideos = new ArrayList<Media>();
@@ -103,39 +98,8 @@ public class DashboardController  {
 						allviewcounts_videos=allviewcounts_videos+viewVideoCounts.get(i);
 					}
 					
-					//find all view counts of album
-					List<Album> artistAlbums=new ArrayList<Album>();
-					for(Channel c: artistChannels) {
-						if(c.getMediaType() == MediaType.Music) {	
-							artistAlbums=(List<Album>)c.getAlbumslist();
-						}
-					}
-					
-					Map<String,Integer> album_music_counts=new HashMap<String,Integer>();
-					List<Media> album_musics=new ArrayList<Media>();
-					List<UserHistory> album_musicUserHistories=new ArrayList<UserHistory>();
-					List<String> album_musicTitle=new ArrayList<String>();
-					int album_listenMusicCounts = 0;
-					
-					for(Album a:artistAlbums) {
-						String albumtitle=a.getAlbumDescription();
-						album_musics=mservice.findMediaByAlbumId(a.getAlbumID());
-						for(Media m:album_musics) {
-							album_musicTitle.add(m.getTitle());
-							album_musicUserHistories = uservice.findUserHistoryByMediaId(m.getId());
-							album_listenMusicCounts=album_listenMusicCounts+musicUserHistories.size();
-						}
-						album_music_counts.put(albumtitle, album_listenMusicCounts);
-					}
-					
-					//album title and view counts
-					Set<String> albumtitle= album_music_counts.keySet();
-					Collection<Integer> album_countmusic= album_music_counts.values();
-					
-//					model.addAttribute("allcountsforvideos",allviewcounts_videos);
-					
-					model.addAttribute("albumtitle",albumtitle);
-					model.addAttribute("albumcount",album_countmusic);
+					//find all view counts of music
+
 
 					model.addAttribute("videos",videotitle);
 					model.addAttribute("videocounts",viewVideoCounts);
@@ -400,10 +364,9 @@ public class DashboardController  {
 					List<Product> merchandise=aservice.getProductListByArtistIDAndCategory(userId,Category.Merchandise);
 					List<Product> musiccollection=aservice.getProductListByArtistIDAndCategory(userId,Category.MusicCollection);
 					
-					//count of different category
-					int clothingCount=clothing.size();
-					int merchandiseCount=merchandise.size();
-					int musiccollectionCount=musiccollection.size();
+					//count of total product
+					int totalproduct=clothing.size()+merchandise.size()+musiccollection.size();
+					
 					
 					//find  artist different product sold quantity in this year 
 					//-clothing
@@ -483,7 +446,8 @@ public class DashboardController  {
 						average.add(monthAverage);
 					}
 					
-					  
+					
+					model.addAttribute("productnumber", totalproduct);
 					model.addAttribute("clothing",clothingSoldWithMonth);
 					model.addAttribute("merchandise",merchandiseSoldWithMonth);
 					model.addAttribute("music",musicSoldWithMonth);
@@ -492,7 +456,6 @@ public class DashboardController  {
 					model.addAttribute("musictotal",musicTotalSold);
 					model.addAttribute("average",average);
 
-					
 					return "dashboard";	
 		}
 }
