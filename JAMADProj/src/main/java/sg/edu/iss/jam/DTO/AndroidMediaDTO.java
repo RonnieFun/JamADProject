@@ -4,12 +4,14 @@ public class AndroidMediaDTO {
 
 	private Long mediaId;
 	private Long artistId;
+	private Long albumId;
 	private String mediaThumbnailUrl;
 	private String artistProfileThumbnailUrl;
 	private String artistName;
 	private String mediaTitle;
 	private String mediaDuration;
 	private String tags;
+	private String albumName;
 	private String mediaUrl;
 	private Boolean subscribed;
 	
@@ -91,7 +93,7 @@ public class AndroidMediaDTO {
 		return mediaId;
 	}
 
-	public void getMediaId(Long mediaId) {
+	public void setMediaId(Long mediaId) {
 		this.mediaId = mediaId;
 	}
 
@@ -101,6 +103,26 @@ public class AndroidMediaDTO {
 
 	public void setArtistId(Long artistId) {
 		this.artistId = artistId;
+	}
+
+
+	public Long getAlbumId() {
+		return albumId;
+	}
+
+
+	public void setAlbumId(Long albumId) {
+		this.albumId = albumId;
+	}
+
+
+	public String getAlbumName() {
+		return albumName;
+	}
+
+
+	public void setAlbumName(String albumName) {
+		this.albumName = albumName;
 	}
 
 }

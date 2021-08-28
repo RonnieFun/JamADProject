@@ -28,5 +28,5 @@ public interface MediaServiceInterface {
 
 	public List<Media> findMediaByAlbumId(Long albumID);
 
-
+	public List<Media> findAllMusics();
 }

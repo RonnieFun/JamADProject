@@ -140,6 +140,11 @@ public class MediaServiceImplementation implements MediaServiceInterface {
 	public List<Media> findAllVideos() {
 		return mediarepo.findAllVideos();
 	}
+	
+	@Override
+	public List<Media> findAllMusics() {
+		return mediarepo.findAllMusics();
+	}
 
 	@Override
 	public List<Media> findMediaByAlbumId(Long albumID) {
