@@ -23,13 +23,13 @@
 		<h3 class="col-md-auto mt-4 mb-4">PRODUCT</h3>
 		<hr>
 		<div class="row justify-content-center">
-			<div class="col-sm-auto col-md-auto col-lg-auto mt-3" id="container_product"></div>
+			<div class="col-sm-8 col-md-8 col-lg-8 mt-3" id="container_product"></div>
 		</div>
 		
 		<h3 class="col-md-auto mt-4 mb-4">MEDIA</h3>
 		<hr>
 		<div class="row justify-content-center">
-			<div class="col-sm-auto col-md-auto col-lg-auto mt-3" id="container_counttwoyears"></div>
+			<div class="col-sm-8 col-md-8 col-lg-8 mt-3" id="container_counttwoyears"></div>
 		</div>
 		
 		<div class="row justify-content-center mt-4 mb-4">
@@ -59,11 +59,11 @@
             type: 'column',
         },
         title: {
-                text: '<span style="font-size: 23px">View Counts of Videos</span>', 
+                text: '<span style="font-size: 23px">Number of Viewing Individual Video</span>', 
         },
         
         subtitle: {
-        	text: 'Total Media Count',
+        	text: 'Composition of Total Count',
         	align: 'right'
         },
         
@@ -94,7 +94,7 @@
             enabled: false
         },
         series: [{
-            name: 'Times of User Watching',
+            name: 'Number of Viewing Video by Users',
             data: videocounts,},
             {
                 type: 'pie',
@@ -132,11 +132,11 @@
             type: 'column',
         },
         title: {
-            text: '<span style="font-size: 23px">View Counts of Musics</span>'
+            text: '<span style="font-size: 23px">Number of Viewing Individual Music</span>'
         },
       
         subtitle: {
-        	text: 'Total Media Count',
+        	text: 'Composition of Total Count',
         	align: 'right'
         },
         
@@ -167,7 +167,7 @@
             enabled: false
         },
         series: [{
-            name: 'Times of User Listening',
+            name: 'Number of Listening Music by Users',
             data: musiccounts,
             color: Highcharts.getOptions().colors[3]},
             {
@@ -209,7 +209,7 @@
           },
     	
         title: {
-            text: '<span style="font-size: 23px">Counts of Viewing Video and Listening Music</span>'
+            text: '<span style="font-size: 23px">Number of Total Views of Media</span>'
         },
 
 
@@ -222,24 +222,24 @@
             }
         },
         series: [{
-            name: 'Count of Viewing Video-ThisYear',
+            name: 'Total Number of Viewing Video-ThisYear',
             data: videodata,
         }, 
         
         {
-            name: 'Count of Viewing  Music-ThisYear',
+            name: 'Total Number of Viewing Music-ThisYear',
             data: musicdata,
             color: Highcharts.getOptions().colors[3]
         
         },
         {
-            name: 'Count of Viewing Video-LastYear',
+            name: 'Total Number of Viewing Video-LastYear',
             data: videodatalastyear,
             color: Highcharts.getOptions().colors[1]
             
         },
         {
-            name: 'Count of Viewing Music-LastYear',
+            name: 'Total Number of Viewing Music-LastYear',
             data: musicdatalastyear,
             color: Highcharts.getOptions().colors[2]
         }
@@ -277,7 +277,7 @@
           },
     	
         title: {
-            text: '<span style="font-size: 23px">Subscribers Chart</span>'
+            text: '<span style="font-size: 23px">Number of Subscribers</span>'
         },
 
         subtitle: {
@@ -342,11 +342,11 @@
     $(function(){
         Highcharts.chart('container_product', {
             title: {
-                text: '<span style="font-size: 23px">Product Sold Quantity</span>'
+                text: '<span style="font-size: 23px">Products Sales Quantity</span>'
             },
             
             subtitle: {
-            	text: 'Total Sold Quantity',
+            	text: 'Total Sales Quantity',
             	align: 'right'
             },
             xAxis: {
@@ -364,15 +364,18 @@
             series: [{
                 type: 'column',
                 name: 'Clothing',
-                data: [[${clothing}]]
+                data: [[${clothing}]],
+            	color: Highcharts.getOptions().colors[7] 
             }, {
                 type: 'column',
                 name: 'Merchandise',
-                data: [[${merchandise}]]
+                data: [[${merchandise}]],
+                color: Highcharts.getOptions().colors[1] 
             }, {
                 type: 'column',
                 name: 'MusicCollection',
-                data: [[${music}]]
+                data: [[${music}]],
+                color: Highcharts.getOptions().colors[2]
             }, {
                 type: 'spline',
                 name: 'Average',
@@ -392,7 +395,7 @@
                 data: [{
                     name: 'Clothing',
                     y: [[${clothingtotal}]],
-                    color: Highcharts.getOptions().colors[0] 
+                    color: Highcharts.getOptions().colors[7] 
                 }, {
                     name: 'Merchandise',
                     y: [[${merchandisetotal}]],
@@ -426,7 +429,7 @@
 			}
 		},
 		title : {
-			text : '<span style="font-size: 23px">Percentage of Artist Product, Video, Music </span>'
+			text : '<span style="font-size: 23px">Composition of Products, Videos and Music </span>'
 		},
 		tooltip : {
 			pointFormat : '<b>Number:{point.y} </b><br>TotalNumber: {point.total}'
@@ -451,15 +454,15 @@
 			data: [{
                 name: 'Video',
                 y: [[${videosnumber}]],
-                color: Highcharts.getOptions().colors[9] 
+                color: Highcharts.getOptions().colors[0] 
             }, {
                 name: 'Music',
                 y: [[${musicsnumber}]],
-                color: Highcharts.getOptions().colors[7] 
+                color: Highcharts.getOptions().colors[3] 
             }, {
                 name: 'Product',
                 y: [[${productnumber}]],
-                color: Highcharts.getOptions().colors[3] 
+                color: Highcharts.getOptions().colors[9] 
             }],
 		} ]
 	});
