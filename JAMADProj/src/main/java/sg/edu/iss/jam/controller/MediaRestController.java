@@ -173,6 +173,8 @@ public class MediaRestController {
 					mediaDTO.setArtistName(video.getChannel().getChannelUser().getFullname());
 					mediaDTO.setMediaTitle(video.getTitle());
 					mediaDTO.setMediaDuration(video.getDuration());
+					mediaDTO.getCreatedOn(video.getCreatedOn().format(DateTimeFormatter.ofPattern("dd MMMM yyyy")));
+					mediaDTO.getUserHistorySize(String.valueOf(video.getUserHistory().size()));
 					for (Tag tag : video.getTagList()) {
 						tags = tags + tag.getTagName() + " ";
 						tags.trim();
@@ -222,6 +224,8 @@ public class MediaRestController {
 				mediaDTO.setArtistName(music.getChannel().getChannelUser().getFullname());
 				mediaDTO.setMediaTitle(music.getTitle());
 				mediaDTO.setMediaDuration(music.getDuration());
+				mediaDTO.getCreatedOn(music.getCreatedOn().format(DateTimeFormatter.ofPattern("dd MMMM yyyy")));
+				mediaDTO.getUserHistorySize(String.valueOf(music.getUserHistory().size()));
 				for (Tag tag : music.getTagList()) {
 					tags = tags + tag.getTagName() + " ";
 					tags.trim();
@@ -273,6 +277,8 @@ public class MediaRestController {
 				mediaDTO.setArtistName(music.getChannel().getChannelUser().getFullname());
 				mediaDTO.setMediaTitle(music.getTitle());
 				mediaDTO.setMediaDuration(music.getDuration());
+				mediaDTO.getCreatedOn(music.getCreatedOn().format(DateTimeFormatter.ofPattern("dd MMMM yyyy")));
+				mediaDTO.getUserHistorySize(String.valueOf(music.getUserHistory().size()));
 				for (Tag tag : music.getTagList()) {
 					tags = tags + tag.getTagName() + " ";
 					tags.trim();
@@ -298,6 +304,8 @@ public class MediaRestController {
 					mediaDTO.setArtistName(music.getChannel().getChannelUser().getFullname());
 					mediaDTO.setMediaTitle(music.getTitle());
 					mediaDTO.setMediaDuration(music.getDuration());
+					mediaDTO.getCreatedOn(music.getCreatedOn().format(DateTimeFormatter.ofPattern("dd MMMM yyyy")));
+					mediaDTO.getUserHistorySize(String.valueOf(music.getUserHistory().size()));
 					for (Tag tag : music.getTagList()) {
 						tags = tags + tag.getTagName() + " ";
 						tags.trim();
@@ -330,6 +338,8 @@ public class MediaRestController {
 			mediaDTO.setArtistName(music.getChannel().getChannelUser().getFullname());
 			mediaDTO.setMediaTitle(music.getTitle());
 			mediaDTO.setMediaDuration(music.getDuration());
+			mediaDTO.getCreatedOn(music.getCreatedOn().format(DateTimeFormatter.ofPattern("dd MMMM yyyy")));
+			mediaDTO.getUserHistorySize(String.valueOf(music.getUserHistory().size()));
 			for (Tag tag : music.getTagList()) {
 				tags = tags + tag.getTagName() + " ";
 				tags.trim();
@@ -344,6 +354,15 @@ public class MediaRestController {
 		return new ResponseEntity<>(androidGetAllMusicDTOList, HttpStatus.OK);
 
 	}
+	
+	@PostMapping("/addUserHistory")
+	public ResponseEntity<?> addUserHistory(@RequestParam("mediaID") long mediaID, @RequestParam("userID") long userID) {
+		UserHistory userhistory = new UserHistory(LocalDateTime.now(), uservice.findUserByUserId(userID), mservice.getMediaById(mediaID));
+		mservice.saveUserHistory(userhistory);
+		String count = String.valueOf(mservice.getMediaById(mediaID).getUserHistory().size());
+		return new ResponseEntity<>(count, HttpStatus.OK);
+	}
+
 
 	@GetMapping("/subscribebutton")
 	public ResponseEntity<?> subscribe(@RequestParam("artistID") long artistID, @RequestParam("userID") long userID) {
@@ -398,7 +417,7 @@ public class MediaRestController {
 			subscribeStatus = true;
 		}
 
-		if (subscribed_loggedInUser.size() - unsubscribed_loggedInUser.size() == 1) {
+		else if (subscribed_loggedInUser.size() - unsubscribed_loggedInUser.size() == 1) {
 
 			subscribeStatus = false;
 		}
