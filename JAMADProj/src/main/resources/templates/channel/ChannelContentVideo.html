@@ -154,7 +154,7 @@
 
 				<tbody>
 					<tr th:each="MediaDTO:${MediaDTOList}">
-						<td th:text=${MediaDTO.media.title}></td>
+						<td><a th:text=${MediaDTO.media.title} th:href="@{/video/watchvideo/{mediaId}(mediaId=${MediaDTO.media.id})}"></a></td>
 						<td th:text=${MediaDTO.tags}></td>
 						<td th:text=${MediaDTO.media.description}></td>
 						<td th:text=${MediaDTO.media.publishStatus}></td>
