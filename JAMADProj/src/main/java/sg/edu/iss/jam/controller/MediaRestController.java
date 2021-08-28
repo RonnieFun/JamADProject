@@ -1,6 +1,8 @@
 package sg.edu.iss.jam.controller;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,7 +54,7 @@ public class MediaRestController {
 	List<String> recommendMediaNames_model2 = new ArrayList<String>();
 	List<String> recommendMediaNames_model3 = new ArrayList<String>();
 	List<String> recommendMediaNames_model4 = new ArrayList<String>();
-
+	
 	@GetMapping("/video/getallrecommendedvideos")
 	public ResponseEntity<?> loginVideoLandingPage(@RequestParam("userID") long userID) {
 
@@ -89,6 +92,8 @@ public class MediaRestController {
 				mediaDTO.setArtistId(video.getChannel().getChannelUser().getUserID());
 				mediaDTO.getMediaId(video.getId());
 				mediaDTO.getMediaUrl(video.getMediaUrl());
+				mediaDTO.getCreatedOn(video.getCreatedOn().format(DateTimeFormatter.ofPattern("dd MMMM yyyy")));
+				mediaDTO.getUserHistorySize(String.valueOf(video.getUserHistory().size()));
 				for (Tag tag : video.getTagList()) {
 					tags = tags + tag.getTagName() + " ";
 					tags.trim();
@@ -98,7 +103,7 @@ public class MediaRestController {
 			}
 			return new ResponseEntity<>(androidGetAllVideosDTOList, HttpStatus.OK);
 		}
-
+		
 		// Else if the user has UserHistory data,
 		// recommend items based on ML model
 
@@ -139,6 +144,8 @@ public class MediaRestController {
 				androidGetAllVideosDTO.setArtistId(video.getChannel().getChannelUser().getUserID());
 				androidGetAllVideosDTO.getMediaId(video.getId());
 				androidGetAllVideosDTO.getMediaUrl(video.getMediaUrl());
+				androidGetAllVideosDTO.getCreatedOn(video.getCreatedOn().format(DateTimeFormatter.ofPattern("dd MMMM yyyy")));
+				androidGetAllVideosDTO.getUserHistorySize(String.valueOf(video.getUserHistory().size()));
 				for (Tag tag : video.getTagList()) {
 					tags = tags + tag.getTagName() + " ";
 					tags.trim();

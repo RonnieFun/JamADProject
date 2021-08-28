@@ -105,34 +105,24 @@ public class MediaController {
 	@GetMapping("/video/medianotfound/{mediaId}") 
 	public String videoNotFound(Model model, @PathVariable Long mediaId, @AuthenticationPrincipal MyUserDetails userDetails) {
 		
-		if(userDetails == null) {
-			return "/login/";	
-		}
-		
 		String errorMessage = "Your Requested Video Title is not found.";
-		String returnToVideoLandingMessage = "Please click here to return to Video Landing Page";
-		String returnLink = "/video/genericvideolandingpage";
 		
-		model.addAttribute("returnLink", returnLink);
-		model.addAttribute("returnToMediaLandingMessage", returnToVideoLandingMessage);
 		model.addAttribute("errorMessage", errorMessage);
+		if (userDetails != null) {
+			model.addAttribute("profileUrl", userDetails.getProfileUrl());
+		}
 		return "MediaNotFound";
 	}
 
 	@GetMapping("/music/medianotfound/{mediaId}") 
-	public String musicNotFound(Model model, @PathVariable Long mediaId, @AuthenticationPrincipal MyUserDetails userDetails) {
-		
-		if(userDetails == null) {
-			return "/login/";	
-		}
+	public String musicNotFound(Model model, @PathVariable Long mediaId, @AuthenticationPrincipal MyUserDetails userDetails) {		
 		
 		String errorMessage = "Your Requested Music Title is not found.";
-		String returnToMusicLandingMessage = "Please click here to return to Music Landing Page";
-		String returnLink = "/music/genericmusiclandingpage";
 		
-		model.addAttribute("returnLink", returnLink);
-		model.addAttribute("returnToMediaLandingMessage", returnToMusicLandingMessage);
 		model.addAttribute("errorMessage", errorMessage);
+		if (userDetails != null) {
+			model.addAttribute("profileUrl", userDetails.getProfileUrl());
+		}
 		return "MediaNotFound";
 	}
 	
@@ -465,6 +455,7 @@ public class MediaController {
 			//Retrieve number of views based on userhistory size for the selected Media
 			int viewCount = userHistory.size();
 			
+			model.addAttribute("profileUrl", userDetails.getProfileUrl());
 			model.addAttribute("commentCount", commentCount);
 			model.addAttribute("user", loggedInUser);
 			model.addAttribute("playlists", uservice.findPlaylistByUserIdAndMediaType(loggedInUserId, MediaType.Video));
@@ -771,6 +762,7 @@ public class MediaController {
 				isLastMusicSelection = isLastMusic;
 			}
 			
+			model.addAttribute("profileUrl", userDetails.getProfileUrl());
 			model.addAttribute("isLastMusicSelection", isLastMusicSelection);
 			model.addAttribute("commentCount", commentCount);
 			model.addAttribute("user", loggedInUser);
