@@ -225,8 +225,6 @@ $(document).ready(function(){
 	
 	$("#userCommentsSubmitBtnMusic").on("click", function() {
 		
-		$('#commentsTxtAreaMusic').val() = $('#commentsTxtAreaMusic').val().trim();
-		
 		if($('#commentsTxtAreaMusic').val().trim() == "") {
 			alert("Please enter your comments");
 		} 
