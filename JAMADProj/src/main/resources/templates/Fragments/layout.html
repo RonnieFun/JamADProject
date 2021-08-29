@@ -258,9 +258,27 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 			});
 		</script>
 		
-		<div class="header_right">
+		<div th:if="${user != null}" class="header_right">
 			<div class="header_info" style="margin-right: 1rem;">
 				<img th:src="${user.profileUrl}" class="" alt="profileIcon"/>
+				<h5> <span sec:authentication="principal.fullName">first
+				name</span></h5>
+			</div>
+			<div class="dropdown">
+			<button class ="dropbtn"><span class="material-icons"> expand_more</span></button>
+				<div class="dropdown-content">
+   					 <a href="/home/edituser">Edit Profile</a>
+   					 <div sec:authorize="hasAnyAuthority('Customer')">
+   					 <a href="/home/updateuser">Be an Artist</a>
+   					 </div>
+    				 <a href="/logout"><button type="button">Logout</button></a>
+  				</div>
+			</div>
+		</div>
+		
+		<div th:if="${user == null and profileUrl != null}" class="header_right">
+			<div class="header_info" style="margin-right: 1rem;">
+				<img th:src="${profileUrl}" class="" alt="profileIcon"/>
 				<h5> <span sec:authentication="principal.fullName">first
 				name</span></h5>
 			</div>
