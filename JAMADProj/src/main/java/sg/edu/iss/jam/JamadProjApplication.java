@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -29,6 +30,7 @@ import sg.edu.iss.jam.repo.UserHistoryRepository;
 import sg.edu.iss.jam.repo.UserRepository;
 
 @SpringBootApplication
+@EnableAutoConfiguration
 public class JamadProjApplication {
 
 	@Autowired

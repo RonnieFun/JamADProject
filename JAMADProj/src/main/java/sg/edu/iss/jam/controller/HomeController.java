@@ -90,7 +90,7 @@ public class HomeController {
 		model.addAttribute("profileUrl", user.getProfileUrl());
 		model.addAttribute("bannerUrl", user.getBannerUrl());
 		model.addAttribute("userID", user.getUserID());
-		
+		model.addAttribute("homeLinkActive", true);
 		
 		model.addAttribute("followers", ((srepo.getArtistSubscribed(user.getUserID())).size() - (srepo.getArtistUnSubscribed(user.getUserID())).size()));
 		model.addAttribute("following", ((srepo.getSubscriptions(user.getUserID())).size() - srepo.getMyUnsubscribe(user.getUserID()).size()));

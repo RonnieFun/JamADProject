@@ -5,18 +5,17 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 <body>
   <img th:src="@{/images/JAM_LOGO.png}" class="logo" alt="JAM Logo">
  <nav class="navbar jamHeader">
- <div th:if="${param.error}">
-		<p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
-	</div>
-	<div th:if="${param.Logout}">
-		<p class="text-warning">You have been logged out</p>
-	</div>
-	
  	<form class="form-inline" th:action="@{/login/}" method="post">
   		<div sec:authorize="isAnonymous()" class="form-group">
   			<label class="loginUsernameLabel">Username</label>
   			<input type="email" class="form-control loginUsernameInputBox" name="email" placeholder="E-mail" required autofocus></input>
   			
+  			 <div th:if="${param.error}">
+				<span class="loginBadCredentials">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</span>
+			</div>
+			<div th:if="${param.Logout}">
+				<span class="text-warning loginBadCredentials">You have been logged out</span>
+			</div>
   			
   			<a class="forgotYourPasswordText" th:href="@{'/home'}">Forgot your password</a>
   			

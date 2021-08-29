@@ -42,35 +42,66 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 		</div>
 		
 		<div class="header_middle">
-			<div class="header_option">
+			<div th:if="${homeLinkActive != true}" class="header_option">
+			<a th:href = "@{/home/}">
+				<span id="navHomeButton" class="material-icons" data-toggle="tooltip" title="Home Page"> home </span>
+				</a>
+			</div>
+			
+			<div th:if="${homeLinkActive == true}" class="header_option active">
 			<a th:href = "@{/home/}">
 				<span id="navHomeButton" class="material-icons" data-toggle="tooltip" title="Home Page"> home </span>
 				</a>
 			</div>
 			
 			<div class="header_option">
-				<span id="navGroupsButton" class="material-icons" data-toggle="tooltip" title="Groups"> groups </span>
+				<span id="navFeedButton" class="material-icons" data-toggle="tooltip" title="Feed"> feed </span>
 			</div>
 			
-			<div class="header_option">
+			<div th:if="${genericVideolinkActive != true}" class="header_option">
 				<a th:href = "@{/video/genericvideolandingpage}">
 					<span id="navVideoLandingPageButton" class="material-icons" data-toggle="tooltip" title="Video Landing Page"> videocam </span>
 				</a>
 			</div>
 			
-			<div class="header_option">
+			<div th:if="${genericVideolinkActive == true}" class="header_option active">
+				<a th:href = "@{/video/genericvideolandingpage}">
+					<span id="navVideoLandingPageButton" class="material-icons" data-toggle="tooltip" title="Video Landing Page"> videocam </span>
+				</a>
+			</div>
+			
+			<div th:if="${genericMusiclinkActive != true}" class="header_option">
 				<a th:href = "@{/music/genericmusiclandingpage}">
 					<span id="navMusicLandingPageButton" class="material-icons" data-toggle="tooltip" title="Music Landing Page"> music_note </span>
 				</a>
 			</div>
 			
-			<div class="header_option">
+			<div th:if="${genericMusiclinkActive == true}" class="header_option active">
+				<a th:href = "@{/music/genericmusiclandingpage}">
+					<span id="navMusicLandingPageButton" class="material-icons" data-toggle="tooltip" title="Music Landing Page"> music_note </span>
+				</a>
+			</div>
+			
+			<div th:if="${shopLinkActive != true}" class="header_option">
+				<a th:href = "@{/shop}">
+				<span id="navShoppingButton" class="material-icons" data-toggle="tooltip" title="Shopping Page"> shopping_bag </span>
+				</a>
+			</div>
+			
+			<div th:if="${shopLinkActive == true}" class="header_option active">
 				<a th:href = "@{/shop}">
 				<span id="navShoppingButton" class="material-icons" data-toggle="tooltip" title="Shopping Page"> shopping_bag </span>
 				</a>
 			</div>
       
-			<div class="header_option">
+			<div th:if="${cartLinkActive != true}" class="header_option">
+				<a  style="text-decoration: none" th:href = "@{/shoppingcart}">
+				<span id="navShoppingCartPageButton" class="material-icons" data-toggle="tooltip" title="Shopping Cart"> shopping_cart </span>
+				<span class='badge badge-warning' id='lblCartCount'  th:text="${count}"></span>
+				</a>
+			</div>
+			
+			<div th:if="${cartLinkActive == true}" class="header_option active">
 				<a  style="text-decoration: none" th:href = "@{/shoppingcart}">
 				<span id="navShoppingCartPageButton" class="material-icons" data-toggle="tooltip" title="Shopping Cart"> shopping_cart </span>
 				<span class='badge badge-warning' id='lblCartCount'  th:text="${count}"></span>
@@ -86,7 +117,7 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 		<script type="text/javascript">
 			$(function () {
 			    $("#navHomeButton").tooltip({placement: 'bottom'});
-			    $("#navGroupsButton").tooltip({placement: 'bottom'});
+			    $("#navFeedButton").tooltip({placement: 'bottom'});
 			    $("#navVideoLandingPageButton").tooltip({placement: 'bottom'});
 			    $("#navMusicLandingPageButton").tooltip({placement: 'bottom'});
 			    $("#navShoppingButton").tooltip({placement: 'bottom'});
@@ -100,7 +131,6 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 			<div>
 				<a href="/home/login"><button type="button">Login</button></a>
 			</div>
-			<span class="material-icons"> notifications</span>
 		</div>
 	
 	</div>
@@ -124,7 +154,13 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 		</div>
 		
 		<div class="header_middle">
-			<div class="header_option">
+			<div th:if="${homeLinkActive != true}" class="header_option">
+			<a th:href = "@{/home/}">
+				<span id="navHomeButton" class="material-icons" data-toggle="tooltip" title="Home Page"> home </span>
+				</a>
+			</div>
+			
+			<div th:if="${homeLinkActive == true}" class="header_option active">
 			<a th:href = "@{/home/}">
 				<span id="navHomeButton" class="material-icons" data-toggle="tooltip" title="Home Page"> home </span>
 				</a>
@@ -133,29 +169,54 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 			
 			<div class="header_option">
 				<a th:href = "@{/home/feed}">
-					<span id="navGroupsButton" class="material-icons" data-toggle="tooltip" title="Groups"> groups </span>
+					<span id="navFeedButton" class="material-icons" data-toggle="tooltip" title="Feed"> feed </span>
 				</a>
 			</div>
 			
-			<div class="header_option">
+			<div th:if="${loginVideolinkActive != true}" class="header_option">
 				<a th:href = "@{/video/loginvideolandingpage}">
 					<span id="navVideoLandingPageButton" class="material-icons" data-toggle="tooltip" title="Video Landing Page"> videocam </span>
 				</a>
 			</div>
 			
-			<div class="header_option">
+			<div th:if="${loginVideolinkActive == true}" class="header_option active">
+				<a th:href = "@{/video/loginvideolandingpage}">
+					<span id="navVideoLandingPageButton" class="material-icons" data-toggle="tooltip" title="Video Landing Page"> videocam </span>
+				</a>
+			</div>
+			
+			<div th:if="${loginMusiclinkActive != true}" class="header_option">
 				<a th:href = "@{/music/loginmusiclandingpage}">
 					<span id="navMusicLandingPageButton" class="material-icons" data-toggle="tooltip" title="Music Landing Page"> music_note </span>
 				</a>
 			</div>
 			
-			<div class="header_option">
+			<div th:if="${loginMusiclinkActive == true}" class="header_option active">
+				<a th:href = "@{/music/loginmusiclandingpage}">
+					<span id="navMusicLandingPageButton" class="material-icons" data-toggle="tooltip" title="Music Landing Page"> music_note </span>
+				</a>
+			</div>
+			
+			<div th:if="${shopLinkActive != true}" class="header_option">
 				<a th:href = "@{/shop}">
 				<span id="navShoppingButton" class="material-icons" data-toggle="tooltip" title="Shopping Page"> shopping_bag </span>
 				</a>
 			</div>
       
-			<div class="header_option">
+      		<div th:if="${shopLinkActive == true}" class="header_option active">
+				<a th:href = "@{/shop}">
+				<span id="navShoppingButton" class="material-icons" data-toggle="tooltip" title="Shopping Page"> shopping_bag </span>
+				</a>
+			</div>
+      
+			<div th:if="${cartLinkActive != true}" class="header_option">
+				<a  style="text-decoration: none" th:href = "@{/shoppingcart}">
+				<span id="navShoppingCartPageButton" class="material-icons" data-toggle="tooltip" title="Shopping Cart"> shopping_cart </span>
+				<span class='badge badge-warning' id='lblCartCount'  th:text="${count}"></span>
+				</a>
+			</div>
+			
+			<div th:if="${cartLinkActive == true}" class="header_option active">
 				<a  style="text-decoration: none" th:href = "@{/shoppingcart}">
 				<span id="navShoppingCartPageButton" class="material-icons" data-toggle="tooltip" title="Shopping Cart"> shopping_cart </span>
 				<span class='badge badge-warning' id='lblCartCount'  th:text="${count}"></span>
@@ -173,7 +234,7 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 		<script type="text/javascript">
 			$(function () {
 			    $("#navHomeButton").tooltip({placement: 'bottom'});
-			    $("#navGroupsButton").tooltip({placement: 'bottom'});
+			    $("#navFeedButton").tooltip({placement: 'bottom'});
 			    $("#navVideoLandingPageButton").tooltip({placement: 'bottom'});
 			    $("#navMusicLandingPageButton").tooltip({placement: 'bottom'});
 			    $("#navShoppingButton").tooltip({placement: 'bottom'});
@@ -182,12 +243,11 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 		</script>
 		
 		<div class="header_right">
-			<div class="header_info">
+			<div class="header_info" style="margin-right: 1rem;">
 				<img th:src="${user.profileUrl}" class="" alt="profileIcon"/>
 				<h5> <span sec:authentication="principal.fullName">first
 				name</span></h5>
 			</div>
-			<span class="material-icons"> notifications</span>
 			<div class="dropdown">
 			<button class ="dropbtn"><span class="material-icons"> expand_more</span></button>
 				<div class="dropdown-content">

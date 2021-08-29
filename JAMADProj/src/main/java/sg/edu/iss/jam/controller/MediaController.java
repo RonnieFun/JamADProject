@@ -159,7 +159,7 @@ public class MediaController {
 					toptwelveVideos=topVideos;
 				}
 
-
+				model.addAttribute("genericVideolinkActive", true);
 				model.addAttribute("topvideos",toptwelveVideos);
 				return "genericvideolandingpage";
 			}
@@ -191,6 +191,7 @@ public class MediaController {
 			toptwelveMusics=topMusics;
 		}
 		
+		model.addAttribute("genericMusiclinkActive", true);
 		model.addAttribute("topmusic",toptwelveMusics);
 		return "genericmusiclandingpage";
 	}
@@ -273,6 +274,7 @@ public class MediaController {
 				model.addAttribute("recommend_medialist", recommend_medialist);
 			}
 			
+			model.addAttribute("loginVideolinkActive", true);
 			model.addAttribute("profileUrl", userDetails.getProfileUrl());
 			model.addAttribute("hasUserHistoryVideo", hasUserHistoryVideo);
 			return "loginvideolandingpage";
@@ -355,7 +357,7 @@ public class MediaController {
 				model.addAttribute("recommend_medialist", recommend_medialist);
 				
 			}
-			
+			model.addAttribute("loginMusiclinkActive", true);
 			model.addAttribute("profileUrl", userDetails.getProfileUrl());
 			model.addAttribute("hasUserHistoryMusic", hasUserHistoryMusic);
 			return "loginmusiclandingpage";
