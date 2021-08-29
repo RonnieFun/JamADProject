@@ -208,7 +208,7 @@
                     </p>
 
                     <!-- Text -->
-                    <div class="font-size-sm text-muted"><span th:text="'$' + ${#numbers.formatDecimal({cart.product.productPrice * cart.quantity}, 0,2)}"></span>
+                    <div class="font-size-sm text-muted">$<span th:utext="${#numbers.formatDecimal(cart.product.productPrice* cart.quantity,0,2)}"></span>
                     </div>
 
                   </div>

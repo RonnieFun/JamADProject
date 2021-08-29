@@ -20,12 +20,12 @@
 	<div class="container">
 		<h3 class="col-md-auto mt-4">Search from Artists</h3>
 		<hr>
-
+		<div th:if="${#lists.isEmpty(searchUsers)}">No Results Found for Artists</div>
 		<div class="row col-sm-11 col-md-11 col-lg-11 mt-4 mx-auto">
 			<th:block th:each="user: ${searchUsers}">
 				<div class="col-6 col-md-3 col-lg-3">
 					<div class="text-center">
-					<a th:href="@{/video/viewartistvideochannel/}+${user.userID}">
+					<a th:href="@{/home/profile/}+${user.userID}">
 						<img th:src="${user.profileUrl}" class="rounded-circle img-fluid searchResultsArtist">
 						<span class="d-block mt-4 mb-4 text-center"  th:text="${user.displayName}"></span>	
 					</a>
@@ -34,11 +34,10 @@
 			</th:block>
 		</div>
 	</div>
-
-	<br>
 	<div class="container">
 		<h3 class="col-md-auto mt-4">Search from Videos</h3>
 		<hr>
+				<div th:if="${#lists.isEmpty(searchVideos)}">No Results Found for Videos</div>
 		<div class="row col-lg-11 mx-auto mt-4">
 			<th:block th:each="video: ${searchVideos}">
 				<div class="col-6 col-md-3 col-lg-3 mb-5">
@@ -98,6 +97,7 @@
 	<div class="container">
 		<h3 class="col-md-auto mt-4">Search from Music</h3>
 		<hr>
+		<div th:if="${#lists.isEmpty(searchMusic)}">No Results Found for Music</div>
 		<div class="row col-lg-11 mt-4 mx-auto">
 			<th:block th:each="music: ${searchMusic}">
 				<div class="col-6 col-md-3 col-lg-3 mb-5">
@@ -157,7 +157,7 @@
 	<div class="container">
 		<h3 class="col-md-auto mt-4">Search from Albums</h3>
 		<hr>
-
+		<div th:if="${#lists.isEmpty(searchAlbums)}">No Results Found for Albums</div>
 		<div class="row col-lg-11 mt-4 mx-auto">
 			<th:block th:each="album: ${searchAlbums}">
 				<div class="col-6 col-md-3 col-lg-3 mb-5">
