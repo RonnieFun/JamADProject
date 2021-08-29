@@ -96,7 +96,7 @@
 									<input id="mediaID" name="id" type="hidden"
 									placeholder="mediaID" class="form-control input-md" /> 
 										
-										<label>Album Order:</label> 
+										<label>Album Order*:</label> 
 										<input id="AlbumOrder" name="AlbumOrder" type="number"
 										required placeholder="Album Order"
 										class="form-control input-md" /> 
@@ -112,15 +112,15 @@
 										<label>Published Status:</label>
 										<select id="publishStatus" name="publishStatus"class="form-control select-md">
 											<option value="Private">Private</option>
-											<option value="Published">Published</option>
+											<option selected value="Published">Published</option>
 										</select> 
 										
-										<label>Tags:</label> 
+										<label>Tags(separate multiple tags with commas):</label> 
 										<input id="tags" name="tags" type="text"
 										placeholder="description" class="form-control" /> 
 										<br> 
 										<label>Music File:</label> 
-										<input type="file" id="MediaFile" required name="MediaFile">
+										<input type="file" id="MediaFile" required name="MediaFile" accept=".mp3,audio/*">
 										
 								</div>
 
@@ -216,7 +216,7 @@
 														<option value="Published">Published</option>
 													</select> 
 													
-													<label>Tags:</label> 
+													<label>Tags(separate multiple tags with commas):</label> 
 													<input id="tags" name="tags"
 													type="text" placeholder="description" class="form-control"
 													th:value="${MediaDTO.tags}" /> 
@@ -224,7 +224,7 @@
 				
 													<br> <br> 
 													<label>Music File:</label> 
-													<input type="file" id="MediaFile" name="MediaFile">
+													<input type="file" id="MediaFile" name="MediaFile" accept=".mp3,audio/*">
 
 											</div>
 
