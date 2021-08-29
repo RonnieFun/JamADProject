@@ -33,11 +33,10 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 		</a>
 			<div class="header_input">
 				<span class="material-icons"> search </span>
-				<form id="searchjam" th:action="@{search/}" method="get">				
-					<input id="searchterm" type="text" placeholder="search JAM"/>
-					<input type="submit" style="display:none"/>
-				</form>
-
+					<form id="searchjam" th:action="@{/search}" method="GET">				
+						<input id="searchterm" name="searchterm" type="text" placeholder="search JAM"/>
+						<input type="submit" style="display:none"/>
+					</form>
 			</div>
 		</div>
 		
