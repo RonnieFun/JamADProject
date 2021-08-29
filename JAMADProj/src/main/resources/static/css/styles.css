@@ -7843,6 +7843,23 @@ body {
   padding: 10px;
 }
 
+.gotopbtn .fa{
+	font-size: 28px;
+	margin-top: 10px;
+}
+.gotopbtn{
+	position: fixed;
+	width: 50px;
+	height: 50px;
+	bottom: 40px;
+	background: #f6faf8;
+	right: 50px;
+	text-decoration: none;
+	text-align: center;
+	line-height: 50px;
+	color:#ff8080;
+}
+
 .loginBadCredentials{
 	font-family: 'Roboto', sans-serif;
 	font-weight: 900;

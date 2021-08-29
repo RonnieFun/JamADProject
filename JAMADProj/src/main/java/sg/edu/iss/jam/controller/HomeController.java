@@ -266,6 +266,12 @@ public class HomeController {
 			
 			User viewer = uService.findUserByUserId(userDetails.getUserId());
 			User viewee = uService.findUserByUserId(userID);
+			List<Post> posts = postrepo.findByUser(viewee);
+			
+			List<Post> PostsSorted =
+					posts.stream()
+						.sorted(Comparator.comparing(Post::getDateTime).reversed())
+						.collect(Collectors.toList());
 			
 			model.addAttribute("profileUrl",viewer.getProfileUrl());
 			model.addAttribute("user", viewer);
@@ -276,6 +282,8 @@ public class HomeController {
 			model.addAttribute("bannerUrl", viewee.getBannerUrl());
 			model.addAttribute("followers", ((srepo.getArtistSubscribed(viewee.getUserID())).size() - (srepo.getArtistUnSubscribed(viewee.getUserID())).size()));
 			model.addAttribute("following", ((srepo.getSubscriptions(viewee.getUserID())).size() - srepo.getMyUnsubscribe(viewee.getUserID()).size()));
+			model.addAttribute("posts", PostsSorted);
+			
 			
 			return"viewArtistProfile";
 			}
