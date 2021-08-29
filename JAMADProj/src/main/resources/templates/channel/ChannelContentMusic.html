@@ -65,13 +65,12 @@
 <div>
 <a th:href="@{/artist/channel}">Back to Channel List</a>
 <br>
+<br>
 
 <h1>Music Channel Content</h1>
 <div class="container">
 	<div class="row">
-		<div class="container">
-		
-								
+		<div class="container">		
 						<button type="button" class="btn btn-info btn-lg"
 								data-bs-toggle="modal" data-bs-target="#AddModal">Add
 								Album</button>
@@ -82,7 +81,7 @@
 									<!-- Modal content-->
 									<div class="modal-content">
 										<div class="modal-header">
-											<h1>Edit Album</h1>
+											<h1>Add Album</h1>
 										</div>
 										<form action="#" th:action="@{/artist/channel/Music/editalbum}"
 											method="post" enctype="multipart/form-data">
@@ -98,7 +97,7 @@
 													<br>
 													
 												<label>Album Cover:</label> <input type="file"
-													id="AlbumCover" name="AlbumCover" required> 
+													id="AlbumCover" name="AlbumCover" required accept="image/*"> 
 												<br>
 												<br> 
 											</div>
@@ -163,7 +162,7 @@
 													<br>
 													
 												<label>Album Cover:</label> <input type="file"
-													id="AlbumCover" name="AlbumCover"> <br>
+													id="AlbumCover" name="AlbumCover" accept="image/*"> <br>
 												<br> 
 											</div>
 
