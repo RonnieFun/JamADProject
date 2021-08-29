@@ -38,6 +38,9 @@ import sg.edu.iss.jam.service.ArtistInterface;
 import sg.edu.iss.jam.service.UserInterface;
 import sg.edu.iss.jam.service.MediaServiceInterface;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import sg.edu.iss.jam.security.MyUserDetails;
 
 @Controller
@@ -52,6 +55,8 @@ public class MediaController {
 	@Autowired
 	MediaServiceInterface mservice;
 	
+	private final Logger logger = 
+		      LoggerFactory.getLogger(MediaController.class);
 	
 	// for recommendation
 	@Autowired
@@ -467,6 +472,7 @@ public class MediaController {
 			//Retrieve number of views based on userhistory size for the selected Media
 			int viewCount = userHistory.size();
 			
+		    model.addAttribute("count", uservice.getItemCountByUserID(userDetails.getUserId()));
 			model.addAttribute("profileUrl", userDetails.getProfileUrl());
 			model.addAttribute("commentCount", commentCount);
 			model.addAttribute("user", loggedInUser);
@@ -774,6 +780,7 @@ public class MediaController {
 				isLastMusicSelection = isLastMusic;
 			}
 			
+			model.addAttribute("count", uservice.getItemCountByUserID(userDetails.getUserId()));
 			model.addAttribute("profileUrl", userDetails.getProfileUrl());
 			model.addAttribute("isLastMusicSelection", isLastMusicSelection);
 			model.addAttribute("commentCount", commentCount);
@@ -1251,93 +1258,107 @@ public class MediaController {
 	
 	
 //--------------------------User views Artist Video Channel Page by ZQ--------------------------------------------------
-	@GetMapping("/video/viewartistvideochannel/{artistId}")
-	public String viewArtistVideoChannel(@PathVariable("artistId") Long artistId, Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
-		
-		String artistVideoChannelName = "";
-		int numberOfArtistVideos = 0;
-		int numberOfSubscribers = 0;
-		List<Media> artistVideos = new ArrayList<Media>();
-		
-		User artist = aservice.findById(artistId);
-		String artistName = artist.getDisplayName();
-		
-		// get artist's video channel and videos
-		List<Channel> artistChannels = (List<Channel>) artist.getChannels();
-		
-		for(Channel c: artistChannels) {
-			if(c.getMediaType() == MediaType.Video) {	
-				artistVideos = (List<Media>) c.getChannelMediaList();
-				
-				artistVideoChannelName =  c.getChannelName();
-				numberOfArtistVideos =  c.getChannelMediaList().size();
-			}
+		@GetMapping("/video/viewartistvideochannel/{artistId}")
+		  public String viewArtistVideoChannel(@PathVariable("artistId") Long artistId, Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
+		    
+		    String artistVideoChannelName = "";
+		    int numberOfArtistVideos = 0;
+		    int numberOfSubscribers = 0;
+		    List<Media> artistVideos = new ArrayList<Media>();
+		    
+		    User artist = aservice.findById(artistId);
+		    String artistName = artist.getDisplayName();
+		    
+		    // get artist's video channel and videos
+		    List<Channel> artistChannels = (List<Channel>) artist.getChannels();
+		    
+		    for(Channel c: artistChannels) {
+		      if(c.getMediaType() == MediaType.Video) {  
+		        artistVideos = (List<Media>) c.getChannelMediaList();
+		        
+		        artistVideoChannelName =  c.getChannelName();
+		        numberOfArtistVideos =  c.getChannelMediaList().size();
+		      }
+		    }
+		    
+		    // Subscribe/unsubscribe button section
+		    
+		    // Calcuate all subscribers of the artist
+		    
+		    String profileUrl = "";
+		    
+		    Boolean subscribeStatus = false;
+//		    String loggedInUserSubscribeErrorMsg = "";
+//		    String totalNumberOfSubscribeErrorMsg = "";
+		    
+		    List<Subscribed> users_Unsubscribed = uservice.getArtistUnSubscribed(artistId);
+		    List<Subscribed> users_Subscribed = uservice.getArtistSubscribed(artistId);
+		    numberOfSubscribers = users_Subscribed.size() - users_Unsubscribed.size();
+		    if (numberOfSubscribers < 0) {
+		      logger.error("The number of subscribers should not be less than 0, please check the database");
+//		      totalNumberOfSubscribeErrorMsg = "The number of subscribers should not be less than 0, please check the database";
+		    }
+		    
+		    
+		    
+		    
+		    if (userDetails != null) {
+		    	
+		    	model.addAttribute("count", uservice.getItemCountByUserID(userDetails.getUserId()));
+		    	
+		      // Get the loggedIn user
+		      Long loggedInUserId = userDetails.getUserId(); 
+//		      User loggedInUser = uservice.findUserByUserId(loggedInUserId);
+		      
+		      // check whether the current loggedIn user has subscribed the artist
+		      List<Subscribed> unsubscribed_loggedInUser = uservice.getArtistUnsubscribedByLoggInUserId(artistId, loggedInUserId);
+		      List<Subscribed> subscribed_loggedInUser = uservice.getArtistSubscribedByLoggInUserId(artistId, loggedInUserId);
+		      
+		      if (subscribed_loggedInUser.size() < unsubscribed_loggedInUser.size() 
+		          || (subscribed_loggedInUser == null && unsubscribed_loggedInUser != null)) {
+		        logger.error( "The number of subscriptions true should not be less than the number of subscriptions false");
+//		        loggedInUserSubscribeErrorMsg =  "The number of subscriptions true should not be less than the number of subscriptions false";
+		      }
+		      
+		      if (subscribed_loggedInUser.size() - unsubscribed_loggedInUser.size() > 1) {
+		        logger.error("The number of subscriptions true should only be 1 count bigger than the number of subscriptions false");
+//		        loggedInUserSubscribeErrorMsg = "The number of subscriptions true should only be 1 count bigger than the number of subscriptions false";
+		      }
+		      
+		      if ((unsubscribed_loggedInUser == null && subscribed_loggedInUser == null) 
+		          ||(subscribed_loggedInUser.size() == unsubscribed_loggedInUser.size())) {
+		        
+		        subscribeStatus = false;
+		      }
+		      
+		      if (subscribed_loggedInUser.size() - unsubscribed_loggedInUser.size() == 1) {
+		        subscribeStatus = true;
+		      }
+		      
+		      if (artistId == loggedInUserId) {
+		        subscribeStatus = null;
+		      }
+		      
+		      profileUrl = userDetails.getProfileUrl();
+		      
+		    }
+		    
+		    
+		    model.addAttribute("artistVideoChannelName", artistVideoChannelName);
+		    model.addAttribute("numberOfArtistVideos", numberOfArtistVideos);
+		    model.addAttribute("artistVideos", artistVideos);
+		    model.addAttribute("numberOfSubscribers", numberOfSubscribers);
+		    model.addAttribute("subscribeStatus", subscribeStatus);
+//		    model.addAttribute("loggedInUserSubscribeErrorMsg", loggedInUserSubscribeErrorMsg);
+//		    model.addAttribute("totalNumberOfSubscribeErrorMsg", totalNumberOfSubscribeErrorMsg);
+		    model.addAttribute("artistName", artistName);
+		    
+		    model.addAttribute("artistId", artistId);
+		    model.addAttribute("artist", artist);
+		    model.addAttribute("profileUrl", profileUrl);
+		    
+		    return "ArtistVideoChannel";
 		}
-		
-		// Subscribe/unsubscribe button section
-		
-		// Calcuate all subscribers of the artist
-		
-		Boolean subscribeStatus = false;
-		String loggedInUserSubscribeErrorMsg = "";
-		String totalNumberOfSubscribeErrorMsg = "";
-		
-		List<Subscribed> users_Unsubscribed = uservice.getArtistUnSubscribed(artistId);
-		List<Subscribed> users_Subscribed = uservice.getArtistSubscribed(artistId);
-		numberOfSubscribers = users_Subscribed.size() - users_Unsubscribed.size();
-		if (numberOfSubscribers < 0) {
-			totalNumberOfSubscribeErrorMsg = "The number of subscribers should not be less than 0, please check the database";
-		}
-		
-		if (userDetails != null) {
-			// Get the loggedIn user
-			Long loggedInUserId = userDetails.getUserId(); 
-//			User loggedInUser = uservice.findUserByUserId(loggedInUserId);
-			
-			// check whether the current loggedIn user has subscribed the artist
-			List<Subscribed> unsubscribed_loggedInUser = uservice.getArtistUnsubscribedByLoggInUserId(artistId, loggedInUserId);
-			List<Subscribed> subscribed_loggedInUser = uservice.getArtistSubscribedByLoggInUserId(artistId, loggedInUserId);
-			
-			if (subscribed_loggedInUser.size() < unsubscribed_loggedInUser.size() 
-					|| (subscribed_loggedInUser == null && unsubscribed_loggedInUser != null)) {
-				loggedInUserSubscribeErrorMsg =  "The number of subscriptions true should not be less than the number of subscriptions false";
-			}
-			
-			if (subscribed_loggedInUser.size() - unsubscribed_loggedInUser.size() > 1) {
-				loggedInUserSubscribeErrorMsg = "The number of subscriptions true should only be 1 count bigger than the number of subscriptions false ";
-			}
-			
-			if ((unsubscribed_loggedInUser == null && subscribed_loggedInUser == null) 
-					||(subscribed_loggedInUser.size() == unsubscribed_loggedInUser.size())) {
-				
-				subscribeStatus = false;
-			}
-			
-			if (subscribed_loggedInUser.size() - unsubscribed_loggedInUser.size() == 1) {
-				subscribeStatus = true;
-			}
-			
-			if (artistId == loggedInUserId) {
-				subscribeStatus = null;
-			}
-			model.addAttribute("profileUrl", userDetails.getProfileUrl());
-		}
-		
-		
-		model.addAttribute("artistVideoChannelName", artistVideoChannelName);
-		model.addAttribute("numberOfArtistVideos", numberOfArtistVideos);
-		model.addAttribute("artistVideos", artistVideos);
-		model.addAttribute("numberOfSubscribers", numberOfSubscribers);
-		model.addAttribute("subscribeStatus", subscribeStatus);
-		model.addAttribute("loggedInUserSubscribeErrorMsg", loggedInUserSubscribeErrorMsg);
-		model.addAttribute("totalNumberOfSubscribeErrorMsg", totalNumberOfSubscribeErrorMsg);
-		model.addAttribute("artistName", artistName);
-		model.addAttribute("artistId", artistId);
-		model.addAttribute("artist", artist);
-		model.addAttribute("user", uservice.findUserByUserId(userDetails.getUserId()));
-		
-		return "ArtistVideoChannel";
-	}
 	
 	
 	@GetMapping("/video/subscribenoajax/{artistId}")
@@ -1397,113 +1418,118 @@ public class MediaController {
 	
 //--------------------------User views Artist Music Channel Page by ZQ--------------------------------------------------
 	@GetMapping("music/viewartistmusicchannel/{artistId}")
-	public String viewArtistMusicChannel1(@PathVariable("artistId") Long artistId, Long AlbumID, Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
-		
-		String artistMusicChannelName = "";
-		int numberOfArtistAlbums = 0;
-		int numberOfArtistMusics = 0;
-		int numberOfSubscribers = 0;
-		List<Album> artistAlbums = new ArrayList<Album>();
-		
-		User artist = aservice.findById(artistId);
-		String artistName = artist.getDisplayName();
-
-		// get artist's video channel and albums
-		List<Channel> artistChannels = (List<Channel>) artist.getChannels();
-		for(Channel c: artistChannels) {
-			if(c.getMediaType() == MediaType.Music) {	
-				artistMusicChannelName =  c.getChannelName();
-				artistAlbums = (List<Album>) c.getAlbumslist();
-				if (artistAlbums != null) {
-					numberOfArtistAlbums =  artistAlbums.size();
-					for(Album a: artistAlbums) {
-						numberOfArtistMusics += a.getAlbumMedia().size();
-						
-					}
-				}
-			}
-		}
-		
-				
-		// Subscribe/unsubscribe button section
-		
-		// Calcuate all subscribers of the artist
-		
-		Boolean subscribeStatus = false;
-		String loggedInUserSubscribeErrorMsg = "";
-		String totalNumberOfSubscribeErrorMsg = "";
-		
-		List<Subscribed> users_Unsubscribed = uservice.getArtistUnSubscribed(artistId);
-		List<Subscribed> users_Subscribed = uservice.getArtistSubscribed(artistId);
-		numberOfSubscribers = users_Subscribed.size() - users_Unsubscribed.size();
-		if (numberOfSubscribers < 0) {
-			totalNumberOfSubscribeErrorMsg = "The number of subscribers should not be less than 0, please check the database";
-		}
-		
-		if (userDetails != null) {
-			
-			// Get the loggedIn user
-			Long loggedInUserId = userDetails.getUserId(); 
-//			User loggedInUser = uservice.findUserByUserId(loggedInUserId);
-			
-			// check whether the current loggedIn user has subscribed the artist
-			List<Subscribed> unsubscribed_loggedInUser = uservice.getArtistUnsubscribedByLoggInUserId(artistId, loggedInUserId);
-			List<Subscribed> subscribed_loggedInUser = uservice.getArtistSubscribedByLoggInUserId(artistId, loggedInUserId);
-			
-			if (subscribed_loggedInUser.size() < unsubscribed_loggedInUser.size() 
-					|| (subscribed_loggedInUser == null && unsubscribed_loggedInUser != null)) {
-				loggedInUserSubscribeErrorMsg =  "The number of subscriptions true should not be less than the number of subscriptions false";
-			}
-			
-			if (subscribed_loggedInUser.size() - unsubscribed_loggedInUser.size() > 1) {
-				loggedInUserSubscribeErrorMsg = "The number of subscriptions true should only be 1 count bigger than the number of subscriptions false ";
-			}
-			
-			if ((unsubscribed_loggedInUser == null && subscribed_loggedInUser == null) 
-					||(subscribed_loggedInUser.size() == unsubscribed_loggedInUser.size())) {
-				
-				subscribeStatus = false;
-			}
-			
-			if (subscribed_loggedInUser.size() - unsubscribed_loggedInUser.size() == 1) {
-				subscribeStatus = true;
-			}
-			
-			if (artistId == loggedInUserId) {
-				subscribeStatus = null;
-			}
-			
-			model.addAttribute("profileUrl", userDetails.getProfileUrl());
-		}
-		
-		
-			
-			
-			
-			//code by Max: Get the Current Album's List of Music
-			
-			if (AlbumID != null) {
-				Album selectedAlbum = aservice.getAlbumByAlbumId(AlbumID);
-				
-				Collection<Media> listOfMusic = selectedAlbum.getAlbumMedia();
-				model.addAttribute("listOfMusic", listOfMusic);
-			}
-			
-		
-		model.addAttribute("artistMusicChannelName", artistMusicChannelName);
-		model.addAttribute("numberOfArtistAlbums", numberOfArtistAlbums);
-		model.addAttribute("numberOfArtistMusics", numberOfArtistMusics);
-		model.addAttribute("artistAlbums", artistAlbums);
-		model.addAttribute("numberOfSubscribers", numberOfSubscribers);
-		model.addAttribute("subscribeStatus", subscribeStatus);
-		model.addAttribute("loggedInUserSubscribeErrorMsg", loggedInUserSubscribeErrorMsg);
-		model.addAttribute("totalNumberOfSubscribeErrorMsg", totalNumberOfSubscribeErrorMsg);
-		model.addAttribute("artistName", artistName);
-		model.addAttribute("artistId", artistId);
-		model.addAttribute("artist", artist);
-		model.addAttribute("user", uservice.findUserByUserId(userDetails.getUserId()));
-		return "ArtistMusicChannel";
-	}
+	  public String viewArtistMusicChannel1(@PathVariable("artistId") Long artistId, Long AlbumID, Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
+	    
+	    String artistMusicChannelName = "";
+	    int numberOfArtistAlbums = 0;
+	    int numberOfArtistMusics = 0;
+	    int numberOfSubscribers = 0;
+	    List<Album> artistAlbums = new ArrayList<Album>();
+	    
+	    User artist = aservice.findById(artistId);
+	    String artistName = artist.getDisplayName();
+	    
+	    // get artist's video channel and albums
+	    List<Channel> artistChannels = (List<Channel>) artist.getChannels();
+	    for(Channel c: artistChannels) {
+	      if(c.getMediaType() == MediaType.Music) {  
+	        artistMusicChannelName =  c.getChannelName();
+	        artistAlbums = (List<Album>) c.getAlbumslist();
+	        if (artistAlbums != null) {
+	          numberOfArtistAlbums =  artistAlbums.size();
+	          for(Album a: artistAlbums) {
+	            numberOfArtistMusics += a.getAlbumMedia().size();
+	            
+	          }
+	        }
+	      }
+	    }
+	    
+	        
+	    // Subscribe/unsubscribe button section
+	    
+	    // Calcuate all subscribers of the artist
+	    
+	    String profileUrl = "";
+	    Boolean subscribeStatus = false;
+//	    String loggedInUserSubscribeErrorMsg = "";
+//	    String totalNumberOfSubscribeErrorMsg = "";
+	    
+	    List<Subscribed> users_Unsubscribed = uservice.getArtistUnSubscribed(artistId);
+	    List<Subscribed> users_Subscribed = uservice.getArtistSubscribed(artistId);
+	    numberOfSubscribers = users_Subscribed.size() - users_Unsubscribed.size();
+	    if (numberOfSubscribers < 0) {
+	      
+	      logger.error("The number of subscribers should not be less than 0, please check the database");
+//	      totalNumberOfSubscribeErrorMsg = "The number of subscribers should not be less than 0, please check the database";
+	    }
+	    
+	    if (userDetails != null) {
+	      
+	      model.addAttribute("count", uservice.getItemCountByUserID(userDetails.getUserId()));
+	    	
+	      // Get the loggedIn user
+	      Long loggedInUserId = userDetails.getUserId(); 
+//	      User loggedInUser = uservice.findUserByUserId(loggedInUserId);
+	      
+	      // check whether the current loggedIn user has subscribed the artist
+	      List<Subscribed> unsubscribed_loggedInUser = uservice.getArtistUnsubscribedByLoggInUserId(artistId, loggedInUserId);
+	      List<Subscribed> subscribed_loggedInUser = uservice.getArtistSubscribedByLoggInUserId(artistId, loggedInUserId);
+	      
+	      if (subscribed_loggedInUser.size() < unsubscribed_loggedInUser.size() 
+	          || (subscribed_loggedInUser == null && unsubscribed_loggedInUser != null)) {
+	        logger.error("The number of subscriptions true should not be less than the number of subscriptions false");
+//	        loggedInUserSubscribeErrorMsg =  "The number of subscriptions true should not be less than the number of subscriptions false";
+	      }
+	      
+	      if (subscribed_loggedInUser.size() - unsubscribed_loggedInUser.size() > 1) {
+	        logger.error("The number of subscriptions true should only be 1 count bigger than the number of subscriptions false");
+//	        loggedInUserSubscribeErrorMsg = "The number of subscriptions true should only be 1 count bigger than the number of subscriptions false";
+	      }
+	      
+	      if ((unsubscribed_loggedInUser == null && subscribed_loggedInUser == null) 
+	          ||(subscribed_loggedInUser.size() == unsubscribed_loggedInUser.size())) {
+	        
+	        subscribeStatus = false;
+	      }
+	      
+	      if (subscribed_loggedInUser.size() - unsubscribed_loggedInUser.size() == 1) {
+	        subscribeStatus = true;
+	      }
+	      
+	      if (artistId == loggedInUserId) {
+	        subscribeStatus = null;
+	      }
+	      profileUrl = userDetails.getProfileUrl();
+	      
+	    }
+	    
+	      
+	      //code by Max: Get the Current Album's List of Music
+	      
+	      if (AlbumID != null) {
+	        Album selectedAlbum = aservice.getAlbumByAlbumId(AlbumID);
+	        
+	        Collection<Media> listOfMusic = selectedAlbum.getAlbumMedia();
+	        model.addAttribute("listOfMusic", listOfMusic);
+	      }
+	      
+	      model.addAttribute("artistMusicChannelName", artistMusicChannelName);
+	      model.addAttribute("numberOfArtistAlbums", numberOfArtistAlbums);
+	      model.addAttribute("numberOfArtistMusics", numberOfArtistMusics);
+	      model.addAttribute("artistAlbums", artistAlbums);
+	      model.addAttribute("numberOfSubscribers", numberOfSubscribers);
+	      model.addAttribute("subscribeStatus", subscribeStatus);
+//	      model.addAttribute("loggedInUserSubscribeErrorMsg", loggedInUserSubscribeErrorMsg);
+//	      model.addAttribute("totalNumberOfSubscribeErrorMsg", totalNumberOfSubscribeErrorMsg);
+	      model.addAttribute("artistName", artistName);
+	      model.addAttribute("artistId", artistId);
+	      model.addAttribute("artist", artist);
+	      model.addAttribute("profileUrl", profileUrl);
+//	      model.addAttribute("user", uservice.findUserByUserId(userDetails.getUserId()));
+	      return "ArtistMusicChannel";
+	      
+	    }
 	
 	
 	@GetMapping("/music/subscribenoajax/{artistId}")

@@ -25,7 +25,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Query("Select u from User u where u.lastName LIKE %:lastName%")
 	public Collection<User> getusersbylastname(@Param("lastName")String lastName);
 	
-	@Query("Select u from User u where u.firstName LIKE %:name% OR u.lastName LIKE %:name%")
+	@Query("Select u from User u where CONCAT(u.firstName,' ',u.lastName) LIKE %:name%")
 	public Collection<User> getusersbyname(@Param("name")String name);
 	
 }
