@@ -450,7 +450,7 @@ public class DashboardController  {
 						average.add(monthAverage);
 					}
 					
-					model.addAttribute("profileUrl", userDetails.getProfileUrl());
+					model.addAttribute("profileUrl", myUserDetails.getProfileUrl());
 					model.addAttribute("productnumber", totalproduct);
 					model.addAttribute("clothing",clothingSoldWithMonth);
 					model.addAttribute("merchandise",merchandiseSoldWithMonth);
