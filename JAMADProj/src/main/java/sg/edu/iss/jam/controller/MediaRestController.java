@@ -289,6 +289,7 @@ public class MediaRestController {
 		artistVideoChannel.setSubscribeStatus(subscribeStatus);
 		
 		return new ResponseEntity<>(artistVideoChannel, HttpStatus.OK);
+	}
 		
 	@GetMapping("/music/getallrecommendedmusics")
 	public ResponseEntity<?> loginMusicLandingPage(@RequestParam("userID") long userID) {
