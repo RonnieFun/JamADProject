@@ -68,6 +68,34 @@ public interface MediaRepository extends JpaRepository<Media, Long> {
 	@Query("Select m from Media m join m.album a where a.AlbumID=:AlbumID")
 	public List<Media> findMediaByAlbumId(@Param("AlbumID") long AlbumID );
 
+	@Query("Select m FROM Media m WHERE m.mediaType = 'Music'")
+	List<Media> findAllMusics();
+	
+	
+	//Search Function
+//	@Query("Select m from Media m WHERE m.title LIKE %:title%")
+//	public Collection<Media> getMediasliketile(@Param("title")String title);
+//	
+//
+//	@Query("Select m from Media m JOIN m.channel c JOIN c.channelUser u "
+//			+ "WHERE u.firstName LIKE %:name% "
+//			+ "or u.lastName LIKE %:name%")
+//	public Collection<Media> getMediaslikeArtist(@Param("name")String name);
+//	
+//
+//	@Query("Select m from Media m JOIN m.tagList t WHERE t.tagName LIKE %:tag%")
+//	public Collection<Media> getMediasliketag(@Param("tag")String title);
+	
+	@Query("Select DISTINCT m from Media m JOIN m.tagList t JOIN m.channel c JOIN c.channelUser u "
+			+ "WHERE  m.mediaType =:mediaType "
+			+ "AND ("
+			+ "m.title LIKE %:searchterm% "
+			+ "or u.firstName LIKE %:searchterm% "
+			+ "or u.lastName LIKE %:searchterm% "
+			+ "or t.tagName LIKE %:searchterm%"
+			+ ") ")
+	public Collection<Media> getMediasfromVarious(@Param("searchterm")String searchterm,@Param("mediaType") MediaType mediaType);
+
 
 	
 	

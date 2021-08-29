@@ -7,16 +7,17 @@ import org.springframework.http.ResponseEntity;
 
 import sg.edu.iss.jam.model.Media;
 import sg.edu.iss.jam.model.MediaType;
+import sg.edu.iss.jam.model.UserHistory;
 
 public interface MediaServiceInterface {
-	
+
 	public ResponseEntity<byte[]> getContent(String location, String fileName, String range, String contentTypePrefix);
 	 
 	//scy-videolandingpage
 	
 	public List<Media> getMediaByTypeAndCount(MediaType mediaType);
 
-	public List<Media> getMediaByUserHistory(MediaType mediaType,LocalDate lesscurrentdate);
+	public List<Media> getMediaByUserHistory(MediaType mediaType, LocalDate lesscurrentdate);
 
 	public Media getMediaById(Long id);
 
@@ -28,5 +29,7 @@ public interface MediaServiceInterface {
 
 	public List<Media> findMediaByAlbumId(Long albumID);
 
+	public List<Media> findAllMusics();
 
+	public void saveUserHistory(UserHistory userhistory);
 }

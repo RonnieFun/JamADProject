@@ -127,7 +127,7 @@ public class MediaController {
 	}
 	
 	@GetMapping("/video/genericvideolandingpage")
-	public String genericVideoLandingPage(Model model) {
+	public String genericVideoLandingPage(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
 		
 //				List<Object[]> topVideosByUserHistory=mservice.getTopMediasByUserHistory(6,MediaType.Video);
 //				List<Media> videos=new ArrayList<Media>();
@@ -136,6 +136,10 @@ public class MediaController {
 //				}
 //				model.addAttribute("videos",videos);
 				
+				if(userDetails != null) {
+					return "redirect:/video/loginvideolandingpage";
+				}
+		
 				List<Media> allVideos=mservice.getMediaByUserHistory(MediaType.Video,LocalDate.now().minusMonths(36));
 				List<Media> topVideos=new ArrayList<Media>();
 				List<Media> toptwelveVideos=new ArrayList<Media>();
@@ -162,8 +166,12 @@ public class MediaController {
 	//musiclanding page 
 	
 	@GetMapping("/music/genericmusiclandingpage")
-	public String genericMusicLandingPage(Model model) {
+	public String genericMusicLandingPage(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
 			
+		if(userDetails != null) {
+			return "redirect:/music/loginmusiclandingpage";
+		}
+		
 		List<Media> allMusics=mservice.getMediaByUserHistory(MediaType.Music,LocalDate.now().minusMonths(36));
 		List<Media> topMusics=new ArrayList<Media>();
 		List<Media> toptwelveMusics=new ArrayList<Media>();
@@ -263,7 +271,7 @@ public class MediaController {
 				model.addAttribute("recommend_medialist", recommend_medialist);
 			}
 			
-			
+			model.addAttribute("profileUrl", userDetails.getProfileUrl());
 			model.addAttribute("hasUserHistoryVideo", hasUserHistoryVideo);
 			return "loginvideolandingpage";
 		}	
@@ -344,7 +352,8 @@ public class MediaController {
 				model.addAttribute("recommend_medialist", recommend_medialist);
 				
 			}
-					
+			
+			model.addAttribute("profileUrl", userDetails.getProfileUrl());
 			model.addAttribute("hasUserHistoryMusic", hasUserHistoryMusic);
 			return "loginmusiclandingpage";
 		}	
@@ -1308,7 +1317,9 @@ public class MediaController {
 			if (artistId == loggedInUserId) {
 				subscribeStatus = null;
 			}
+			model.addAttribute("profileUrl", userDetails.getProfileUrl());
 		}
+		
 		
 		model.addAttribute("artistVideoChannelName", artistVideoChannelName);
 		model.addAttribute("numberOfArtistVideos", numberOfArtistVideos);
@@ -1457,6 +1468,8 @@ public class MediaController {
 			if (artistId == loggedInUserId) {
 				subscribeStatus = null;
 			}
+			
+			model.addAttribute("profileUrl", userDetails.getProfileUrl());
 		}
 		
 		
@@ -1471,6 +1484,7 @@ public class MediaController {
 				Collection<Media> listOfMusic = selectedAlbum.getAlbumMedia();
 				model.addAttribute("listOfMusic", listOfMusic);
 			}
+			
 		
 		model.addAttribute("artistMusicChannelName", artistMusicChannelName);
 		model.addAttribute("numberOfArtistAlbums", numberOfArtistAlbums);

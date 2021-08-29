@@ -19,7 +19,9 @@ import org.springframework.stereotype.Service;
 
 import sg.edu.iss.jam.model.Media;
 import sg.edu.iss.jam.model.MediaType;
+import sg.edu.iss.jam.model.UserHistory;
 import sg.edu.iss.jam.repo.MediaRepository;
+import sg.edu.iss.jam.repo.UserHistoryRepository;
 
 @Service
 public class MediaServiceImplementation implements MediaServiceInterface {
@@ -28,6 +30,9 @@ public class MediaServiceImplementation implements MediaServiceInterface {
 	//scy-part
 		@Autowired
 		MediaRepository mediarepo;
+		
+		@Autowired
+		UserHistoryRepository uhrepo;
 		
 	
 //		public List<Object[]> getTopMediasByUserHistory(int i, MediaType mediaType){
@@ -140,11 +145,21 @@ public class MediaServiceImplementation implements MediaServiceInterface {
 	public List<Media> findAllVideos() {
 		return mediarepo.findAllVideos();
 	}
+	
+	@Override
+	public List<Media> findAllMusics() {
+		return mediarepo.findAllMusics();
+	}
 
 	@Override
 	public List<Media> findMediaByAlbumId(Long albumID) {
 		
 		return mediarepo.findMediaByAlbumId(albumID);
+	}
+
+	@Override
+	public void saveUserHistory(UserHistory userhistory) {
+		uhrepo.save(userhistory);
 	}
 
 }
