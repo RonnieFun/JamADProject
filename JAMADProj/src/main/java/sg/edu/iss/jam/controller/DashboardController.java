@@ -59,7 +59,7 @@ public class DashboardController  {
 				int musicsnumber=0;
 				int totalMusicsCounts=0;
 			
-		
+				
 				
 				List<Channel> artistChannels = (List<Channel>) artist.getChannels();
 				
@@ -462,6 +462,11 @@ public class DashboardController  {
 					model.addAttribute("user", artist);
 					model.addAttribute("profileUrl", artist.getProducts());
 
+					
+					if(myUserDetails != null) {
+					    model.addAttribute("count", uservice.getItemCountByUserID(myUserDetails.getUserId()));
+					}
+					
 					return "dashboard";	
 		}
 }
