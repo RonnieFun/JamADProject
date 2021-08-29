@@ -57,6 +57,7 @@ public class ShoppingCartController {
 			}
 		}
 		model.addAttribute("cartForm", detailsAndCountQty);
+		System.out.println(detailsAndCountQty);
 		model.addAttribute("profileUrl", user.getProfileUrl());
 		model.addAttribute("totalAmount", cartInfo.getAmountTotal());
 		model.addAttribute("totalQuantity",cartInfo.getQuantityTotal());
