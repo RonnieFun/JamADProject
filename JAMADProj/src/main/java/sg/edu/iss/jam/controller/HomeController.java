@@ -172,7 +172,7 @@ public class HomeController {
 		List<User> followUsers = uService.getFollowing(userID);
 					 
 		model.addAttribute("followingUsers", followUsers);
-		model.addAttribute("user", uService.findUserByUserId(userDetails.getUserId()));
+		model.addAttribute("user", urepo.findById(userDetails.getUserId()).get());
 		model.addAttribute("profileUrl", user.getProfileUrl());
 		model.addAttribute("fullName", user.getFullname());
 		model.addAttribute("followers", ((srepo.getArtistSubscribed(user.getUserID())).size() - (srepo.getArtistUnSubscribed(user.getUserID())).size()));

@@ -27,7 +27,7 @@
                 <b style="color: #000;font-size:16px; font-weight: 600" th:utext="${cartLineInfo.key.product.productName}"></b>
                 <p style="font-size: 14px;"><!-- CORE BLACK / CORE BLACK / CORE BLACK<br>
                 SIZE: M 7.5 / W 8.5<br> -->
-                PRICE: <span th:utext="${cartLineInfo.key.product.productPrice}"></span>
+                PRICE: <span th:utext="'$' + ${#numbers.formatDecimal(cartLineInfo.key.product.productPrice,0,2)}"></span>
                 </p>
                 
                 <p th:if="${cartLineInfo.value !=0 && cartLineInfo.value ==1 }">
@@ -44,7 +44,7 @@
               <td> <input type="text"  th:value="${cartLineInfo.key.quantity}"  th:onchange="'javascript:updateCartItemQuantity( \''+${cartLineInfo.key.product.productID}+'\' , '+this.value+');'" class="form-control" style="width: 50px; height: 35px;">
               
               </td>
-              <td>$<span th:utext="${cartLineInfo.key.product.productPrice}"></span></td>
+              <td><span th:utext="'$' + ${#numbers.formatDecimal(cartLineInfo.key.product.productPrice,0,2)}"></span></td>
             </tr>
               </div>
 
@@ -75,7 +75,7 @@
               <span th:text="'$' + ${#numbers.formatDecimal(totalAmount,0,2)}"></span><br><br>
               [<span th:utext="${totalQuantity}"></span> ITEMS]<br><br>
               FREE<br><br>
-              $0.0
+              $0.00
             </td> 
          
             <tr>
