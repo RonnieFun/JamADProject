@@ -39,6 +39,7 @@ public class ProductController {
 			@AuthenticationPrincipal MyUserDetails userDetails) {
 		User artist = null;
 		artist = aservice.getArtistByID(artistid);
+		
 		// userId need to replace
 		Long count = uservice.getItemCountByUserID(userDetails.getUserId());
 		model.addAttribute("status", "allProducts");
