@@ -122,8 +122,8 @@
 	<form name="userCommentsFormMusic" id="userCommentsFormMusic" method="post">
 		<div class="userCommentsSectionMusic">
 			<span th:text="${commentCount} + ' Comments'" class="numberOfCommentsMusic"></span>
-			<textarea th:if="${user != null}" id="commentsTxtAreaMusic" class="commentsTextAreaMusic" placeholder="Write your comments here" rows="2" cols="112"></textarea>
-			<a th:href = "@{/media/redirectLogin}" th:if="${user == null}"><textarea th:if="${user == null}" id="commentsTxtArea" class="commentsTextArea" placeholder="Write your comments here" rows="2" cols="112"></textarea></a>
+			<textarea th:if="${user != null}" id="commentsTxtAreaMusic" class="commentsTextAreaMusic" placeholder="Write your comments here" rows="2" cols="112" maxlength="254"></textarea>
+			<a th:href = "@{/media/redirectLogin}" th:if="${user == null}"><textarea th:if="${user == null}" id="commentsTxtArea" class="commentsTextArea" placeholder="Write your comments here" rows="2" cols="112" maxlength="254"></textarea></a>
 		</div>
 		
 		<!-- Comments Submit Button -->

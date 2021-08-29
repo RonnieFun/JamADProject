@@ -196,7 +196,7 @@ $(document).ready(function(){
 		} 
 		
 		if($('#commentsTxtArea').val().trim() != "") {
-		var submittedComment = $("#commentsTxtArea").val();
+		var submittedComment = $("#commentsTxtArea").val().trim();
 		var commentUserId = document.getElementById("commentUserId").value;
 		var commentDisplayName = document.getElementById("commentDisplayName").value;
 		var commentMediaId = document.getElementById("commentMediaId").value;
@@ -230,7 +230,7 @@ $(document).ready(function(){
 		} 
 		
 		if($('#commentsTxtAreaMusic').val().trim() != "") {
-		var submittedCommentMusic = $("#commentsTxtAreaMusic").val();
+		var submittedCommentMusic = $("#commentsTxtAreaMusic").val().trim();
 		var commentUserIdMusic = document.getElementById("commentUserIdMusic").value;
 		var commentDisplayNameMusic = document.getElementById("commentDisplayNameMusic").value;
 		var commentMediaIdMusic = document.getElementById("commentMediaIdMusic").value;
