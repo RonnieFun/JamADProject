@@ -44,7 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 
 			.antMatchers("/api/**").permitAll()
-			.antMatchers("/images/**","/css/**","/videos/**","/login/**","/login/signup","/login/save").permitAll()
+			.antMatchers("/images/**","/css/**","/videos/**","/login/**","/login/signup","/login/save", "/media/**").permitAll()
 			.antMatchers("/login" , "/video/viewartistvideochannel/**", "/music/viewartistmusicchannel/**").permitAll()
 			.antMatchers("/video/watchvideo/**", "/music/loadnextmusic/**").permitAll()
 			.antMatchers("/video/genericvideolandingpage","/music/genericmusiclandingpage").permitAll()

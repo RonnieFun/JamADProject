@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -25,12 +26,14 @@ public class Product {
 
 	private String productDes;
 
+	@Min (value = 0, message = "Product quantity cannot be less than 0.")
 	@NotNull (message = "Product quantity must be filled in.")
 	private int productQty;
 
 	@Enumerated(EnumType.STRING)
 	private Category productCategory;
 
+	@Min (value = 0, message = "Product price cannot be less than 0.")
 	@NotNull (message = "Product price must be filled in.")
 	private double productPrice;
 
@@ -73,10 +76,6 @@ public class Product {
 		this.productUser = productUser;
 	}
 
-
-
-
-
 	public Long getProductID() {
 		return productID;
 	}
@@ -109,30 +108,21 @@ public class Product {
 		this.productQty = productQty;
 	}
 
-
 	public Category getProductCategory() {
 		return productCategory;
 	}
-
-
 
 	public void setProductCategory(Category productCategory) {
 		this.productCategory = productCategory;
 	}
 
-
-
 	public Collection<OrderDetails> getOrderDetails() {
 		return orderDetails;
 	}
 
-
-
 	public void setOrderDetails(Collection<OrderDetails> orderDetails) {
 		this.orderDetails = orderDetails;
 	}
-
-
 
 	public double getProductPrice() {
 		return productPrice;
