@@ -6,24 +6,26 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
   <img th:src="@{/images/JAM_LOGO.png}" class="logo2">
  <nav class="navbar jamHeader2"></nav>
 
+<div sec:authorize="hasAnyAuthority('Artist')">
 <div class="signUpBody2">
  	<img th:src="@{/images/JAM_LOGO.png}" class="biglogo">
  	
  	<div class="forArtistsText">FOR Artists</div>
-	 <div id="signUpForm">
+	 <div id="signUpForm">	 
 		 <form class="form-inline" th:action="@{/login/update}" th:object=${user} method="post">
 		 	 <input type="hidden" th:field="*{userID}" />
 		 	 <input type="hidden" th:field="*{firstName}" />
 		 	 <input type="hidden" th:field="*{lastName}" />
 		 	 <input type="hidden" th:field="*{email}" />
 		 	 <input type="hidden" th:field="*{password}" />
-		 	 <input type="hidden" th:field="*{Artist}" />
+		 	 <input type="hidden" th:field="*{Artist}"/>
 		 	 <input type="hidden" th:field="*{profileUrl}" />
 		 	 <input type="hidden" th:field="*{Enabled}" />	
-			 <input placeholder="Stage Name" type="text" id="stageNameInput" th:field="*{displayName}"/>
+		 	 <input type="hidden" th:field="*{bannerUrl}" />
+			 <input placeholder="Stage Name" type="text" id="stageNameInput" th:field="*{displayName}" required/>
 			 
 				 <div>
-				 	<img th:src="${profileUrl}" class="artistSignupImage" alt="display picture preview">
+				 	<img th:src="${user.profileUrl}" class="artistSignupImage" alt="display picture preview">
 				 	<div class="uploadArtistImage">
 					  <label for="artistProfilePic">
 					    <i class="fa fa-camera cameraIcon" aria-hidden="true"></i>
@@ -31,6 +33,9 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 					  <input id="artistProfilePic" type="file" style="display:none;"/>
 					</div>
 				</div>
+			
+			
+			
 				
 				 <!--<div class="artistSignupImage2">
 				 	<div class="uploadArtistImage2">
@@ -45,6 +50,53 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 			 <input type="submit" class="editShowReelBtn" value="Finish" />
 		 </form>
 	</div>
+</div>
+</div>
+<div sec:authorize="hasAnyAuthority('Customer')">
+<div class="signUpBody2">
+ 	<img th:src="@{/images/JAM_LOGO.png}" class="biglogo">
+ 	
+ 	<div class="forArtistsText">FOR Artists</div>
+	 <div id="signUpForm">	 
+		 <form class="form-inline" th:action="@{/login/save}" th:object=${user} method="post">
+		 	 <input type="hidden" th:field="*{userID}" />
+		 	 <input type="hidden" th:field="*{firstName}" />
+		 	 <input type="hidden" th:field="*{lastName}" />
+		 	 <input type="hidden" th:field="*{email}" />
+		 	 <input type="hidden" th:field="*{password}" />
+		 	 <input type="hidden" th:field="*{Artist}"/>
+		 	 <input type="hidden" th:field="*{profileUrl}" />
+		 	 <input type="hidden" th:field="*{Enabled}" />	
+		 	 <input type="hidden" th:field="*{bannerUrl}" />
+			 <input placeholder="Stage Name" type="text" id="stageNameInput" th:field="*{displayName}" required/>
+			 
+				 <div>
+				 	<img th:src="${user.profileUrl}" class="artistSignupImage" alt="display picture preview">
+				 	<div class="uploadArtistImage">
+					  <label for="artistProfilePic">
+					    <i class="fa fa-camera cameraIcon" aria-hidden="true"></i>
+					  </label>
+					  <input id="artistProfilePic" type="file" style="display:none;"/>
+					</div>
+				</div>
+			
+			
+			
+				
+				 <!--<div class="artistSignupImage2">
+				 	<div class="uploadArtistImage2">
+					  <label for="artistProfilePic">
+					    <i class="fa fa-camera cameraIcon" aria-hidden="true"></i>
+					  </label>
+					  <input id="artistProfilePic" type="file" />
+					</div>
+				 </div>-->
+
+			 	<textarea class="signupAboutTextArea" placeholder="About"  th:field="*{about}" rows="4" cols="43"></textarea>
+			 <input type="submit" class="editShowReelBtn" value="Finish" />
+		 </form>
+	</div>
+</div>
 </div>
 
 <div class="footer">

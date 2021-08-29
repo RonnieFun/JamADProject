@@ -19,7 +19,7 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 	
 		<div sec:authorize="isAuthenticated()" class = "sidebarRow">
 		<img th:src="${profileUrl}" class="profilePic" alt="profileIcon"/>
-			<h6>Welcome <span sec:authentication="principal.firstName">first
+			<h6><span th:text="${fullName}">fullname
 				name</span></h6>
 		</div>
 		
@@ -28,14 +28,14 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 			<h6>Covid 19 news</h6>
 		</div>
 		
-		<a href="/home/subscribers" style="text-decoration: none; color:black">
+		<a th:href="@{'/home/subscribers/' + ${userID}}" style="text-decoration: none; color:black" id="userID">
 		<div class="sidebarRow">
 			<span class="material-icons">people</span>
 			<h6>Subscribers <span th:text="${followers}" style="font-weight:lighter;"></span></h6>
 		</div>
 		</a>
 		
-		<a href="/home/following" style="text-decoration: none; color:black">
+		<a th:href="@{'/home/following/' + ${userID}}" style="text-decoration: none; color:black" id="userID">
 		<div class="sidebarRow">
 			<span class="material-icons">volunteer_activism</span>
 			<h6>Following <span th:text="${following}" style="font-weight:lighter;"></span></h6>
@@ -55,11 +55,13 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 				<h6>My Store</h6>	
 			</div>
 		</a>
-			
+		
+		<a href = "/dashboard" style="text-decoration: none; color:black">
 		<div class="sidebarRow">
 			<span class="material-icons">dashboard</span>
 			<h6>My Dashboard</h6>
 		</div>
+		</a>
 		
 <!-- 		<div class="sidebarRow"> -->
 <!-- 			<span class="material-icons">expand_more</span> -->
@@ -76,7 +78,8 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 		<div class="messageSender">
 			<div class="messageSender_Top">
 				<img th:src="${profileUrl}" class="profilePic" alt="profileIcon"/>
-				<span class ="messageSender_input" th:text="${user.firstName} + ' ' + ${user.lastName} + ${'''s'}  + ' subscribers' + ': ' + ${followers}">subscribers</span>
+<!-- 				<span class ="messageSender_input" th:text="${user.firstName} + ' ' + ${user.lastName} + ${'''s'}  + ' subscribers' + ': ' + ${followers}">subscribers</span> -->
+				<span class ="messageSender_input" th:text="${fullName} + ${'''s'}  + ' subscribers' + ': ' + ${followers}">subscribers</span>
 				
 			<div class="header_input">
 				<span class="material-icons"> search </span>

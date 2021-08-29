@@ -1,8 +1,10 @@
 package sg.edu.iss.jam.service;
 
 import java.util.Collection;
+import java.util.List;
 
 import sg.edu.iss.jam.model.Post;
+import sg.edu.iss.jam.model.User;
 
 public interface HomeInterface {
 	
@@ -13,5 +15,7 @@ public interface HomeInterface {
 	public Post SavePost(Post Post);
 	
 	public Post getPostbyID(Long id);
+	
+
 
 }

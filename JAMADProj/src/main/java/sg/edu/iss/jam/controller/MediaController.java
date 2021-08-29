@@ -53,6 +53,7 @@ public class MediaController {
 	@Autowired
 	MediaServiceInterface mservice;
 	
+	
 	// for recommendation
 	@Autowired
 	private RestTemplate restTemplate;
@@ -202,6 +203,7 @@ public class MediaController {
 			if(userDetails == null) {
 				return "redirect:/login";	
 			}
+			model.addAttribute("user", uservice.findUserByUserId(userDetails.getUserId()));
 			
 			// if the code comes here, it means the user exists in database,
 			// then check whether it's new user or not	
@@ -284,6 +286,7 @@ public class MediaController {
 			if(userDetails == null) {
 				return "redirect:/login";	
 			}
+			model.addAttribute("user", uservice.findUserByUserId(userDetails.getUserId()));
 			
 			// if the code comes here, it means the user exists in database,
 			// then check whether it's new user or not	
@@ -1331,6 +1334,7 @@ public class MediaController {
 		model.addAttribute("artistName", artistName);
 		model.addAttribute("artistId", artistId);
 		model.addAttribute("artist", artist);
+		model.addAttribute("user", uservice.findUserByUserId(userDetails.getUserId()));
 		
 		return "ArtistVideoChannel";
 	}
@@ -1496,7 +1500,8 @@ public class MediaController {
 		model.addAttribute("totalNumberOfSubscribeErrorMsg", totalNumberOfSubscribeErrorMsg);
 		model.addAttribute("artistName", artistName);
 		model.addAttribute("artistId", artistId);
-		model.addAttribute("artist", artist);	
+		model.addAttribute("artist", artist);
+		model.addAttribute("user", uservice.findUserByUserId(userDetails.getUserId()));
 		return "ArtistMusicChannel";
 	}
 	

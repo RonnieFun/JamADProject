@@ -13,9 +13,8 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 	</div>
 	
 	<div>
-	    <a id=userID style="display: none;" th:value="${user.userID}"></a>
+		   <a id=userID style="display: none;" th:value="${user.userID}"></a>
 	</div>
-	
 	
 <div class="mainBody">
 <!-- 	Sidebar  start -->
@@ -23,8 +22,8 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 	<div class = "sidebar">
 
 		<div sec:authorize="isAuthenticated()" class = "sidebarRow">
-		<img th:src="${profileUrl}" class="profilePic" alt="profileIcon"/>
-			<h6>Welcome <span sec:authentication="principal.firstName">first
+		<img th:src="${vieweeProfileUrl}" class="profilePic" alt="profileIcon"/>
+			<h6><span th:text="${vieweeFullName}">fullname
 				name</span></h6>
 		</div>
 		
@@ -33,7 +32,7 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 			<h6>Covid 19 news</h6>
 		</div>
 		
-		<div sec:authorize="hasAnyAuthority('Artist')">
+	<div sec:authorize="hasAnyAuthority('Artist')">
 		<a th:href="@{'/home/subscribers/' + ${userID}}" style="text-decoration: none; color:black" id="userID">
 		<div class="sidebarRow">
 			<span class="material-icons">people</span>
@@ -41,7 +40,6 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 		</div>
 		</a>
 		
-	
 	<a th:href="@{'/home/following/' + ${userID}}" style="text-decoration: none; color:black" id="userID">
 		<div class="sidebarRow">
 			<span class="material-icons">volunteer_activism</span>
@@ -49,16 +47,27 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 		</div>
 	</a>
 	</div>
-	
-	<div sec:authorize="hasAnyAuthority('Customer')">
-	<a th:href="@{'/home/following/' + ${userID}}" style="text-decoration: none; color:black" id="userID">
+		
+		<a th:href="@{'/video/viewartistvideochannel/' + ${userID}}" style="text-decoration: none; color:black" id="userID">
 		<div class="sidebarRow">
-			<span class="material-icons">volunteer_activism</span>
-			<h6>Subscriptions <span th:text="${following}" style="font-weight:lighter;"></span></h6>
+			<span class="material-icons">ondemand_video</span>
+			<h6><span th:text="${vieweeFullName} + ${'''s'}  + ' Video Channel'">Vid Channel</span></h6>
 		</div>
-	</a>
-	</div>
+		</a>
+		
+		<a th:href="@{'/music/viewartistmusicchannel/' + ${userID}}" style="text-decoration: none; color:black" id="userID">
+		<div class="sidebarRow">
+			<span class="material-icons">headset</span>
+			<h6><span th:text="${vieweeFullName} + ${'''s'}  + ' Music Channel'">Music Channel</span></h6>
+		</div>
+		</a>
 	
+		<a th:href="@{'/carthometab/' + ${userID}}" style="text-decoration: none; color:black" id="userID">
+		<div class="sidebarRow">
+			<span class="material-icons">redeem </span>
+			<h6><span th:text="${vieweeFullName} + ${'''s'}  + ' Shop'">Shop</span></h6>
+		</div>
+		</a>
 
 		<div sec:authorize="hasAnyAuthority('Artist')">
 		<a href = "/artist/channel" style="text-decoration: none; color:black">
@@ -74,8 +83,8 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 				<h6>My Store</h6>	
 			</div>
 		</a>
-			
-		<a href = "/dashboard" style="text-decoration: none; color:black">	
+		
+		<a href = "/dashboard" style="text-decoration: none; color:black">
 		<div class="sidebarRow">
 			<span class="material-icons">dashboard</span>
 			<h6>My Dashboard</h6>
@@ -100,14 +109,12 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 			<div class="cover">
 				<img th:src="${bannerUrl}" class="" alt="postPicture"/>
 			</div>
-				<div>
-					<label for="profile">
-						<img th:src="${user.ProfileUrl}" class="profile" alt="postPicture"/>
-<!-- 						<input id="profile" type="file" class="fa fa-camera cameraIcon" aria-hidden="true"/> -->
-					</label>
-					
-				</div>
-				
+			<div>
+				<img th:src="${vieweeProfileUrl}" class="profile" alt="postPicture"/>
+			</div>
+			
+			<div>
+			
 <!-- 			<div style="background-image: url(https://later.com/blog/wp-content/uploads/2019/01/How-Often-to-Post-to-Facebook-Stories.png) " class="story"> -->
 <!-- 				<img th:src="@{/images/estelle.PNG}" class="profilePic" alt="profileIcon"/> -->
 <!-- 				<h5>User</h5> -->
@@ -158,6 +165,7 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 
 <!-- post starts  -->
 
+
 		<div id="PostsSection">
 
 		</div>
@@ -168,7 +176,6 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 	</div>
 	
 </div>
-
 
 	<script type="text/javascript" th:src="@{/js/posts_ajax.js}"></script>
 </body>

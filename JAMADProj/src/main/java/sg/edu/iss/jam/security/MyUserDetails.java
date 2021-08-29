@@ -32,7 +32,7 @@ public class MyUserDetails implements UserDetails {
 		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 		
 		for(int i = 0; i < roles.size(); i++) {
-		authorities.add(new SimpleGrantedAuthority("ROLE_"+roles.get(i)));
+		authorities.add(new SimpleGrantedAuthority(roles.get(i)));
 		}
 		return authorities;  
 		
