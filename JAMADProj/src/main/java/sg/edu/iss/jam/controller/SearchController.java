@@ -27,13 +27,21 @@ public class SearchController {
 	UserInterface userService;
 
 	@GetMapping("")
-	public String Search(@RequestParam(value = "searchterm", defaultValue = "TEST") String searchterm, Model model,
+	public String Search(@RequestParam(value = "searchterm", required = false) String searchterm, Model model,
 			@AuthenticationPrincipal MyUserDetails userDetails) {
+		
+		if(searchterm!= null && searchterm.trim()!=("")) {
+			model.addAttribute("searchUsers", sService.SearchUsersbyName(searchterm.trim()));
+			model.addAttribute("searchVideos", sService.SearchMediabyVarious(searchterm.trim(), MediaType.Video));
+			model.addAttribute("searchMusic", sService.SearchMediabyVarious(searchterm.trim(), MediaType.Music));
+			model.addAttribute("searchAlbums", sService.SearchAlbumbyName(searchterm.trim()));
+		}else {
+			model.addAttribute("searchUsers", null);
+			model.addAttribute("searchVideos", null);
+			model.addAttribute("searchMusic", null);
+			model.addAttribute("searchAlbums", null);
+		}
 
-		model.addAttribute("searchUsers", sService.SearchUsersbyName(searchterm));
-		model.addAttribute("searchVideos", sService.SearchMediabyVarious(searchterm, MediaType.Video));
-		model.addAttribute("searchMusic", sService.SearchMediabyVarious(searchterm, MediaType.Music));
-		model.addAttribute("searchAlbums", sService.SearchAlbumbyName(searchterm));
 
 		if (userDetails != null) {
 			User user = userService.findUserByUserId(userDetails.getUserId());

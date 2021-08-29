@@ -33,11 +33,10 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 		</a>
 			<div class="header_input">
 				<span class="material-icons"> search </span>
-				<form id="searchjam" th:action="@{search/}" method="get">				
-					<input id="searchterm" type="text" placeholder="search JAM"/>
-					<input type="submit" style="display:none"/>
-				</form>
-
+					<form id="searchjam" th:action="@{/search}" method="GET">				
+						<input id="searchterm" name="searchterm" type="text" placeholder="search JAM"/>
+						<input type="submit" style="display:none"/>
+					</form>
 			</div>
 		</div>
 		
@@ -258,9 +257,8 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 			});
 		</script>
 		
-
-		<div th:if="${user != null}"class="header_right">
-			<div class="header_info">
+		<div th:if="${user != null}" class="header_right">
+			<div class="header_info" style="margin-right: 1rem;">
 				<img th:src="${user.profileUrl}" class="" alt="profileIcon"/>
 				<h5> <span sec:authentication="principal.fullName">first
 				name</span></h5>
@@ -276,13 +274,14 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
   				</div>
 			</div>
 		</div>
-		<div th:if="${user == null and profileUrl!=null}"class="header_right">
-			<div class="header_info">
+
+		<div th:if="${user == null and profileUrl != null}" class="header_right">
+			<div class="header_info" style="margin-right: 1rem;">
 				<img th:src="${profileUrl}" class="" alt="profileIcon"/>
 				<h5> <span sec:authentication="principal.fullName">first
 				name</span></h5>
 			</div>
-			<span class="material-icons"> notifications</span>
+			
 			<div class="dropdown">
 			<button class ="dropbtn"><span class="material-icons"> expand_more</span></button>
 				<div class="dropdown-content">
