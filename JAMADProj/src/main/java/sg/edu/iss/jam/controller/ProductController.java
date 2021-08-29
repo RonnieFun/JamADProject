@@ -128,7 +128,7 @@ public class ProductController {
 		Long count = uservice.getItemCountByUserID(userDetails.getUserId());
 		model.addAttribute("count", count);
 		model.addAttribute("profileUrl", user.getProfileUrl());
-
+			
 		model.addAttribute("allProductsAndCountShop", allProductsAndCountShop);
 		model.addAttribute("musicCollectionProductsAndCountShop", musicCollectionProductsAndCountShop);
 		model.addAttribute("merchandiseProductsAndCountShop", merchandiseProductsAndCountShop);
@@ -136,7 +136,8 @@ public class ProductController {
 		model.addAttribute("profileUrl", user.getProfileUrl());
 		model.addAttribute("count", count);
 		model.addAttribute("user", user);
-
+		model.addAttribute("shopLinkActive", true);
+		
 		return "shoplandingpage";
 	}
 

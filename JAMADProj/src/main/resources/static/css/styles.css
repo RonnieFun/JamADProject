@@ -7860,3 +7860,17 @@ body {
 	color:#ff8080;
 }
 
+.loginBadCredentials{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 900;
+	color: black;
+	text-align:left;
+	font-size:110%;
+	position:absolute;
+	margin-left: 56.4%;
+	top:20px;
+	letter-spacing:0;
+	width:400px;
+	height:21px;
+	padding: 0px;
+}

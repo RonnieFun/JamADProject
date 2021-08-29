@@ -90,7 +90,10 @@ public class HomeController {
 		model.addAttribute("profileUrl", user.getProfileUrl());
 		model.addAttribute("bannerUrl", user.getBannerUrl());
 		model.addAttribute("userID", user.getUserID());
-		
+		model.addAttribute("homeLinkActive", true);
+		if (userDetails != null) {
+			model.addAttribute("count", uService.getItemCountByUserID(userDetails.getUserId()));
+		}
 		
 		model.addAttribute("followers", ((srepo.getArtistSubscribed(user.getUserID())).size() - (srepo.getArtistUnSubscribed(user.getUserID())).size()));
 		model.addAttribute("following", ((srepo.getSubscriptions(user.getUserID())).size() - srepo.getMyUnsubscribe(user.getUserID()).size()));
@@ -310,7 +313,11 @@ public class HomeController {
 				.sorted(Comparator.comparing(Post::getDateTime).reversed())
 				.collect(Collectors.toList());
 			
-			
+			if (userDetails != null) {
+				model.addAttribute("count", uService.getItemCountByUserID(userDetails.getUserId()));
+			}
+
+			model.addAttribute("feedLinkActive", true);
 			model.addAttribute("user", user);
 			model.addAttribute("posts",myFollowingPostSorted);
 			model.addAttribute("userID", user.getUserID());
