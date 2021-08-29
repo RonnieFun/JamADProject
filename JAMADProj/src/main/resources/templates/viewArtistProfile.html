@@ -115,60 +115,31 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 			
 			<div>
 			
-<!-- 			<div style="background-image: url(https://later.com/blog/wp-content/uploads/2019/01/How-Often-to-Post-to-Facebook-Stories.png) " class="story"> -->
-<!-- 				<img th:src="@{/images/estelle.PNG}" class="profilePic" alt="profileIcon"/> -->
-<!-- 				<h5>User</h5> -->
-<!-- 			</div> -->
-			
-<!-- 			<div style="background-image: url(https://www.wishpond.com/wp-content/uploads/sites/3/2020/06/facebook-stories-to-Instagram.jpg) " class="story"> -->
-<!-- 				<img th:src="@{/images/estelle.PNG}" class="profilePic" alt="profileIcon"/> -->
-<!-- 				<h5>User</h5> -->
-<!-- 			</div> -->
-			
-	
-<!-- 			<div style="background-image: url(https://later.com/blog/wp-content/uploads/2019/01/How-Often-to-Post-to-Facebook-Stories.png) " class="story"> -->
-<!-- 				<img th:src="@{/images/estelle.PNG}" class="profilePic" alt="profileIcon"/> -->
-<!-- 				<h5>User</h5> -->
-<!-- 			</div> -->
-			
-<!-- 			<div style="background-image: url(https://www.wishpond.com/wp-content/uploads/sites/3/2020/06/facebook-stories-to-Instagram.jpg) " class="story"> -->
-<!-- 				<img th:src="@{/images/estelle.PNG}" class="profilePic" alt="profileIcon"/> -->
-<!-- 				<h5>User</h5> -->
-<!-- 			</div> -->
-			
-<!-- 			<div style="background-image: url(https://later.com/blog/wp-content/uploads/2019/01/How-Often-to-Post-to-Facebook-Stories.png) " class="story"> -->
-<!-- 				<img th:src="@{/images/estelle.PNG}" class="profilePic" alt="profileIcon"/> -->
-<!-- 				<h5>User</h5> -->
-<!-- 			</div> -->
-			
-<!-- 			<div style="background-image: url(https://www.wishpond.com/wp-content/uploads/sites/3/2020/06/facebook-stories-to-Instagram.jpg) " class="story"> -->
-<!-- 				<img th:src="@{/images/estelle.PNG}" class="profilePic" alt="profileIcon"/> -->
-<!-- 				<h5>User</h5> -->
-<!-- 			</div> -->
 		</div>
 <!-- 		story ends -->
 		
-<!-- 		Message sender starts  -->
-		<div class="messageSender">
-			<div class="messageSender_Top">
-				<img th:src="${profileUrl}" class="profilePic" alt="profileIcon"/>
-				
-				<form id="submitPost" th:action="@{home/postpost}"	method="post">
-					<input type="text" class ="messageSender_input" placeholder ="Hello say something" id="submittedContent">
-					<input type="submit" style="display:none" />
-				</form>
-		
-			</div>
-			
-		</div>
-<!--        Message sender ends    -->
 
 <!-- post starts  -->
 
 
-		<div id="PostsSection">
-
-		</div>
+		<div class="post">
+		<div th:each="Post:${posts}">
+			<div class = "post_Top">
+				<img th:src="${vieweeProfileUrl}" class="profilePic" alt="profileIcon"/>
+				
+				<div class="post_Top_Info">
+					<h5><span th:text="${vieweeFullName}"></span></h5>
+					<p th:text="${Post.dateTime}">Date time</p>
+				</div>
+			</div>
+			
+			<div class="post_Bottom">
+				<p th:text="${Post.Content}">Message</p>
+			</div>
+			
+			<div class="post_Options">
+				
+				</div>
 
 <!-- post ends -->
 

@@ -93,10 +93,14 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 		<div class="post">
 		<div th:each="Post:${posts}">
 			<div class = "post_Top">
+			<a th:href="@{'/home/profile/' + ${Post.user.userID}}" style="text-decoration: none; color:black" id="userID">
 				<img th:src="${Post.user.profileUrl}" class="profilePic" alt="profileIcon"/>
+			</a>
 				
 				<div class="post_Top_Info">
+				<a th:href="@{'/home/profile/' + ${Post.user.userID}}" style="text-decoration: none; color:black" id="userID">
 					<h5><span th:text="${Post.user.firstName} + ' ' + ${Post.user.lastName}"></span></h5>
+				</a>
 					<p th:text="${Post.dateTime}">Date time</p>
 				</div>
 			</div>
