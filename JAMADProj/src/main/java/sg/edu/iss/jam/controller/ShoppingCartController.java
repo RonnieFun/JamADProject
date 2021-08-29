@@ -58,6 +58,7 @@ public class ShoppingCartController {
 		}
 		model.addAttribute("cartForm", detailsAndCountQty);
 		model.addAttribute("profileUrl", user.getProfileUrl());
+		model.addAttribute("user", user);
 		model.addAttribute("totalAmount", cartInfo.getAmountTotal());
 		model.addAttribute("totalQuantity",cartInfo.getQuantityTotal());
 		Long count = uservice.getItemCountByUserID(user.getUserID());

@@ -50,6 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/video/genericvideolandingpage","/music/genericmusiclandingpage").permitAll()
 			.antMatchers("/music/loadpreviousmusic/**", "/music/loadnextmusic/**").permitAll()
 			.antMatchers("/music/listenmusic/**", "/video/medianotfound/**", "/music/medianotfound/**").permitAll()
+			.antMatchers("/dashboard", "/home/subscribers/**", "/artist/**").hasAnyAuthority("Artist")
 			.antMatchers("/search**").permitAll()
 			.anyRequest().authenticated()
 			.and()

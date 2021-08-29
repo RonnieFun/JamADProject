@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,12 +37,13 @@ public class DashboardController  {
 		@Autowired
 		MediaServiceInterface mservice;
 		
-		@GetMapping("/artist/dashboard/{userId}")
-		public String showDashboard(Model model,@PathVariable Long userId, @AuthenticationPrincipal MyUserDetails userDetails) {
+
+		@GetMapping("/dashboard")
+		public String showDashboard(Model model, @AuthenticationPrincipal MyUserDetails myUserDetails) {
 		
 			//video and music chart	
-//				Long userId = (long) 9;
-				User artist = aservice.findById(userId);
+				User artist = uservice.findUserByUserId(myUserDetails.getUserId());
+
 				
 				List<Media> artistVideos = new ArrayList<Media>();
 				List<UserHistory> videoUserHistories=new ArrayList<UserHistory>();
@@ -257,8 +259,8 @@ public class DashboardController  {
 					
 //Line chart with Subscribe
 					// get artist's subscribers
-					List<Subscribed> users_Subscribed_artist = uservice.getArtistSubscribed(userId);
-					List<Subscribed> users_Unsubscribed_artist = uservice.getArtistUnSubscribed(userId);
+					List<Subscribed> users_Subscribed_artist = uservice.getArtistSubscribed(myUserDetails.getUserId());
+					List<Subscribed> users_Unsubscribed_artist = uservice.getArtistUnSubscribed(myUserDetails.getUserId());
 					List<Subscribed> users_Subscribed_artist_1year = new ArrayList<Subscribed>();
 					List<Subscribed> users_Unsubscribed_artist_1year = new ArrayList<Subscribed>();
 					for(Subscribed s:users_Subscribed_artist) {
@@ -362,9 +364,9 @@ public class DashboardController  {
 					
  //products chart
 					
-					List<Product> clothing=aservice.getProductListByArtistIDAndCategory(userId,Category.Clothing);
-					List<Product> merchandise=aservice.getProductListByArtistIDAndCategory(userId,Category.Merchandise);
-					List<Product> musiccollection=aservice.getProductListByArtistIDAndCategory(userId,Category.MusicCollection);
+					List<Product> clothing=aservice.getProductListByArtistIDAndCategory(myUserDetails.getUserId(),Category.Clothing);
+					List<Product> merchandise=aservice.getProductListByArtistIDAndCategory(myUserDetails.getUserId(),Category.Merchandise);
+					List<Product> musiccollection=aservice.getProductListByArtistIDAndCategory(myUserDetails.getUserId(),Category.MusicCollection);
 					
 					//count of total product
 					int totalproduct=clothing.size()+merchandise.size()+musiccollection.size();
@@ -457,6 +459,8 @@ public class DashboardController  {
 					model.addAttribute("merchandisetotal",merchandiseTotalSold);
 					model.addAttribute("musictotal",musicTotalSold);
 					model.addAttribute("average",average);
+					model.addAttribute("user", artist);
+					model.addAttribute("profileUrl", artist.getProducts());
 
 					return "dashboard";	
 		}
