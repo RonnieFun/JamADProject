@@ -130,7 +130,9 @@ public interface UserInterface {
 	
 	void saveRole(Roles b);
 	
+    List<User> getUserSubs(Long userID);
 	
+	List<User> getFollowing(Long userID);
 	
 
 }

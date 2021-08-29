@@ -17,7 +17,6 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -291,6 +290,7 @@ public class ArtistController {
 		model.addAttribute("user", user);
 		model.addAttribute("profileUrl", user.getProfileUrl());
 		model.addAttribute("bannerUrl", user.getBannerUrl());
+		model.addAttribute("userID", user.getUserID());
 
 		return "channel/ChannelList.html";
 

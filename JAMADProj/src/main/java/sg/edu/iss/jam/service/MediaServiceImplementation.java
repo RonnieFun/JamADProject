@@ -27,17 +27,12 @@ import sg.edu.iss.jam.repo.UserHistoryRepository;
 public class MediaServiceImplementation implements MediaServiceInterface {
 	
 	
-	//scy-part
+	//generic landing page
 		@Autowired
 		MediaRepository mediarepo;
 		
 		@Autowired
 		UserHistoryRepository uhrepo;
-		
-	
-//		public List<Object[]> getTopMediasByUserHistory(int i, MediaType mediaType){
-//			return mediarepo.getTopMediasByUserHistory(PageRequest.of(0, i), mediaType,LocalDate.now().minusYears(3));
-//		}
 	
 		@Override
 		public List<Media> getMediaByTypeAndCount(MediaType mediaType){

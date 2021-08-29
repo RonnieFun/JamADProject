@@ -12,14 +12,18 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 	<div th:replace="Fragments/layout.html :: navbar">
 	</div>
 	
+	<div>
+		   <a id=userID style="display: none;" th:value="${user.userID}"></a>
+	</div>
+	
 <div class="mainBody">
 <!-- 	Sidebar  start -->
 	
 	<div class = "sidebar">
-	
+
 		<div sec:authorize="isAuthenticated()" class = "sidebarRow">
-		<img th:src="${profileUrl}" class="profilePic" alt="profileIcon"/>
-			<h6><span th:text="${fullName}">fullname
+		<img th:src="${vieweeProfileUrl}" class="profilePic" alt="profileIcon"/>
+			<h6><span th:text="${vieweeFullName}">fullname
 				name</span></h6>
 		</div>
 		
@@ -28,7 +32,7 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 			<h6>Covid 19 news</h6>
 		</div>
 		
-		<div sec:authorize="hasAnyAuthority('Artist')">
+	<div sec:authorize="hasAnyAuthority('Artist')">
 		<a th:href="@{'/home/subscribers/' + ${userID}}" style="text-decoration: none; color:black" id="userID">
 		<div class="sidebarRow">
 			<span class="material-icons">people</span>
@@ -36,7 +40,6 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 		</div>
 		</a>
 		
-	
 	<a th:href="@{'/home/following/' + ${userID}}" style="text-decoration: none; color:black" id="userID">
 		<div class="sidebarRow">
 			<span class="material-icons">volunteer_activism</span>
@@ -44,16 +47,27 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 		</div>
 	</a>
 	</div>
-	
-	<div sec:authorize="hasAnyAuthority('Customer')">
-	<a th:href="@{'/home/following/' + ${userID}}" style="text-decoration: none; color:black" id="userID">
+		
+		<a th:href="@{'/video/viewartistvideochannel/' + ${userID}}" style="text-decoration: none; color:black" id="userID">
 		<div class="sidebarRow">
-			<span class="material-icons">volunteer_activism</span>
-			<h6>Subscriptions <span th:text="${following}" style="font-weight:lighter;"></span></h6>
+			<span class="material-icons">ondemand_video</span>
+			<h6><span th:text="${vieweeFullName} + ${'''s'}  + ' Video Channel'">Vid Channel</span></h6>
 		</div>
-	</a>
-	</div>
+		</a>
+		
+		<a th:href="@{'/music/viewartistmusicchannel/' + ${userID}}" style="text-decoration: none; color:black" id="userID">
+		<div class="sidebarRow">
+			<span class="material-icons">headset</span>
+			<h6><span th:text="${vieweeFullName} + ${'''s'}  + ' Music Channel'">Music Channel</span></h6>
+		</div>
+		</a>
 	
+		<a th:href="@{'/carthometab/' + ${userID}}" style="text-decoration: none; color:black" id="userID">
+		<div class="sidebarRow">
+			<span class="material-icons">redeem </span>
+			<h6><span th:text="${vieweeFullName} + ${'''s'}  + ' Shop'">Shop</span></h6>
+		</div>
+		</a>
 
 		<div sec:authorize="hasAnyAuthority('Artist')">
 		<a href = "/artist/channel" style="text-decoration: none; color:black">
@@ -69,8 +83,8 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 				<h6>My Store</h6>	
 			</div>
 		</a>
-			
-		<a href = "/dashboard" style="text-decoration: none; color:black">	
+		
+		<a href = "/dashboard" style="text-decoration: none; color:black">
 		<div class="sidebarRow">
 			<span class="material-icons">dashboard</span>
 			<h6>My Dashboard</h6>
@@ -85,57 +99,56 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 	</div>
 	
 <!-- 	sidebar ends -->
+	
+<!-- 	sidebar ends -->
 
 	<div class="feed">
 	
-<!-- 		Message sender starts  -->
-		
-		<div class="messageSender">
-			<div class="messageSender_Top">
-				<img th:src="${profileUrl}" class="profilePic" alt="profileIcon"/>
-				<span class ="messageSender_input" th:text="'Following: ' + ${following}">subscribers</span>
-				
-			<div class="header_input">
-				<span class="material-icons"> search </span>
-				<input type="text" placeholder="search subscribers"/>
+<!-- 	story starts  -->
+		<div class="bannerProfile">
+			<div class="cover">
+				<img th:src="${bannerUrl}" class="" alt="postPicture"/>
 			</div>
+			<div>
+				<img th:src="${vieweeProfileUrl}" class="profile" alt="postPicture"/>
 			</div>
-				
 			
-<!-- 			<div class="messageSender_Bottom"> -->
-<!-- 				<div class="messageSender_option"> -->
-<!-- 					<span style="color: red" class="material-icons">live_tv</span> -->
-<!-- 					<h5>Live</h5> -->
-<!-- 				</div> -->
-<!-- 				<div class="messageSender_option"> -->
-<!-- 					<span style="color: orange" class="material-icons">videocam</span> -->
-<!-- 					<h5>Upload video</h5> -->
-<!-- 				</div> -->
-<!-- 				<div class="messageSender_option"> -->
-<!-- 					<span style="color: green" class="material-icons">photo_library</span> -->
-<!-- 					<h5>Upload photo</h5> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!--        Message sender ends    -->
+			<div>
+			
+		</div>
+<!-- 		story ends -->
+		
+
+<!-- post starts  -->
+
+
+		<div class="post">
+		<div th:each="Post:${posts}">
+			<div class = "post_Top">
+				<img th:src="${vieweeProfileUrl}" class="profilePic" alt="profileIcon"/>
+				
+				<div class="post_Top_Info">
+					<h5><span th:text="${vieweeFullName}"></span></h5>
+					<p th:text="${Post.dateTime}">Date time</p>
+				</div>
+			</div>
+			
+			<div class="post_Bottom">
+				<p th:text="${Post.Content}">Message</p>
+			</div>
+			
+			<div class="post_Options">
+				
+				</div>
+
+<!-- post ends -->
+
 	
 	</div>
-		<div class="messageSenderSub" th:each="following : ${followingUsers}">
-			<a th:href="@{'/home/profile/' + ${following.userID}}" style="text-decoration: none; color:black">
-				<table>
-					<tr class="messageSender_Top">
-						<td>
-							<img th:src="${following.profileUrl}" class="profilePic"/>
-						</td>
-					<td th:text="${following.firstName} + ' ' + ${following.lastName}"class="messageSender_input">
-					</tr>
-				</table>
-			</a>
-		</div>
-	</div>
+	
 </div>
 
-
-	
+	<script type="text/javascript" th:src="@{/js/posts_ajax.js}"></script>
 </body>
+
 </html>
