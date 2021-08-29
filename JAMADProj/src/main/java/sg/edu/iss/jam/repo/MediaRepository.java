@@ -40,14 +40,7 @@ public interface MediaRepository extends JpaRepository<Media, Long> {
 	@Query("Select m FROM Media m JOIN m.album al WHERE al.AlbumID =:AlbumID ORDER BY m.AlbumOrder ")
 	public List<Media> findByalbum(Long AlbumID);
 	
-	//videolandingpage
-//	@Query("Select m, count(distinct uh.id) from Media m join m.userHistory uh "
-//			+ "where m.mediaType=:mediatype "
-//			+ "and uh.datetime>=Date(:currentdatelessoneweek) "
-//			+ "group by m order by count(distinct uh.id) desc") 
-//	public List<Object[]> getTopMediasByUserHistory(Pageable pageable, @Param("mediatype") MediaType mediaType,
-//													@Param("currentdatelessoneweek") LocalDate currentdatelessoneweek);
-
+	//generic videolandingpage
 	@Query("Select m from Media m join m.userHistory uh "
 			+ "where m.mediaType=:mediatype "
 			+ "group by m order by count(distinct uh.id) desc")

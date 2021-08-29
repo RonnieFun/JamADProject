@@ -48,8 +48,7 @@ public class MediaController {
 	
 	@Autowired
 	ArtistInterface aservice;
-	
-	//scy-videolandingpage
+
 	@Autowired
 	MediaServiceInterface mservice;
 	
@@ -127,26 +126,20 @@ public class MediaController {
 		return "MediaNotFound";
 	}
 	
+	//---------------------------------generic videolandingpage---------------------------------
 	@GetMapping("/video/genericvideolandingpage")
 	public String genericVideoLandingPage(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
 		
-//				List<Object[]> topVideosByUserHistory=mservice.getTopMediasByUserHistory(6,MediaType.Video);
-//				List<Media> videos=new ArrayList<Media>();
-//				for(Object[] object: topVideosByUserHistory) {
-//					videos.add((Media)object[0]);
-//				}
-//				model.addAttribute("videos",videos);
-				
 				if(userDetails != null) {
 					return "redirect:/video/loginvideolandingpage";
 				}
 		
-				List<Media> allVideos=mservice.getMediaByUserHistory(MediaType.Video,LocalDate.now().minusMonths(36));
+				List<Media> allVideos=mservice.getMediaByUserHistory(MediaType.Video,LocalDate.now().minusYears(2));
 				List<Media> topVideos=new ArrayList<Media>();
 				List<Media> toptwelveVideos=new ArrayList<Media>();
 				
 				for(Media m : allVideos) {
-					if (m.getCreatedOn().compareTo(LocalDate.now().minusDays(180)) > 0 )
+					if (m.getCreatedOn().compareTo(LocalDate.now().minusYears(3)) > 0 )
 						topVideos.add(m);
 				}
 				
@@ -164,8 +157,7 @@ public class MediaController {
 				return "genericvideolandingpage";
 			}
 
-	//musiclanding page 
-	
+	//---------------------------------generic musiclanding page ---------------------------------
 	@GetMapping("/music/genericmusiclandingpage")
 	public String genericMusicLandingPage(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
 			
@@ -173,12 +165,12 @@ public class MediaController {
 			return "redirect:/music/loginmusiclandingpage";
 		}
 		
-		List<Media> allMusics=mservice.getMediaByUserHistory(MediaType.Music,LocalDate.now().minusMonths(36));
+		List<Media> allMusics=mservice.getMediaByUserHistory(MediaType.Music,LocalDate.now().minusYears(2));
 		List<Media> topMusics=new ArrayList<Media>();
 		List<Media> toptwelveMusics=new ArrayList<Media>();
 		
 		for(Media m : allMusics) {
-			if (m.getCreatedOn().compareTo(LocalDate.now().minusDays(180)) > 0 )
+			if (m.getCreatedOn().compareTo(LocalDate.now().minusYears(3)) > 0 )
 				topMusics.add(m);
 		}
 		
@@ -218,12 +210,12 @@ public class MediaController {
 			// recommend items the same as genericvideolandingpage		
 			if (hasUserHistoryVideo == false) {
 				
-				List<Media> allVideos=mservice.getMediaByUserHistory(MediaType.Video,LocalDate.now().minusMonths(36));
+				List<Media> allVideos=mservice.getMediaByUserHistory(MediaType.Video,LocalDate.now().minusYears(2));
 				List<Media> topVideos=new ArrayList<Media>();
 				List<Media> toptwelveVideos=new ArrayList<Media>();
 				
 				for(Media m : allVideos) {
-					if (m.getCreatedOn().compareTo(LocalDate.now().minusDays(180)) > 0 )
+					if (m.getCreatedOn().compareTo(LocalDate.now().minusYears(3)) > 0 )
 						topVideos.add(m);
 				}
 				
@@ -300,12 +292,12 @@ public class MediaController {
 			// recommend items the same as genericmusiclandingpage		
 			if (hasUserHistoryMusic == false) {
 				
-				List<Media> allMusics=mservice.getMediaByUserHistory(MediaType.Music,LocalDate.now().minusMonths(36));
+				List<Media> allMusics=mservice.getMediaByUserHistory(MediaType.Music,LocalDate.now().minusYears(2));
 				List<Media> topMusics=new ArrayList<Media>();
 				List<Media> toptwelveMusics=new ArrayList<Media>();
 				
 				for(Media m : allMusics) {
-					if (m.getCreatedOn().compareTo(LocalDate.now().minusDays(180)) > 0 )
+					if (m.getCreatedOn().compareTo(LocalDate.now().minusYears(3)) > 0 )
 						topMusics.add(m);
 				}
 				
