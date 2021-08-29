@@ -10,7 +10,7 @@
 	<form name="userCommentsFormMusic" id="userCommentsFormMusic" method="post">
 		<div class="userCommentsSectionMusic">
 			<span th:text="${commentCount} + ' Comments'" class="numberOfCommentsMusic"></span>
-			<textarea id="commentsTxtAreaMusic" class="commentsTextAreaMusic" placeholder="Write your comments here" rows="2" cols="112"></textarea>
+			<textarea id="commentsTxtAreaMusic" class="commentsTextAreaMusic" placeholder="Write your comments here" rows="2" cols="112" maxlength="254"></textarea>
 		</div>
 		
 		<!-- Comments Submit Button -->
