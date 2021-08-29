@@ -5,14 +5,13 @@
 </head>   
    <body style="padding-bottom: 30px">
    <div th:replace="Fragments/layout.html :: navbar"></div>  
-     <th:block th:if="${cartForm == null}">
-     <div class="cartIntroSection1">
-         <h2>There is no items in Cart</h2>
-         <a th:href="@{/productList}">Show Product List</a>
+     <th:block th:if="${cartForm == null||cartForm.isEmpty()}">
+     <div class="center">
+         <h3>There is no items in Cart</h3>
       </div>
       </th:block>
       
-      <th:block th:if="${cartForm != null}">
+      <th:block th:if="${cartForm != null &&!cartForm.isEmpty()}">
       <div class="cartIntroSection1">
        <h2 style="font-weight: bold;" class = "col-12 text-center">YOUR BAG</h2>
       <div class="row">
