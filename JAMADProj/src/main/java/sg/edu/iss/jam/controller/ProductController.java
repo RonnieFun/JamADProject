@@ -39,12 +39,16 @@ public class ProductController {
 			@AuthenticationPrincipal MyUserDetails userDetails) {
 		User artist = null;
 		artist = aservice.getArtistByID(artistid);
+		User user = null;
+		user = aservice.getArtistByID(userDetails.getUserId());
 		// userId need to replace
 		Long count = uservice.getItemCountByUserID(userDetails.getUserId());
 		model.addAttribute("status", "allProducts");
-		model.addAttribute("user", artist);
+		model.addAttribute("user", user);
 		model.addAttribute("count", count);
-		model.addAttribute("profileUrl", artist.getProfileUrl());
+		model.addAttribute("artistId", artistid);
+		model.addAttribute("artist", artist);
+		model.addAttribute("profileUrl", user.getProfileUrl());
 		model.addAttribute("productList", aservice.getProductListByArtistID(artistid));
 		return "carthometab";
 	}
@@ -54,12 +58,16 @@ public class ProductController {
 			@AuthenticationPrincipal MyUserDetails userDetails) {
 		User artist = null;
 		artist = aservice.getArtistByID(artistid);
+		User user = null;
+		user = aservice.getArtistByID(userDetails.getUserId());
 		// userId need to replace
 		Long count = uservice.getItemCountByUserID(userDetails.getUserId());
 
 		model.addAttribute("status", category.toString());
-		model.addAttribute("user", artist);
+		model.addAttribute("user", user);
 		model.addAttribute("count", count);
+		model.addAttribute("artistId", artistid);
+		model.addAttribute("artist", artist);
 		model.addAttribute("profileUrl", artist.getProfileUrl());
 		model.addAttribute("productList", aservice.getPopularProductByCategory(artistid, category));
 		return "carthometab";
