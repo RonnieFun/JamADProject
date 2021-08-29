@@ -13,7 +13,7 @@ public interface MediaServiceInterface {
 
 	public ResponseEntity<byte[]> getContent(String location, String fileName, String range, String contentTypePrefix);
 	 
-	//scy-videolandingpage
+	//genericlandingpage
 	
 	public List<Media> getMediaByTypeAndCount(MediaType mediaType);
 
@@ -21,7 +21,6 @@ public interface MediaServiceInterface {
 
 	public Media getMediaById(Long id);
 
-//	public List<Object[]> getTopMediasByUserHistory(int i, MediaType mediaType);
 	
 	
 	//dashboard
