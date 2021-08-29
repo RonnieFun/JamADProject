@@ -23,11 +23,14 @@
 
 		<div class="row col-lg-11 mt-4 mx-auto">
 			<th:block th:each="user: ${searchUsers}">
-				<div class="container">
+				<div class="col-6 col-md-3 col-lg-3">
+					<div class="text-center">
 					<a th:href="@{/video/viewartistvideochannel/}+${user.userID}">
 						<img th:src="${user.profileUrl}" class="rounded-circle"
 						width="220" height="220">
+						<span class="d-block mt-4 mb-4 text-center"  th:text="${user.displayName}"></span>	
 					</a>
+					</div>
 				</div>
 			</th:block>
 		</div>
