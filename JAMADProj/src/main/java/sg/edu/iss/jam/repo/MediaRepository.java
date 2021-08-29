@@ -83,8 +83,7 @@ public interface MediaRepository extends JpaRepository<Media, Long> {
 			+ "WHERE  m.mediaType =:mediaType "
 			+ "AND ("
 			+ "m.title LIKE %:searchterm% "
-			+ "or u.firstName LIKE %:searchterm% "
-			+ "or u.lastName LIKE %:searchterm% "
+			+ "or CONCAT(u.firstName,' ',u.lastName) LIKE %:searchterm% "
 			+ "or t.tagName LIKE %:searchterm%"
 			+ ") ")
 	public Collection<Media> getMediasfromVarious(@Param("searchterm")String searchterm,@Param("mediaType") MediaType mediaType);
