@@ -21,13 +21,12 @@
 		<h3 class="col-md-auto mt-4">Search from Artists</h3>
 		<hr>
 
-		<div class="row col-lg-11 mt-4 mx-auto">
+		<div class="row col-sm-11 col-md-11 col-lg-11 mt-4 mx-auto">
 			<th:block th:each="user: ${searchUsers}">
 				<div class="col-6 col-md-3 col-lg-3">
 					<div class="text-center">
 					<a th:href="@{/video/viewartistvideochannel/}+${user.userID}">
-						<img th:src="${user.profileUrl}" class="rounded-circle"
-						width="220" height="220">
+						<img th:src="${user.profileUrl}" class="rounded-circle img-fluid searchResultsArtist">
 						<span class="d-block mt-4 mb-4 text-center"  th:text="${user.displayName}"></span>	
 					</a>
 					</div>
