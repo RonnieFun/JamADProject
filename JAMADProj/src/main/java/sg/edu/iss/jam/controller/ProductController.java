@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import sg.edu.iss.jam.model.Category;
 import sg.edu.iss.jam.model.OrderDetails;
 import sg.edu.iss.jam.model.Orders;
+import sg.edu.iss.jam.model.Payment;
 import sg.edu.iss.jam.model.Product;
 import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.security.MyUserDetails;
@@ -121,6 +122,7 @@ public class ProductController {
 
 		model.addAttribute("count", count);
 		model.addAttribute("profileUrl", user.getProfileUrl());
+
 		model.addAttribute("allProductsAndCountShop", allProductsAndCountShop);
 		model.addAttribute("musicCollectionProductsAndCountShop", musicCollectionProductsAndCountShop);
 		model.addAttribute("merchandiseProductsAndCountShop", merchandiseProductsAndCountShop);
@@ -128,7 +130,8 @@ public class ProductController {
 		model.addAttribute("profileUrl", user.getProfileUrl());
 		model.addAttribute("count", count);
 		model.addAttribute("user", user);
-
+		model.addAttribute("shopLinkActive", true);
+		
 		return "shoplandingpage";
 	}
 

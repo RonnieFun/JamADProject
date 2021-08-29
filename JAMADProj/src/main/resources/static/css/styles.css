@@ -1149,6 +1149,19 @@ body {
 	width:76.5%;
 	height:40px;
 }
+#retypeEmailInput{
+	background:white;
+	font-size:18px;
+	font-family: 'Roboto', sans-serif;
+	padding:10px;
+	margin-top:5%;
+	border-width: 1px;
+	border-style:solid;
+	border-color: gray;
+	margin-left: 3%;
+	width:76.5%;
+	height:40px;
+}
 
 #passwordInput{
 	background:white;
@@ -7859,4 +7872,25 @@ body {
 	line-height: 50px;
 	color:#ff8080;
 }
+.error1{
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  color: red;
+  
+}
 
+.loginBadCredentials{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 900;
+	color: black;
+	text-align:left;
+	font-size:110%;
+	position:absolute;
+	margin-left: 56.4%;
+	top:20px;
+	letter-spacing:0;
+	width:400px;
+	height:21px;
+	padding: 0px;
+}
