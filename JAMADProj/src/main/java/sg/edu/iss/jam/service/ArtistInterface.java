@@ -85,6 +85,8 @@ public interface ArtistInterface {
 	
 	Set<Tag> getTagsbytagName(String TagName);
 
+	List<Product> getProductListByArtistIDAll(Long userID);
+
 
 
 	

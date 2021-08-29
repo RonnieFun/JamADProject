@@ -14,12 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.thymeleaf.context.LazyContextVariable;
 
 import sg.edu.iss.jam.model.Category;
 import sg.edu.iss.jam.model.OrderDetails;
 import sg.edu.iss.jam.model.Orders;
-import sg.edu.iss.jam.model.Payment;
 import sg.edu.iss.jam.model.Product;
 import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.security.MyUserDetails;
@@ -94,41 +92,34 @@ public class ProductController {
 				.getTopMusicCollectionProductsInPastWeekByOrderDetailsQuantity(4);
 		List<Object[]> topMerchandiseProductsBySale = uservice
 				.getTopMerchandiseProductsInPastWeekByOrderDetailsQuantity(4);
-		List<Object[]> topClothingProductsBySale = uservice.getTopClothingProductsInPastWeekByOrderDetailsQuantity(4);
+		List<Object[]> topClothingProductsBySaleRaw = uservice
+				.getTopClothingProductsInPastWeekByOrderDetailsQuantity(4);
 
-		Map<Product, Long> allProductsAndCountShop = new LinkedHashMap<Product, Long>(16, 0.75F, true);
+		Map<Product, Long> allProductsAndCountShop = new LinkedHashMap<Product, Long>(8, 0.75F, true);
 		Map<Product, Long> musicCollectionProductsAndCountShop = new LinkedHashMap<Product, Long>(16, 0.75F, true);
 		Map<Product, Long> merchandiseProductsAndCountShop = new LinkedHashMap<Product, Long>(16, 0.75F, true);
 		Map<Product, Long> clothingProductsAndCountShop = new LinkedHashMap<Product, Long>(16, 0.75F, true);
+
 		for (Object[] object : topAllProductsBySale) {
-			Product product = (Product) object[0];
-			if (product.getProductQty() > 0) {
-				allProductsAndCountShop.put((Product) object[0], (Long) object[1]);
-			}
+			allProductsAndCountShop.put((Product) object[0], (Long) object[1]);
 		}
+
 		for (Object[] object : topMusicCollectionProductsBySale) {
-			Product product = (Product) object[0];
-			if (product.getProductQty() > 0) {
-				musicCollectionProductsAndCountShop.put((Product) object[0], (Long) object[1]);
-			}
+			musicCollectionProductsAndCountShop.put((Product) object[0], (Long) object[1]);
 		}
+
 		for (Object[] object : topMerchandiseProductsBySale) {
-			Product product = (Product) object[0];
-			if (product.getProductQty() > 0) {
-				merchandiseProductsAndCountShop.put((Product) object[0], (Long) object[1]);
-			}
+			merchandiseProductsAndCountShop.put((Product) object[0], (Long) object[1]);
 		}
-		for (Object[] object : topClothingProductsBySale) {
-			Product product = (Product) object[0];
-			if (product.getProductQty() > 0) {
-				clothingProductsAndCountShop.put((Product) object[0], (Long) object[1]);
-			}
+
+		for (Object[] object : topClothingProductsBySaleRaw) {
+			clothingProductsAndCountShop.put((Product) object[0], (Long) object[1]);
 		}
 
 		Long count = uservice.getItemCountByUserID(userDetails.getUserId());
+
 		model.addAttribute("count", count);
 		model.addAttribute("profileUrl", user.getProfileUrl());
-
 		model.addAttribute("allProductsAndCountShop", allProductsAndCountShop);
 		model.addAttribute("musicCollectionProductsAndCountShop", musicCollectionProductsAndCountShop);
 		model.addAttribute("merchandiseProductsAndCountShop", merchandiseProductsAndCountShop);
@@ -140,11 +131,11 @@ public class ProductController {
 		return "shoplandingpage";
 	}
 
-	// TODO awaiting sessions and userid
 	@GetMapping("/shop/allproducts")
 	public String allProductsLandingPage(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
+
 		User user = uservice.findUserByUserId(userDetails.getUserId());
-		
+
 		List<Object[]> topAllProductsBySale = uservice.getAllProducts();
 
 		Long count = uservice.getItemCountByUserID(userDetails.getUserId());
@@ -156,7 +147,7 @@ public class ProductController {
 				allProductsAndCountShop.put((Product) object[0], (Long) object[1]);
 			}
 		}
-		
+
 		model.addAttribute("allProductsAndCountShop", allProductsAndCountShop);
 		model.addAttribute("category", "allProducts");
 		model.addAttribute("count", count);
@@ -166,10 +157,11 @@ public class ProductController {
 		return "shopcategorylandingpage";
 	}
 
-	// TODO awaiting sessions and userid
 	@GetMapping("/shop/musiccollections")
 	public String musicCollectionsLandingPage(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
+
 		User user = uservice.findUserByUserId(userDetails.getUserId());
+
 		List<Object[]> topAllProductsBySale = uservice.getAllMusicCollections();
 
 		Map<Product, Long> allProductsAndCountShop = new LinkedHashMap<Product, Long>(16, 0.75F, true);
@@ -179,6 +171,7 @@ public class ProductController {
 				allProductsAndCountShop.put((Product) object[0], (Long) object[1]);
 			}
 		}
+
 		Long count = uservice.getItemCountByUserID(userDetails.getUserId());
 
 		model.addAttribute("allProductsAndCountShop", allProductsAndCountShop);
@@ -190,10 +183,11 @@ public class ProductController {
 		return "shopcategorylandingpage";
 	}
 
-	// TODO awaiting sessions and userid
 	@GetMapping("/shop/merchandise")
 	public String merchandiseLandingPage(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
+
 		User user = uservice.findUserByUserId(userDetails.getUserId());
+
 		List<Object[]> topAllProductsBySale = uservice.getAllMerchandise();
 
 		Map<Product, Long> allProductsAndCountShop = new LinkedHashMap<Product, Long>(16, 0.75F, true);
@@ -203,6 +197,7 @@ public class ProductController {
 				allProductsAndCountShop.put((Product) object[0], (Long) object[1]);
 			}
 		}
+
 		Long count = uservice.getItemCountByUserID(userDetails.getUserId());
 
 		model.addAttribute("allProductsAndCountShop", allProductsAndCountShop);
@@ -214,10 +209,11 @@ public class ProductController {
 		return "shopcategorylandingpage";
 	}
 
-	// TODO awaiting sessions and userid
 	@GetMapping("/shop/clothing")
 	public String clothingLandingPage(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
+
 		User user = uservice.findUserByUserId(userDetails.getUserId());
+
 		List<Object[]> topAllProductsBySale = uservice.getAllClothing();
 
 		Map<Product, Long> allProductsAndCountShop = new LinkedHashMap<Product, Long>(16, 0.75F, true);
@@ -227,6 +223,7 @@ public class ProductController {
 				allProductsAndCountShop.put((Product) object[0], (Long) object[1]);
 			}
 		}
+
 		Long count = uservice.getItemCountByUserID(userDetails.getUserId());
 
 		model.addAttribute("allProductsAndCountShop", allProductsAndCountShop);
@@ -238,11 +235,11 @@ public class ProductController {
 		return "shopcategorylandingpage";
 	}
 
-	// TODO awaiting sessions and userid
 	@GetMapping("/purchasehistory")
 	public String purchaseHistory(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
+
 		User user = uservice.findUserByUserId(userDetails.getUserId());
-		Long count = uservice.getItemCountByUserID(userDetails.getUserId());
+
 		List<Orders> purchaseHistoriesraw = uservice.getPurchaseHistoryByUserId(user.getUserID());
 		Map<Orders, Double> purchaseHistories = new LinkedHashMap<Orders, Double>();
 		for (Orders purchaseHistory : purchaseHistoriesraw) {
@@ -253,6 +250,9 @@ public class ProductController {
 			}
 			purchaseHistories.put(purchaseHistory, totalPrice);
 		}
+
+		Long count = uservice.getItemCountByUserID(userDetails.getUserId());
+
 		model.addAttribute("purchaseHistories", purchaseHistories);
 		model.addAttribute("count", count);
 		model.addAttribute("user", user);
