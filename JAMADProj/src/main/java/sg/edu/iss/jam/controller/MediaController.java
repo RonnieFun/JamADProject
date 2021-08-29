@@ -266,6 +266,9 @@ public class MediaController {
 				model.addAttribute("recommend_medialist", recommend_medialist);
 			}
 			
+			if (userDetails != null) {
+				model.addAttribute("count", uservice.getItemCountByUserID(userDetails.getUserId()));
+			}
 			model.addAttribute("loginVideolinkActive", true);
 			model.addAttribute("profileUrl", userDetails.getProfileUrl());
 			model.addAttribute("hasUserHistoryVideo", hasUserHistoryVideo);
@@ -348,6 +351,9 @@ public class MediaController {
 				Collections.shuffle(recommend_medialist);		
 				model.addAttribute("recommend_medialist", recommend_medialist);
 				
+			}
+			if (userDetails != null) {
+				model.addAttribute("count", uservice.getItemCountByUserID(userDetails.getUserId()));
 			}
 			model.addAttribute("loginMusiclinkActive", true);
 			model.addAttribute("profileUrl", userDetails.getProfileUrl());
