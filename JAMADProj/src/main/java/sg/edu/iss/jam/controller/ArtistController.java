@@ -293,6 +293,7 @@ public class ArtistController {
 		model.addAttribute("user",user);
 		model.addAttribute("profileUrl", user.getProfileUrl());
 		model.addAttribute("bannerUrl", user.getBannerUrl());
+		model.addAttribute("userID", user.getUserID());
 
 		return "channel/ChannelList.html";
 

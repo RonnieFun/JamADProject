@@ -2,6 +2,7 @@
 package sg.edu.iss.jam.controller;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
+import javax.validation.Valid;
 
 import java.util.List;
 
@@ -33,6 +35,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +44,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import sg.edu.iss.jam.model.Post;
 import sg.edu.iss.jam.model.Subscribed;
 import sg.edu.iss.jam.model.User;
+import sg.edu.iss.jam.repo.PostRepository;
 import sg.edu.iss.jam.repo.SubscribedRepository;
 import sg.edu.iss.jam.repo.UserRepository;
 import sg.edu.iss.jam.security.MyUserDetails;
@@ -71,12 +75,10 @@ public class HomeController {
 	
 	@Autowired
 	HomeInterface hService;
-  
-  	public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
-	    Set<Object> seen = ConcurrentHashMap.newKeySet();
-	    return t -> seen.add(keyExtractor.apply(t));
-	}
 	
+	@Autowired
+	PostRepository postrepo;
+  
 	
 	@GetMapping("/")
 	public String goToHome(Model model,@AuthenticationPrincipal MyUserDetails userDetails) {
@@ -87,6 +89,7 @@ public class HomeController {
 		model.addAttribute("user", uService.findUserByUserId(userDetails.getUserId()));
 		model.addAttribute("profileUrl", user.getProfileUrl());
 		model.addAttribute("bannerUrl", user.getBannerUrl());
+		model.addAttribute("userID", user.getUserID());
 		
 		
 		model.addAttribute("followers", ((srepo.getArtistSubscribed(user.getUserID())).size() - (srepo.getArtistUnSubscribed(user.getUserID())).size()));
@@ -109,87 +112,48 @@ public class HomeController {
 		return "home";
 	}
 	
-
-	@RequestMapping("/subscribers")
-	public String viewSubs(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
+	@RequestMapping("/edituser")
+	public String editUser(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
+		
 		User user = uService.findUserByUserId(userDetails.getUserId());
 		
-		List<Subscribed> mySubs = srepo.getArtistSubscribed(user.getUserID());
-		mySubs.stream().forEach(x->System.out.println("mySubsStart: " + x.getSubscriber().getUserID()));
 		
-		List<Subscribed> subscribers = srepo.getArtistSubscribed(user.getUserID());
-		List<Subscribed> unsubs = srepo.getArtistUnSubscribed(user.getUserID());
-		Set<Long> confirmedSubs = new HashSet<>();
-		List<Subscribed> tobeRemoved = new ArrayList<>();
-		for(Subscribed s : subscribers) {
-			if(!confirmedSubs.add(s.getSubscriber().getUserID())) {
-				tobeRemoved.add(s);
-			}
-		}
+		model.addAttribute("user", uService.findUserByUserId(userDetails.getUserId()));
+		model.addAttribute("followers", ((srepo.getArtistSubscribed(user.getUserID())).size() - (srepo.getArtistUnSubscribed(user.getUserID())).size()));
+		model.addAttribute("following", ((srepo.getSubscriptions(user.getUserID())).size() - srepo.getMyUnsubscribe(user.getUserID()).size()));
+		
+		return"editUserForm";
+	}
+	@RequestMapping("/saveuser")
+	public String saveUser(Model model, @Valid @ModelAttribute("user") User user) {
+		
+		uService.updateUser(user);
+		
+		model.addAttribute("user",user);
+		return"edtiSuccess";
+	}
+	
+	@RequestMapping("/updateuser")
+	public String updateUser(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
+		
+		model.addAttribute("user", uService.findUserByUserId(userDetails.getUserId()));
+		
+		return"signup2";
+	}
+	
+	
 
-		unsubs.stream().collect(Collectors.toCollection(()->tobeRemoved));
-		System.out.println("TBR size: " + tobeRemoved.size());
-		System.out.println("mySubs size:" + mySubs.size());
+	@RequestMapping("/subscribers/{userID}")
+	public String viewSubs(Model model, @AuthenticationPrincipal MyUserDetails userDetails,
+			@PathVariable("userID") Long userID) {
+		User user = uService.findUserByUserId(userID);
 		
-		int mySubsSize = mySubs.size();
-		List<Subscribed>timeAdjustment = new ArrayList<>();
-		
-		for(int i = 0; i<mySubsSize; i++) {
-			for(int j = 0; j<tobeRemoved.size(); j++) {
-				if(mySubs.get(i).getSubscriber().getUserID() == tobeRemoved.get(j).getSubscriber().getUserID()) {
-					mySubs.get(i).setTimeSubscribed(mySubs.get(i).getTimeSubscribed().plusYears(100));
-					timeAdjustment.add(mySubs.get(i));
-				}
-			}
-		}
-				
-		Iterator<Subscribed> itr = mySubs.iterator();
-		while(itr.hasNext()) {
-			Subscribed s = itr.next();
-			if(s.getTimeSubscribed().isAfter(LocalDateTime.now())) {
-				itr.remove();
-			}
-		}
-		timeAdjustment.stream().forEach(x->x.setTimeSubscribed(x.getTimeSubscribed().minusYears(100)));
-		mySubs.stream().forEach(x->System.out.println("ConfirmedSubs: " + x.getSubscriber().getUserID()));
-		
-		List<Subscribed> mySubCheck = 	subscribers.stream()
-				.filter(y->mySubs.stream()
-						.noneMatch(x->x.getArtist().getUserID()==(y.getArtist().getUserID())
-								&& x.getSubscriber().getUserID()==(y.getSubscriber().getUserID())))
-				.filter(distinctByKey(x->x.getSubscriber().getUserID()))
-				.collect(Collectors.toList());
-		
-		mySubCheck.stream().forEach(x->System.out.println("subCheckResult: " + x.getSubscribedID()));
-		
-		List<Subscribed> latestStatus = new ArrayList<>();
-		for(Subscribed s : mySubCheck) {
-			List<Subscribed> temp = srepo.findAllSubscribedBySubId(s.getSubscriber().getUserID());
-			Subscribed latest = Collections.max(temp,Comparator.comparing(x->x.getTimeSubscribed()));
-			if(latest.isSubscribed()==true && latest.getArtist().getUserID() == user.getUserID()) {
-					latestStatus.add(latest);
-				}
-			}
-		
-		latestStatus.stream().forEach(x->System.out.println("ConfirmedSubsAfterCheck: " + x.getSubscribedID()));
-		
-		latestStatus.stream().filter(distinctByKey(x->x.getSubscriber().getUserID())).collect(Collectors.toCollection(()->mySubs));
-			
-		List<User> subUsers = new ArrayList<>();	
-		for(Subscribed s : mySubs) {
-			
-			Optional<User> ou = urepo.findById(s.getSubscriber().getUserID());
-			User u = ou.get();
-			subUsers.add(u);
-			
-		}
-				
-		for(Subscribed s : mySubs) {
-			System.out.println("mySubsFinal" + s.getSubscriber().getUserID());
-		}
+		List<User> subUsers = uService.getUserSubs(userID);
 		
 		model.addAttribute("subscribers", subUsers);
 		model.addAttribute("user", uService.findUserByUserId(userDetails.getUserId()));
+		model.addAttribute("fullName", user.getFullname());
+		model.addAttribute("userID", user.getUserID());
 		model.addAttribute("profileUrl", user.getProfileUrl());
 		model.addAttribute("followers", ((srepo.getArtistSubscribed(user.getUserID())).size() - (srepo.getArtistUnSubscribed(user.getUserID())).size()));
 		model.addAttribute("following", ((srepo.getSubscriptions(user.getUserID())).size() - srepo.getMyUnsubscribe(user.getUserID()).size()));
@@ -197,91 +161,17 @@ public class HomeController {
 		return "subscribers";
 	}
 	
-	@RequestMapping("/following")
-	public String viewFollowing(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
-		User user = uService.findUserByUserId(userDetails.getUserId());
+	@RequestMapping("/following/{userID}")
+	public String viewFollowing(Model model, @AuthenticationPrincipal MyUserDetails userDetails,
+			@PathVariable("userID") Long userID) {
+		User user = uService.findUserByUserId(userID);
 		
-		List<Subscribed> myFollowings = srepo.getSubscriptions(user.getUserID());
-		myFollowings.stream().forEach(x->System.out.println("myFollowingStart: " + x.getArtist().getUserID()));
-		List<Subscribed> following = srepo.getSubscriptions(user.getUserID());
-		List<Subscribed> unfollows = srepo.getMyUnsubscribe(user.getUserID());
-		Set<Long> confirmedFollowings = new HashSet<>();
-		List<Subscribed> tobeRemoved = new ArrayList<>();
-		for(Subscribed s : following) {
-					
-					if(!confirmedFollowings.add(s.getArtist().getUserID())) {
-						tobeRemoved.add(s);
-					}
-				}
-		unfollows.stream().collect(Collectors.toCollection(()->tobeRemoved));
-		
-		for(int i = 0; i<myFollowings.size(); i++) {
-			for(int j = 0; j<tobeRemoved.size(); j++) {
-				if(myFollowings.get(i).getArtist().getUserID() == tobeRemoved.get(j).getArtist().getUserID()) {
-					myFollowings.remove(i);
-				}
-			}
-		}
-		
-		int myFollowSize = myFollowings.size();
-				
-				for(int i = 0; i<myFollowSize; i++) {
-					for(int j = 0; j<tobeRemoved.size(); j++) {
-						if(myFollowings.get(i).getArtist().getUserID() == tobeRemoved.get(j).getArtist().getUserID()) {
-							myFollowings.get(i).setTimeSubscribed(myFollowings.get(i).getTimeSubscribed().plusYears(100));
-						}
-					}
-				}
-						
-				Iterator<Subscribed> itr = myFollowings.iterator();
-				while(itr.hasNext()) {
-					Subscribed s = itr.next();
-					if(s.getTimeSubscribed().isAfter(LocalDateTime.now())) {
-						s.setTimeSubscribed(s.getTimeSubscribed().minusYears(100));
-						itr.remove();
-					}
-				}
-		myFollowings.stream().forEach(x->System.out.println("ConfirmedSubs: " + x.getArtist().getUserID()));
-		
-		
-		myFollowings.stream().forEach(x->System.out.println("myFollowingRemove: " + x.getArtist().getUserID()));
-				
-				List<Subscribed> myFollowingCheck = following.stream()
-						.filter(y->unfollows.stream()
-								.anyMatch(x->x.getArtist().getUserID().equals(y.getArtist().getUserID())
-										&& x.getSubscriber().getUserID().equals(y.getSubscriber().getUserID())
-										&& x.getTimeSubscribed().isBefore(y.getTimeSubscribed())))
-						.filter(distinctByKey(x->x.getArtist().getUserID()))
-						.collect(Collectors.toList());
-
-	
-		myFollowingCheck.stream().forEach(x->System.out.println("followingCheckResult: " + x.getSubscribedID()));
-		
-		List<Subscribed> latestStatus = new ArrayList<>();
-		for(Subscribed s : myFollowingCheck) {
-			List<Subscribed> temp = srepo.findAllFollowingByArtistId(s.getArtist().getUserID());
-			Subscribed latest = Collections.max(temp,Comparator.comparing(x->x.getTimeSubscribed()));
-			if(latest.isSubscribed()==true && latest.getSubscriber().getUserID() == user.getUserID()) {
-					latestStatus.add(latest);
-				}
-		}
-	
-		latestStatus.stream().forEach(x->System.out.println("ConfirmedFollowingAfterCheck: " + x.getSubscribedID()));
-		latestStatus.stream().filter(distinctByKey(x->x.getArtist().getUserID())).collect(Collectors.toCollection(()->myFollowings));
-
-					List<User> followUsers = new ArrayList<>();			
-					for(Subscribed s : myFollowings) {
-						
-						Optional<User> ou = urepo.findById(s.getArtist().getUserID());
-						User u = ou.get();
-						followUsers.add(u);	
-					}
-							
-					 myFollowings.stream().forEach(x->System.out.println("mySubsFinal" + x.getArtist().getUserID()));
+		List<User> followUsers = uService.getFollowing(userID);
 					 
 		model.addAttribute("followingUsers", followUsers);
 		model.addAttribute("user", uService.findUserByUserId(userDetails.getUserId()));
 		model.addAttribute("profileUrl", user.getProfileUrl());
+		model.addAttribute("fullName", user.getFullname());
 		model.addAttribute("followers", ((srepo.getArtistSubscribed(user.getUserID())).size() - (srepo.getArtistUnSubscribed(user.getUserID())).size()));
 		model.addAttribute("following", ((srepo.getSubscriptions(user.getUserID())).size() - srepo.getMyUnsubscribe(user.getUserID()).size()));
 						
@@ -315,19 +205,20 @@ public class HomeController {
 			
 			//logged in user
 			User loggedinuser = uService.findUserByUserId(userDetails.getUserId());
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 			
 		    Post post = new Post();
 			
 			//Add New Post
 			if (postID == null) {
 				post.setContent(submittedContent);
-				post.setDateTime(LocalDateTime.now().toString());
+				post.setDateTime(LocalDateTime.now().format(formatter).toString());
 				post.setUser(loggedinuser);
 				hService.SavePost(post);
 			}else {
 				hService.getPostbyID(postID);
 				post.setContent(submittedContent);
-				post.setDateTime(LocalDateTime.now().toString());
+				post.setDateTime(LocalDateTime.now().format(formatter).toString());
 				post.setUser(loggedinuser);
 				hService.SavePost(post);
 			}
@@ -358,12 +249,67 @@ public class HomeController {
 			return "redirect:/home/";
 		}
 		
-		@RequestMapping("/profile/{userID}")
+		@GetMapping("/profile/{userID}")
 		public String viewUserProfile(Model model, @AuthenticationPrincipal MyUserDetails userDetails,
 				@PathVariable("userID") Long userID) {
 			System.out.println(userID);
 			
-			return"index";
+			if(userID == userDetails.getUserId().longValue()) {
+				
+				
+				return"redirect:/home/";
+			}
+			else {
+			
+			System.out.println(userID);
+			System.out.println(userDetails.getUserId());
+			
+			User viewer = uService.findUserByUserId(userDetails.getUserId());
+			User viewee = uService.findUserByUserId(userID);
+			
+			model.addAttribute("profileUrl",viewer.getProfileUrl());
+			model.addAttribute("user", viewer);
+			
+			model.addAttribute("vieweeProfileUrl", viewee.getProfileUrl());
+			model.addAttribute("vieweeFullName", viewee.getFullname());
+			model.addAttribute("userID", userID);
+			model.addAttribute("bannerUrl", viewee.getBannerUrl());
+			model.addAttribute("followers", ((srepo.getArtistSubscribed(viewee.getUserID())).size() - (srepo.getArtistUnSubscribed(viewee.getUserID())).size()));
+			model.addAttribute("following", ((srepo.getSubscriptions(viewee.getUserID())).size() - srepo.getMyUnsubscribe(viewee.getUserID()).size()));
+			
+			return"viewArtistProfile";
+			}
+		}
+		
+		@RequestMapping("/feed")
+		public String viewFeed(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
+			
+			User user = uService.findUserByUserId(userDetails.getUserId());
+			
+			List<User>following = uService.getFollowing(user.getUserID());
+			
+			List<Post>myFollowingPosts = new ArrayList<>();
+			
+			for(User u : following) {
+				List<Post> temp = postrepo.findByUser(u);
+				for(Post p : temp) {
+					myFollowingPosts.add(p);
+				}
+			}
+			
+			List<Post> myFollowingPostSorted =
+			myFollowingPosts.stream()
+				.sorted(Comparator.comparing(Post::getDateTime).reversed())
+				.collect(Collectors.toList());
+			
+			
+			model.addAttribute("user", user);
+			model.addAttribute("posts",myFollowingPostSorted);
+			model.addAttribute("userID", user.getUserID());
+			model.addAttribute("followers", ((srepo.getArtistSubscribed(user.getUserID())).size() - (srepo.getArtistUnSubscribed(user.getUserID())).size()));
+			model.addAttribute("following", ((srepo.getSubscriptions(user.getUserID())).size() - srepo.getMyUnsubscribe(user.getUserID()).size()));
+			
+			return"feed";
 		}
 		
 

@@ -1,7 +1,19 @@
 package sg.edu.iss.jam.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -87,6 +99,11 @@ public class UserImplementation implements UserInterface {
 	
 	@Autowired
 	RolesRepository rrepo;
+	
+  	public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+	    Set<Object> seen = ConcurrentHashMap.newKeySet();
+	    return t -> seen.add(keyExtractor.apply(t));
+	}
 	
 	//USER REPO
 	@Transactional
@@ -398,14 +415,168 @@ public class UserImplementation implements UserInterface {
 		// TODO Auto-generated method stub
 		rrepo.save(b);
 	}
+	
+	@Override
+	public List<User> getUserSubs(Long userID) {
+		
+	User user = findUserByUserId(userID);
+			
+			List<Subscribed> mySubs = subrepo.getArtistSubscribed(user.getUserID());
+			mySubs.stream().forEach(x->System.out.println("mySubsStart: " + x.getSubscriber().getUserID()));
+			
+			List<Subscribed> subscribers = subrepo.getArtistSubscribed(user.getUserID());
+			List<Subscribed> unsubs = subrepo.getArtistUnSubscribed(user.getUserID());
+			Set<Long> confirmedSubs = new HashSet<>();
+			List<Subscribed> tobeRemoved = new ArrayList<>();
+			for(Subscribed s : subscribers) {
+				if(!confirmedSubs.add(s.getSubscriber().getUserID())) {
+					tobeRemoved.add(s);
+				}
+			}
+	
+			unsubs.stream().collect(Collectors.toCollection(()->tobeRemoved));
+			System.out.println("TBR size: " + tobeRemoved.size());
+			System.out.println("mySubs size:" + mySubs.size());
+			
+			int mySubsSize = mySubs.size();
+			List<Subscribed>timeAdjustment = new ArrayList<>();
+			
+			for(int i = 0; i<mySubsSize; i++) {
+				for(int j = 0; j<tobeRemoved.size(); j++) {
+					if(mySubs.get(i).getSubscriber().getUserID() == tobeRemoved.get(j).getSubscriber().getUserID()) {
+						mySubs.get(i).setTimeSubscribed(mySubs.get(i).getTimeSubscribed().plusYears(100));
+						timeAdjustment.add(mySubs.get(i));
+					}
+				}
+			}
+					
+			Iterator<Subscribed> itr = mySubs.iterator();
+			while(itr.hasNext()) {
+				Subscribed s = itr.next();
+				if(s.getTimeSubscribed().isAfter(LocalDateTime.now())) {
+					itr.remove();
+				}
+			}
+			timeAdjustment.stream().forEach(x->x.setTimeSubscribed(x.getTimeSubscribed().minusYears(100)));
+			mySubs.stream().forEach(x->System.out.println("ConfirmedSubs: " + x.getSubscriber().getUserID()));
+			
+			List<Subscribed> mySubCheck = 	subscribers.stream()
+					.filter(y->mySubs.stream()
+							.noneMatch(x->x.getArtist().getUserID()==(y.getArtist().getUserID())
+									&& x.getSubscriber().getUserID()==(y.getSubscriber().getUserID())))
+					.filter(distinctByKey(x->x.getSubscriber().getUserID()))
+					.collect(Collectors.toList());
+			
+			mySubCheck.stream().forEach(x->System.out.println("subCheckResult: " + x.getSubscribedID()));
+			
+			List<Subscribed> latestStatus = new ArrayList<>();
+			for(Subscribed s : mySubCheck) {
+				List<Subscribed> temp = subrepo.findAllSubscribedBySubId(s.getSubscriber().getUserID());
+				Subscribed latest = Collections.max(temp,Comparator.comparing(x->x.getTimeSubscribed()));
+				if(latest.isSubscribed()==true && latest.getArtist().getUserID() == user.getUserID()) {
+						latestStatus.add(latest);
+					}
+				}
+			
+			latestStatus.stream().forEach(x->System.out.println("ConfirmedSubsAfterCheck: " + x.getSubscribedID()));
+			
+			latestStatus.stream().filter(distinctByKey(x->x.getSubscriber().getUserID())).collect(Collectors.toCollection(()->mySubs));
+				
+			List<User> subUsers = new ArrayList<>();	
+			for(Subscribed s : mySubs) {
+				
+				Optional<User> ou = urepo.findById(s.getSubscriber().getUserID());
+				User u = ou.get();
+				subUsers.add(u);
+				
+			}
+					
+			for(Subscribed s : mySubs) {
+				System.out.println("mySubsFinal" + s.getSubscriber().getUserID());
+			}
+			
+			return subUsers;
+		}
 
+	@Override
+	public List<User> getFollowing(Long userID) {
+		
+		User user = findUserByUserId(userID);
+		
+		List<Subscribed> myFollowings = subrepo.getSubscriptions(user.getUserID());
+		myFollowings.stream().forEach(x->System.out.println("myFollowingStart: " + x.getArtist().getUserID()));
+		List<Subscribed> following = subrepo.getSubscriptions(user.getUserID());
+		List<Subscribed> unfollows = subrepo.getMyUnsubscribe(user.getUserID());
+		Set<Long> confirmedFollowings = new HashSet<>();
+		List<Subscribed> tobeRemoved = new ArrayList<>();
+		for(Subscribed s : following) {
+					
+					if(!confirmedFollowings.add(s.getArtist().getUserID())) {
+						tobeRemoved.add(s);
+					}
+				}
+		unfollows.stream().collect(Collectors.toCollection(()->tobeRemoved));
 
+		int myFollowSize = myFollowings.size();
+				
+				for(int i = 0; i<myFollowSize; i++) {
+					for(int j = 0; j<tobeRemoved.size(); j++) {
+						if(myFollowings.get(i).getArtist().getUserID() == tobeRemoved.get(j).getArtist().getUserID()) {
+							myFollowings.get(i).setTimeSubscribed(myFollowings.get(i).getTimeSubscribed().plusYears(100));
+						}
+					}
+				}
 
+				Iterator<Subscribed> itr = myFollowings.iterator();
+				while(itr.hasNext()) {
+					Subscribed s = itr.next();
+					if(s.getTimeSubscribed().isAfter(LocalDateTime.now())) {
+						s.setTimeSubscribed(s.getTimeSubscribed().minusYears(100));
+						itr.remove();
+					}
+				}
+		myFollowings.stream().forEach(x->System.out.println("ConfirmedSubs: " + x.getArtist().getUserID()));
+		
+		
+		myFollowings.stream().forEach(x->System.out.println("myFollowingRemove: " + x.getArtist().getUserID()));
+				
+				List<Subscribed> myFollowingCheck = following.stream()
+						.filter(y->unfollows.stream()
+								.anyMatch(x->x.getArtist().getUserID().equals(y.getArtist().getUserID())
+										&& x.getSubscriber().getUserID().equals(y.getSubscriber().getUserID())
+										&& x.getTimeSubscribed().isBefore(y.getTimeSubscribed())))
+						.filter(distinctByKey(x->x.getArtist().getUserID()))
+						.collect(Collectors.toList());
 
+	
+		myFollowingCheck.stream().forEach(x->System.out.println("followingCheckResult: " + x.getSubscribedID()));
+		
+		List<Subscribed> latestStatus = new ArrayList<>();
+		for(Subscribed s : myFollowingCheck) {
+			List<Subscribed> temp = subrepo.findAllFollowingByArtistId(s.getArtist().getUserID());
+			Subscribed latest = Collections.max(temp,Comparator.comparing(x->x.getTimeSubscribed()));
+			if(latest.isSubscribed()==true && latest.getSubscriber().getUserID() == user.getUserID()) {
+					latestStatus.add(latest);
+				}
+		}
+	
+		latestStatus.stream().forEach(x->System.out.println("ConfirmedFollowingAfterCheck: " + x.getSubscribedID()));
+		latestStatus.stream().filter(distinctByKey(x->x.getArtist().getUserID())).collect(Collectors.toCollection(()->myFollowings));
 
-
-
-
+					List<User> followUsers = new ArrayList<>();			
+					for(Subscribed s : myFollowings) {
+						
+						Optional<User> ou = urepo.findById(s.getArtist().getUserID());
+						User u = ou.get();
+						followUsers.add(u);	
+					}
+							
+					 myFollowings.stream().forEach(x->System.out.println("mySubsFinal" + x.getArtist().getUserID()));
+					 
+					 return followUsers;
+	}
+	
+	
 
 
 }

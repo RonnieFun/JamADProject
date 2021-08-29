@@ -31,17 +31,19 @@
 			<h6>Covid 19 news</h6>
 		</div>
 		
-		<a href="/home/subscribers" style="text-decoration: none; color:black">
+		<a th:href="@{'/home/subscribers/' + ${userID}}" style="text-decoration: none; color:black" id="userID">
 		<div class="sidebarRow">
 			<span class="material-icons">people</span>
 			<h6>Subscribers <span th:text="${followers}" style="font-weight:lighter;"></span></h6>
 		</div>
 		</a>
 		
+		<a th:href="@{'/home/following/' + ${userID}}" style="text-decoration: none; color:black" id="userID">
 		<div class="sidebarRow">
 			<span class="material-icons">volunteer_activism</span>
 			<h6>Following <span th:text="${following}" style="font-weight:lighter;"></span></h6>
 		</div>
+		</a>
 		
 		<a href = "/artist/channel" style="text-decoration: none; color:black">
 			<div class="sidebarRow">
@@ -56,11 +58,13 @@
 				<h6>My Store</h6>	
 			</div>
 		</a>
-			
+		
+		<a href = "/dashboard" style="text-decoration: none; color:black">
 		<div class="sidebarRow">
 			<span class="material-icons">dashboard</span>
 			<h6>My Dashboard</h6>
 		</div>
+		</a>
 		
 <!-- 		<div class="sidebarRow"> -->
 <!-- 			<span class="material-icons">expand_more</span> -->
