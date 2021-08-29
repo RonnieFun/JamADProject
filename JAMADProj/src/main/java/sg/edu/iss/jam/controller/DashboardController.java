@@ -2,11 +2,7 @@ package sg.edu.iss.jam.controller;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,8 +10,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
-import sg.edu.iss.jam.model.Album;
 import sg.edu.iss.jam.model.Category;
 import sg.edu.iss.jam.model.Channel;
 import sg.edu.iss.jam.model.Media;
@@ -41,11 +37,13 @@ public class DashboardController  {
 		@Autowired
 		MediaServiceInterface mservice;
 		
+
 		@GetMapping("/dashboard")
 		public String showDashboard(Model model, @AuthenticationPrincipal MyUserDetails myUserDetails) {
 		
 			//video and music chart	
 				User artist = uservice.findUserByUserId(myUserDetails.getUserId());
+
 				
 				List<Media> artistVideos = new ArrayList<Media>();
 				List<UserHistory> videoUserHistories=new ArrayList<UserHistory>();
@@ -452,7 +450,7 @@ public class DashboardController  {
 						average.add(monthAverage);
 					}
 					
-					
+					model.addAttribute("profileUrl", userDetails.getProfileUrl());
 					model.addAttribute("productnumber", totalproduct);
 					model.addAttribute("clothing",clothingSoldWithMonth);
 					model.addAttribute("merchandise",merchandiseSoldWithMonth);

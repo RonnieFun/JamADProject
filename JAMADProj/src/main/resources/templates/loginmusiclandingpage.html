@@ -24,10 +24,9 @@
 						<div class="card mb-1 h-100"> 
 						
 						<!--  Media image  -->
-                        	<!-- <a th:href="@{/music/listentomusic/(id=${music.id})}"> -->
 							<a th:href="@{/music/listenmusic/} + ${music.id}">
 								<img th:src="${music.thumbnailUrl}" class="card-img-top productPhotoSize" alt="...">
-								<span  class="sideVideoDuration" th:text="${music.duration}"></span> 
+								<span  class="sideDurationVideoChannelPage" th:text="${music.duration}"></span> 
 							</a>
 							
 							<!-- Collapse -->
@@ -47,7 +46,6 @@
 									
 									<!-- author -->
 									   <div class="mb-1 productHeading h6"><strong>Artist:</strong>
-								<!-- 	   <a th:href="@{/music/viewartistmusicchannel(id=${music.channel.channelID})}"> -->
 									  	 <a th:href="@{/music/viewartistmusicchannel/}+${music.channel.channelUser.userID}">
 											<span th:text="${music.channel.channelUser.displayName}"> </span>
 											</span>

@@ -1756,8 +1756,8 @@ body {
   	right: 0;
   	margin-right: 2%;
   	margin-bottom: 10px;
-  	margin-top: -8%;
-  	font-size: 0.9vw;
+  	margin-top: -9%;
+  	font-size: 80%;
 	font-family: 'Roboto', sans-serif;
 	color: white;
 	background-color: black;
@@ -7758,6 +7758,7 @@ body {
     color: #dedbdb
 }
 
+
 .formBody{
 	display: flex;
 	justify-content: space-around;
@@ -7828,7 +7829,10 @@ body {
 	transform: translateX(0%);
 }
 
-
-
-
+.searchResultsArtist {
+	width: 77%;
+	max-width: 77%;
+	height: 220px;
+	max-height: 220px;
+}
 
