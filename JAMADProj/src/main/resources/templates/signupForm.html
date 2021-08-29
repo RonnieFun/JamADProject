@@ -27,7 +27,7 @@
 			 <input placeholder="First Name" type="text" id="firstNameInput" th:field="*{firstName}"/>
 			 <input placeholder="Last Name" type="text" id="lastNameInput" th:field="*{lastName}"/><br>
 			 <input placeholder="Email" type="email" id="emailInput" th:field="*{email}"/><br>
-			 <input placeholder="Re-enter your email" type="email" id="emailInput"/><br>
+			 <input placeholder="Re-enter your email" type="email" id="retypeEmailInput"/><br>
 			 <input placeholder="Password" type="password" id="passwordInput" th:field="*{password}"/>
 			 <input placeholder="Re-enter password" type="password" id="reenterPasswordInput"/>
 			 <br>
@@ -35,6 +35,9 @@
 		  	 <label id="proceedSignUpArtist">Proceed to set up as an Artist</label>
 			 <br>
 			 <input type="submit" class="signUpBtn" value="Sign Up" />
+			 <div th:if="${#fields.hasErrors('global')}">
+    					<p th:each="err : ${#fields.errors('global')}" th:text="${err}" class="error1" />
+				</div>
 			 <br>
 		 </form>
 		 
@@ -44,6 +47,36 @@
 <div class="footer">
   <p style="margin-top: 3px;">@2020-2021 Jam | Term 2</p>
 </div>
+	
+	<script>
+	var password = document.getElementById("passwordInput")
+	  , confirm_password = document.getElementById("reenterPasswordInput");
+
+	function validatePassword(){
+	  if(password.value != confirm_password.value) {
+	    confirm_password.setCustomValidity("Passwords Don't Match");
+	  } else {
+	    confirm_password.setCustomValidity('');
+	  }
+	}
+
+	password.onchange = validatePassword;
+	confirm_password.onkeyup = validatePassword;
+	
+	var password = document.getElementById("emailInput")
+	  , confirm_password = document.getElementById("retypeEmailInput");
+
+	function validatePassword(){
+	  if(password.value != confirm_password.value) {
+	    confirm_password.setCustomValidity("Emails Don't Match");
+	  } else {
+	    confirm_password.setCustomValidity('');
+	  }
+	}
+
+	password.onchange = validatePassword;
+	confirm_password.onkeyup = validatePassword;
+	</script>
 	
 </body>
 </html>

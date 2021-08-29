@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -28,7 +31,9 @@ import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.repo.ChannelRepository;
 import sg.edu.iss.jam.repo.RolesRepository;
 import sg.edu.iss.jam.repo.ShoppingCartRepository;
+import sg.edu.iss.jam.repo.UserRepository;
 import sg.edu.iss.jam.service.UserInterface;
+import sg.edu.iss.jam.service.UserValidationService;
 
 @Controller
 @RequestMapping("/login")
@@ -45,6 +50,12 @@ public class LoginController {
 		
 		@Autowired
 		ChannelRepository crepo;
+		
+		@Autowired
+		UserRepository urepo;
+		
+		@Autowired
+		UserValidationService validationService;
 		
 		@RequestMapping("/")
 		public String login(Model model) {
@@ -65,9 +76,20 @@ public class LoginController {
 		}
 		
 		@RequestMapping("/save")
-		public String saveUserForm(@ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
+		public String saveUserForm(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model) {
 			Collection<Roles> roles = new ArrayList<Roles>();
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+			String err = validationService.validateUserEmail(user);
+			if (!err.isEmpty()) {
+				ObjectError error = new ObjectError("globalError", err);
+				bindingResult.addError(error);
+			}
+			
+			if(bindingResult.hasErrors()) {
+				return"signupForm";
+			}
+			
+			
 			if((user.getDisplayName()==null && (!user.isArtist())) ||
 					user.getDisplayName()!=null && (user.isArtist())) {
 			String rawPassword = user.getPassword();
