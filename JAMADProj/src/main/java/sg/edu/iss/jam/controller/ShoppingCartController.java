@@ -56,6 +56,7 @@ public class ShoppingCartController {
 				detailsAndCountQty.put(cartdetail, quantity);
 			}
 		}
+		model.addAttribute("cartLinkActive", true);
 		model.addAttribute("cartForm", detailsAndCountQty);
 		System.out.println(detailsAndCountQty);
 		model.addAttribute("profileUrl", user.getProfileUrl());
