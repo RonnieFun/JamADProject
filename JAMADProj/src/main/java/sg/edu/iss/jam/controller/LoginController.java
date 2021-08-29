@@ -137,6 +137,7 @@ public class LoginController {
 						rrepo.deleteById(r.getId());
 					}
 					user.setRoles(roles);
+					user.setArtist(true);
 					Roles a = new Roles(Role.Artist, user);
 					ShoppingCart s = new ShoppingCart(user,null);
 					String creationTime = LocalDateTime.now().format(formatter).toString();
