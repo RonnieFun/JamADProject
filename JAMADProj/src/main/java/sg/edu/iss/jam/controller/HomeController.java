@@ -99,7 +99,7 @@ public class HomeController {
 		model.addAttribute("following", ((srepo.getSubscriptions(user.getUserID())).size() - srepo.getMyUnsubscribe(user.getUserID()).size()));
 		
 
-		System.out.println("Total subscribers: " + ((srepo.getArtistSubscribed(user.getUserID())).size() - (srepo.getArtistUnSubscribed(user.getUserID())).size()));
+		System.out.println("Total subscribers: " + ((srepo.getArtistSubscribed(user.getUserID())).size() - srepo.getArtistUnSubscribed(user.getUserID()).size()));
 		System.out.println("Total following: " + ((srepo.getSubscriptions(user.getUserID())).size() - srepo.getMyUnsubscribe(user.getUserID()).size()));
 		
 		
@@ -172,7 +172,7 @@ public class HomeController {
 		List<User> followUsers = uService.getFollowing(userID);
 					 
 		model.addAttribute("followingUsers", followUsers);
-		model.addAttribute("user", uService.findUserByUserId(userDetails.getUserId()));
+		model.addAttribute("user", urepo.findById(userDetails.getUserId()).get());
 		model.addAttribute("profileUrl", user.getProfileUrl());
 		model.addAttribute("fullName", user.getFullname());
 		model.addAttribute("followers", ((srepo.getArtistSubscribed(user.getUserID())).size() - (srepo.getArtistUnSubscribed(user.getUserID())).size()));
@@ -321,7 +321,7 @@ public class HomeController {
 			model.addAttribute("user", user);
 			model.addAttribute("posts",myFollowingPostSorted);
 			model.addAttribute("userID", user.getUserID());
-			model.addAttribute("followers", ((srepo.getArtistSubscribed(user.getUserID())).size() - (srepo.getArtistUnSubscribed(user.getUserID())).size()));
+			model.addAttribute("followers", ((srepo.getArtistSubscribed(user.getUserID())).size() - srepo.getArtistUnSubscribed(user.getUserID()).size()));
 			model.addAttribute("following", ((srepo.getSubscriptions(user.getUserID())).size() - srepo.getMyUnsubscribe(user.getUserID()).size()));
 			
 			return"feed";

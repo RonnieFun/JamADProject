@@ -40,8 +40,9 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 			<h6>Subscribers <span th:text="${followers}" style="font-weight:lighter;"></span></h6>
 		</div>
 		</a>
+		</div>
 		
-	
+	<div>
 	<a th:href="@{'/home/following/' + ${userID}}" style="text-decoration: none; color:black" id="userID">
 		<div class="sidebarRow">
 			<span class="material-icons">volunteer_activism</span>
@@ -50,14 +51,6 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 	</a>
 	</div>
 	
-	<div sec:authorize="hasAnyAuthority('Customer')">
-	<a th:href="@{'/home/following/' + ${userID}}" style="text-decoration: none; color:black" id="userID">
-		<div class="sidebarRow">
-			<span class="material-icons">volunteer_activism</span>
-			<h6>Subscriptions <span th:text="${following}" style="font-weight:lighter;"></span></h6>
-		</div>
-	</a>
-	</div>
 	
 
 		<div sec:authorize="hasAnyAuthority('Artist')">
