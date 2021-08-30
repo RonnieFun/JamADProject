@@ -38,76 +38,107 @@ import sg.edu.iss.jam.service.UserValidationService;
 @Controller
 @RequestMapping("/login")
 public class LoginController {
-		
-		@Autowired
-		UserInterface userService;
-		
-		@Autowired
-		RolesRepository rrepo;
-		
-		@Autowired
-		ShoppingCartRepository screpo;
-		
-		@Autowired
-		ChannelRepository crepo;
-		
-		@Autowired
-		UserRepository urepo;
-		
-		@Autowired
-		UserValidationService validationService;
-		
-		@RequestMapping("/")
-		public String login(Model model) {
-			
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			if(authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-				return"index";
-			}
-			return "redirect:/";
+
+	@Autowired
+	UserInterface userService;
+
+	@Autowired
+	RolesRepository rrepo;
+
+	@Autowired
+	ShoppingCartRepository screpo;
+
+	@Autowired
+	ChannelRepository crepo;
+
+	@Autowired
+	UserRepository urepo;
+
+	@Autowired
+	UserValidationService validationService;
+
+	@RequestMapping("/")
+	public String login(Model model) {
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+			return "index";
 		}
-		
-		@RequestMapping("/signup")
-		public String signup(Model model) {
-			User user = new User();
-			model.addAttribute("user", user);
-			model.addAttribute("isArtist", user.isArtist());
+		return "redirect:/";
+	}
+
+	@RequestMapping("/signup")
+	public String signup(Model model) {
+		User user = new User();
+		model.addAttribute("user", user);
+		model.addAttribute("isArtist", user.isArtist());
+		return "signupForm";
+	}
+
+	@RequestMapping("/save")
+	public String saveUserForm(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model) {
+		Collection<Roles> roles = new ArrayList<Roles>();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		String err = validationService.validateUserEmail(user);
+		if (!err.isEmpty()) {
+			ObjectError error = new ObjectError("globalError", err);
+			bindingResult.addError(error);
+		}
+
+		if (bindingResult.hasErrors()) {
 			return "signupForm";
 		}
-		
-		@RequestMapping("/save")
-		public String saveUserForm(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model) {
-			Collection<Roles> roles = new ArrayList<Roles>();
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-			String err = validationService.validateUserEmail(user);
-			if (!err.isEmpty()) {
-				ObjectError error = new ObjectError("globalError", err);
-				bindingResult.addError(error);
-			}
-			
-			if(bindingResult.hasErrors()) {
-				return"signupForm";
-			}
-			
-			
-			if((user.getDisplayName()==null && (!user.isArtist())) ||
-					user.getDisplayName()!=null && (user.isArtist())) {
+
+		if ((user.getDisplayName() == null && (!user.isArtist()))
+				|| user.getDisplayName() != null && (user.isArtist())) {
 			String rawPassword = user.getPassword();
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 			String encodedPassword = encoder.encode(rawPassword);
 			user.setPassword(encodedPassword);
 			user.setEnabled(true);
 			user.setBannerUrl("/images/JAM_LOGO.png");
-			
-			if(user.getProfileUrl()==null) {
+
+			if (user.getProfileUrl() == null) {
 				user.setProfileUrl("/images/default_user.jpg");
-				}
 			}
-			
-			if(user.isArtist()==true) {
+		}
+
+		if (user.isArtist() == true) {
+			user.setRoles(roles);
+			Roles a = new Roles(Role.Artist, user);
+			ShoppingCart s = new ShoppingCart(user, null);
+			String creationTime = LocalDateTime.now().format(formatter).toString();
+			String videoChannelDes = user.getFullname() + ", " + "This is your Video Channel";
+			String videoChannelName = user.getFullname() + " Video Channel";
+			String musicChannelDes = user.getFullname() + ", " + "This is your Music Channel";
+			String musicChannelName = user.getFullname() + " Music Channel";
+			Collection<Media> channelMediaList = new ArrayList<>();
+			Collection<Album> albumslist = new ArrayList<>();
+			Channel v = new Channel(videoChannelName, videoChannelDes, MediaType.Video, creationTime, channelMediaList,
+					user, albumslist);
+			Channel m = new Channel(musicChannelName, musicChannelDes, MediaType.Music, creationTime, channelMediaList,
+					user, albumslist);
+			userService.updateUser(user);
+			rrepo.save(a);
+			screpo.save(s);
+			crepo.save(v);
+			crepo.save(m);
+			model.addAttribute("user", userService.findUserByUserId(user.getUserID()));
+			model.addAttribute("profileUrl", user.getProfileUrl());
+			return "signup2";
+		}
+
+		else {
+
+			if (user.getDisplayName() != null) {
+				List<Roles> r1 = rrepo.findByRoleUser(user);
+				for (Roles r : r1) {
+					rrepo.deleteById(r.getId());
+				}
 				user.setRoles(roles);
+				user.setArtist(true);
 				Roles a = new Roles(Role.Artist, user);
-				ShoppingCart s = new ShoppingCart(user,null);
+				ShoppingCart s = new ShoppingCart(user, null);
 				String creationTime = LocalDateTime.now().format(formatter).toString();
 				String videoChannelDes = user.getFullname() + ", " + "This is your Video Channel";
 				String videoChannelName = user.getFullname() + " Video Channel";
@@ -115,70 +146,37 @@ public class LoginController {
 				String musicChannelName = user.getFullname() + " Music Channel";
 				Collection<Media> channelMediaList = new ArrayList<>();
 				Collection<Album> albumslist = new ArrayList<>();
-				Channel v = new Channel(videoChannelName, videoChannelDes, MediaType.Video, creationTime , channelMediaList, user, albumslist);
-				Channel m = new Channel(musicChannelName, musicChannelDes, MediaType.Music, creationTime , channelMediaList, user, albumslist);
+				Channel v = new Channel(videoChannelName, videoChannelDes, MediaType.Video, creationTime,
+						channelMediaList, user, albumslist);
+				Channel m = new Channel(musicChannelName, musicChannelDes, MediaType.Music, creationTime,
+						channelMediaList, user, albumslist);
 				userService.updateUser(user);
 				rrepo.save(a);
 				screpo.save(s);
 				crepo.save(v);
 				crepo.save(m);
-				model.addAttribute("user", userService.findUserByUserId(user.getUserID()));
-				model.addAttribute("profileUrl", user.getProfileUrl());
-				System.out.println(user.getUserID());
-				return"signup2";
-			}
-			
-			else {
 
-				
-				if(user.getDisplayName() != null) {
-					List<Roles> r1 = rrepo.findByRoleUser(user);
-					for(Roles r: r1) {
-						rrepo.deleteById(r.getId());
-					}
-					user.setRoles(roles);
-					user.setArtist(true);
-					Roles a = new Roles(Role.Artist, user);
-					ShoppingCart s = new ShoppingCart(user,null);
-					String creationTime = LocalDateTime.now().format(formatter).toString();
-					String videoChannelDes = user.getFullname() + ", " + "This is your Video Channel";
-					String videoChannelName = user.getFullname() + " Video Channel";
-					String musicChannelDes = user.getFullname() + ", " + "This is your Music Channel";
-					String musicChannelName = user.getFullname() + " Music Channel";
-					Collection<Media> channelMediaList = new ArrayList<>();
-					Collection<Album> albumslist = new ArrayList<>();
-					Channel v = new Channel(videoChannelName, videoChannelDes, MediaType.Video, creationTime , channelMediaList, user, albumslist);
-					Channel m = new Channel(musicChannelName, musicChannelDes, MediaType.Music, creationTime , channelMediaList, user, albumslist);
-					userService.updateUser(user);
-					rrepo.save(a);
-					screpo.save(s);
-					crepo.save(v);
-					crepo.save(m);
-					
-					return "redirect:/home/";
-				}
-				
-				else {
+				return "redirect:/home/";
+			}
+
+			else {
 				user.setRoles(roles);
 				Roles b = new Roles(Role.Customer, user);
-				ShoppingCart s = new ShoppingCart(user,null);
+				ShoppingCart s = new ShoppingCart(user, null);
 				userService.updateUser(user);
 				rrepo.save(b);
 				screpo.save(s);
-				return"successSignUp";
-				}
+				return "successSignUp";
 			}
-				
 		}
-		
-		@RequestMapping("/update")
-		public String saveArtistForm(@ModelAttribute("user") User user, BindingResult bindingResult) {
-			System.out.println(user.getUserID());
-			userService.updateUser(user);
-			
-			return"successSignUp";
-		}
-		
 
+	}
+
+	@RequestMapping("/update")
+	public String saveArtistForm(@ModelAttribute("user") User user, BindingResult bindingResult) {
+		userService.updateUser(user);
+
+		return "successSignUp";
+	}
 
 }

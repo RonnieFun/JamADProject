@@ -25,26 +25,23 @@ import sg.edu.iss.jam.repo.UserHistoryRepository;
 
 @Service
 public class MediaServiceImplementation implements MediaServiceInterface {
-	
-	
-	//generic landing page
-		@Autowired
-		MediaRepository mediarepo;
-		
-		@Autowired
-		UserHistoryRepository uhrepo;
-	
-		@Override
-		public List<Media> getMediaByTypeAndCount(MediaType mediaType){
-			return mediarepo.getMediaByTypeAndCount(mediaType);
-		}
-		
-		@Override
-		public List<Media> getMediaByUserHistory(MediaType mediaType,LocalDate lesscurrentdate){
-			return mediarepo.getMediaByUserHistory(mediaType,lesscurrentdate);
-		}
 
-	
+	// generic landing page
+	@Autowired
+	MediaRepository mediarepo;
+
+	@Autowired
+	UserHistoryRepository uhrepo;
+
+	@Override
+	public List<Media> getMediaByTypeAndCount(MediaType mediaType) {
+		return mediarepo.getMediaByTypeAndCount(mediaType);
+	}
+
+	@Override
+	public List<Media> getMediaByUserHistory(MediaType mediaType, LocalDate lesscurrentdate) {
+		return mediarepo.getMediaByUserHistory(mediaType, lesscurrentdate);
+	}
 
 	public static final int BYTE_RANGE = 128;
 
@@ -134,13 +131,12 @@ public class MediaServiceImplementation implements MediaServiceInterface {
 		return mediarepo.getById(id);
 	}
 
-	
-	//dashboard
+	// dashboard
 	@Override
 	public List<Media> findAllVideos() {
 		return mediarepo.findAllVideos();
 	}
-	
+
 	@Override
 	public List<Media> findAllMusics() {
 		return mediarepo.findAllMusics();
@@ -148,7 +144,7 @@ public class MediaServiceImplementation implements MediaServiceInterface {
 
 	@Override
 	public List<Media> findMediaByAlbumId(Long albumID) {
-		
+
 		return mediarepo.findMediaByAlbumId(albumID);
 	}
 

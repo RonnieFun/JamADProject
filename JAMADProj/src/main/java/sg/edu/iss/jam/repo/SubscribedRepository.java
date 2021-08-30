@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import sg.edu.iss.jam.model.Subscribed;
-import sg.edu.iss.jam.model.User;
 
 public interface SubscribedRepository extends JpaRepository<Subscribed, Long> {
 	

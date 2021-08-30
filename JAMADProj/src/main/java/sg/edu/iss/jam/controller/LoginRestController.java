@@ -10,7 +10,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import sg.edu.iss.jam.model.Role;
 import sg.edu.iss.jam.model.Roles;
-import sg.edu.iss.jam.model.Status;
 import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.service.UserInterface;
 
@@ -34,11 +32,9 @@ public class LoginRestController {
     public Map<String, Long> registerUser(@Valid @RequestBody User newUser) {
 		Map<String,Long> map  = new HashMap<>();
         List<User> users = userService.getAllUser();
-        System.out.println("New user: " + newUser.toString());
         for (User user : users) {
-            System.out.println("Registered user: " + newUser.toString());
             if (user.getEmail().equals(newUser.getEmail())) {
-                System.out.println("User Already exists!");
+				System.out.println("User Already exists!");
                 map.put("Result", 0L);
                 return map;
             }
@@ -53,7 +49,6 @@ public class LoginRestController {
 		newUser.setRoles(roles);
 		Roles b = new Roles(Role.Customer, newUser);
 		User user = userService.saveUser(newUser);
-		System.out.println(user.getUserID());
 		map.put("Result", user.getUserID());
 		userService.saveRole(b);
         return map;
@@ -65,7 +60,6 @@ public class LoginRestController {
         List<User> users = userService.getAllUser();
         for (User other : users) {
             if (other.getEmail().equals(user.getEmail())) {
-            	System.out.println(other.getUserID());
             	map.put("Result", other.getUserID());
                 return map;
             }

@@ -11,10 +11,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,7 +20,6 @@ import org.springframework.web.client.RestTemplate;
 
 import sg.edu.iss.jam.DTO.AndroidArtistVideoChannelDTO;
 import sg.edu.iss.jam.DTO.AndroidMediaDTO;
-import sg.edu.iss.jam.DTO.MediaDTO;
 import sg.edu.iss.jam.model.Channel;
 import sg.edu.iss.jam.model.Media;
 import sg.edu.iss.jam.model.MediaType;
@@ -31,7 +27,6 @@ import sg.edu.iss.jam.model.Subscribed;
 import sg.edu.iss.jam.model.Tag;
 import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.model.UserHistory;
-import sg.edu.iss.jam.security.MyUserDetails;
 import sg.edu.iss.jam.service.ArtistInterface;
 import sg.edu.iss.jam.service.MediaServiceInterface;
 import sg.edu.iss.jam.service.UserInterface;
@@ -194,33 +189,33 @@ public class MediaRestController {
 			return new ResponseEntity<>(androidGetAllVideosDTOList, HttpStatus.OK);
 		}
 	}
-	
-	
+
 	@GetMapping("/video/viewartistvideochannel")
-	public ResponseEntity<?> viewArtistVideoChannel(@RequestParam("artistId") long artistId,@RequestParam("userId") long userId) {
-		
+	public ResponseEntity<?> viewArtistVideoChannel(@RequestParam("artistId") long artistId,
+			@RequestParam("userId") long userId) {
+
 		AndroidArtistVideoChannelDTO artistVideoChannel = new AndroidArtistVideoChannelDTO();
 		String artistVideoChannelName = "";
 		int numberOfArtistVideos = 0;
 		int numberOfSubscribers = 0;
 		List<Media> artistVideos = new ArrayList<Media>();
 		List<AndroidMediaDTO> mediaList = new ArrayList<AndroidMediaDTO>();
-		
+
 		User artist = aservice.findById(artistId);
-		
+
 		// get artist's video channel and videos
 		List<Channel> artistChannels = (List<Channel>) artist.getChannels();
-		
-		for(Channel c: artistChannels) {
-			if(c.getMediaType() == MediaType.Video) {	
+
+		for (Channel c : artistChannels) {
+			if (c.getMediaType() == MediaType.Video) {
 				artistVideos = (List<Media>) c.getChannelMediaList();
-				
-				artistVideoChannelName =  c.getChannelName();
-				numberOfArtistVideos =  c.getChannelMediaList().size();
+
+				artistVideoChannelName = c.getChannelName();
+				numberOfArtistVideos = c.getChannelMediaList().size();
 			}
 		}
-		//convert to media dto
-		for(Media video:artistVideos) {
+		// convert to media dto
+		for (Media video : artistVideos) {
 			String tags = "";
 			AndroidMediaDTO mediaDTO = new AndroidMediaDTO();
 			mediaDTO.setMediaId(video.getId());
@@ -255,52 +250,51 @@ public class MediaRestController {
 //				tags.trim();
 //			}
 //			androidGetAllVideosDTO.setTags(tags);
-			//mediaList.add(androidGetAllVideosDTO);
+			// mediaList.add(androidGetAllVideosDTO);
 			mediaList.add(mediaDTO);
 		}
 		// Subscribe/unsubscribe button section
-		
+
 		// Calcuate all subscribers of the artist
-		
+
 		Boolean subscribeStatus = false;
 		String loggedInUserSubscribeErrorMsg = "";
 		String totalNumberOfSubscribeErrorMsg = "";
-		
+
 		List<Subscribed> users_Unsubscribed = uservice.getArtistUnSubscribed(artistId);
 		List<Subscribed> users_Subscribed = uservice.getArtistSubscribed(artistId);
 		numberOfSubscribers = users_Subscribed.size() - users_Unsubscribed.size();
 		if (numberOfSubscribers < 0) {
 			totalNumberOfSubscribeErrorMsg = "The number of subscribers should not be less than 0, please check the database";
 		}
-		
-			
+
 		// check whether the current loggedIn user has subscribed the artist
 		List<Subscribed> unsubscribed_loggedInUser = uservice.getArtistUnsubscribedByLoggInUserId(artistId, userId);
 		List<Subscribed> subscribed_loggedInUser = uservice.getArtistSubscribedByLoggInUserId(artistId, userId);
-			
-		if (subscribed_loggedInUser.size() < unsubscribed_loggedInUser.size() 
-					|| (subscribed_loggedInUser == null && unsubscribed_loggedInUser != null)) {
-			loggedInUserSubscribeErrorMsg =  "The number of subscriptions true should not be less than the number of subscriptions false";
+
+		if (subscribed_loggedInUser.size() < unsubscribed_loggedInUser.size()
+				|| (subscribed_loggedInUser == null && unsubscribed_loggedInUser != null)) {
+			loggedInUserSubscribeErrorMsg = "The number of subscriptions true should not be less than the number of subscriptions false";
 		}
-			
+
 		if (subscribed_loggedInUser.size() - unsubscribed_loggedInUser.size() > 1) {
 			loggedInUserSubscribeErrorMsg = "The number of subscriptions true should only be 1 count bigger than the number of subscriptions false ";
 		}
-			
-		if ((unsubscribed_loggedInUser == null && subscribed_loggedInUser == null) 
-					||(subscribed_loggedInUser.size() == unsubscribed_loggedInUser.size())) {
-				
+
+		if ((unsubscribed_loggedInUser == null && subscribed_loggedInUser == null)
+				|| (subscribed_loggedInUser.size() == unsubscribed_loggedInUser.size())) {
+
 			subscribeStatus = false;
 		}
-			
+
 		if (subscribed_loggedInUser.size() - unsubscribed_loggedInUser.size() == 1) {
 			subscribeStatus = true;
 		}
-			
+
 		if (artistId == userId) {
 			subscribeStatus = null;
 		}
-		
+
 		artistVideoChannel.setArtistId(artistId);
 		artistVideoChannel.setArtistProfileUrl(artist.getProfileUrl());
 		artistVideoChannel.setArtistVideoChannelName(artistVideoChannelName);
@@ -308,10 +302,10 @@ public class MediaRestController {
 		artistVideoChannel.setNumberOfArtistVideos(numberOfArtistVideos);
 		artistVideoChannel.setNumberOfSubscribers(numberOfSubscribers);
 		artistVideoChannel.setSubscribeStatus(subscribeStatus);
-		
+
 		return new ResponseEntity<>(artistVideoChannel, HttpStatus.OK);
 	}
-		
+
 	@GetMapping("/music/getallrecommendedmusics")
 	public ResponseEntity<?> loginMusicLandingPage(@RequestParam("userID") long userID) {
 
@@ -477,15 +471,16 @@ public class MediaRestController {
 		return new ResponseEntity<>(androidGetAllMusicDTOList, HttpStatus.OK);
 
 	}
-	
+
 	@PostMapping("/addUserHistory")
-	public ResponseEntity<?> addUserHistory(@RequestParam("mediaID") long mediaID, @RequestParam("userID") long userID) {
-		UserHistory userhistory = new UserHistory(LocalDateTime.now(), uservice.findUserByUserId(userID), mservice.getMediaById(mediaID));
+	public ResponseEntity<?> addUserHistory(@RequestParam("mediaID") long mediaID,
+			@RequestParam("userID") long userID) {
+		UserHistory userhistory = new UserHistory(LocalDateTime.now(), uservice.findUserByUserId(userID),
+				mservice.getMediaById(mediaID));
 		mservice.saveUserHistory(userhistory);
 		String count = String.valueOf(mservice.getMediaById(mediaID).getUserHistory().size());
 		return new ResponseEntity<>(count, HttpStatus.OK);
 	}
-
 
 	@GetMapping("/subscribebutton")
 	public ResponseEntity<?> subscribe(@RequestParam("artistID") long artistID, @RequestParam("userID") long userID) {
@@ -547,9 +542,6 @@ public class MediaRestController {
 		return subscribeStatus;
 	}
 }
-
-
-
 
 //	@GetMapping("/video/getallvideos")
 //	public ResponseEntity<?> getAllVideos() {

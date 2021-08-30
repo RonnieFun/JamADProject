@@ -56,7 +56,6 @@
                 <img th:src="${product.productUrl}" alt="..." class="card-img-top productPhotoSize">
               </a>
               
-              <!-- <th:block th:replace="_modals :: modal('exampleModal')">modal</th:block> -->
 
               <!-- Collapse -->
               <div class="card-collapse-parent">
@@ -73,10 +72,7 @@
                   <div class="quantitySold" th:text="${product.productQty}+ ' qty'  ">
                   </div>
 
-				 <!-- Country Of Origin -->
-				 <!-- <div class="productCountryOrigin">
-				 	Singapore
-				 </div> -->
+				
 
                   <!-- Price -->
                   <div class="mb-1 productPrice h6" th:text="'$' + ${product.productPrice}">
@@ -88,16 +84,7 @@
 						Add To Cart</button>
 				 </label>
                   
-                  <!-- Like Button Heart Shape -->
-				  <!-- <label for="heartLikeButton">
-				    <i class="far fa-heart likeIcon" aria-hidden="true"></i>
-				  </label>
-				  <input id="heartLikeButton" type="button" /> -->
-				  <br>
-				  <!-- <div class="btn-ground text-center">
-                    <button type="button" class="btn btn-primary" th:onclick="'javascript:myFunction(' + ${product.productID} + ')'"><i class="fa fa-shopping-cart"></i> Add To Cart</button>
-                    <button type="button" class="btn btn-primary" th:onclick="'javascript:GetById(' + ${product.productID} + ')'"><i class="fa fa-search"></i> Quick View</button>
-                </div> -->
+                 
 				  
                 </div>
               </div>
@@ -135,7 +122,6 @@
               
               <label id="lblPrice">Vans Sk8-Hi MTE Shoes</label><br><br><br>
               
-              <!-- <input type="text" class="form-control" id="input1" value="2"> -->
               </td>
             </tr>
           </tbody>
