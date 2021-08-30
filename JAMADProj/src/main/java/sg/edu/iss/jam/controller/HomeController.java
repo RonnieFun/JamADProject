@@ -132,10 +132,14 @@ public class HomeController {
 		return"editUserForm";
 	}
 	@RequestMapping("/saveuser")
-	public String saveUser(Model model, @Valid @ModelAttribute("user") User user) {
+	public String saveUser(Model model, @Valid @ModelAttribute("user") User user, @AuthenticationPrincipal MyUserDetails userDetails) {
 		
 		uService.updateUser(user);
 		
+		
+		if (userDetails != null) {
+			model.addAttribute("count", uService.getItemCountByUserID(userDetails.getUserId()));
+		}
 		model.addAttribute("user",user);
 		return"edtiSuccess";
 	}
@@ -157,6 +161,10 @@ public class HomeController {
 		
 		List<User> subUsers = uService.getUserSubs(userID);
 		
+		if (userDetails != null) {
+			model.addAttribute("count", uService.getItemCountByUserID(userDetails.getUserId()));
+		}
+		
 		model.addAttribute("subscribers", subUsers);
 		model.addAttribute("user", uService.findUserByUserId(userDetails.getUserId()));
 		model.addAttribute("fullName", user.getFullname());
@@ -175,6 +183,10 @@ public class HomeController {
 		
 		List<User> followUsers = uService.getFollowing(userID);
 					 
+		if (userDetails != null) {
+			model.addAttribute("count", uService.getItemCountByUserID(userDetails.getUserId()));
+		}
+		
 		model.addAttribute("followingUsers", followUsers);
 		model.addAttribute("user", urepo.findById(userDetails.getUserId()).get());
 		model.addAttribute("profileUrl", user.getProfileUrl());
