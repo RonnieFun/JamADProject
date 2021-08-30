@@ -112,6 +112,26 @@ public class MediaController {
 		return "redirect:/music/loginmusiclandingpage";
 	}
 	
+	@GetMapping("/music/redirectLoginMusicChannel/{artistId}")
+	public String musicChannelPageRedirectLogin(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
+		
+		if(userDetails == null) {
+			return "/login/";	
+		}
+		
+		return "redirect:/music/viewartistmusicchannel/{artistId}";
+	}
+	
+	@GetMapping("/video/redirectLoginVideoChannel/{artistId}")
+	public String videoChannelPageRedirectLogin(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
+		
+		if(userDetails == null) {
+			return "/login/";	
+		}
+		
+		return "redirect:/video/viewartistvideochannel/{artistId}";
+	}
+	
 	
 	//ajax call for delete comment button on Watch Videos page
 	@PostMapping("/video/deleteComment")
@@ -1380,7 +1400,7 @@ public class MediaController {
 		      
 		    }
 		    
-		    
+		    model.addAttribute("redirectFromVideoChannel", true);
 		    model.addAttribute("artistVideoChannelName", artistVideoChannelName);
 		    model.addAttribute("numberOfArtistVideos", numberOfArtistVideos);
 		    model.addAttribute("artistVideos", artistVideos);
@@ -1551,6 +1571,7 @@ public class MediaController {
 	        model.addAttribute("listOfMusic", listOfMusic);
 	      }
 	      
+	      model.addAttribute("redirectFromMusicChannel", true);
 	      model.addAttribute("artistMusicChannelName", artistMusicChannelName);
 	      model.addAttribute("numberOfArtistAlbums", numberOfArtistAlbums);
 	      model.addAttribute("numberOfArtistMusics", numberOfArtistMusics);

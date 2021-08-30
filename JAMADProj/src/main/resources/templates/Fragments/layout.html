@@ -158,7 +158,20 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 			</div>
 		</div>
 		
-		<div th:if = "${isWatchVideoBeforeLogin != true and isWatchMusicBeforeLogin != true and genericVideolinkActive != true and genericMusiclinkActive != true}" class="header_right">
+		<div th:if = "${redirectFromMusicChannel == true}" class="header_right">
+			<div>
+				<a th:href = "@{/music/redirectLoginMusicChannel/{artistId}(artistId = ${artistId})}"><button type="button">Login</button></a>
+			</div>
+		</div>
+		
+		
+		<div th:if = "${redirectFromVideoChannel == true}" class="header_right">
+			<div>
+				<a th:href = "@{/video/redirectLoginVideoChannel/{artistId}(artistId = ${artistId})}"><button type="button">Login</button></a>
+			</div>
+		</div>
+		
+		<div th:if = "${isWatchVideoBeforeLogin != true and isWatchMusicBeforeLogin != true and genericVideolinkActive != true and genericMusiclinkActive != true and redirectFromMusicChannel != true and redirectFromVideoChannel != true}" class="header_right">
 			<div>
 				<a href="/login/"><button type="button">Login</button></a>
 			</div>
