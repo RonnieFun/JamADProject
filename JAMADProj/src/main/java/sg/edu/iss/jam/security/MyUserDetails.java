@@ -1,10 +1,8 @@
 package sg.edu.iss.jam.security;
 
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,7 +12,7 @@ import sg.edu.iss.jam.model.Roles;
 import sg.edu.iss.jam.model.User;
 
 public class MyUserDetails implements UserDetails {
-	
+
 	private User user;
 
 	public MyUserDetails(User user) {
@@ -24,21 +22,21 @@ public class MyUserDetails implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		
+
 		List<String> roles = new ArrayList<>();
-		for(Roles r : user.getRoles()) {
+		for (Roles r : user.getRoles()) {
 			roles.add(r.getRole().toString());
 		}
 		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-		
-		for(int i = 0; i < roles.size(); i++) {
-		authorities.add(new SimpleGrantedAuthority(roles.get(i)));
+
+		for (int i = 0; i < roles.size(); i++) {
+			authorities.add(new SimpleGrantedAuthority(roles.get(i)));
 		}
-		return authorities;  
-		
+		return authorities;
+
 //		authorities.add(new SimpleGrantedAuthority("ROLE_"+user.getRole().toString()));
 //		return authorities;
-		
+
 	}
 
 	@Override
@@ -76,34 +74,24 @@ public class MyUserDetails implements UserDetails {
 		// TODO Auto-generated method stub
 		return user.isEnabled();
 	}
-	
+
 	public String getFirstName() {
 		// TODO Auto-generated method stub
 		return user.getFirstName();
 	}
-	
+
 	public String getFullName() {
 		return user.getFullname();
 	}
-	
+
 	public String getProfileUrl() {
 		return user.getProfileUrl();
 	}
-	
+
 	public Long getUserId() {
 		return user.getUserID();
 	}
-	
-//	public String getRole() {
-//		String role = "";
-//		 for(Roles r : user.getRoles()) {
-//			String r2 = r.toString();
-//			role += r2 + " ";
-//		 }
-//		 
-//		 return role;
-//	}
-	
+
 	public String getRole() {
 		return user.getRole();
 	}

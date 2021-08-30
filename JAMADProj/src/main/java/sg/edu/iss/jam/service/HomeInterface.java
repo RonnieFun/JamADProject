@@ -1,10 +1,8 @@
 package sg.edu.iss.jam.service;
 
 import java.util.Collection;
-import java.util.List;
 
 import sg.edu.iss.jam.model.Post;
-import sg.edu.iss.jam.model.User;
 
 public interface HomeInterface {
 	

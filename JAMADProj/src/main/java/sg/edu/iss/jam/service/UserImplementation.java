@@ -1,14 +1,10 @@
 package sg.edu.iss.jam.service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
@@ -21,12 +17,10 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import sg.edu.iss.jam.model.Album;
 import sg.edu.iss.jam.model.Category;
-import sg.edu.iss.jam.model.Channel;
 import sg.edu.iss.jam.model.Comments;
 import sg.edu.iss.jam.model.Media;
 import sg.edu.iss.jam.model.MediaType;
@@ -56,58 +50,58 @@ import sg.edu.iss.jam.repo.SubscribedRepository;
 import sg.edu.iss.jam.repo.TagRepository;
 import sg.edu.iss.jam.repo.UserHistoryRepository;
 import sg.edu.iss.jam.repo.UserRepository;
+
 @Service
 public class UserImplementation implements UserInterface {
 
-	
 	@Autowired
 	UserRepository urepo;
 
 	@Autowired
 	PlaylistsRepository plrepo;
-	
+
 	@Autowired
 	MediaRepository mediarepo;
-	
+
 	@Autowired
 	SubscribedRepository subrepo;
-	
+
 	@Autowired
 	TagRepository tagrepo;
-	
+
 	@Autowired
 	CommentsRepository commentsrepo;
-	
+
 	@Autowired
 	UserHistoryRepository uhrepo;
-	
+
 	@Autowired
 	ShoppingCartRepository shrepo;
-	
+
 	@Autowired
 	ShoppingCartDetailsRepository shdrepo;
-	
+
 	@Autowired
 	ProductRepository prepo;
-	
+
 	@Autowired
 	OrdersRepository orepo;
-	
+
 	@Autowired
 	OrderDetailsRepository odrepo;
-	
+
 	@Autowired
 	PaymentRepository payrepo;
-	
+
 	@Autowired
 	RolesRepository rrepo;
-	
-  	public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
-	    Set<Object> seen = ConcurrentHashMap.newKeySet();
-	    return t -> seen.add(keyExtractor.apply(t));
+
+	public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+		Set<Object> seen = ConcurrentHashMap.newKeySet();
+		return t -> seen.add(keyExtractor.apply(t));
 	}
-	
-	//USER REPO
+
+	// USER REPO
 	@Transactional
 	public User findUserByUserId(Long userID) {
 		return urepo.findById(userID).get();
@@ -117,14 +111,13 @@ public class UserImplementation implements UserInterface {
 	public User saveUser(User user) {
 		return urepo.save(user);
 	}
-	
 
-	//PLAYLISTS REPO
+	// PLAYLISTS REPO
 	@Transactional
 	public List<Playlists> findPlaylistsByUserId(Long userID) {
 		return plrepo.findPlaylistsByUserId(userID);
 	}
-	
+
 	@Transactional
 	public List<Playlists> findPlaylistByUserIdAndMediaType(Long userID, MediaType mediaType) {
 		return plrepo.findPlaylistByUserIdAndMediaType(userID, mediaType);
@@ -134,20 +127,19 @@ public class UserImplementation implements UserInterface {
 	public List<Playlists> savePlaylists(List<Playlists> playlists) {
 		return plrepo.saveAll(playlists);
 	}
-	
+
 	@Transactional
 	public Playlists findPlaylistByPlaylistID(long playlistID) {
-		
+
 		return plrepo.findPlaylistByPlaylistID(playlistID);
 	}
-	
+
 	@Transactional
 	public Playlists savePlaylist(Playlists playlists) {
 		return plrepo.save(playlists);
 	}
 
-	
-	//MEDIA REPO
+	// MEDIA REPO
 	@Transactional
 	public Media findMediaByMediaId(Long ID) {
 		return mediarepo.getById(ID);
@@ -157,22 +149,22 @@ public class UserImplementation implements UserInterface {
 	public List<Media> findMediaListByPlayListID(Long playlistID) {
 		return mediarepo.findMediaListByPlayListID(playlistID);
 	}
-	
+
 	@Transactional
-	public List<Media> findAllMedia(){
+	public List<Media> findAllMedia() {
 		return mediarepo.findAll();
 	}
-	
+
 	@Transactional
 	public List<Media> findAllMediaByMediaType(MediaType mediaType) {
 		return mediarepo.findAllMediaByMediaType(mediaType);
 	}
-	
+
 	@Transactional
 	public Media saveMedia(Media media) {
 		return mediarepo.save(media);
 	}
-	
+
 	@Transactional
 	public Media findMediaByMediaTypeAndMediaId(MediaType mediaType, Long id) {
 		return mediarepo.findMediaByMediaTypeAndMediaId(mediaType, id);
@@ -182,68 +174,67 @@ public class UserImplementation implements UserInterface {
 	public List<Media> findMediaByAlbumAndMediaType(Album album, MediaType mediaType) {
 		return mediarepo.findMediaByAlbumAndMediaType(album, mediaType);
 	}
-	
-	//SUBSCRIBED REPO
+
+	// SUBSCRIBED REPO
 	@Transactional
 	public Subscribed saveSubscribed(Subscribed subscribed) {
 		return subrepo.save(subscribed);
 	}
-	
+
 	@Transactional
 	public void deleteSubscribed(Subscribed s) {
 		subrepo.delete(s);
 	}
-	
+
 	@Transactional
 	public List<Subscribed> getAllSubscribed() {
 		return subrepo.findAll();
 	}
-	
-	
+
 	@Transactional
 	public List<Subscribed> getArtistSubscribed(Long artistId) {
 		return subrepo.getArtistSubscribed(artistId);
 	}
-	
+
 	@Transactional
 	public List<Subscribed> getArtistUnSubscribed(Long artistId) {
 		return subrepo.getArtistUnSubscribed(artistId);
 	}
-	
+
 //	@Transactional
 //	public List<Subscribed> getArtistSubscribedUnsubscribed(Long userID) {
 //		return subrepo.getArtistSubscribedUnsubscribed(userID);
 //	}
-	
+
 	@Override
 	public List<Subscribed> getArtistUnsubscribedByLoggInUserId(Long artistId, Long loggedInUserId) {
 		// TODO Auto-generated method stub
-		return  subrepo.getArtistUnsubscribedByLoggInUserId(artistId, loggedInUserId);
+		return subrepo.getArtistUnsubscribedByLoggInUserId(artistId, loggedInUserId);
 	}
-	
+
 	@Override
 	public List<Subscribed> getArtistSubscribedByLoggInUserId(Long artistId, Long loggedInUserId) {
 		// TODO Auto-generated method stub
 		return subrepo.getArtistSubscribedByLoggInUserId(artistId, loggedInUserId);
 	}
 
-	//TAG REPO
+	// TAG REPO
 	@Transactional
 	public List<Tag> findTagsByMediaId(Long id) {
 		return tagrepo.findTagsByMediaId(id);
 	}
-	
-	//COMMENTS REPO
+
+	// COMMENTS REPO
 	@Transactional
 	public List<Comments> findCommentsByMediaId(Long id) {
 		return commentsrepo.findCommentsByMediaId(id);
 	}
-	
+
 	@Transactional
 	public List<Comments> findCommentsByUserId(Long id) {
 		return commentsrepo.findCommentsByUserId(id);
 	}
-	
+
 	@Transactional
 	public Comments saveComment(Comments comment) {
 		return commentsrepo.save(comment);
@@ -253,15 +244,14 @@ public class UserImplementation implements UserInterface {
 	public void removeComments(Long commentId) {
 		commentsrepo.deleteById(commentId);
 	}
-	
-	
-	//USERHISTORY REPO
+
+	// USERHISTORY REPO
 	@Transactional
 	public List<UserHistory> findUserHistoryByMediaId(Long id) {
-		
+
 		return uhrepo.findUserHistoryByMediaId(id);
 	}
-	
+
 	@Transactional
 	public UserHistory saveUserHistory(UserHistory userHistory) {
 		return uhrepo.save(userHistory);
@@ -280,7 +270,7 @@ public class UserImplementation implements UserInterface {
 	}
 
 	@Override
-	public void removeCartDetails(Long productID,Long cartID) {
+	public void removeCartDetails(Long productID, Long cartID) {
 		// TODO Auto-generated method stub
 		shdrepo.deleteCartDetailsByID(productID, cartID);
 	}
@@ -355,8 +345,9 @@ public class UserImplementation implements UserInterface {
 	@Override
 	public ShoppingCartDetails getCartDetailByProductID(Long productId, Long shoppingCartID) {
 		// TODO Auto-generated method stub
-		return shdrepo.getByProductIdAndCartID(productId,shoppingCartID);
+		return shdrepo.getByProductIdAndCartID(productId, shoppingCartID);
 	}
+
 	@Override
 	public void updateUser(User user) {
 		urepo.save(user);
@@ -392,17 +383,17 @@ public class UserImplementation implements UserInterface {
 
 	@Override
 	public List<UserHistory> findUserHistoryByUserId(Long userId) {
-		
+
 		return uhrepo.findUserHistoryByUserId(userId);
 	}
 
 	@Override
-	public List<UserHistory> findUserHistoryByUserIdAndMediaType(Long userId, MediaType  mediaType) {
-		
+	public List<UserHistory> findUserHistoryByUserIdAndMediaType(Long userId, MediaType mediaType) {
+
 		return uhrepo.findUserHistoryByUserIdAndMediaType(userId, mediaType);
 	}
-	
-	public List<UserHistory> findAllUserHistory(){
+
+	public List<UserHistory> findAllUserHistory() {
 		return uhrepo.findAll();
 	}
 
@@ -417,115 +408,111 @@ public class UserImplementation implements UserInterface {
 		// TODO Auto-generated method stub
 		rrepo.save(b);
 	}
-	
+
 	@Override
 	public List<User> getUserSubs(Long userID) {
-		
-	User user = findUserByUserId(userID);
-	List<Subscribed> subUsers = new ArrayList<>();
-	List<User> result = new ArrayList<>();
-	List<Subscribed> allSubAndUnsub = subrepo.findAllFollowingByArtistId(userID);
-	List<Subscribed> temp = new ArrayList<>();
-	
-	for(int i = 0; i<allSubAndUnsub.size(); i++) {
-		for(int j = 0; j<allSubAndUnsub.size(); j++) {
-			if(allSubAndUnsub.get(i).getSubscriber().getUserID()==allSubAndUnsub.get(j).getSubscriber().getUserID()) {
-				temp.add(allSubAndUnsub.get(j));
+
+		User user = findUserByUserId(userID);
+		List<Subscribed> subUsers = new ArrayList<>();
+		List<User> result = new ArrayList<>();
+		List<Subscribed> allSubAndUnsub = subrepo.findAllFollowingByArtistId(userID);
+		List<Subscribed> temp = new ArrayList<>();
+
+		for (int i = 0; i < allSubAndUnsub.size(); i++) {
+			for (int j = 0; j < allSubAndUnsub.size(); j++) {
+				if (allSubAndUnsub.get(i).getSubscriber().getUserID() == allSubAndUnsub.get(j).getSubscriber()
+						.getUserID()) {
+					temp.add(allSubAndUnsub.get(j));
+				}
 			}
-		}
-		if(temp.size() == 1) {
-			subUsers.add(temp.get(0));
+			if (temp.size() == 1) {
+				subUsers.add(temp.get(0));
+				temp.clear();
+			} else {
+				Subscribed latest = Collections.max(temp, Comparator.comparing(x -> x.getTimeSubscribed()));
+				List<Subscribed> sorted = temp.stream()
+						.sorted(Comparator.comparing(Subscribed::getTimeSubscribed).reversed())
+						.collect(Collectors.toList());
+				if (sorted.get(0).isSubscribed()) {
+					subUsers.add(sorted.get(0));
+				}
+			}
 			temp.clear();
 		}
-		else {
-			Subscribed latest = Collections.max(temp,Comparator.comparing(x->x.getTimeSubscribed()));
-			List<Subscribed> sorted = temp.stream().sorted(Comparator.comparing(Subscribed::getTimeSubscribed).reversed()).collect(Collectors.toList());
-			if(sorted.get(0).isSubscribed()) {
-				subUsers.add(sorted.get(0));
-			}
-		}
-		temp.clear();
-	}
 
-	for(Subscribed s : subUsers) {
-		result.add(s.getSubscriber());
-	}
-	
-				 
-		return result.stream().filter(distinctByKey(x->x.getUserID())).collect(Collectors.toList());
+		for (Subscribed s : subUsers) {
+			result.add(s.getSubscriber());
 		}
+
+		return result.stream().filter(distinctByKey(x -> x.getUserID())).collect(Collectors.toList());
+	}
 
 	@Override
 	public List<User> getFollowing(Long userID) {
-		
+
 		User user = findUserByUserId(userID);
 		List<Subscribed> followUsers = new ArrayList<>();
 		List<User> result = new ArrayList<>();
 		List<Subscribed> allFollowAndUnfollow = subrepo.findAllSubscribedBySubId(userID);
 		List<Subscribed> temp = new ArrayList<>();
-		
-		for(int i = 0; i<allFollowAndUnfollow.size(); i++) {
-			for(int j = 0; j<allFollowAndUnfollow.size(); j++) {
-				if(allFollowAndUnfollow.get(i).getArtist().getUserID()==allFollowAndUnfollow.get(j).getArtist().getUserID()) {
+
+		for (int i = 0; i < allFollowAndUnfollow.size(); i++) {
+			for (int j = 0; j < allFollowAndUnfollow.size(); j++) {
+				if (allFollowAndUnfollow.get(i).getArtist().getUserID() == allFollowAndUnfollow.get(j).getArtist()
+						.getUserID()) {
 					temp.add(allFollowAndUnfollow.get(j));
 				}
 			}
-			if(temp.size() == 1) {
+			if (temp.size() == 1) {
 				followUsers.add(temp.get(0));
 				temp.clear();
-			}
-			else {
-				Subscribed latest = Collections.max(temp,Comparator.comparing(x->x.getTimeSubscribed()));
-				List<Subscribed> sorted = temp.stream().sorted(Comparator.comparing(Subscribed::getTimeSubscribed).reversed()).collect(Collectors.toList());
-				
-				if(sorted.get(0).isSubscribed()) {
+			} else {
+				Subscribed latest = Collections.max(temp, Comparator.comparing(x -> x.getTimeSubscribed()));
+				List<Subscribed> sorted = temp.stream()
+						.sorted(Comparator.comparing(Subscribed::getTimeSubscribed).reversed())
+						.collect(Collectors.toList());
+
+				if (sorted.get(0).isSubscribed()) {
 					followUsers.add(sorted.get(0));
 				}
 			}
 
 			temp.clear();
 		}
-		
-		for(Subscribed s : followUsers) {
+
+		for (Subscribed s : followUsers) {
 			result.add(s.getArtist());
 		}
-		
-		
-					 
-			return result.stream().filter(distinctByKey(x->x.getUserID())).collect(Collectors.toList());
+
+		return result.stream().filter(distinctByKey(x -> x.getUserID())).collect(Collectors.toList());
 	}
-	
+
 	@Override
 	public void updateResetPasswordToken(String token, String email) throws UserNotFoundException {
 		User user = urepo.findByEmail(email);
-		
-		if(user != null) {
+
+		if (user != null) {
 			user.setRestPasswordToken(token);
 			urepo.save(user);
-		}
-		else {
+		} else {
 			throw new UserNotFoundException("Could not find any user with email: " + email);
 		}
 	}
-	
+
 	@Override
 	public User get(String restPasswordToken) {
 		return urepo.findByResetPasswordToken(restPasswordToken);
 	}
-	
+
 	@Override
 	public void updatePassword(User user, String newPassword) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String encodePassword = passwordEncoder.encode(newPassword);
-		
+
 		user.setPassword(encodePassword);
 		user.setRestPasswordToken(null);
 		urepo.save(user);
-		
-		
-	}
-	
-	
 
+	}
 
 }

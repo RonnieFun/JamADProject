@@ -1,15 +1,13 @@
 package sg.edu.iss.jam.DTO;
 
-
-
 import sg.edu.iss.jam.model.Channel;
 
 public class ChannelDTO {
-	
+
 	Channel channel;
-	
+
 	int VideoCount;
-	
+
 	int MusicCount;
 
 	public ChannelDTO(Channel channel, int videoCount, int musicCount) {
@@ -47,6 +45,5 @@ public class ChannelDTO {
 	public void setMusicCount(int musicCount) {
 		MusicCount = musicCount;
 	}
-	
 
 }

@@ -12,18 +12,16 @@ import sg.edu.iss.jam.model.UserHistory;
 public interface MediaServiceInterface {
 
 	public ResponseEntity<byte[]> getContent(String location, String fileName, String range, String contentTypePrefix);
-	 
-	//genericlandingpage
-	
+
+	// genericlandingpage
+
 	public List<Media> getMediaByTypeAndCount(MediaType mediaType);
 
 	public List<Media> getMediaByUserHistory(MediaType mediaType, LocalDate lesscurrentdate);
 
 	public Media getMediaById(Long id);
 
-	
-	
-	//dashboard
+	// dashboard
 	public List<Media> findAllVideos();
 
 	public List<Media> findMediaByAlbumId(Long albumID);

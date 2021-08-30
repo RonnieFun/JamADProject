@@ -1,7 +1,5 @@
 package sg.edu.iss.jam.controller;
 
-import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -29,19 +27,18 @@ public class SearchController {
 	@GetMapping("")
 	public String Search(@RequestParam(value = "searchterm", required = false) String searchterm, Model model,
 			@AuthenticationPrincipal MyUserDetails userDetails) {
-		
-		if(searchterm!= null && searchterm.trim()!=("")) {
+
+		if (searchterm != null && searchterm.trim() != ("")) {
 			model.addAttribute("searchUsers", sService.SearchUsersbyName(searchterm.trim()));
 			model.addAttribute("searchVideos", sService.SearchMediabyVarious(searchterm.trim(), MediaType.Video));
 			model.addAttribute("searchMusic", sService.SearchMediabyVarious(searchterm.trim(), MediaType.Music));
 			model.addAttribute("searchAlbums", sService.SearchAlbumbyName(searchterm.trim()));
-		}else {
+		} else {
 			model.addAttribute("searchUsers", null);
 			model.addAttribute("searchVideos", null);
 			model.addAttribute("searchMusic", null);
 			model.addAttribute("searchAlbums", null);
 		}
-
 
 		if (userDetails != null) {
 			User user = userService.findUserByUserId(userDetails.getUserId());
@@ -52,7 +49,7 @@ public class SearchController {
 			model.addAttribute("profileUrl", user.getProfileUrl());
 			model.addAttribute("bannerUrl", user.getBannerUrl());
 		}
-		
+
 		model.addAttribute("user", null);
 
 		return "searchpage";

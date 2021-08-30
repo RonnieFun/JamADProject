@@ -4,10 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.data.jpa.repository.Query;
-
 import sg.edu.iss.jam.model.Album;
-import sg.edu.iss.jam.model.Channel;
 import sg.edu.iss.jam.model.Comments;
 import sg.edu.iss.jam.model.Media;
 import sg.edu.iss.jam.model.MediaType;
@@ -17,7 +14,6 @@ import sg.edu.iss.jam.model.Payment;
 import sg.edu.iss.jam.model.Playlists;
 import sg.edu.iss.jam.model.Product;
 import sg.edu.iss.jam.model.Roles;
-import sg.edu.iss.jam.model.Playlists;
 import sg.edu.iss.jam.model.Subscribed;
 import sg.edu.iss.jam.model.Tag;
 import sg.edu.iss.jam.model.User;
@@ -27,80 +23,94 @@ import sg.edu.iss.jam.model.ShoppingCartDetails;
 
 public interface UserInterface {
 
-	
-	//USER
+	// USER
 	User findUserByUserId(Long userID);
+
 	User saveUser(User user);
 
-	//PLAYLISTS
+	// PLAYLISTS
 	List<Playlists> findPlaylistsByUserId(Long userID);
+
 	List<Playlists> findPlaylistByUserIdAndMediaType(Long userID, MediaType mediaType);
+
 	Playlists findPlaylistByPlaylistID(long playlistID);
+
 	Playlists savePlaylist(Playlists playlists);
+
 	List<Playlists> savePlaylists(List<Playlists> playlists);
-	
-	//MEDIA
+
+	// MEDIA
 	Media findMediaByMediaId(Long ID);
+
 	List<Media> findMediaListByPlayListID(Long playlistID);
+
 	List<Media> findAllMedia();
+
 	List<Media> findAllMediaByMediaType(MediaType mediaType);
+
 	List<Media> findMediaByAlbumAndMediaType(Album album, MediaType mediaType);
- 	Media findMediaByMediaTypeAndMediaId(MediaType mediaType, Long id);
+
+	Media findMediaByMediaTypeAndMediaId(MediaType mediaType, Long id);
+
 	Media saveMedia(Media media);
 
-	//SUBSCRIBED
+	// SUBSCRIBED
 	Subscribed saveSubscribed(Subscribed subscribed);
+
 	void deleteSubscribed(Subscribed s);
+
 	List<Subscribed> getAllSubscribed();
+
 	List<Subscribed> getArtistUnSubscribed(Long artistId);
+
 	List<Subscribed> getArtistSubscribed(Long artistId);
-//	List<Subscribed> getArtistSubscribedUnsubscribed(Long userID, Long loggedInUserId);
+
 	List<Subscribed> getArtistUnsubscribedByLoggInUserId(Long artistId, Long loggedInUserId);
+
 	List<Subscribed> getArtistSubscribedByLoggInUserId(Long artistId, Long loggedInUserId);
-	
-	
-	//COMMENTS
+
+	// COMMENTS
 	List<Comments> findCommentsByMediaId(Long id);
+
 	List<Comments> findCommentsByUserId(Long id);
+
 	Comments saveComment(Comments comment);
+
 	void removeComments(Long commentId);
-	
-	//TAGS
+
+	// TAGS
 	List<Tag> findTagsByMediaId(Long id);
-	
-	//USER HISTORY
+
+	// USER HISTORY
 	List<UserHistory> findAllUserHistory();
-	
+
 	List<UserHistory> findUserHistoryByMediaId(Long id);
-	
+
 	ShoppingCart getShoppingCartByUserID(long userID);
-	
+
 	UserHistory saveUserHistory(UserHistory userHistory);
 
 	Product findProduct(Long id);
 
 	void removeCartDetails(Long productID, Long cartID);
-	
-	Long getItemCountByUserID(long artistid);
-	
-	
-	void saveOrder(Orders neworder);
-	
-	void saveOrderDetailsList(List<OrderDetails> orderDetailList);
-	
-	void saveCartDetails(ShoppingCartDetails carddetail);
-	
-	ShoppingCartDetails getCartDetailByProductID(Long productId, Long shoppingCartID);
-	
 
-  void updateUser(User user);
+	Long getItemCountByUserID(long artistid);
+
+	void saveOrder(Orders neworder);
+
+	void saveOrderDetailsList(List<OrderDetails> orderDetailList);
+
+	void saveCartDetails(ShoppingCartDetails carddetail);
+
+	ShoppingCartDetails getCartDetailByProductID(Long productId, Long shoppingCartID);
+
+	void updateUser(User user);
 
 	void savePayement(@Valid Payment payment);
-	
-	void deleteCartDetails(ShoppingCartDetails cardetail);
-	
-	void updateProduct(Product product);
 
+	void deleteCartDetails(ShoppingCartDetails cardetail);
+
+	void updateProduct(Product product);
 
 	List<Object[]> getTopAllProductsInPastWeekByOrderDetailsQuantity(int i);
 
@@ -119,24 +129,25 @@ public interface UserInterface {
 	List<Object[]> getAllMerchandise();
 
 	List<Orders> getPurchaseHistoryByUserId(Long userID);
-	
+
 	List<Product> getListOfAllProduts();
+
 	List<UserHistory> findUserHistoryByUserId(Long userId);
+
 	List<UserHistory> findUserHistoryByUserIdAndMediaType(Long userId, MediaType mediaType);
-	
-	
+
 	List<User> getAllUser();
-	
-	
+
 	void saveRole(Roles b);
-	
-    List<User> getUserSubs(Long userID);
-	
+
+	List<User> getUserSubs(Long userID);
+
 	List<User> getFollowing(Long userID);
-	
+
 	void updatePassword(User user, String newPassword);
+
 	User get(String restPasswordToken);
+
 	void updateResetPasswordToken(String token, String email) throws UserNotFoundException;
-	
 
 }

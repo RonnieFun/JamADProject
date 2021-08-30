@@ -5,12 +5,6 @@
 </head>
 
 <body>
-<!-- 		<span th:each="Post:${posts}">  -->
-<!-- 			<span class ="flex-container"> -->
-<!-- 				<span th:text="${Post.Content}" ></span> -->
-<!-- 				<br> -->
-<!-- 			</span> -->
-<!-- 		</span> -->
 		
 	<div class="post">
 		<div th:each="Post:${posts}">
@@ -27,9 +21,6 @@
 				<p th:text="${Post.Content}">Message</p>
 			</div>
 			
-<!-- 			<div class="post_Image"> -->
-<!-- 				<img th:src="@{/images/samplebanner.jpg}" class="postPic" alt="postPicture"/> -->
-<!-- 			</div> -->
 			
 			<div class="post_Options">
 
@@ -42,9 +33,6 @@
 				
 				</form>	
 					
-<!-- 				<div class="post_Option"> -->
-<!-- 					<span class="material-icons">near_me</span> -->
-<!-- 					<p>Share</p> -->
 				</div>
 			</div>
 		</div>

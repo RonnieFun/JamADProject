@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import sg.edu.iss.jam.model.Category;
 import sg.edu.iss.jam.model.OrderDetails;
 import sg.edu.iss.jam.model.Orders;
-import sg.edu.iss.jam.model.Payment;
 import sg.edu.iss.jam.model.Product;
 import sg.edu.iss.jam.model.User;
 import sg.edu.iss.jam.security.MyUserDetails;
@@ -80,7 +79,6 @@ public class ProductController {
 	public String productDetail(@RequestParam(value = "productId") Long productId) throws Exception {
 		String Result = "";
 		Product product = aservice.getProductByID(productId);
-		System.out.println(product);
 		if (product != null) {
 			Result = "{\"Name\":";
 			Result += "\"" + product.getProductName() + "\",";
@@ -141,7 +139,7 @@ public class ProductController {
 		model.addAttribute("count", count);
 		model.addAttribute("user", user);
 		model.addAttribute("shopLinkActive", true);
-		
+
 		return "shoplandingpage";
 	}
 
