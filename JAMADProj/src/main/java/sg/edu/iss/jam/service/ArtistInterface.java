@@ -1,7 +1,6 @@
 package sg.edu.iss.jam.service;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import sg.edu.iss.jam.model.Album;
@@ -86,14 +85,5 @@ public interface ArtistInterface {
 	Set<Tag> getTagsbytagName(String TagName);
 
 	List<Product> getProductListByArtistIDAll(Long userID);
-
-
-
-	
-//	List<Object[]> getTopMusicCollectionProductsInPastWeekByOrderDetailsQuantity(int i);
-//	
-//	List<Object[]> getTopMerchandiseProductsInPastWeekByOrderDetailsQuantity(int i);
-//	
-//	List<Object[]> getTopClothingProductsInPastWeekByOrderDetailsQuantity(int i);
 	
 }

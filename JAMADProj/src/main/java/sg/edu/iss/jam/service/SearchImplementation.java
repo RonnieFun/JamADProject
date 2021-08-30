@@ -2,10 +2,7 @@ package sg.edu.iss.jam.service;
 
 import java.util.Collection;
 
-import javax.xml.crypto.KeySelector.Purpose;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import sg.edu.iss.jam.model.Album;
@@ -18,14 +15,13 @@ import sg.edu.iss.jam.repo.UserRepository;
 
 @Service
 public class SearchImplementation implements SearchInterface {
-	
-	
+
 	@Autowired
 	UserRepository uRepo;
-	
+
 	@Autowired
 	MediaRepository mRepo;
-	
+
 	@Autowired
 	AlbumRepository aRepo;
 
@@ -38,7 +34,7 @@ public class SearchImplementation implements SearchInterface {
 	@Override
 	public Collection<Media> SearchMediabyVarious(String name, MediaType mediaType) {
 		// TODO Auto-generated method stub
-		return mRepo.getMediasfromVarious(name,mediaType);
+		return mRepo.getMediasfromVarious(name, mediaType);
 	}
 
 	@Override
@@ -46,7 +42,5 @@ public class SearchImplementation implements SearchInterface {
 		// TODO Auto-generated method stub
 		return aRepo.findAlbumsLikeName(name);
 	}
-	
-
 
 }

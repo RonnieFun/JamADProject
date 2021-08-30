@@ -1,11 +1,5 @@
 package sg.edu.iss.jam.DTO;
 
-import java.time.LocalDate;
-import java.util.Collection;
-import java.util.List;
-
-import sg.edu.iss.jam.model.UserHistory;
-
 public class AndroidMediaDTO {
 
 	private Long mediaId;
@@ -22,7 +16,7 @@ public class AndroidMediaDTO {
 	private String createdOn;
 	private String userHistorySize;
 	private Boolean subscribed;
-	
+
 	public AndroidMediaDTO() {
 		super();
 	}
@@ -30,7 +24,7 @@ public class AndroidMediaDTO {
 	public String getMediaUrl() {
 		return mediaUrl;
 	}
-	
+
 	public void getMediaUrl(String mediaUrl) {
 		this.mediaUrl = mediaUrl;
 	}
@@ -110,27 +104,27 @@ public class AndroidMediaDTO {
 	public void setArtistId(Long artistId) {
 		this.artistId = artistId;
 	}
-	
+
 	public String getCreatedOn() {
 		return createdOn;
 	}
-	
+
 	public void getCreatedOn(String createdOn) {
 		this.createdOn = createdOn;
 	}
-	
+
 	public void setCreatedOn(String createdOn) {
 		this.createdOn = createdOn;
 	}
-	
+
 	public String getUserHistorySize() {
 		return userHistorySize;
 	}
-	
+
 	public void getUserHistorySize(String userHistorySize) {
 		this.userHistorySize = userHistorySize;
 	}
-	
+
 	public void setUserHistorySize(String userHistorySize) {
 		this.userHistorySize = userHistorySize;
 	}
@@ -139,16 +133,13 @@ public class AndroidMediaDTO {
 		return albumId;
 	}
 
-
 	public void setAlbumId(Long albumId) {
 		this.albumId = albumId;
 	}
 
-
 	public String getAlbumName() {
 		return albumName;
 	}
-
 
 	public void setAlbumName(String albumName) {
 		this.albumName = albumName;

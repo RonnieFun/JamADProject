@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import sg.edu.iss.jam.model.Album;
-import sg.edu.iss.jam.model.Channel;
 
 public interface AlbumRepository extends JpaRepository<Album, Long>  {
 	

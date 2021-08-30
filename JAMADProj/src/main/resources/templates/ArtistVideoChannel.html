@@ -7,10 +7,6 @@
 
 	<nav th:replace="Fragments/layout.html :: navbar"></nav>
 	
-<!--  <h4 th:if="${loggedInUserSubscribeErrorMsg != null}" th:text="${loggedInUserSubscribeErrorMsg}" style="color: red"></h4>
-<h4 th:if="${totalNumberOfSubscribeErrorMsg != null}" th:text="${totalNumberOfSubscribeErrorMsg}" style="color: red"></h4> -->	
-	
-	
 	<!-- Artist Introduction Section -->
 	
 <div class="artistIntroSectionzq">
@@ -18,7 +14,6 @@
  	 <img class="smallBannerzq" th:src="${artist.profileUrl}" alt=""></img>
  	 
  	 <div class="aboutArtistSectionzq">
-		<!--  <span  class="aboutShopHeader h6">  <i th:text="'Artist: ' + ${artistName}" ></i></span>-->
 		
 		<span  class="aboutArtistHeaderzq" th:text="${artistVideoChannelName}" ></span>
  	 	<span class="aboutArtistFeature1zq" th:text="'Number of Subscribers: ' + ${numberOfSubscribers}"></span> 
@@ -41,11 +36,6 @@
  	 
 </div> 
 
- 	<!--  
-	<div>
-			<input type = "hidden" id="artistId"  th:value = "${artistId}">
-	</div>
-	-->
 	
 	<!-- Artist Video Gallery Section -->
 	<div class="row col-lg-10 mx-auto">
@@ -56,7 +46,6 @@
       <div class="card mb-1 h-100"> 
       
       <!--  Media image -->
-                         <!-- <a th:href="@{/watchvideo(id=${video.id})}"> -->
        <a th:href="@{/video/watchvideo/{mediaId}(mediaId = ${video.id})}">
         <img th:src="${video.thumbnailUrl}" class="card-img-top productPhotoSize" alt="...">
         <span class="sideDurationVideoChannelPage" th:text="${video.duration}"></span> 

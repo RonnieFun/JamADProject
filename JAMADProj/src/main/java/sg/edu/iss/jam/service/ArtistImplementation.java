@@ -6,13 +6,11 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.metrics.StartupStep.Tags;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -65,7 +63,7 @@ public class ArtistImplementation implements ArtistInterface {
 
 	@Autowired
 	UserHistoryRepository historyrepo;
-	
+
 	@Autowired
 	AlbumRepository albumrepo;
 
@@ -111,7 +109,7 @@ public class ArtistImplementation implements ArtistInterface {
 	public void saveProduct(Product product) {
 		prepo.save(product);
 	}
-	
+
 	@Transactional
 	public Album getAlbumByAlbumId(long AlbumId) {
 		return albumrepo.findById(AlbumId).get();
@@ -141,7 +139,7 @@ public class ArtistImplementation implements ArtistInterface {
 	public List<Object[]> getTopAllProductsInPastWeekByOrderDetailsQuantity(int i) {
 		return prepo.getTopProductsByOrderDetailsQuantity(PageRequest.of(0, i), LocalDate.now().minusWeeks(1));
 	}
-	
+
 	@Override
 	public List<Product> getProductListByArtistIDAll(Long userID) {
 		return prepo.getProductListByArtistIDAll(userID);
@@ -301,17 +299,17 @@ public class ArtistImplementation implements ArtistInterface {
 	public Set<Tag> getTagsbytagName(String TagNames) {
 
 		String[] tagsarray = TagNames.split(",");
-		
+
 		List<String> list = new ArrayList<String>();
 
-	    for(String s : tagsarray) {
-	       if(s != null && s.trim().length() > 0) {
-	          list.add(s.trim());
-	       }
-	    }
+		for (String s : tagsarray) {
+			if (s != null && s.trim().length() > 0) {
+				list.add(s.trim());
+			}
+		}
 
-	    tagsarray = list.toArray(new String[list.size()]);
-	    Set<Tag> TagCollection = new HashSet<Tag>();
+		tagsarray = list.toArray(new String[list.size()]);
+		Set<Tag> TagCollection = new HashSet<Tag>();
 
 		for (String tagstring : tagsarray) {
 			tagstring = tagstring.trim();
@@ -319,14 +317,14 @@ public class ArtistImplementation implements ArtistInterface {
 				Tag tag = new Tag();
 				tag.setTagName(tagstring);
 				TagCollection.add(tag);
-				
+
 			} else {
 				Tag tag = tagrepo.findByTagName(tagstring);
 				TagCollection.add(tag);
 			}
-			
+
 		}
-		
+
 		return TagCollection;
 	}
 

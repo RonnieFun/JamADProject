@@ -72,7 +72,7 @@ public class ArtistController {
 			Long quantity = ArtistService.getQuantitySold(product.getProductID());
 			productsAndCountShop.put(product, quantity);
 		}
-		model.addAttribute("profileUrl", user.getProfileUrl());	
+		model.addAttribute("profileUrl", user.getProfileUrl());
 		model.addAttribute("productsAndCountShop", productsAndCountShop);
 		model.addAttribute("user", user);
 		model.addAttribute("count", count);
@@ -305,10 +305,6 @@ public class ArtistController {
 			return "redirect:/artist/channel";
 		}
 
-		System.out.println(channeldto.getChannelID());
-		System.out.println(channeldto.getChannelName());
-		System.out.println(channeldto.getChannelDescription());
-
 		Channel channel = ArtistService.getChannel(channeldto.getChannelID());
 
 		channel.setChannelName(channeldto.getChannelName());
@@ -398,8 +394,10 @@ public class ArtistController {
 
 			// When creating new video, file cannot be empty
 			if (mediafile.getSize() > 0 && thumbFile.getSize() > 0) {
-				media.setMediaUrl("/media/channel"+ channel.getChannelID().toString()+"/video/"+UploadService.store(mediafile, uploadDir, "video" + media.getId().toString() + "_video."));
-				media.setThumbnailUrl("/media/channel"+ channel.getChannelID().toString()+"/video/"+UploadService.store(thumbFile, uploadDir, "video" + media.getId().toString() + "_thumbnail."));
+				media.setMediaUrl("/media/channel" + channel.getChannelID().toString() + "/video/"
+						+ UploadService.store(mediafile, uploadDir, "video" + media.getId().toString() + "_video."));
+				media.setThumbnailUrl("/media/channel" + channel.getChannelID().toString() + "/video/" + UploadService
+						.store(thumbFile, uploadDir, "video" + media.getId().toString() + "_thumbnail."));
 				media = ArtistService.saveMedia(media);
 			} else {
 				return "error";
@@ -419,10 +417,12 @@ public class ArtistController {
 				media.setTagList(null);
 
 			if (mediafile.getSize() > 0) {
-				media.setMediaUrl("/media/channel"+ channel.getChannelID().toString()+"/video/"+UploadService.store(mediafile, uploadDir, "video" + media.getId().toString() + "_video."));
+				media.setMediaUrl("/media/channel" + channel.getChannelID().toString() + "/video/"
+						+ UploadService.store(mediafile, uploadDir, "video" + media.getId().toString() + "_video."));
 			}
 			if (thumbFile.getSize() > 0) {
-				media.setThumbnailUrl("/media/channel"+ channel.getChannelID().toString()+"/video/"+UploadService.store(thumbFile, uploadDir, "video" + media.getId().toString() + "_thumbnail."));
+				media.setThumbnailUrl("/media/channel" + channel.getChannelID().toString() + "/video/" + UploadService
+						.store(thumbFile, uploadDir, "video" + media.getId().toString() + "_thumbnail."));
 				// set duration using xuggler?
 			}
 
@@ -434,7 +434,8 @@ public class ArtistController {
 
 	// Get(delete) Video
 	@GetMapping("/channel/deletevideo/{mediaid}")
-	public String deleteVideo(@PathVariable("mediaid") Long mediaID,@AuthenticationPrincipal MyUserDetails userDetails) {
+	public String deleteVideo(@PathVariable("mediaid") Long mediaID,
+			@AuthenticationPrincipal MyUserDetails userDetails) {
 
 		User user = userService.findUserByUserId(userDetails.getUserId());
 		// get AristID(userID)
@@ -527,7 +528,9 @@ public class ArtistController {
 			String uploadDir = "src/main/resources/static/media/channel" + channel.getChannelID().toString()
 					+ "/Music/album" + album.getAlbumID().toString();
 			if (Albumcoverfile.getSize() > 0 && Albumcoverfile.getSize() > 0) {
-				album.setAlbumImgURL("/media/channel"+channel.getChannelID().toString()+"/Music/album"+album.getAlbumID().toString()+"/"+UploadService.store(Albumcoverfile, uploadDir, "albumcover" + album.getAlbumID().toString() + "."));
+				album.setAlbumImgURL("/media/channel" + channel.getChannelID().toString() + "/Music/album"
+						+ album.getAlbumID().toString() + "/" + UploadService.store(Albumcoverfile, uploadDir,
+								"albumcover" + album.getAlbumID().toString() + "."));
 				album = ArtistService.saveAlbum(album);
 			} else
 				return "error";
@@ -541,7 +544,9 @@ public class ArtistController {
 			String uploadDir = "src/main/resources/static/media/channel" + channel.getChannelID().toString()
 					+ "/Music/album" + album.getAlbumID().toString();
 			if (Albumcoverfile.getSize() > 0 && Albumcoverfile.getSize() > 0) {
-				album.setAlbumImgURL("/media/channel"+channel.getChannelID().toString()+"/Music/album"+album.getAlbumID().toString()+"/"+UploadService.store(Albumcoverfile, uploadDir, "albumcover" + album.getAlbumID().toString() + "."));
+				album.setAlbumImgURL("/media/channel" + channel.getChannelID().toString() + "/Music/album"
+						+ album.getAlbumID().toString() + "/" + UploadService.store(Albumcoverfile, uploadDir,
+								"albumcover" + album.getAlbumID().toString() + "."));
 				album = ArtistService.saveAlbum(album);
 			}
 
@@ -552,7 +557,8 @@ public class ArtistController {
 
 	// View Album Contents for Music
 	@GetMapping("channel/Music/{albumid}")
-	public String Music(Model model, @PathVariable("albumid") Long albumid,@AuthenticationPrincipal MyUserDetails userDetails) {
+	public String Music(Model model, @PathVariable("albumid") Long albumid,
+			@AuthenticationPrincipal MyUserDetails userDetails) {
 
 		User user = userService.findUserByUserId(userDetails.getUserId());
 		// get AristID(userID)
@@ -600,14 +606,13 @@ public class ArtistController {
 	public String EditMusic(Model model, @ModelAttribute("media") @Validated Media mediaDTO,
 			@RequestPart("tags") Optional<String> tags,
 			@RequestPart("MediaFile") Optional<MultipartFile> multipartFileMedia, @PathVariable("albumid") Long albumid,
-			BindingResult bindingResult,
-			@AuthenticationPrincipal MyUserDetails userDetails) {
+			BindingResult bindingResult, @AuthenticationPrincipal MyUserDetails userDetails) {
 
 		if (bindingResult.hasErrors()) {
 			return "error";
 		}
 
-		User user = userService.findUserByUserId(userDetails.getUserId());	
+		User user = userService.findUserByUserId(userDetails.getUserId());
 		// get AristID(userID)
 		Long userid = user.getUserID();
 		// get enum mediatype
@@ -633,7 +638,8 @@ public class ArtistController {
 			media.setChannel(channel);
 			media.setThumbnailUrl(album.getAlbumImgURL());
 			if (!tags.isEmpty()) {
-				media.setTagList(ArtistService.getTagsbytagName(tags.get())); //Having Problem saving tags due to ownership 
+				media.setTagList(ArtistService.getTagsbytagName(tags.get())); // Having Problem saving tags due to
+																				// ownership
 
 			}
 
@@ -641,7 +647,9 @@ public class ArtistController {
 
 			// When creating new video, file cannot be empty
 			if (mediafile.getSize() > 0) {
-				media.setMediaUrl("/media/channel"+channel.getChannelID().toString()+"/Music/album"+album.getAlbumID().toString()+"/"+UploadService.store(mediafile, uploadDir, "music" + media.getId().toString() + "."));
+				media.setMediaUrl("/media/channel" + channel.getChannelID().toString() + "/Music/album"
+						+ album.getAlbumID().toString() + "/"
+						+ UploadService.store(mediafile, uploadDir, "music" + media.getId().toString() + "."));
 				media = ArtistService.saveMedia(media);
 			} else {
 				return "error";
@@ -663,7 +671,9 @@ public class ArtistController {
 				media.setTagList(null);
 
 			if (mediafile.getSize() > 0) {
-				media.setMediaUrl("/media/channel"+channel.getChannelID().toString()+"/Music/album"+album.getAlbumID().toString()+"/"+UploadService.store(mediafile, uploadDir, "music" + media.getId().toString() + "."));
+				media.setMediaUrl("/media/channel" + channel.getChannelID().toString() + "/Music/album"
+						+ album.getAlbumID().toString() + "/"
+						+ UploadService.store(mediafile, uploadDir, "music" + media.getId().toString() + "."));
 			}
 
 			ArtistService.saveMedia(media);

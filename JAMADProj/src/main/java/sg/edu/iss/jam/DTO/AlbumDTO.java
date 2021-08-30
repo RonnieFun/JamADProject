@@ -3,13 +3,12 @@ package sg.edu.iss.jam.DTO;
 import sg.edu.iss.jam.model.Album;
 
 public class AlbumDTO {
-	
+
 	Album album;
-	
+
 	int SongCount;
-	
+
 	int ViewCount;
-	
 
 	public AlbumDTO(Album album, int songCount, int viewCount) {
 		super();
@@ -41,9 +40,5 @@ public class AlbumDTO {
 	public void setViewCount(int viewCount) {
 		ViewCount = viewCount;
 	}
-	
-	
-	
-	
 
 }

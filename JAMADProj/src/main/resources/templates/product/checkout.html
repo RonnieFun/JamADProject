@@ -77,15 +77,7 @@
                   </div>
 
                 </div>
-                <!-- <div class="col-12">
-
-                  Address Line 2
-                  <div class="form-group">
-                    <label for="checkoutBillingAddressTwo">Address Line 2</label>
-                    <input class="form-control form-control-sm" id="checkoutBillingAddressTwo" type="text" placeholder="Address Line 2 (optional)">
-                  </div>
-
-                </div> -->
+              
                 <div class="col-12 col-md-6">
 
                   <!-- Town / City -->
@@ -145,27 +137,21 @@
             <div class="col-md-6">
               <label for="cc-number" class="form-label">Credit card number</label>
               <input type="text" class="form-control form-control-sm" id="cc-number" required th:field="*{creditNumber}">
-              <!-- <div class="invalid-feedback">
-                Credit card number is required
-              </div> -->
+             
               <p th:if="${#fields.hasErrors('creditNumber')}" th:errors="*{creditNumber}" style="color: red"></p>
             </div>
 
             <div class="col-md-3">
               <label for="cc-expiration" class="form-label">Expiration</label>
               <input type="text" class="form-control form-control-sm" id="cc-expiration" required th:field="*{expiration}">
-             <!--  <div class="invalid-feedback">
-                Expiration date required
-              </div> -->
+             
               <p th:if="${#fields.hasErrors('expiration')}" th:errors="*{expiration}" style="color: red"></p>
             </div>
 
             <div class="col-md-3">
               <label for="cc-cvv" class="form-label">CVV</label>
               <input type="text" class="form-control form-control-sm" id="cc-cvv" required th:field="*{cvv}">
-              <!-- <div class="invalid-feedback">
-                Security code required
-              </div> -->
+             
               <p th:if="${#fields.hasErrors('cvv')}" th:errors="*{cvv}" style="color: red"></p>
             </div>
           </div>
