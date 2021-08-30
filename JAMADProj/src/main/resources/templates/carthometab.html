@@ -8,16 +8,16 @@
  
  <div class="cartIntroSection">
 
- 	 <img class="smallBanner" th:src="@{/images/samplebanner.jpg}" alt="Artist Profile Small Banner"></img>
- 	 <img class="profileImageIcon2" th:src="${profileUrl}" alt="Artist Profile Photo"/><span class="mediumProfileNameText" th:text="${artistName}"/>
+ 	 <img class="smallBanner" th:src="@{/images/Banner.png}" alt="Artist Profile Small Banner"></img>
+ 	 <img class="profileImageIcon2" th:src="${artist.profileUrl}" alt="Artist Profile Photo"/><span class="mediumProfileNameText" th:text="${artist.displayName}"/>
  	 <!--<span class="lastActiveText">Active 30 minutes ago</span>-->
  	 
  	 <div class="aboutShopSection">
  	 	<span class="aboutShopHeader h6">About Shop</span>
- 	 	<span class="aboutShopFeature1"><i class="fa fa-heart heartIcon"></i>&nbsp;&nbsp;Welcome to my store!</span>
- 	 	<span class="aboutShopFeature2"><i class="fa fa-bullhorn fa-flip-horizontal trumpetIcon "></i>&nbsp;&nbsp;The limited edition of my newest single is available! Get them now!</span>
+ 	 	<span class="aboutShopFeature1" th:utext="${artist.shopDescription}"></span>
+ 	 	<!-- <span class="aboutShopFeature2"><i class="fa fa-bullhorn fa-flip-horizontal trumpetIcon "></i>&nbsp;&nbsp;The limited edition of my newest single is available! Get them now!</span>
  	 	<span class="aboutShopFeature3"><img class="bikiniIcon" th:src="@{/images/bikini.png}"/>&nbsp;&nbsp;Get your summer fashion needs from my clothing line.</span>
- 	 	<span class="aboutShopFeature4"><span class="grinIcon">&#128522;</span>&nbsp;&nbsp;Enjoy shopping!</span>
+ 	 	<span class="aboutShopFeature4"><span class="grinIcon">&#128522;</span>&nbsp;&nbsp;Enjoy shopping!</span> -->
  	 </div>
  </div>
  
@@ -70,7 +70,7 @@
                   </div>
                   
                   <!-- Quantity Sold -->
-                  <div class="quantitySold" th:text="${product.productQty}">
+                  <div class="quantitySold" th:text="${product.productQty}+ ' qty'  ">
                   </div>
 
 				 <!-- Country Of Origin -->
@@ -79,7 +79,7 @@
 				 </div> -->
 
                   <!-- Price -->
-                  <div class="mb-1 productPrice h6" th:text="${product.productPrice}">
+                  <div class="mb-1 productPrice h6" th:text="'$' + ${product.productPrice}">
                   </div>
                   
                   <label for="heartLikeButton" style="padding-left: 5%">

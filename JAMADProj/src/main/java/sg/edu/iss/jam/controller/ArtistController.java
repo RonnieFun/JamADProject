@@ -96,7 +96,7 @@ public class ArtistController {
 			productsAndCountShop.put(product, quantity);
 		}
 
-		model.addAttribute("profileUrl", user.getProfileUrl());	
+		model.addAttribute("profileUrl", user.getProfileUrl());
 		model.addAttribute("productsAndCountShop", productsAndCountShop);
 		model.addAttribute("user", user);
 		model.addAttribute("count", count);
@@ -120,7 +120,7 @@ public class ArtistController {
 			productsAndCountShop.put(product, quantity);
 		}
 
-		model.addAttribute("profileUrl", user.getProfileUrl());	
+		model.addAttribute("profileUrl", user.getProfileUrl());
 		model.addAttribute("productsAndCountShop", productsAndCountShop);
 		model.addAttribute("user", user);
 		model.addAttribute("count", count);
@@ -144,7 +144,7 @@ public class ArtistController {
 			productsAndCountShop.put(product, quantity);
 		}
 
-		model.addAttribute("profileUrl", user.getProfileUrl());	
+		model.addAttribute("profileUrl", user.getProfileUrl());
 		model.addAttribute("productsAndCountShop", productsAndCountShop);
 		model.addAttribute("user", user);
 		model.addAttribute("count", count);
@@ -170,7 +170,7 @@ public class ArtistController {
 			}
 		}
 
-		model.addAttribute("profileUrl", user.getProfileUrl());	
+		model.addAttribute("profileUrl", user.getProfileUrl());
 		model.addAttribute("newProduct", newProduct);
 		model.addAttribute("user", user);
 		model.addAttribute("count", count);
@@ -197,7 +197,7 @@ public class ArtistController {
 			}
 		}
 
-		model.addAttribute("profileUrl", user.getProfileUrl());	
+		model.addAttribute("profileUrl", user.getProfileUrl());
 		model.addAttribute("product", product);
 		model.addAttribute("user", user);
 		model.addAttribute("count", count);
@@ -261,8 +261,8 @@ public class ArtistController {
 	// Get Channels
 	@GetMapping("/channel")
 	public String ViewChannels(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
-	
-		User user = userService.findUserByUserId(userDetails.getUserId());	
+
+		User user = userService.findUserByUserId(userDetails.getUserId());
 		// get AristID(userID)
 		Long userid = user.getUserID();
 
@@ -284,12 +284,10 @@ public class ArtistController {
 
 		// Add to Model
 		model.addAttribute("ChannelDTOlist", ChannelDTOlist);
-		
-		
-		
+
 		Long count = userService.getItemCountByUserID(user.getUserID());
 		model.addAttribute("count", count);
-		model.addAttribute("user",user);
+		model.addAttribute("user", user);
 		model.addAttribute("profileUrl", user.getProfileUrl());
 		model.addAttribute("bannerUrl", user.getBannerUrl());
 		model.addAttribute("userID", user.getUserID());
@@ -300,7 +298,8 @@ public class ArtistController {
 
 	// Post(edit) Channels
 	@PostMapping("/channel/editchannel")
-	public String EditChannel(@ModelAttribute("channel") @Validated Channel channeldto, BindingResult bindingResult,@AuthenticationPrincipal MyUserDetails userDetails) {
+	public String EditChannel(@ModelAttribute("channel") @Validated Channel channeldto, BindingResult bindingResult,
+			@AuthenticationPrincipal MyUserDetails userDetails) {
 
 		if (bindingResult.hasErrors()) {
 			return "redirect:/artist/channel";
@@ -321,9 +320,9 @@ public class ArtistController {
 
 	// Get Channel Contents for Video Channel
 	@GetMapping("channel/Video")
-	public String ChannelContent(Model model,@AuthenticationPrincipal MyUserDetails userDetails) {
+	public String ChannelContent(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
 
-		User user = userService.findUserByUserId(userDetails.getUserId());	
+		User user = userService.findUserByUserId(userDetails.getUserId());
 		// get AristID(userID)
 		Long userid = user.getUserID();
 
@@ -347,10 +346,10 @@ public class ArtistController {
 		}
 
 		model.addAttribute("MediaDTOList", MediaDTOList);
-		
+
 		Long count = userService.getItemCountByUserID(user.getUserID());
 		model.addAttribute("count", count);
-		model.addAttribute("user",user);
+		model.addAttribute("user", user);
 		model.addAttribute("profileUrl", user.getProfileUrl());
 		model.addAttribute("bannerUrl", user.getBannerUrl());
 
@@ -369,7 +368,7 @@ public class ArtistController {
 			return "error";
 		}
 
-		User user = userService.findUserByUserId(userDetails.getUserId());	
+		User user = userService.findUserByUserId(userDetails.getUserId());
 		// get AristID(userID)
 		Long userid = user.getUserID();
 		// define enum mediatype
@@ -437,7 +436,7 @@ public class ArtistController {
 	@GetMapping("/channel/deletevideo/{mediaid}")
 	public String deleteVideo(@PathVariable("mediaid") Long mediaID,@AuthenticationPrincipal MyUserDetails userDetails) {
 
-		User user = userService.findUserByUserId(userDetails.getUserId());	
+		User user = userService.findUserByUserId(userDetails.getUserId());
 		// get AristID(userID)
 		Long userid = user.getUserID();
 		// get enum mediatype
@@ -465,9 +464,9 @@ public class ArtistController {
 
 	// View Channel Contents for Album
 	@GetMapping("channel/Music")
-	public String viewAlbums(Model model,@AuthenticationPrincipal MyUserDetails userDetails) {
+	public String viewAlbums(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
 
-		User user = userService.findUserByUserId(userDetails.getUserId());	
+		User user = userService.findUserByUserId(userDetails.getUserId());
 		// get AristID(userID)
 		Long userid = user.getUserID();
 
@@ -489,10 +488,10 @@ public class ArtistController {
 
 		// Add list of albums to model
 		model.addAttribute("AlbumDTOList", albumDTOlist);
-		
+
 		Long count = userService.getItemCountByUserID(user.getUserID());
 		model.addAttribute("count", count);
-		model.addAttribute("user",user);
+		model.addAttribute("user", user);
 		model.addAttribute("profileUrl", user.getProfileUrl());
 		model.addAttribute("bannerUrl", user.getBannerUrl());
 
@@ -502,18 +501,17 @@ public class ArtistController {
 	// POST(Edit) Albums
 	@PostMapping("channel/Music/editalbum")
 	public String EditAlbums(@ModelAttribute("album") @Validated Album albumdto,
-			@RequestPart("AlbumCover") Optional<MultipartFile> multipartFileAlbumCover, 
-			BindingResult bindingResult,
+			@RequestPart("AlbumCover") Optional<MultipartFile> multipartFileAlbumCover, BindingResult bindingResult,
 			@AuthenticationPrincipal MyUserDetails userDetails) {
 
 		if (bindingResult.hasErrors()) {
 			return "error";
 		}
-		
-		User user = userService.findUserByUserId(userDetails.getUserId());	
+
+		User user = userService.findUserByUserId(userDetails.getUserId());
 		// get AristID(userID)
 		Long userid = user.getUserID();
-		
+
 		Album album;
 		MultipartFile Albumcoverfile = multipartFileAlbumCover.get();
 		// define enum mediatype
@@ -556,7 +554,7 @@ public class ArtistController {
 	@GetMapping("channel/Music/{albumid}")
 	public String Music(Model model, @PathVariable("albumid") Long albumid,@AuthenticationPrincipal MyUserDetails userDetails) {
 
-		User user = userService.findUserByUserId(userDetails.getUserId());	
+		User user = userService.findUserByUserId(userDetails.getUserId());
 		// get AristID(userID)
 		Long userid = user.getUserID();
 
@@ -587,10 +585,10 @@ public class ArtistController {
 
 		model.addAttribute("album", album);
 		model.addAttribute("MediaDTOList", MediaDTOList);
-		
+
 		Long count = userService.getItemCountByUserID(user.getUserID());
 		model.addAttribute("count", count);
-		model.addAttribute("user",user);
+		model.addAttribute("user", user);
 		model.addAttribute("profileUrl", user.getProfileUrl());
 		model.addAttribute("bannerUrl", user.getBannerUrl());
 
@@ -679,7 +677,7 @@ public class ArtistController {
 	public String deleteMusic(@PathVariable("mediaid") Long mediaID, @PathVariable("AlbumID") Long AlbumID,
 			@AuthenticationPrincipal MyUserDetails userDetails) {
 
-		User user = userService.findUserByUserId(userDetails.getUserId());	
+		User user = userService.findUserByUserId(userDetails.getUserId());
 		// get AristID(userID)
 		Long userid = user.getUserID();
 		// get enum mediatype

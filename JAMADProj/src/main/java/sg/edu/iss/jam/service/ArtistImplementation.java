@@ -141,24 +141,11 @@ public class ArtistImplementation implements ArtistInterface {
 	public List<Object[]> getTopAllProductsInPastWeekByOrderDetailsQuantity(int i) {
 		return prepo.getTopProductsByOrderDetailsQuantity(PageRequest.of(0, i), LocalDate.now().minusWeeks(1));
 	}
-//
-//
-//	@Override
-//	public List<Object[]> getTopMusicCollectionProductsInPastWeekByOrderDetailsQuantity(int i) {
-//		return prepo.getTopProductsByCategoryInPastWeekByOrderDetailsQuantity(PageRequest.of(0, i), LocalDate.now().minusWeeks(1), Category.MusicCollection);
-//	}
-//
-//
-//	@Override
-//	public List<Object[]> getTopMerchandiseProductsInPastWeekByOrderDetailsQuantity(int i) {
-//		return prepo.getTopProductsByCategoryInPastWeekByOrderDetailsQuantity(PageRequest.of(0, i), LocalDate.now().minusWeeks(1), Category.Merchandise);
-//	}
-//
-//
-//	@Override
-//	public List<Object[]> getTopClothingProductsInPastWeekByOrderDetailsQuantity(int i) {
-//		return prepo.getTopProductsByCategoryInPastWeekByOrderDetailsQuantity(PageRequest.of(0, i), LocalDate.now().minusWeeks(1), Category.Clothing);
-//	}
+	
+	@Override
+	public List<Product> getProductListByArtistIDAll(Long userID) {
+		return prepo.getProductListByArtistIDAll(userID);
+	}
 
 	@Override
 	public Channel getChannel(Long channelID) {

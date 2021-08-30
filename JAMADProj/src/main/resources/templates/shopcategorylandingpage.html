@@ -94,7 +94,7 @@
 
 									<!-- Quantity Sold -->
 									<div class="quantitySold" style="padding-right: 10%"
-										th:text="${productAndCount.value} + ' sold in the past week'"></div>
+										th:text="${productAndCount.value}==null?'0 sold in the past week' : ${productAndCount.value} + ' sold in the past week'"></div>
 
 									<!-- Price -->
 									<div class="mb-1 productPrice h6"
@@ -154,7 +154,7 @@
 
 									<!-- Quantity Sold -->
 									<div class="quantitySold" style="padding-right: 10%"
-										th:text="${productAndCount.value} + ' sold in the past week'"></div>
+										th:text="${productAndCount.value}==null?'0 sold in the past week' : ${productAndCount.value} + ' sold in the past week'"></div>
 
 									<!-- Price -->
 									<div class="mb-1 productPrice h6"
@@ -210,7 +210,7 @@
 
 									<!-- Quantity Sold -->
 									<div class="quantitySold" style="padding-right: 10%"
-										th:text="${productAndCount.value} + ' sold in the past week'"></div>
+										th:text="${productAndCount.value}==null?'0 sold in the past week' : ${productAndCount.value} + ' sold in the past week'"></div>
 
 									<!-- Price -->
 									<div class="mb-1 productPrice h6"
@@ -271,7 +271,7 @@
 
 									<!-- Quantity Sold -->
 									<div class="quantitySold" style="padding-right: 10%"
-										th:text="${productAndCount.value} + ' sold in the past week'"></div>
+										th:text="${productAndCount.value}==null?'0 sold in the past week' : ${productAndCount.value} + ' sold in the past week'"></div>
 
 									<!-- Price -->
 									<div class="mb-1 productPrice h6"
@@ -282,7 +282,6 @@
 											th:onclick="'javascript:myFunction(' + ${productAndCount.key.productID} + ')'">
 											Add To Cart</button>
 									</label>
-
 								</div>
 							</div>
 						</div>
