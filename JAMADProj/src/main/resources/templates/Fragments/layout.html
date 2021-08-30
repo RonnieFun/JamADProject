@@ -54,11 +54,15 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 			</div>
 			
 			<div th:if="${feedLinkActive != true}" class="header_option">
+				<a th:href = "@{/home/feed}">
 				<span id="navFeedButton" class="material-icons" data-toggle="tooltip" title="Feed"> feed </span>
+				</a>
 			</div>
 			
 			<div th:if="${feedLinkActive == true}" class="header_option active">
+				<a th:href = "@{/home/feed}">
 				<span id="navFeedButton" class="material-icons" data-toggle="tooltip" title="Feed"> feed </span>
+				</a>
 			</div>
 			
 			<div th:if="${genericVideolinkActive != true}" class="header_option">
@@ -130,9 +134,33 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 
 		</div>
 		
-		<div class="header_right">
+		<div th:if = "${isWatchVideoBeforeLogin == true}" class="header_right">
 			<div>
-				<a href="/home/login"><button type="button">Login</button></a>
+				<a th:href = "@{/video/redirectLogin/{mediaId}(mediaId = ${media.id})}"><button type="button">Login</button></a>
+			</div>
+		</div>
+		
+		<div th:if = "${isWatchMusicBeforeLogin == true}" class="header_right">
+			<div>
+				<a th:href = "@{/music/redirectLogin/{mediaId}(mediaId = ${media.id})}"><button type="button">Login</button></a>
+			</div>
+		</div>
+		
+		<div th:if = "${genericVideolinkActive == true}" class="header_right">
+			<div>
+				<a th:href = "@{/video/redirectLogin/genericvideolandingpage}"><button type="button">Login</button></a>
+			</div>
+		</div>
+		
+		<div th:if = "${genericMusiclinkActive == true}" class="header_right">
+			<div>
+				<a th:href = "@{/music/redirectLogin/genericmusiclandingpage}"><button type="button">Login</button></a>
+			</div>
+		</div>
+		
+		<div th:if = "${isWatchVideoBeforeLogin != true and isWatchMusicBeforeLogin != true and genericVideolinkActive != true and genericMusiclinkActive != true}" class="header_right">
+			<div>
+				<a href="/login/"><button type="button">Login</button></a>
 			</div>
 		</div>
 	
@@ -270,6 +298,7 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
    					 <div sec:authorize="hasAnyAuthority('Customer')">
    					 <a href="/home/updateuser">Be an Artist</a>
    					 </div>
+   					 <a href="/purchasehistory">Purchase<br><span>History</span></a>
     				 <a href="/logout"><button type="button">Logout</button></a>
   				</div>
 			</div>
@@ -289,6 +318,7 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
    					 <div sec:authorize="hasAnyAuthority('Customer')">
    					 <a href="/home/updateuser">Be an Artist</a>
    					 </div>
+   					 <a href="/purchasehistory">Purchase History</a>
     				 <a href="/logout"><button type="button">Logout</button></a>
   				</div>
 			</div>
