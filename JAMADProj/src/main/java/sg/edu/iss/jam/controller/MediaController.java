@@ -55,8 +55,7 @@ public class MediaController {
 	@Autowired
 	MediaServiceInterface mservice;
 	
-	private final Logger logger = 
-		      LoggerFactory.getLogger(MediaController.class);
+	private final Logger logger = LoggerFactory.getLogger(MediaController.class);
 	
 	// for recommendation
 	@Autowired
