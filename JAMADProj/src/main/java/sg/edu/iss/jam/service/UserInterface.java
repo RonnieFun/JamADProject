@@ -134,5 +134,9 @@ public interface UserInterface {
 	
 	List<User> getFollowing(Long userID);
 	
+	void updatePassword(User user, String newPassword);
+	User get(String restPasswordToken);
+	void updateResetPasswordToken(String token, String email) throws UserNotFoundException;
+	
 
 }
