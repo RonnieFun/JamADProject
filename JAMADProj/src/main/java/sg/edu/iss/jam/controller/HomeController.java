@@ -121,6 +121,10 @@ public class HomeController {
 		User user = uService.findUserByUserId(userDetails.getUserId());
 		
 		
+		if (userDetails != null) {
+			model.addAttribute("count", uService.getItemCountByUserID(userDetails.getUserId()));
+		}
+		
 		model.addAttribute("user", uService.findUserByUserId(userDetails.getUserId()));
 		model.addAttribute("followers", ((srepo.getArtistSubscribed(user.getUserID())).size() - (srepo.getArtistUnSubscribed(user.getUserID())).size()));
 		model.addAttribute("following", ((srepo.getSubscriptions(user.getUserID())).size() - srepo.getMyUnsubscribe(user.getUserID()).size()));

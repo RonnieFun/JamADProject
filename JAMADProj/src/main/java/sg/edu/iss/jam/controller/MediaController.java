@@ -71,11 +71,67 @@ public class MediaController {
 	List<String> recommendMediaNames_model4 = new ArrayList<String>();
 	
 	
-	@GetMapping("/media/redirectLogin")
-	public String watchMusicVideoRedirectLogin() {
+	@GetMapping("/video/redirectLogin/{mediaId}")
+	public String watchVideoRedirectLogin(Model model, @PathVariable Long mediaId, @AuthenticationPrincipal MyUserDetails userDetails) {
 		
-		return "redirect:/login/";
+		if(userDetails == null) {
+			return "/login/";	
+		}
+		
+		return "redirect:/video/watchvideo/{mediaId}";
 	}
+	
+	@GetMapping("/music/redirectLogin/{mediaId}")
+	public String watchMusicRedirectLogin(Model model, @PathVariable Long mediaId, @AuthenticationPrincipal MyUserDetails userDetails) {
+		
+		if(userDetails == null) {
+			return "/login/";	
+		}
+		
+		return "redirect:/music/listenmusic/{mediaId}";
+	}
+	
+	@GetMapping("/video/redirectLogin/genericvideolandingpage")
+	public String genericvideolandingpageRedirectLogin(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
+		
+		if(userDetails == null) {
+			return "/login/";	
+		}
+		
+		return "redirect:/video/loginvideolandingpage";
+	}
+	
+	
+	@GetMapping("/music/redirectLogin/genericmusiclandingpage")
+	public String genericmusiclandingpageRedirectLogin(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
+		
+		if(userDetails == null) {
+			return "/login/";	
+		}
+		
+		return "redirect:/music/loginmusiclandingpage";
+	}
+	
+	@GetMapping("/music/redirectLoginMusicChannel/{artistId}")
+	public String musicChannelPageRedirectLogin(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
+		
+		if(userDetails == null) {
+			return "/login/";	
+		}
+		
+		return "redirect:/music/viewartistmusicchannel/{artistId}";
+	}
+	
+	@GetMapping("/video/redirectLoginVideoChannel/{artistId}")
+	public String videoChannelPageRedirectLogin(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
+		
+		if(userDetails == null) {
+			return "/login/";	
+		}
+		
+		return "redirect:/video/viewartistvideochannel/{artistId}";
+	}
+	
 	
 	//ajax call for delete comment button on Watch Videos page
 	@PostMapping("/video/deleteComment")
@@ -385,7 +441,8 @@ public class MediaController {
 			
 			//Retrieve number of views based on userhistory size for the selected Media
 			int viewCount = userHistory.size();
-
+			
+			model.addAttribute("isWatchVideoBeforeLogin", true);
 			model.addAttribute("commentCount", commentCount);
 			model.addAttribute("user", null);
 			model.addAttribute("playlists", "");
@@ -689,6 +746,7 @@ public class MediaController {
 				isLastMusicSelection = isLastMusic;
 			}
 			
+			model.addAttribute("isWatchMusicBeforeLogin", true);
 			model.addAttribute("isLastMusicSelection", isLastMusicSelection);
 			model.addAttribute("commentCount", commentCount);
 			model.addAttribute("user", null);
@@ -1342,7 +1400,7 @@ public class MediaController {
 		      
 		    }
 		    
-		    
+		    model.addAttribute("redirectFromVideoChannel", true);
 		    model.addAttribute("artistVideoChannelName", artistVideoChannelName);
 		    model.addAttribute("numberOfArtistVideos", numberOfArtistVideos);
 		    model.addAttribute("artistVideos", artistVideos);
@@ -1513,6 +1571,7 @@ public class MediaController {
 	        model.addAttribute("listOfMusic", listOfMusic);
 	      }
 	      
+	      model.addAttribute("redirectFromMusicChannel", true);
 	      model.addAttribute("artistMusicChannelName", artistMusicChannelName);
 	      model.addAttribute("numberOfArtistAlbums", numberOfArtistAlbums);
 	      model.addAttribute("numberOfArtistMusics", numberOfArtistMusics);
