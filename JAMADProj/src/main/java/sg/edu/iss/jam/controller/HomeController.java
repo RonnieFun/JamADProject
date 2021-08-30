@@ -141,6 +141,8 @@ public class HomeController {
 			model.addAttribute("count", uService.getItemCountByUserID(userDetails.getUserId()));
 		}
 		model.addAttribute("user",user);
+		model.addAttribute("followers", ((srepo.getArtistSubscribed(user.getUserID())).size() - (srepo.getArtistUnSubscribed(user.getUserID())).size()));
+		model.addAttribute("following", ((srepo.getSubscriptions(user.getUserID())).size() - srepo.getMyUnsubscribe(user.getUserID()).size()));
 		return"edtiSuccess";
 	}
 	
