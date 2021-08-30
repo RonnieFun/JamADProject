@@ -221,21 +221,42 @@ public class MediaRestController {
 		}
 		//convert to media dto
 		for(Media video:artistVideos) {
-			AndroidMediaDTO androidGetAllVideosDTO = new AndroidMediaDTO();
 			String tags = "";
-			androidGetAllVideosDTO.setArtistName(video.getChannel().getChannelUser().getFullname());
-			androidGetAllVideosDTO
-					.setArtistProfileThumbnailUrl(video.getChannel().getChannelUser().getProfileUrl());
-			androidGetAllVideosDTO.setMediaDuration(video.getDuration());
-			androidGetAllVideosDTO.setMediaThumbnailUrl(video.getThumbnailUrl());
-			androidGetAllVideosDTO.setMediaTitle(video.getTitle());
-			androidGetAllVideosDTO.setArtistId(video.getChannel().getChannelUser().getUserID());
+			AndroidMediaDTO mediaDTO = new AndroidMediaDTO();
+			mediaDTO.setMediaId(video.getId());
+			mediaDTO.setArtistId(video.getChannel().getChannelUser().getUserID());
+			mediaDTO.setMediaThumbnailUrl(video.getThumbnailUrl());
+			mediaDTO.setArtistProfileThumbnailUrl(video.getChannel().getChannelUser().getProfileUrl());
+			mediaDTO.setArtistName(video.getChannel().getChannelUser().getFullname());
+			mediaDTO.setMediaTitle(video.getTitle());
+			mediaDTO.setMediaDuration(video.getDuration());
+			mediaDTO.getCreatedOn(video.getCreatedOn().format(DateTimeFormatter.ofPattern("dd MMMM yyyy")));
+			mediaDTO.getUserHistorySize(String.valueOf(video.getUserHistory().size()));
 			for (Tag tag : video.getTagList()) {
 				tags = tags + tag.getTagName() + " ";
 				tags.trim();
 			}
-			androidGetAllVideosDTO.setTags(tags);
-			mediaList.add(androidGetAllVideosDTO);
+			mediaDTO.setTags(tags);
+			mediaDTO.setMediaUrl(video.getMediaUrl());
+			mediaDTO.setSubscribed(subCheck(video.getChannel().getChannelUser().getUserID(), userId));
+
+//			AndroidMediaDTO androidGetAllVideosDTO = new AndroidMediaDTO();
+//			String tags = "";
+//			androidGetAllVideosDTO.setArtistName(video.getChannel().getChannelUser().getFullname());
+//			androidGetAllVideosDTO
+//					.setArtistProfileThumbnailUrl(video.getChannel().getChannelUser().getProfileUrl());
+//			androidGetAllVideosDTO.setMediaDuration(video.getDuration());
+//			androidGetAllVideosDTO.setMediaUrl(video.getMediaUrl());
+//			androidGetAllVideosDTO.setMediaThumbnailUrl(video.getThumbnailUrl());
+//			androidGetAllVideosDTO.setMediaTitle(video.getTitle());
+//			androidGetAllVideosDTO.setArtistId(video.getChannel().getChannelUser().getUserID());
+//			for (Tag tag : video.getTagList()) {
+//				tags = tags + tag.getTagName() + " ";
+//				tags.trim();
+//			}
+//			androidGetAllVideosDTO.setTags(tags);
+			//mediaList.add(androidGetAllVideosDTO);
+			mediaList.add(mediaDTO);
 		}
 		// Subscribe/unsubscribe button section
 		
