@@ -3,6 +3,7 @@ package sg.edu.iss.jam.model;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -43,6 +44,9 @@ public class User {
 	
 //	@Enumerated(EnumType.STRING)
 //	private Role role;
+	
+	@Column(name="rest_password_token")
+	private String resetPasswordToken;
 	
 	//OneToMany relation with Roles
 	@OneToMany(mappedBy = "roleUser", fetch= FetchType.EAGER)
@@ -401,6 +405,14 @@ public class User {
 
 	public void setBannerUrl(String bannerUrl) {
 		this.bannerUrl = bannerUrl;
+	}
+
+	public String getRestPasswordToken() {
+		return resetPasswordToken;
+	}
+
+	public void setRestPasswordToken(String restPasswordToken) {
+		this.resetPasswordToken = restPasswordToken;
 	}
 	
 	

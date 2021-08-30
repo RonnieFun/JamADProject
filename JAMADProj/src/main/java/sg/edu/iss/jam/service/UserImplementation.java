@@ -20,6 +20,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import sg.edu.iss.jam.model.Album;
@@ -491,6 +493,36 @@ public class UserImplementation implements UserInterface {
 		
 					 
 			return result.stream().filter(distinctByKey(x->x.getUserID())).collect(Collectors.toList());
+	}
+	
+	@Override
+	public void updateResetPasswordToken(String token, String email) throws UserNotFoundException {
+		User user = urepo.findByEmail(email);
+		
+		if(user != null) {
+			user.setRestPasswordToken(token);
+			urepo.save(user);
+		}
+		else {
+			throw new UserNotFoundException("Could not find any user with email: " + email);
+		}
+	}
+	
+	@Override
+	public User get(String restPasswordToken) {
+		return urepo.findByResetPasswordToken(restPasswordToken);
+	}
+	
+	@Override
+	public void updatePassword(User user, String newPassword) {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String encodePassword = passwordEncoder.encode(newPassword);
+		
+		user.setPassword(encodePassword);
+		user.setRestPasswordToken(null);
+		urepo.save(user);
+		
+		
 	}
 	
 	

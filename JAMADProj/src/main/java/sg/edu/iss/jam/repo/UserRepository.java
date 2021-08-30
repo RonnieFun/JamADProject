@@ -28,4 +28,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Query("Select u from User u where u.firstName LIKE %:name% OR u.lastName LIKE %:name%")
 	public Collection<User> getusersbyname(@Param("name")String name);
 	
+	public User findByResetPasswordToken(String token);
+	
+	public User findByEmail(String email);
+	
+	
 }
