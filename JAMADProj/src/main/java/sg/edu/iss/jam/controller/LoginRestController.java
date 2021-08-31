@@ -58,8 +58,9 @@ public class LoginRestController {
     public Map<String, Long> loginUser(@Valid @RequestBody User user) {
     	Map<String,Long> map  = new HashMap<>();
         List<User> users = userService.getAllUser();
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         for (User other : users) {
-            if (other.getEmail().equals(user.getEmail())) {
+            if (other.getEmail().equals(user.getEmail()) & encoder.matches(user.getPassword(),other.getPassword())) {
             	map.put("Result", other.getUserID());
                 return map;
             }
