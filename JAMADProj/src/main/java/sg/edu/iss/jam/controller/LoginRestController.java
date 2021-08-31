@@ -56,11 +56,20 @@ public class LoginRestController {
     
     @PostMapping("/login")
     public Map<String, Long> loginUser(@Valid @RequestBody User user) {
+    	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     	Map<String,Long> map  = new HashMap<>();
+<<<<<<< HEAD
         List<User> users = userService.getAllUser();
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+=======
+        List<User> users = userService.getAllUser(); 
+>>>>>>> refs/remotes/origin/master
         for (User other : users) {
+<<<<<<< HEAD
             if (other.getEmail().equals(user.getEmail()) && encoder.matches(user.getPassword(),other.getPassword())) {
+=======
+            if (other.getEmail().equals(user.getEmail())&& passwordEncoder.matches(user.getPassword(), other.getPassword())) {
+>>>>>>> refs/remotes/origin/master
             	map.put("Result", other.getUserID());
                 return map;
             }
