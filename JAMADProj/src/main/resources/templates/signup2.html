@@ -6,7 +6,7 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
   <img th:src="@{/images/JAM_LOGO.png}" class="logo2">
  <nav class="navbar jamHeader2"></nav>
 
-<div sec:authorize="hasAnyAuthority('Artist')">
+
 <div class="signUpBody2">
  	<img th:src="@{/images/JAM_LOGO.png}" class="biglogo">
  	
@@ -40,7 +40,7 @@ xmlns:sec="https://www.thymeleaf.org/thymelead-extras-springsecurity5">
 		 </form>
 	</div>
 </div>
-</div>
+
 <div sec:authorize="hasAnyAuthority('Customer')">
 <div class="signUpBody2">
  	<img th:src="@{/images/JAM_LOGO.png}" class="biglogo">
