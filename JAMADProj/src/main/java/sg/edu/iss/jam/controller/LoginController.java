@@ -90,7 +90,7 @@ public class LoginController {
 		}
 
 		if ((user.getDisplayName() == null && (!user.isArtist()))
-				|| user.getDisplayName() != null && (user.isArtist())) {
+				||(user.isArtist())) {
 			String rawPassword = user.getPassword();
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 			String encodedPassword = encoder.encode(rawPassword);

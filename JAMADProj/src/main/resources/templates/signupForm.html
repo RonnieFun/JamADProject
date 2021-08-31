@@ -20,12 +20,12 @@
 	 	<label id="signUpHeader">Sign Up</label>
 		 <form class="form-inline" th:action="@{/login/save}" th:object=${user} method="post">
 		 
-			 <input placeholder="First Name" type="text" id="firstNameInput" th:field="*{firstName}"/>
-			 <input placeholder="Last Name" type="text" id="lastNameInput" th:field="*{lastName}"/><br>
-			 <input placeholder="Email" type="email" id="emailInput" th:field="*{email}"/><br>
-			 <input placeholder="Re-enter your email" type="email" id="retypeEmailInput"/><br>
-			 <input placeholder="Password" type="password" id="passwordInput" th:field="*{password}"/>
-			 <input placeholder="Re-enter password" type="password" id="reenterPasswordInput"/>
+			 <input placeholder="First Name" type="text" id="firstNameInput" th:field="*{firstName}" required/>
+			 <input placeholder="Last Name" type="text" id="lastNameInput" th:field="*{lastName}" required/><br>
+			 <input placeholder="Email" type="email" id="emailInput" th:field="*{email}" required/><br>
+			 <input placeholder="Re-enter your email" type="email" id="retypeEmailInput" required/><br>
+			 <input placeholder="Password" type="password" id="passwordInput" th:field="*{password}"required/>
+			 <input placeholder="Re-enter password" type="password" id="reenterPasswordInput"required/>
 			 <br>
 		  	 <input type="checkbox" class="tickboxProceedToSetUpArtist" th:checked="${isArtist}" name="isArtist" value=true th:field="*{Artist}"></input>
 		  	 <label id="proceedSignUpArtist">Proceed to set up as an Artist</label>
@@ -59,19 +59,19 @@
 	password.onchange = validatePassword;
 	confirm_password.onkeyup = validatePassword;
 	
-	var password = document.getElementById("emailInput")
-	  , confirm_password = document.getElementById("retypeEmailInput");
+	var email = document.getElementById("emailInput")
+	  , confirm_email = document.getElementById("retypeEmailInput");
 
-	function validatePassword(){
-	  if(password.value != confirm_password.value) {
-	    confirm_password.setCustomValidity("Emails Don't Match");
+	function validateEmail(){
+	  if(email.value != confirm_email.value) {
+	    confirm_email.setCustomValidity("Emails Don't Match");
 	  } else {
-	    confirm_password.setCustomValidity('');
+	    confirm_email.setCustomValidity('');
 	  }
 	}
 
-	password.onchange = validatePassword;
-	confirm_password.onkeyup = validatePassword;
+	email.onchange = validateEmail;
+	confirm_email.onkeyup = validateEmail;
 	</script>
 	
 </body>
