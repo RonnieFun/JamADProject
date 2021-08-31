@@ -60,7 +60,7 @@ public class LoginRestController {
         List<User> users = userService.getAllUser();
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         for (User other : users) {
-            if (other.getEmail().equals(user.getEmail()) & encoder.matches(user.getPassword(),other.getPassword())) {
+            if (other.getEmail().equals(user.getEmail()) && encoder.matches(user.getPassword(),other.getPassword())) {
             	map.put("Result", other.getUserID());
                 return map;
             }
